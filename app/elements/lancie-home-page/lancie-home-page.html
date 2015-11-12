@@ -15,19 +15,45 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     :host {
       display: block;
     }
+
+    iron-image {
+      width: calc(100vw);
+      height: 600px;
+    }
+
+    lancie-commission {
+      width: 60%;
+    }
+
+    lancie-timetable {
+      height: 300px;
+    }
+
+    a {
+      color: #eeecec;
+    }
+
+    .commission div {
+      margin-right: 16px;
+      width: 40%;
+    }
+
+    .commission p {
+      margin-top: 0px;
+    }
   </style>
   <template>
     <lancie-section type="primary-full">
       <iron-image src="https://s-media-cache-ak0.pinimg.com/originals/19/c9/d7/19c9d7ebe62182001493d1e09df7295f.jpg"
-                  style="width:calc(100vw); height: 600px;" sizing="cover"></iron-image>
+                  sizing="cover"></iron-image>
     </lancie-section>
-    <lancie-section type="primary" title="Partners & Sponsors">
+    <lancie-section type="primary" title="Partners &amp; Sponsors">
 
     </lancie-section>
     <lancie-section type="secondary" title="Area FiftyLAN">
       <div>
         <p>Area FiftyLAN is the hottest new gaming event of the TU Delft. This spectacular all-weekend event, from 12
-          till 14 June 2015, will be organized in cooperation with Unit Sports & Culture. All students are welcome
+          till 14 June 2015, will be organized in cooperation with Unit Sports &amp; Culture. All students are welcome
           bring their PC's or laptops to play their favorite games with their fellow students and friends. You decide
           what to play! There will be exciting competitive tournaments like FIFA, League of Legends and Trackmania. If
           you're not into competitive gaming however, no problem! You can play all the games you want, whether that's
@@ -48,7 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           to miss! Are you ready for the launch?
           <sub>*CH members/alumni will get a small discount</sub>
         </p>
-        <lancie-timetable style="height: 300px;"></lancie-timetable>
+        <lancie-timetable></lancie-timetable>
         <p>Besides that you can play any game you like, there are organized activities during the weekend. Below you
           can find a global overview. Please note this is subject to change and of course this is not all! A final
           schedule will be provided during the event.</p>
@@ -77,7 +103,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <li>Expected duration (4 hours for the entire tournament, or does it span multiple days?)</li>
           <li>Required resources (Do you need our server, or host your own?)</li>
           <li>Contact information</li>
-          <li>Mail this to <a href="mailto:lancie@ch.tudelft.nl" style="color: #eeecec">lancie@ch.tudelft.nl</a></li>
+          <li>Mail this to <a href="mailto:lancie@ch.tudelft.nl">lancie@ch.tudelft.nl</a></li>
         </ol>
         <p>Official tournaments have priority, which means your tournament should be flexible enough be held at any
           point
@@ -93,9 +119,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           placed on the website. but we can not offer any extra support for your tournament during the event.</p>
       </div>
     </lancie-section>
-    <lancie-section title="2nd LANcie of W.I.S.V. 'Christiaan Huygens'">
-      <div style="margin-right: 16px; width: 40%;">
-        <p style="margin-top: 0;">The LANcie is the newest and coolest committee of W.I.S.V ‘Christiaan Huygens’. This
+    <lancie-section class="commission" title="2nd LANcie of W.I.S.V. 'Christiaan Huygens'">
+      <div>
+        <p>The LANcie is the newest and coolest committee of W.I.S.V ‘Christiaan Huygens’. This
           club of superheroes
           will ensure that you will never forget this gaming event. The LANcie does not bite and is not afraid of
           questions or a good conversation about gaming, food, UTP cables or networks. From the start to finish of
@@ -103,8 +129,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <p>If you have any questions, please send a mail to lancie@ch.tudelft.nl</p>
       </div>
-      <lancie-commission json="http://localhost:3000/scripts/commission.json"
-                         style="width: 60%"></lancie-commission>
+      <lancie-commission json="http://localhost:3000/scripts/commission.json"></lancie-commission>
     </lancie-section>
     <lancie-section type="primary-full">
       <!--<google-map latitude="51.9951895" longitude="4.3765975" zoom="14" zoomable="false" fit-to-markers>-->
@@ -117,6 +142,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </dom-module>
 <script>
 (function() {
+  'use strict';
+
   Polymer({
     is: 'lancie-home-page',
 
