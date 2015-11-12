@@ -1,0 +1,41 @@
+[
+  {
+    "function": "Chairman",
+    "name": "Beer van der Drift",
+    "icon": "group"
+  }
+,
+  {
+    "function": "Secretary",
+    "name": "Emiel Rietdijk",
+    "icon": "female"
+  }
+,
+  {
+    "function": "Treasurer",
+    "name": "Yoeri",
+    "icon": "money"
+  },
+  {
+    "function": "Commissioner of Promo",
+    "name": "Stijn",
+    "icon": "bullhorn"
+  }
+,
+  {
+    "function": "Commissioner of Logistics",
+    "name": "Martijn",
+    "icon": "truck"
+  }
+,{
+  "function": "Commissioner of System",
+  "name": "Thomas Oomens",
+  "icon": "cogs"
+}
+,
+  {
+    "function": "Qualitate Qua",
+    "name": "Daan Rennings",
+    "icon": "heart"
+  }
+]

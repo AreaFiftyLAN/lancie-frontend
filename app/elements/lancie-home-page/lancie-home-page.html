@@ -1,0 +1,130 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lancie-home-page">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <lancie-section type="primary-full">
+      <iron-image src="https://s-media-cache-ak0.pinimg.com/originals/19/c9/d7/19c9d7ebe62182001493d1e09df7295f.jpg"
+                  style="width:calc(100vw); height: 600px;" sizing="cover"></iron-image>
+    </lancie-section>
+    <lancie-section type="primary" title="Partners & Sponsors">
+
+    </lancie-section>
+    <lancie-section type="secondary" title="Area FiftyLAN">
+      <div>
+        <p>Area FiftyLAN is the hottest new gaming event of the TU Delft. This spectacular all-weekend event, from 12
+          till 14 June 2015, will be organized in cooperation with Unit Sports & Culture. All students are welcome
+          bring their PC's or laptops to play their favorite games with their fellow students and friends. You decide
+          what to play! There will be exciting competitive tournaments like FIFA, League of Legends and Trackmania. If
+          you're not into competitive gaming however, no problem! You can play all the games you want, whether that's
+          The Sims, Age of Empires 2, Rollercoaster Tycoon or Minecraft, you decide!</p>
+
+        <p>That is not all! There will be plenty to do offline as well. Poker and foosball masters can also show off
+          in this event. In the Launch Area, you'll find pinball machines, airhockey tables, table football tables and
+          various retro gaming consoles. An overview of things you can do besides gaming can be found below.</p>
+      </div>
+    </lancie-section>
+    <lancie-section type="primary" title="What do you get?">
+      <div>
+        <p>
+          A base ticket will be €35*. This includes admission to the entire event, breakfast and lunch on saturday and
+          sunday, and a BBQ on saturday. You will have your own desk of 1,10m x 0,5m for the weekend, and a comfy
+          chair to sit on. For an additional €2,50, we will pick up your PC thursday evening and deliver it to the
+          event. We will return it to you sunday evening. Area FiftyLAN will be an unforgettable event you do not want
+          to miss! Are you ready for the launch?
+          <sub>*CH members/alumni will get a small discount</sub>
+        </p>
+        <lancie-timetable style="height: 300px;"></lancie-timetable>
+        <p>Besides that you can play any game you like, there are organized activities during the weekend. Below you
+          can find a global overview. Please note this is subject to change and of course this is not all! A final
+          schedule will be provided during the event.</p>
+      </div>
+    </lancie-section>
+    <lancie-section type="secondary" title="Official Tournaments">
+      <div>
+        <p>All official tournaments are listed below. These tournaments will be hosted by AreaFiftyLAN and there are
+          some awesome prizes to win! Is your favorite game not listed? No worries! If you have a great idea for a
+          tournament, we will give you the opportunity to organize your own. More information about how this works can
+          be found below.</p>
+
+        <lancie-activity json="scripts/activity.json"></lancie-activity>
+      </div>
+    </lancie-section>
+    <lancie-section type="secondary" title="Organize your own tournament!">
+      <div>
+        <p>Is your favorite game not listed as a tournament? No problem! We offer you the possibility to become a game
+          master! For this, we would like to receive a proposal for your tournament. Your proposal should contain the
+          following information.</p>
+        <ol>
+          <li>Which game you want to host</li>
+          <li>Game format (Free-for-all, 5vs5, 1vs1, etc)</li>
+          <li>Tournament structure (Qualifiers, rounds and a final, or a single round)</li>
+          <li>Winner criteria (How is the winner chosen?)</li>
+          <li>Expected duration (4 hours for the entire tournament, or does it span multiple days?)</li>
+          <li>Required resources (Do you need our server, or host your own?)</li>
+          <li>Contact information</li>
+          <li>Mail this to <a href="mailto:lancie@ch.tudelft.nl" style="color: #eeecec">lancie@ch.tudelft.nl</a></li>
+        </ol>
+        <p>Official tournaments have priority, which means your tournament should be flexible enough be held at any
+          point
+          during the weekend. We prefer short compact tournaments, but don't let that stop you from proposing an
+          amazing
+          multi-day event. There is no limit to the duration of the tournament, but the format should be taken into
+          account. A truly competitive tournament should not take more than a morning or afternoon, while a casual
+          long
+          term tournaments can span multiple days.</p>
+
+        <p>We will review your proposal, and when accepted, we’ll appoint you as responsible person to run this
+          tournament. This means the entire organisation of the tournament will be up to you. Your tournament will be
+          placed on the website. but we can not offer any extra support for your tournament during the event.</p>
+      </div>
+    </lancie-section>
+    <lancie-section title="2nd LANcie of W.I.S.V. 'Christiaan Huygens'">
+      <div style="margin-right: 16px; width: 40%;">
+        <p style="margin-top: 0;">The LANcie is the newest and coolest committee of W.I.S.V ‘Christiaan Huygens’. This
+          club of superheroes
+          will ensure that you will never forget this gaming event. The LANcie does not bite and is not afraid of
+          questions or a good conversation about gaming, food, UTP cables or networks. From the start to finish of
+          this adventure we will assist you. With classified regards, the LANcie!</p>
+
+        <p>If you have any questions, please send a mail to lancie@ch.tudelft.nl</p>
+      </div>
+      <lancie-commission json="http://localhost:3000/scripts/commission.json"
+                         style="width: 60%"></lancie-commission>
+    </lancie-section>
+    <lancie-section type="primary-full">
+      <!--<google-map latitude="51.9951895" longitude="4.3765975" zoom="14" zoomable="false" fit-to-markers>-->
+        <!--<google-map-marker latitude="51.9951895" longitude="4.3765975" title="Area FiftyLAN" info="AreaFiftyLAN">-->
+          <!--Area FiftyLAN 2015-->
+        <!--</google-map-marker>-->
+      <!--</google-map>-->
+    </lancie-section>
+  </template>
+</dom-module>
+<script>
+(function() {
+  Polymer({
+    is: 'lancie-home-page',
+
+    properties: {
+      opened: {
+        type: Boolean
+      }
+    }
+  });
+})();
+</script>
