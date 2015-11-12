@@ -1,12 +1,12 @@
-[submodule "lancie-activity-element"]
-	path = lancie-activity-element
+[submodule "app/elements/lancie-activity"]
+	path = app/elements/lancie-activity
 	url = git@github.com:AreaFiftyLAN/lancie-activity-element.git
-[submodule "lancie-section-element"]
-	path = lancie-section-element
+[submodule "app/elements/lancie-section"]
+	path = app/elements/lancie-section
 	url = git@github.com:AreaFiftyLAN/lancie-section-element.git
-[submodule "lancie-commission-element"]
-	path = lancie-commission-element
+[submodule "app/elements/lancie-commission"]
+	path = app/elements/lancie-commission
 	url = git@github.com:AreaFiftyLAN/lancie-commission-element.git
-[submodule "lancie-timetable-element"]
-	path = lancie-timetable-element
+[submodule "app/elements/lancie-timetable"]
+	path = app/elements/lancie-timetable
 	url = git@github.com:AreaFiftyLAN/lancie-timetable-element.git
