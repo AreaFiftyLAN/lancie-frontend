@@ -1,0 +1,47 @@
+<dom-module id="lancie-image-slider">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+      }
+
+      iron-image {
+        width: 100%;
+        height: 500px;
+      }
+    </style>
+    <div>
+      <iron-image src="https://areafiftylan.nl/photo/gallery-images/IMG_3358.JPG"
+        sizing="cover" hidden$="{{hide(current, 0)}}"></iron-image>
+      <iron-image src="https://areafiftylan.nl/photo/gallery-images/IMG_3533.JPG"
+        sizing="cover" hidden$="{{hide(current, 1)}}"></iron-image>
+      <iron-image src="https://areafiftylan.nl/photo/gallery-images/IMG_3646.JPG"
+        sizing="cover" hidden$="{{hide(current, 2)}}"></iron-image>
+      <iron-image src="https://areafiftylan.nl/photo/gallery-images/IMG_3691.JPG"
+        sizing="cover" hidden$="{{hide(current, 3)}}"></iron-image>
+      <iron-image src="https://areafiftylan.nl/photo/gallery-images/IMG_3008.JPG"
+        sizing="cover" hidden$="{{hide(current, 4)}}"></iron-image>
+    </div>
+  </template>
+  <script>
+  'use strict';
+    Polymer({
+      is: 'lancie-image-slider',
+      ready: function() {
+        this.current = 0;
+        var numImages = this.querySelectorAll('iron-image').length;
+        setInterval(function() {
+          this.current++;
+
+          if (this.current === numImages) {
+            this.current = 0;
+          }
+        }.bind(this), 5000);
+      },
+      hide: function(current, i) {
+        return current !== i;
+      }
+    });
+  </script>
+</dom-module>
