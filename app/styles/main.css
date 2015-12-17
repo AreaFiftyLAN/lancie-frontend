@@ -17,10 +17,6 @@ iron-pages {
   padding: 0;
 }
 
-google-map {
-  height: 400px;
-}
-
 paper-toolbar {
   background-color: #1a2b43;
   padding: 0 32px;

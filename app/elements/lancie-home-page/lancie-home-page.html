@@ -28,6 +28,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     a {
       color: #eeecec;
     }
+
+    google-map {
+      height: 400px;
+      width: 100%;
+    }
   </style>
   <template>
     <lancie-section type="primary-full">
@@ -59,10 +64,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           to miss! Are you ready for the launch?
           <sub>*CH members/alumni will get a small discount</sub>
         </p>
-        <!-- <lancie-timetable></lancie-timetable> -->
         <p>Besides that you can play any game you like, there are organized activities during the weekend. Below you
           can find a global overview. Please note this is subject to change and of course this is not all! A final
           schedule will be provided during the event.</p>
+        <!-- <lancie-timetable></lancie-timetable> -->
       </div>
     </lancie-section>
     <lancie-section type="secondary" title="Official Tournaments">
@@ -107,11 +112,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <lancie-commission json="http://localhost:3000/scripts/commission.json"></lancie-commission>
     </lancie-section>
     <lancie-section type="primary-full">
-      <!--<google-map latitude="51.9951895" longitude="4.3765975" zoom="14" zoomable="false" fit-to-markers>-->
-        <!--<google-map-marker latitude="51.9951895" longitude="4.3765975" title="Area FiftyLAN" info="AreaFiftyLAN">-->
-          <!--Area FiftyLAN 2015-->
-        <!--</google-map-marker>-->
-      <!--</google-map>-->
+      <google-map latitude="51.9951895" longitude="4.3765975" zoom="14" disable-zoom fit-to-markers>
+        <google-map-marker latitude="51.9951895" longitude="4.3765975"
+            draggable="true" title="Area FiftyLAN"></google-map-marker>
+      </google-map>
     </lancie-section>
   </template>
 </dom-module>
