@@ -70,50 +70,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </a>
       <span class="flex"></span>
 
-      <paper-tabs noink no-bar attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
-        <paper-tab data-route="tickets" href="/tickets">
-          <iron-icon icon=""></iron-icon>
-          <span>Tickets</span>
-        </paper-tab>
-      </paper-tabs>
+      <lancie-header route="{{route}}"></lancie-header>
     </paper-toolbar>
+
     <div>
       <iron-pages attr-for-selected="data-route" selected="{{route}}">
         <div data-route="home">
           <lancie-home-page></lancie-home-page>
         </div>
 
+        <div data-route="my-area">
+          <lancie-login-check>
+            <lancie-my-area></lancie-my-area>
+          </lancie-login-check>
+        </div>
+
         <div data-route="tickets">
-          <lancie-section title="Ticket sale"></lancie-section>
+          <lancie-login-check>
+            <lancie-ticket-page></lancie-ticket-page>
+          </lancie-login-check>
         </div>
       </iron-pages>
 
-      <lancie-section type="secondary">
-        <div>
-          <p>W.I.S.V. ‘Christiaan Huygens’ (CH) is the study association for students of Applied Mathematics and
-            Computer
-            Science at the Delft University of Technology.
-          </p>
-          <ul class="footer-list">
-            <li><span>Address:</span> Mekelweg 4, 2628CD Delft</li>
-            <li><span>Chamber of Commerce:</span> V40397077</li>
-            <li><span>Phone:</span> 015-278 2532</li>
-          </ul>
-          <p>
-            Copyright © 2015 by W.I.S.V. ‘Christiaan Huygens’. All rights reserved.
-          </p>
-        </div>
-      </lancie-section>
+      <lancie-footer></lancie-footer>
     </div>
   </paper-header-panel>
 
-  <!-- <platinum-sw-register auto-register
+  <platinum-sw-register auto-register
                         clients-claim
                         skip-waiting>
     <platinum-sw-cache default-cache-strategy="networkFirst"
                        precache-file="precache.json">
     </platinum-sw-cache>
-  </platinum-sw-register> -->
+  </platinum-sw-register>
 
 </template>
 

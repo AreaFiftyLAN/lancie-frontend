@@ -1,0 +1,32 @@
+<dom-module id="lancie-header">
+  <template>
+    <akc-meta-query key="user" value="{{user}}"></akc-meta-query>
+
+    <paper-tabs noink no-bar attr-for-selected="data-route" selected="{{route}}">
+      <paper-tab data-route="home" href="/">
+        <span>Home</span>
+      </paper-tab>
+      <paper-tab data-route="my-area" href="/my-area">
+        <span>My Area</span>
+      </paper-tab>
+      <paper-tab data-route="tickets" href="/tickets" hidden$="{{!userExists(user)}}">
+        <span>Tickets</span>
+      </paper-tab>
+    </paper-tabs>
+  </template>
+  <script>
+  'use strict';
+    Polymer({
+      is: 'lancie-header',
+      properties: {
+        route: {
+          type: String,
+          notify: true
+        }
+      },
+      userExists: function(user) {
+        return Object.keys(user).length;
+      }
+    });
+  </script>
+</dom-module>

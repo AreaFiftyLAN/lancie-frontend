@@ -1,0 +1,44 @@
+<dom-module id="lancie-ticket-page">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    TICKETS YO, KOPEN DIE HANDEL
+  </template>
+  <script>
+    'use strict';
+    Polymer({
+      is: 'lancie-ticket-page',
+
+      ready: function() {
+        this.reset();
+      },
+
+      handleResponse: function() {
+        this.reset();
+      },
+
+      submit: function() {
+        var ajax = this.$.ajaxRegister;
+
+        ajax.body = {
+          username: this.username,
+          email: this.email,
+          password: this.password
+        };
+
+        ajax.generateRequest();
+      },
+
+      reset: function() {
+        this.username = undefined;
+        this.email = undefined;
+        this.password = undefined;
+        this.secondpassword = undefined;
+      }
+    });
+  </script>
+</dom-module>
