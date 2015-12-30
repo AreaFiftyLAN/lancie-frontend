@@ -20,7 +20,16 @@
       body="{{bodyFrom(username, password)}}"
       method="POST"
       handle-as="json"
-      content-type="application/x-www-form-urlencoded"
+      headers="{{headerFrom('application/x-www-form-urlencoded', csrfToken)}}"
+      on-response="onLoggedIn"></iron-ajax>
+
+    <iron-ajax
+      id="ajaxRegister"
+      url="/api/v1/users"
+      method="POST"
+      handle-as="json"
+      body="{{bodyFrom(username, password, email)}}"
+      headers="{{headerFrom('application/json', csrfToken)}}"
       on-response="onLoggedIn"></iron-ajax>
 
     <paper-card heading="{{getHeading(registering)}}">
@@ -33,6 +42,7 @@
           <paper-input label="Username" type="text" value="{{username}}"></paper-input>
           <paper-input label="Password" type="password" value="{{password}}"></paper-input>
           <paper-input label="Retype password" type="password" value="{{secondpassword}}"></paper-input>
+          <paper-input label="Email" type="email" value="{{email}}"></paper-input>
 
           <span class="errormessage" hidden$="{{samePassword}}">The passwords do not match.</span>
         </div>
@@ -60,6 +70,12 @@
         registering: {
           type: Boolean,
           value: false
+        },
+        csrfToken: {
+          type: String,
+          value: function() {
+            return csrfToken;
+          }
         }
       },
 
@@ -78,6 +94,9 @@
           this.tryLogIn();
         }
       },
+      tryRegister: function() {
+        this.$.ajaxRegister.generateRequest();
+      },
       tryLogIn: function() {
         this.$.ajaxLogin.generateRequest();
       },
@@ -87,11 +106,23 @@
           user: newUser.response
         });
       },
-      bodyFrom: function(username, password) {
-        return {
+      bodyFrom: function(username, password, email) {
+        var body = {
           _csrf: csrfToken,
           username: username,
           password: password
+        };
+
+        if (email) {
+          body.email = email;
+        }
+
+        return body;
+      },
+      headerFrom: function(contentType, token) {
+        return {
+          'X-CSRF-TOKEN': token,
+          'Content-type': contentType
         };
       },
       getHeading: function(registering) {
@@ -100,6 +131,7 @@
 
       getLoginCSRF: function(e, request) {
         csrfToken = request.xhr.getResponseHeader('X-CSRF-TOKEN');
+        this.csrfToken = csrfToken;
       }
     });
   })();
