@@ -1,31 +1,40 @@
 <dom-module id="lancie-login-check">
   <template>
-    <akc-meta-query key="user" value="{{user}}"></akc-meta-query>
-
     <template is="dom-if" if="{{exists(user)}}" restamp="true">
       <content></content>
     </template>
 
     <template is="dom-if" if="{{!exists(user)}}">
-      <lancie-login-form></lancie-login-form>
+      <lancie-login-form on-logged-in="storeUser"></lancie-login-form>
     </template>
+
+    <lancie-ajax id="ajax"></lancie-ajax>
   </template>
   <script>
   'use strict';
+
+  (function() {
+    var user = '';
+
     Polymer({
       is: 'lancie-login-check',
       properties: {
         user: {
-          type: Object
-        },
-        userExists: {
-          type: Boolean,
-          value: false
+          type: Object,
+          value: function() {
+            return user;
+          }
         }
       },
       exists: function(value) {
-        return (Object.keys(value).length);
+        return value !== '';
+      },
+      storeUser: function(e, response) {
+        this.user = response.user;
+        user = this.user;
+        this.$.ajax.injectToken(response.token);
       }
     });
+  })();
   </script>
 </dom-module>

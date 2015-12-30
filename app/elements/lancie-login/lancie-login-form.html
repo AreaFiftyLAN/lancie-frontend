@@ -9,7 +9,10 @@
       }
     </style>
 
-    <akc-meta id="user" key="user" value="[[user]]"></akc-meta>
+    <iron-ajax
+      id="getLoginCSRF"
+      url="/api/v1/login"
+      on-response="getLoginCSRF"></iron-ajax>
 
     <iron-ajax
       id="ajaxLogin"
@@ -17,7 +20,7 @@
       body="{{bodyFrom(username, password)}}"
       method="POST"
       handle-as="json"
-      content-type="application/json"
+      content-type="application/x-www-form-urlencoded"
       on-response="onLoggedIn"></iron-ajax>
 
     <paper-card heading="{{getHeading(registering)}}">
@@ -48,6 +51,9 @@
   </template>
   <script>
   'use strict';
+  (function() {
+    var csrfToken;
+
     Polymer({
       is: 'lancie-login-form',
       properties: {
@@ -56,6 +62,14 @@
           value: false
         }
       },
+
+      ready: function() {
+        if (!csrfToken) {
+          csrfToken = 'CSRF-TOKEN';
+          this.$.getLoginCSRF.generateRequest();
+        }
+      },
+
       switchForm: function() {
         this.registering = !this.registering;
       },
@@ -67,18 +81,27 @@
       tryLogIn: function() {
         this.$.ajaxLogin.generateRequest();
       },
-      onLoggedIn: function(event) {
-        this.user = event.detail;
+      onLoggedIn: function(event, newUser) {
+        this.fire('logged-in', {
+          token: newUser.xhr.getResponseHeader('X-CSRF-TOKEN'),
+          user: newUser.response
+        });
       },
       bodyFrom: function(username, password) {
         return {
+          _csrf: csrfToken,
           username: username,
           password: password
         };
       },
       getHeading: function(registering) {
         return registering ? 'Register' : 'Log In';
+      },
+
+      getLoginCSRF: function(e, request) {
+        csrfToken = request.xhr.getResponseHeader('X-CSRF-TOKEN');
       }
     });
+  })();
   </script>
 </dom-module>

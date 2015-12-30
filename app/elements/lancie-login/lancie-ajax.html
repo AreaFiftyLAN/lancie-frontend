@@ -1,0 +1,119 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lancie-ajax">
+  <template>
+    <iron-ajax
+      id="ajax"
+      body="{{body}}"
+      params="{{params}}"
+      method="{{method}}"
+      url="/v1/{{refurl}}"
+      handle-as="{{handleAs}}"
+      last-response="{{lastResponse}}"
+      loading="{{loading}}"
+      headers='{{createHeader(token, contenttype)}}'
+      debounce-duration="300"
+      on-response="handleResponse"
+      ></iron-ajax>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    var token;
+
+    Polymer({
+      is: 'lancie-ajax',
+
+      properties: {
+        contenttype: {
+          type: String,
+          value: 'application/json',
+          notify: true
+        },
+        refurl: {
+          type: String,
+          value: '',
+          notify: true
+        },
+        handleAs: {
+          type: String,
+          value: 'json',
+          notify: true
+        },
+        auto: {
+          type: Boolean,
+          value: false
+        },
+        isuser: {
+          type: Boolean,
+          value: false
+        },
+        loading: {
+          type: Boolean,
+          notify: true,
+          value: false
+        },
+        params: {
+          type: Object,
+          value: {}
+        },
+        method: {
+          type: String,
+          value: 'GET'
+        },
+        lastResponse: {
+          type: Object,
+          notify: true
+        },
+        body: {
+          type: Object
+        },
+        token: {
+          type: String,
+          value: function() {
+            return token;
+          }
+        }
+      },
+
+      /* STATIC CALL */
+      injectToken: function(newToken) {
+        token = newToken;
+        this.token = token;
+      },
+
+      ready: function() {
+        if (this.auto) {
+          this.async(this.generateRequest);
+        }
+      },
+
+      handleResponse: function(event) {
+        this.fire('response', event.detail);
+      },
+
+      createHeader: function(token, contenttype) {
+        return {
+          'X-CSRF-TOKEN': token,
+          'Content-type': contenttype
+        };
+      },
+
+      generateRequest: function() {
+        this.$.ajax.generateRequest();
+      }
+    });
+  })();
+  </script>
+</dom-module>
