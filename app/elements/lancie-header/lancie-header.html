@@ -1,7 +1,5 @@
 <dom-module id="lancie-header">
   <template>
-    <akc-meta-query key="user" value="{{user}}"></akc-meta-query>
-
     <paper-tabs noink no-bar attr-for-selected="data-route" selected="{{route}}">
       <paper-tab data-route="home" href="/">
         <span>Home</span>
@@ -9,7 +7,7 @@
       <paper-tab data-route="my-area" href="/my-area">
         <span>My Area</span>
       </paper-tab>
-      <paper-tab data-route="tickets" href="/tickets" hidden$="{{!userExists(user)}}">
+      <paper-tab data-route="tickets" href="/tickets">
         <span>Tickets</span>
       </paper-tab>
     </paper-tabs>
@@ -23,9 +21,6 @@
           type: String,
           notify: true
         }
-      },
-      userExists: function(user) {
-        return Object.keys(user).length;
       }
     });
   </script>

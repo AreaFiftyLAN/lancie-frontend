@@ -16,6 +16,8 @@
   (function() {
     var user = '';
 
+    var checks = [];
+
     Polymer({
       is: 'lancie-login-check',
       properties: {
@@ -26,6 +28,11 @@
           }
         }
       },
+      ready: function() {
+        checks.push(function(newUser) {
+          this.user = newUser;
+        }.bind(this));
+      },
       exists: function(value) {
         return value !== '';
       },
@@ -33,6 +40,10 @@
         this.user = response.user;
         user = this.user;
         this.$.ajax.injectToken(response.token);
+
+        for (var i = 0; i < checks.length; i++) {
+          checks[i](user);
+        }
       }
     });
   })();
