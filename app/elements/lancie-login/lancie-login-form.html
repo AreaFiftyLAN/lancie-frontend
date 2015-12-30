@@ -65,6 +65,8 @@
   (function() {
     var csrfToken;
 
+    var forms = [];
+
     Polymer({
       is: 'lancie-login-form',
       properties: {
@@ -84,6 +86,10 @@
         if (!csrfToken) {
           csrfToken = 'CSRF-TOKEN';
           this.$.getLoginCSRF.generateRequest();
+        } else {
+          forms.push(function(newToken) {
+            this.csrfToken = newToken;
+          }.bind(this));
         }
       },
 
@@ -133,6 +139,10 @@
       getLoginCSRF: function(e, request) {
         csrfToken = request.xhr.getResponseHeader('X-CSRF-TOKEN');
         this.csrfToken = csrfToken;
+
+        for (var i = 0; i < forms.length; i++) {
+          forms[i](csrfToken);
+        }
       }
     });
   })();
