@@ -1,0 +1,74 @@
+<dom-module id="lancie-ticket-form">
+  <template>
+    <style>
+      paper-button {
+        background-color: var(--paper-indigo-500);
+      }
+    </style>
+    <lancie-ajax
+      id="orderPost"
+      refurl="orders"
+      method="POST"
+      on-response="storeOrderId"></lancie-ajax>
+
+    <lancie-ajax
+      id="ticketPost"
+      refurl="orders/{{order.id}}"
+      method="POST"
+      on-response="ticketCreated"></lancie-ajax>
+
+    <div>
+      <paper-dropdown-menu label="The ticket type" selected-item="{{ticketType}}">
+        <paper-menu class="dropdown-content">
+          <paper-item item="EARLY_FULL">Early-Bird</paper-item>
+          <paper-item item="REGULAR_FULL">Regular</paper-item>
+          <paper-item item="LATE_FULL">Late</paper-item>
+        </paper-menu>
+      </paper-dropdown-menu>
+
+      <paper-toggle-button checked="{{chMember}}">Christiaan Huygens Member</paper-toggle-button>
+      <paper-toggle-button checked="{{pickup}}">Pickup Service</paper-toggle-button>
+
+      <paper-button raised on-tap="createTicket">Add Ticket</paper-button>
+    </div>
+  </template>
+  <script>
+  'use strict';
+
+    Polymer({
+      is: 'lancie-ticket-form',
+      properties: {
+        order: {
+          type: Object
+        },
+        ticketType: {
+          type: String
+        },
+        chMember: {
+          type: Boolean
+        },
+        pickup: {
+          type: Boolean
+        }
+      },
+      storeOrderId: function(event, request) {
+        this.order = request.response.object;
+      },
+      createTicket: function() {
+        var ajax = this.order ? this.$.ticketPost : this.$.orderPost;
+
+        ajax.body = {
+          type: this.ticketType.getAttribute('item'),
+          pickupService: this.pickup,
+          chMember: this.chMember
+        };
+
+        ajax.generateRequest();
+      },
+
+      ticketCreated: function(event, ticket) {
+        this.fire('ticket-created', ticket);
+      }
+    });
+  </script>
+</dom-module>
