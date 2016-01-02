@@ -1,0 +1,35 @@
+<dom-module id="lancie-ticket-list">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      div {
+        margin-bottom: 10px;
+      }
+      span {
+        display: block;
+      }
+    </style>
+    <template is="dom-repeat" items="{{tickets}}" index-as="index">
+      <div>
+        <span>Ticket:</span>
+        <span>Type: {{item.type}}</span>
+        <span>CH Member: {{item.chMember}}</span>
+        <span>Pickup Service: {{item.pickupService}}</span>
+      </div>
+    </template>
+  </template>
+  <script>
+  'use strict';
+
+    Polymer({
+      is: 'lancie-ticket-list',
+      properties: {
+        tickets: {
+          type: Array
+        }
+      }
+    });
+  </script>
+</dom-module>

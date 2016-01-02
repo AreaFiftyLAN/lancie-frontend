@@ -39,7 +39,8 @@
       is: 'lancie-ticket-form',
       properties: {
         order: {
-          type: Object
+          type: Object,
+          notify: true
         },
         ticketType: {
           type: String
@@ -66,8 +67,8 @@
         ajax.generateRequest();
       },
 
-      ticketCreated: function(event, ticket) {
-        this.fire('ticket-created', ticket);
+      ticketCreated: function(event, request) {
+        this.order = request.response.object;
       }
     });
   </script>
