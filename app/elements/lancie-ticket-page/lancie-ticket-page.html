@@ -1,17 +1,43 @@
+<link rel="import" href="lancie-ticket-list.html">
+<link rel="import" href="lancie-ticket-form.html">
+
 <dom-module id="lancie-ticket-page">
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
+    <lancie-ajax
+      id="ajax"
+      refurl="orders/{{order.id}}/checkout"
+      on-response="goToPayment"></lancie-ajax>
 
-    TICKETS YO, KOPEN DIE HANDEL
+    <lancie-ticket-list tickets="{{order.tickets}}"></lancie-ticket-list>
+    <lancie-ticket-form order="{{order}}"></lancie-ticket-form>
+
+    <paper-button raised on-tap="payOrder" disabled="{{hasNoTickets}}">Check out</paper-button>
   </template>
   <script>
     'use strict';
     Polymer({
-      is: 'lancie-ticket-page'
+      is: 'lancie-ticket-page',
+      properties: {
+        order: {
+          type: Object,
+          observer: 'checkTickets'
+        },
+        hasNoTickets: {
+          type: Boolean,
+          value: true
+        }
+      },
+      payOrder: function() {
+        this.$.ajax.generateRequest();
+      },
+      checkTickets: function(order) {
+        if (order && order.tickets) {
+          this.hasNoTickets = false;
+        }
+      },
+      goToPayment: function(event, request) {
+        window.alert(request.response);
+      }
     });
   </script>
 </dom-module>

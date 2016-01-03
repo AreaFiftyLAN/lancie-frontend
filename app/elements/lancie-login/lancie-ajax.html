@@ -17,7 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       body="{{body}}"
       params="{{params}}"
       method="{{method}}"
-      url="/v1/{{refurl}}"
+      url="/api/v1/{{refurl}}"
       handle-as="{{handleAs}}"
       last-response="{{lastResponse}}"
       loading="{{loading}}"
@@ -27,10 +27,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ></iron-ajax>
   </template>
   <script>
+  var token;
+
+  var ajax = [];
+
   (function() {
     'use strict';
-
-    var token;
 
     Polymer({
       is: 'lancie-ajax',
@@ -80,10 +82,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Object
         },
         token: {
-          type: String,
-          value: function() {
-            return token;
-          }
+          type: String
         }
       },
 
@@ -91,11 +90,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       injectToken: function(newToken) {
         token = newToken;
         this.token = token;
+
+        for (var i = 0; i < ajax.length; i++) {
+          ajax[i](token);
+        }
       },
 
-      ready: function() {
-        if (this.auto) {
-          this.async(this.generateRequest);
+      attached: function() {
+        if (!token) {
+          ajax.push(function(newToken) {
+            this.token = newToken;
+
+            if (this.auto) {
+              this.generateRequest();
+            }
+          }.bind(this));
+        } else {
+          this.token = token;
+
+          if (this.auto) {
+            this.generateRequest();
+          }
         }
       },
 
