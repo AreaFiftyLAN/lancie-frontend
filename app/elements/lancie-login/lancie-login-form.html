@@ -1,0 +1,150 @@
+<dom-module id="lancie-login-form">
+  <template>
+    <style>
+      paper-card {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: 500px;
+      }
+    </style>
+
+    <iron-ajax
+      id="getLoginCSRF"
+      url="/api/v1/login"
+      on-response="getLoginCSRF"></iron-ajax>
+
+    <iron-ajax
+      id="ajaxLogin"
+      url="/api/v1/login"
+      body="{{bodyFrom(username, password)}}"
+      method="POST"
+      handle-as="json"
+      headers="{{headerFrom('application/x-www-form-urlencoded', csrfToken)}}"
+      on-response="onLoggedIn"></iron-ajax>
+
+    <iron-ajax
+      id="ajaxRegister"
+      url="/api/v1/users"
+      method="POST"
+      handle-as="json"
+      body="{{bodyFrom(username, password, email)}}"
+      headers="{{headerFrom('application/json', csrfToken)}}"
+      on-response="onLoggedIn"></iron-ajax>
+
+    <paper-card heading="{{getHeading(registering)}}">
+      <div class="card-content">
+        <div hidden$="{{registering}}">
+          <paper-input label="Username" type="text" value="{{username}}"></paper-input>
+          <paper-input label="Password" type="password" value="{{password}}" on-keypress="enterAndTryLogIn"></paper-input>
+        </div>
+        <div hidden$="{{!registering}}">
+          <paper-input label="Username" type="text" value="{{username}}"></paper-input>
+          <paper-input label="Password" type="password" value="{{password}}"></paper-input>
+          <paper-input label="Retype password" type="password" value="{{secondpassword}}"></paper-input>
+          <paper-input label="Email" type="email" value="{{email}}"></paper-input>
+
+          <!-- TODO: Nicify -->
+          <span class="errormessage" hidden$="{{samePassword}}">The passwords do not match.</span>
+        </div>
+      </div>
+      <div class="card-actions">
+        <div hidden$="{{registering}}">
+          <paper-button on-tap="tryLogIn" raised>Log in!</paper-button>
+          <paper-button on-tap="switchForm" raised>Register</paper-button>
+        </div>
+        <div hidden$="{{!registering}}">
+          <paper-button on-tap="tryRegister" raised>Register!</paper-button>
+          <paper-button on-tap="switchForm" raised>Back to log in</paper-button>
+        </div>
+      </div>
+    </paper-card>
+  </template>
+  <script>
+  'use strict';
+  (function() {
+    var csrfToken;
+
+    var forms = [];
+
+    Polymer({
+      is: 'lancie-login-form',
+      properties: {
+        registering: {
+          type: Boolean,
+          value: false
+        },
+        csrfToken: {
+          type: String,
+          value: function() {
+            return csrfToken;
+          }
+        }
+      },
+
+      ready: function() {
+        if (!csrfToken) {
+          csrfToken = 'CSRF-TOKEN';
+          this.$.getLoginCSRF.generateRequest();
+        } else {
+          forms.push(function(newToken) {
+            this.csrfToken = newToken;
+          }.bind(this));
+        }
+      },
+
+      switchForm: function() {
+        this.registering = !this.registering;
+      },
+      enterAndTryLogIn: function(event) {
+        if (event.keyCode === 13) {
+          this.tryLogIn();
+        }
+      },
+      tryRegister: function() {
+        this.$.ajaxRegister.generateRequest();
+      },
+      tryLogIn: function() {
+        this.$.ajaxLogin.generateRequest();
+      },
+      onLoggedIn: function(event, newUser) {
+        this.fire('logged-in', {
+          token: newUser.xhr.getResponseHeader('X-CSRF-TOKEN'),
+          user: newUser.response
+        });
+      },
+      bodyFrom: function(username, password, email) {
+        var body = {
+          _csrf: csrfToken,
+          username: username,
+          password: password
+        };
+
+        if (email) {
+          body.email = email;
+        }
+
+        return body;
+      },
+      headerFrom: function(contentType, token) {
+        return {
+          'X-CSRF-TOKEN': token,
+          'Content-type': contentType
+        };
+      },
+      getHeading: function(registering) {
+        return registering ? 'Register' : 'Log In';
+      },
+
+      getLoginCSRF: function(e, request) {
+        csrfToken = request.xhr.getResponseHeader('X-CSRF-TOKEN');
+        this.csrfToken = csrfToken;
+
+        for (var i = 0; i < forms.length; i++) {
+          forms[i](csrfToken);
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>

@@ -180,10 +180,11 @@ gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 // Watch Files For Changes & Reload
 gulp.task('serve', ['styles', 'elements', 'images'], function () {
-  var proxyOptions = url.parse('http://localhost:9000/api/v1/');
-  proxyOptions.route = '/api/v1';
+  var proxyOptions = url.parse('http://localhost:9000/api/');
+  proxyOptions.route = '/api';
 
   browserSync({
+    port: 5100,
     notify: false,
     logPrefix: 'PSK',
     snippetOptions: {

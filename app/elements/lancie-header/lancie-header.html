@@ -1,0 +1,27 @@
+<dom-module id="lancie-header">
+  <template>
+    <paper-tabs noink no-bar attr-for-selected="data-route" selected="{{route}}">
+      <paper-tab data-route="home" href="/">
+        <span>Home</span>
+      </paper-tab>
+      <paper-tab data-route="my-area" href="/my-area">
+        <span>My Area</span>
+      </paper-tab>
+      <paper-tab data-route="tickets" href="/tickets">
+        <span>Tickets</span>
+      </paper-tab>
+    </paper-tabs>
+  </template>
+  <script>
+  'use strict';
+    Polymer({
+      is: 'lancie-header',
+      properties: {
+        route: {
+          type: String,
+          notify: true
+        }
+      }
+    });
+  </script>
+</dom-module>

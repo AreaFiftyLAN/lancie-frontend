@@ -1,0 +1,51 @@
+<dom-module id="lancie-login-check">
+  <template>
+    <template is="dom-if" if="{{exists(user)}}" restamp="true">
+      <content></content>
+    </template>
+
+    <template is="dom-if" if="{{!exists(user)}}">
+      <lancie-login-form on-logged-in="storeUser"></lancie-login-form>
+    </template>
+
+    <lancie-ajax id="ajax"></lancie-ajax>
+  </template>
+  <script>
+  'use strict';
+
+  (function() {
+    var user = '';
+
+    var checks = [];
+
+    Polymer({
+      is: 'lancie-login-check',
+      properties: {
+        user: {
+          type: Object,
+          value: function() {
+            return user;
+          }
+        }
+      },
+      ready: function() {
+        checks.push(function(newUser) {
+          this.user = newUser;
+        }.bind(this));
+      },
+      exists: function(value) {
+        return value !== '';
+      },
+      storeUser: function(e, response) {
+        this.user = response.user;
+        user = this.user;
+        this.$.ajax.injectToken(response.token);
+
+        for (var i = 0; i < checks.length; i++) {
+          checks[i](user);
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>
