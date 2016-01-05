@@ -37,6 +37,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: #ffe574;
         background: #1a2b43;
       }
+
+      .errormessage {
+        padding: 10px 20px 9px;
+        border-left: 3px solid #F44336;
+        background: #FFCDD2;
+        color: #B71C1C;
+      }
     </style>
 
     <iron-ajax
@@ -65,6 +72,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-card heading="{{getHeading(registering)}}" image="http://placehold.it/300x100" class="white">
       <div class="card-content">
         <div hidden$="{{registering}}">
+          <paper-material class="errormessage" hidden$="{{!test}}">Bad credentials.</paper-material>
           <paper-input label="Username" type="text" value="{{username}}"></paper-input>
           <paper-input label="Password" type="password" value="{{password}}" on-keypress="enterAndTryLogIn"></paper-input>
         </div>
@@ -110,6 +118,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: function() {
             return csrfToken;
           }
+        },
+        test: {
+          type: Boolean,
+          value: false
         }
       },
 
@@ -143,10 +155,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       onLoggedIn: function(event, newUser) {
-        this.fire('logged-in', {
-          token: newUser.xhr.getResponseHeader('X-CSRF-TOKEN'),
-          user: newUser.response
-        });
+        if (newUser.response != null) {
+          this.fire('logged-in', {
+            token: newUser.xhr.getResponseHeader('X-CSRF-TOKEN'),
+            user: newUser.response
+          });
+        } else {
+          this.test = true;
+        }
       },
 
       bodyFrom: function(username, password, email) {
