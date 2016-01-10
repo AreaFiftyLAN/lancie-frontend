@@ -72,7 +72,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-card heading="{{getHeading(registering)}}" image="http://placehold.it/300x100" class="white">
       <div class="card-content">
         <div hidden$="{{registering}}">
-          <paper-material class="errormessage" hidden$="{{!test}}">Bad credentials.</paper-material>
+          <paper-material class="errormessage" hidden$="{{!badCredentials}}">Bad credentials.</paper-material>
           <paper-input label="Username" type="text" value="{{username}}"></paper-input>
           <paper-input label="Password" type="password" value="{{password}}" on-keypress="enterAndTryLogIn"></paper-input>
         </div>
@@ -81,9 +81,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <paper-input label="Password" type="password" value="{{password}}"></paper-input>
           <paper-input label="Retype password" type="password" value="{{secondpassword}}"></paper-input>
           <paper-input label="Email" type="email" value="{{email}}"></paper-input>
-
-          <!-- TODO: Nicify -->
-          <span class="errormessage" hidden$="{{samePassword}}">The passwords do not match.</span>
         </div>
       </div>
       <div class="card-actions">
@@ -119,7 +116,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return csrfToken;
           }
         },
-        test: {
+        badCredentials: {
           type: Boolean,
           value: false
         }
@@ -161,7 +158,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             user: newUser.response
           });
         } else {
-          this.test = true;
+          this.badCredentials = true;
         }
       },
 
