@@ -53,6 +53,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
+  <link rel="import" href="bower_components/polymer/polymer.html">
   <link rel="import" href="elements/elements.html">
   <!-- endreplace-->
 
@@ -74,23 +75,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </paper-toolbar>
 
     <div>
-      <iron-pages attr-for-selected="data-route" selected="{{route}}">
-        <div data-route="home">
-          <lancie-home-page></lancie-home-page>
-        </div>
-
-        <div data-route="my-area">
-          <lancie-login-check>
-            <lancie-my-area></lancie-my-area>
-          </lancie-login-check>
-        </div>
-
-        <div data-route="tickets">
-          <lancie-login-check>
-            <lancie-ticket-page></lancie-ticket-page>
-          </lancie-login-check>
-        </div>
-      </iron-pages>
+      <lancie-content route="{{route}}"></lancie-content>
 
       <lancie-footer></lancie-footer>
     </div>
