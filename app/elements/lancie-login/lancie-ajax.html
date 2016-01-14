@@ -30,7 +30,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   (function() {
     'use strict';
 
-    var token;
+    var token, ajax = [];
 
     Polymer({
       is: 'lancie-ajax',
@@ -91,11 +91,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       injectToken: function(newToken) {
         token = newToken;
         this.token = token;
+
+        for (var i = 0; i < ajax.length; i++) {
+          ajax[i](token);
+        }
       },
 
-      ready: function() {
-        if (this.auto) {
-          this.async(this.generateRequest);
+      attached: function() {
+        if (!token) {
+          ajax.push(function(newToken) {
+            this.token = newToken;
+
+            if (this.auto) {
+              this.generateRequest();
+            }
+          }.bind(this));
+        } else {
+          this.token = token;
+
+          if (this.auto) {
+            this.generateRequest();
+          }
         }
       },
 

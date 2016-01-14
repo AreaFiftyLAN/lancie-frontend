@@ -1,0 +1,53 @@
+<link rel="import" href="lancie-login/lancie-ajax.html">
+
+<dom-module id="lancie-content">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <iron-ajax
+      auto
+      url="/api/v1/users/current"
+      handle-as="json"
+      on-response="storeUser"></iron-ajax>
+
+    <iron-pages attr-for-selected="data-route" selected="{{route}}">
+      <div data-route="home">
+        <lancie-home-page></lancie-home-page>
+      </div>
+
+      <div data-route="my-area">
+        <lancie-login-check user="{{user}}">
+          <lancie-my-area></lancie-my-area>
+        </lancie-login-check>
+      </div>
+
+      <div data-route="tickets">
+        <lancie-login-check user="{{user}}">
+          <lancie-ticket-page></lancie-ticket-page>
+        </lancie-login-check>
+      </div>
+    </iron-pages>
+
+  </template>
+  <script>
+  'use strict';
+    Polymer({
+      is: 'lancie-content',
+      properties: {
+        route: {
+          type: String
+        },
+        user: {
+          type: Object
+        }
+      },
+      storeUser: function(event, request) {
+        this.user = (request.response.message === 'Not logged in') ? '' : request.response;
+      }
+    });
+  </script>
+</dom-module>
