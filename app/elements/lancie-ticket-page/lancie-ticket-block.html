@@ -11,8 +11,8 @@
       <hr themed-reverse>
       <div id="extraOptions" class="extra-options">
         <h4>Options</h4>
-        <paper-checkbox checked="{{chMember}}" disabled="{{notAvailable}}">Christiaan Huygens Member</paper-checkbox>
-        <paper-checkbox checked="{{pickup}}" disabled="{{notAvailable}}">Pickup Service</paper-checkbox> 
+        <paper-checkbox checked="{{chMember}}" disabled="{{disabled}}">Christiaan Huygens Member</paper-checkbox>
+        <paper-checkbox checked="{{pickup}}" disabled="{{disabled}}">Pickup Service</paper-checkbox> 
       </div>
       <hr themed-reverse style="margin-botton: 12px;">
       <paper-button on-tap="addTicket" disabled="{{notAvailable}}">Add</paper-button>
@@ -50,7 +50,7 @@
             }
           },
 
-          notAvailable: {
+          disabled: {
             type: Boolean,
             value: false
           }
@@ -61,7 +61,7 @@
 
           if (this.ticket.numberSold === this.ticket.limit) {
             this.classList.add('disabled');
-            this.notAvailable = true;
+            this.disabled = true;
           }
 
           setTimeout(function() {
