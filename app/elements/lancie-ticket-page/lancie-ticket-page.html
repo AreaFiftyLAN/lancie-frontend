@@ -1,17 +1,44 @@
 <link rel="import" href="lancie-ticket-list.html">
-<link rel="import" href="lancie-ticket-form.html">
+<link rel="import" href="lancie-ticket-iron-block.html">
+<link rel="import" href="lancie-ticket-block.html">
+
+<link rel="import" href="/bower_components/paper-styles/typography.html">
 
 <dom-module id="lancie-ticket-page">
+  <link rel="import" type="css" href="lancie-ticket-page.css">
   <template>
     <lancie-ajax
       id="ajax"
       refurl="orders/{{order.id}}/checkout"
       on-response="goToPayment"></lancie-ajax>
 
-    <lancie-ticket-list tickets="{{order.tickets}}"></lancie-ticket-list>
-    <lancie-ticket-form order="{{order}}"></lancie-ticket-form>
-
-    <paper-button raised on-tap="payOrder" disabled="{{hasNoTickets}}">Check out</paper-button>
+    <lancie-ajax 
+      auto
+      id="tickets"
+      refurl="tickets/available"
+      on-response="loadTickets"></lancie-ajax>
+    
+    <lancie-section type="primary-full" title="Ticket sale - AreaFiftyLAN 2016 - ??/??/?? June">
+      <lancie-ticket-selector id="list" tickets="{{order.tickets}}" class="layout horizontal flex">
+        <div class="layout horizontal flex">
+          <div class="layout horizontal wrap flex" style="margin-right: 32px;">
+            <template is="dom-repeat" items="{{aviableTickets}}">
+              <lancie-ticket-iron-block order="{{order}}" ticket="{{item}}" color="{{_color()}}"></lancie-ticket-iron-block>
+            </template>
+          </div>
+          <div class="layout vertical" style="width: 35%; max-width: 500px;">
+            <paper-card heading="Cart">
+              <div class="card-content">
+                <lancie-ticket-list order="{{order}}"></lancie-ticket-list>
+              </div>
+              <div class="card-actions">
+                <paper-button raised on-tap="payOrder" disabled="{{hasNoTickets}}">Check out</paper-button>
+              </div>
+            </paper-card>
+          </div>
+        </div>  
+      </lancie-ticket-selector>
+    </lancie-section>
   </template>
   <script>
     'use strict';
@@ -25,19 +52,57 @@
         hasNoTickets: {
           type: Boolean,
           value: true
+        },
+        aviableTickets: {
+          type: Object,
+          value: []
         }
       },
+
+      attached: function() {
+        setTimeout(function() {
+          this.classList.add('active');
+        }.bind(this), 50);
+      },
+
       payOrder: function() {
         this.$.ajax.generateRequest();
       },
+
       checkTickets: function(order) {
-        if (order && order.tickets) {
+        if (order && order.tickets && order.tickets.length !== 0) {
           this.hasNoTickets = false;
+        } else {
+          this.hasNoTickets = true;
         }
       },
+
       goToPayment: function(event, request) {
-        window.alert(request.response);
-      }
+        window.location.href = request.xhr.getResponseHeader('Location');
+      },
+
+      loadTickets: function(event, request) {
+        this.aviableTickets = request.response;
+      },
+
+      _color: function() {
+        var options = [
+          '#64B5F6',
+          '#4FC3F7',
+          '#4DD0E1',
+          '#4DB6AC',
+          '#81C784',
+          '#AED581',
+          '#DCE775',
+          '#FFF176',
+          '#FFD54F',
+          '#FFB74D',
+          '#FF8A65',
+          '#E0E0E0',
+          '#90A4AE'
+        ];
+        return options[Math.floor(Math.random() * 13)];
+      },
     });
   </script>
 </dom-module>
