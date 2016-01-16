@@ -33,9 +33,11 @@
           this.user = newUser;
         }.bind(this));
       },
+      
       exists: function(value) {
         return value !== '';
       },
+
       storeUser: function(e, response) {
         this.user = response.user;
         user = this.user;
