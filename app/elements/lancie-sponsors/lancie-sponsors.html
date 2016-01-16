@@ -1,0 +1,93 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
+<link rel="import" href="../../bower_components/paper-styles/shadow.html">
+
+<link rel="import" href="lancie-sponsor-item.html">
+
+
+<dom-module id="lancie-sponsors">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+      }
+
+      lancie-sponsors-item {
+        margin: ;
+      }
+
+      .head-sponsors {
+        margin-right: 32px;
+      }
+
+      .head-sponsors lancie-sponsor-item {
+        width: 100%;
+      }
+
+      .premium-sponsors lancie-sponsor-item,
+      .sponsors lancie-sponsor-item {
+        margin: 0 6px;
+      }
+
+      .premium-sponsors lancie-sponsor-item {
+        width: calc(33% - 12px);
+      }
+
+      .sponsors lancie-sponsor-item {
+        width: calc(25% - 12px);
+      }
+    </style>
+
+    <div id="grid" class="layout horizontal flex">
+      <div class="layout vertical flex-1 head-sponsors">
+        <h3>Presented by</h3>
+        <lancie-sponsor-item sponsor='{
+              "href": "https://ch.tudelft.nl",
+              "logo": "https://areafiftylan.nl/images/logos/lancie/logo_CH.png"
+            }'></lancie-sponsor-item>
+
+        <h3>In cooperation with</h3>
+        <lancie-sponsor-item sponsor='{
+              "href": "https://ch.tudelft.nl",
+              "logo": "https://areafiftylan.nl/images/logos/sponsors/logo_SC.png"
+            }'></lancie-sponsor-item>
+      </div>
+      <div class="layout vertical flex-3">
+        <h3>Premium sponsors</h3>
+        <div class="layout horizontal wrap premium-sponsors">
+          <lancie-sponsor-item sponsor='{
+              "href": "https://ch.tudelft.nl",
+              "logo": "/images/logos/Innovattic_Logo.jpg"
+            }'></lancie-sponsor-item>
+          <lancie-sponsor-item sponsor='{
+              "href": "https://ch.tudelft.nl",
+              "logo": "/images/logos/Keylane_RGB_150DPI.jpg"
+            }'></lancie-sponsor-item>
+          <lancie-sponsor-item sponsor='{
+              "href": "https://ch.tudelft.nl",
+              "logo": "/images/logos/pbt.jpg"
+            }'></lancie-sponsor-item>
+        </div>
+        <h3>Sponsors</h3>
+        <div class="layout horizontal wrap sponsors">
+          <lancie-sponsor-item></lancie-sponsor-item>
+          <lancie-sponsor-item></lancie-sponsor-item>
+          <lancie-sponsor-item></lancie-sponsor-item>
+          <lancie-sponsor-item></lancie-sponsor-item>
+        </div>
+      </div>
+    </div>
+
+  </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'lancie-sponsors',
+      });
+    })();
+  </script>
+</dom-module>

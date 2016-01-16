@@ -1,0 +1,67 @@
+<!--
+@license
+Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
+This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
+
+<dom-module id="lancie-sponsor-item">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: relative;
+      }
+
+      :host(:after) {
+        padding-top: 51.625%;
+        /* 16:9 ratio */
+        display: block;
+        content: '';
+      }
+
+      iron-image {
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
+
+      a {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+      }
+    </style>
+
+    <a href="{{sponsor.href}}">
+      <iron-image src="{{sponsor.logo}}" preload sizing="contain"></iron-image>
+    </a>
+  </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'lancie-sponsor-item',
+
+        properties: {
+          sponsor: {
+            type: Object,
+            value: {
+              href: "https://google.com",
+              logo: "/images/logos/pbt.jpg"
+            },
+            notify: true
+          }
+        }
+      });
+    })();
+  </script>
+</dom-module>
