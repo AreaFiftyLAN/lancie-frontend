@@ -29,7 +29,7 @@ This code may only be used under the BSD style license found at https://github.c
       <lancie-ticket-selector id="list" tickets="{{order.tickets}}" class="layout horizontal flex">
         <div class="layout horizontal flex">
           <div class="layout horizontal wrap flex" style="margin-right: 32px;">
-            <template is="dom-repeat" items="{{aviableTickets}}">
+            <template is="dom-repeat" items="{{availableTickets}}">
               <lancie-ticket-iron-block order="{{order}}" ticket="{{item}}" color="{{_color()}}"></lancie-ticket-iron-block>
             </template>
           </div>
