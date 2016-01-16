@@ -1,0 +1,41 @@
+:host {
+  display: block;
+  transition: var(--material-curve-320);
+  transform: translate(0, 60px);
+  opacity: 0;
+}
+
+:host(.active) {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+#tickets {
+  min-height: calc(100vh - 348px);
+  width: 100%;
+}
+
+hr {
+  border: 0;
+  background: #606060;
+  width: 100%;
+  height: 1px;
+  margin: 0;
+  transition: width 400ms 320ms;
+  transition-timing-function: var(--material-curve-320);
+}
+
+lancie-ticket-list {
+  margin: 6px 0;
+}
+
+paper-card {
+  --paper-card-header-color: #ffe574;
+  --paper-card-header: {
+    background-color: #1a2b43;
+  }
+}
+
+lancie-section {
+  padding: 32px;
+}

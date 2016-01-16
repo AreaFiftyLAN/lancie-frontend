@@ -1,0 +1,92 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<dom-module id="lancie-ticket-block">
+  <link rel="import" type="css" href="lancie-ticket-block.css">
+
+  <template>
+    <paper-material elevation="0" class="ticket-selector-block layout vertical" style$="{{_computeStyle(color)}}">
+      <div class="version layout horizontal self-end"><span>{{ticket.numberSold}}</span>/<span>{{ticket.limit}}</span></div>
+      <h2>{{ticket.ticketType}}</h2>
+      <h3 class="horizontal layout start">Price: € <span>{{price}}</span></h3>
+      <hr themed-reverse>
+      <div id="extraOptions" class="extra-options">
+        <h4>Options</h4>
+        <paper-checkbox checked="{{chMember}}" disabled="{{notAvailable}}">Christiaan Huygens Member</paper-checkbox>
+        <paper-checkbox checked="{{pickup}}" disabled="{{notAvailable}}">Pickup Service</paper-checkbox> 
+      </div>
+      <hr themed-reverse style="margin-botton: 12px;">
+      <paper-button on-tap="addTicket" disabled="{{notAvailable}}">Add</paper-button>
+    </paper-material>
+  </template>
+  <script>
+    (function() {
+      'use strict';
+        
+      Polymer({
+        is: 'lancie-ticket-block',
+        properties: {
+          ticket: {
+            type: Object,
+            value: function () {
+              return {};
+            },
+            notify: true
+          },
+
+          chMember: {
+            type: Boolean,
+            observer: 'updatePrice'
+          },
+
+          pickup: {
+            type: Boolean,
+            observer: 'updatePrice'
+          },
+
+          price: {
+            type: String,
+            value: function() {
+              return 0;
+            }
+          },
+
+          notAvailable: {
+            type: Boolean,
+            value: false
+          }
+        },
+
+        attached: function() {
+          this.price = this.ticket.price;
+
+          if (this.ticket.numberSold === this.ticket.limit) {
+            this.classList.add('disabled');
+            this.notAvailable = true;
+          }
+
+          setTimeout(function() {
+            this.classList.add('active');
+          }.bind(this), 50);
+        },
+
+        addTicket: function() {
+          this.ticket.numberSold++;
+          this.fire('add-ticket', {chMember: this.chMember, pickup: this.pickup});
+        },
+
+        _computeStyle: function (color) {
+          return 'background-color: ' + color;
+        },
+
+        updatePrice: function() {
+          var basePrice = this.ticket.price;
+
+          basePrice += this.chMember ? this.ticket.discountPrice : 0;
+          basePrice += this.pickup ? this.ticket.pickupService : 0;
+
+          this.price = basePrice;
+        }
+      });
+    })();
+  </script>
+</dom-module>
