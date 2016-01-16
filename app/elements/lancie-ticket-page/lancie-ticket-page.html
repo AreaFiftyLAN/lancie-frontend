@@ -60,7 +60,7 @@ This code may only be used under the BSD style license found at https://github.c
           type: Boolean,
           value: true
         },
-        aviableTickets: {
+        availableTickets: {
           type: Object,
           value: []
         }
@@ -89,7 +89,7 @@ This code may only be used under the BSD style license found at https://github.c
       },
 
       loadTickets: function(event, request) {
-        this.aviableTickets = request.response;
+        this.availableTickets = request.response;
       },
 
       _color: function() {
