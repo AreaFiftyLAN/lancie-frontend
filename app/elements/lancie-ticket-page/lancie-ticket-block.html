@@ -34,21 +34,17 @@
           },
 
           chMember: {
-            type: Boolean,
-            observer: 'updatePrice'
+            type: Boolean
           },
 
           pickup: {
-            type: Boolean,
-            observer: 'updatePrice'
+            type: Boolean
           },
 
           price: {
             type: String,
-            value: function() {
-              return 0;
-            }
-          },
+            computed: '_computePrice(ticket, chMember, pickup)'
+          }, 
 
           disabled: {
             type: Boolean,
@@ -57,8 +53,6 @@
         },
 
         attached: function() {
-          this.price = this.ticket.price;
-
           if (this.ticket.numberSold === this.ticket.limit) {
             this.classList.add('disabled');
             this.disabled = true;
@@ -74,17 +68,15 @@
           this.fire('add-ticket', {chMember: this.chMember, pickup: this.pickup});
         },
 
+        _computePrice: function(ticket, chMember, pickup) {
+          var basePrice = ticket.price;
+
+          basePrice += chMember ? ticket.discountPrice : 0;
+          return basePrice += pickup ? ticket.pickupService : 0;
+        }, 
+
         _computeStyle: function (color) {
           return 'background-color: ' + color;
-        },
-
-        updatePrice: function() {
-          var basePrice = this.ticket.price;
-
-          basePrice += this.chMember ? this.ticket.discountPrice : 0;
-          basePrice += this.pickup ? this.ticket.pickupService : 0;
-
-          this.price = basePrice;
         }
       });
     })();
