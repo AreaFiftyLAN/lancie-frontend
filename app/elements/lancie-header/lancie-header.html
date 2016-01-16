@@ -1,16 +1,39 @@
 <dom-module id="lancie-header">
   <template>
-    <paper-tabs noink no-bar attr-for-selected="data-route" selected="{{route}}">
-      <paper-tab data-route="home" href="/">
+    <style>
+      :host {
+        display: block;
+      }
+
+      paper-menu {
+        background-color: transparent;
+      }
+
+      paper-menu a {
+        color: #ffe574;
+        text-decoration: none;
+        font-family: 'Roboto', 'Noto', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        min-height: 48px;
+        padding: 0 16px;
+      }
+
+    </style>
+    <paper-menu attr-for-selected="data-route" selected="[[route]]">
+      <a data-route="home" href="{{baseUrl}}/">
         <span>Home</span>
-      </paper-tab>
-      <paper-tab data-route="my-area" href="/my-area">
-        <span>My Area</span>
-      </paper-tab>
-      <paper-tab data-route="tickets" href="/tickets">
+      </a>
+
+      <a data-route="users" href="{{baseUrl}}my-area">
+        <span>My Area</span>  
+      </a>
+
+      <a data-route="contact" href="{{baseUrl}}tickets">
         <span>Tickets</span>
-      </paper-tab>
-    </paper-tabs>
+      </a>
+    </paper-menu>
   </template>
   <script>
   'use strict';
