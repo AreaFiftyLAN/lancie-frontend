@@ -30,7 +30,7 @@ This code may only be used under the BSD style license found at https://github.c
         <div class="layout horizontal flex">
           <div class="layout horizontal wrap flex" style="margin-right: 32px;">
             <template is="dom-repeat" items="{{availableTickets}}">
-              <lancie-ticket-iron-block order="{{order}}" ticket="{{item}}" color="{{_color()}}"></lancie-ticket-iron-block>
+              <lancie-ticket-iron-block order="{{order}}" ticket="{{item}}" color="{{_color(index)}}"></lancie-ticket-iron-block>
             </template>
           </div>
           <div class="layout vertical" style="width: 35%; max-width: 500px;">
@@ -92,23 +92,24 @@ This code may only be used under the BSD style license found at https://github.c
         this.availableTickets = request.response;
       },
 
-      _color: function() {
+      _color: function(index) {
         var options = [
-          '#64B5F6',
-          '#4FC3F7',
-          '#4DD0E1',
-          '#4DB6AC',
-          '#81C784',
-          '#AED581',
-          '#DCE775',
-          '#FFF176',
-          '#FFD54F',
-          '#FFB74D',
           '#FF8A65',
+          '#4DD0E1',
+          '#E57373',
+          '#FFB74D',
+          '#64B5F6',
+          '#DCE775',
+          '#AED581',
+          '#81C784',
+          '#FFD54F',
+          '#FFF176',
+          '#4DB6AC',
           '#E0E0E0',
+          '#4FC3F7',
           '#90A4AE'
         ];
-        return options[Math.floor(Math.random() * 13)];
+        return options[index];
       },
     });
   </script>
