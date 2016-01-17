@@ -60,7 +60,7 @@
 
           var ajax = this.order ? this.$.ticketPost : this.$.orderPost;
           ajax.body = {
-            type: this.ticket.name,
+            type: this.ticket.ticketType,
             pickupService: pickup,
             chMember: chMember
           };

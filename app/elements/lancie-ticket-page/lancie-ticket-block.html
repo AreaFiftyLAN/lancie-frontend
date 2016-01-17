@@ -6,7 +6,7 @@
   <template>
     <paper-material elevation="0" class="ticket-selector-block layout vertical" style$="{{_computeStyle(color)}}">
       <div class="version layout horizontal self-end">{{ticket.numberSold}}/{{ticket.limit}}</div>
-      <h2>{{ticket.name}}</h2>
+      <h2>{{ticket.ticketType}}</h2>
       <h3 class="horizontal layout start">Price: € {{price}}</h3>
       <hr themed-reverse>
       <div id="extraOptions" class="extra-options">
@@ -68,8 +68,10 @@
         _computePrice: function(ticket, chMember, pickup) {
           var basePrice = ticket.price;
 
-          basePrice += chMember ? ticket.discountPrice : 0;
-          return basePrice += pickup ? ticket.pickupService : 0;
+          basePrice += (chMember ? ticket.chMemberDiscountPrice : 0);
+          basePrice += (pickup ? ticket.pickupServicePrice : 0);
+
+          return basePrice;
         },
 
         _computeStyle: function (color) {
