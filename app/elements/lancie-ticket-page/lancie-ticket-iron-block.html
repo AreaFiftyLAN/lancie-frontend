@@ -9,7 +9,7 @@
         display: block;
       }
     </style>
-    
+
     <lancie-ajax
       id="orderPost"
       refurl="orders"
@@ -27,16 +27,13 @@
   <script>
     (function() {
       'use strict';
-        
+
       Polymer({
         is: 'lancie-ticket-iron-block',
 
         properties: {
           ticket: {
             type: Object,
-            value: function () {
-              return {};
-            },
             notify: true
           },
           order: {
@@ -63,12 +60,10 @@
 
           var ajax = this.order ? this.$.ticketPost : this.$.orderPost;
           ajax.body = {
-            type: this.ticket.ticketType,
+            type: this.ticket.name,
             pickupService: pickup,
             chMember: chMember
           };
-
-          console.log(ajax.headers);
 
           ajax.generateRequest();
           this.ticket.numberSold++;

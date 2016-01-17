@@ -6,13 +6,13 @@
   <template>
     <paper-material elevation="0" class="ticket-selector-block layout vertical" style$="{{_computeStyle(color)}}">
       <div class="version layout horizontal self-end">{{ticket.numberSold}}/{{ticket.limit}}</div>
-      <h2>{{ticket.ticketType}}</h2>
+      <h2>{{ticket.name}}</h2>
       <h3 class="horizontal layout start">Price: € {{price}}</h3>
       <hr themed-reverse>
       <div id="extraOptions" class="extra-options">
         <h4>Options</h4>
         <paper-checkbox checked="{{chMember}}" disabled="{{disabled}}">Christiaan Huygens Member</paper-checkbox>
-        <paper-checkbox checked="{{pickup}}" disabled="{{disabled}}">Pickup Service</paper-checkbox> 
+        <paper-checkbox checked="{{pickup}}" disabled="{{disabled}}">Pickup Service</paper-checkbox>
       </div>
       <hr themed-reverse style="margin-botton: 12px;">
       <paper-button on-tap="addTicket" disabled="{{notAvailable}}">Add</paper-button>
@@ -21,15 +21,12 @@
   <script>
     (function() {
       'use strict';
-        
+
       Polymer({
         is: 'lancie-ticket-block',
         properties: {
           ticket: {
             type: Object,
-            value: function () {
-              return {};
-            },
             notify: true
           },
 
@@ -44,7 +41,7 @@
           price: {
             type: String,
             computed: '_computePrice(ticket, chMember, pickup)'
-          }, 
+          },
 
           disabled: {
             type: Boolean,
@@ -73,7 +70,7 @@
 
           basePrice += chMember ? ticket.discountPrice : 0;
           return basePrice += pickup ? ticket.pickupService : 0;
-        }, 
+        },
 
         _computeStyle: function (color) {
           return 'background-color: ' + color;
