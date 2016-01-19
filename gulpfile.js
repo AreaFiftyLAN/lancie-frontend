@@ -59,9 +59,9 @@ gulp.task('elements', function () {
 // Lint JavaScript
 gulp.task('jshint', function () {
   return gulp.src([
-      'app/scripts/**/*.js',
-      'app/elements/**/*.js',
-      'app/elements/**/*.html'
+      'app/scripts/*/*.js',
+      'app/elements/*/*.js',
+      'app/elements/*/*.html'
     ])
     .pipe(reload({stream: true, once: true}))
     .pipe(load.jshint.extract()) // Extract JS from .html files
