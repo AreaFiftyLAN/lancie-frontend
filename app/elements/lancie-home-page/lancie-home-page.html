@@ -38,8 +38,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <lancie-section type="primary-full">
       <lancie-image-slider></lancie-image-slider>
     </lancie-section>
+    
     <lancie-section type="primary" title="Partners &amp; Sponsors">
     </lancie-section>
+    
     <lancie-section type="secondary" title="Area FiftyLAN">
       <div>
         <p>
@@ -61,6 +63,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </p>
       </div>
     </lancie-section>
+    
     <lancie-section type="primary" title="What do you get?">
       <div>
         <p>
@@ -77,6 +80,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!-- <lancie-timetable></lancie-timetable> -->
       </div>
     </lancie-section>
+    
     <lancie-section type="secondary" title="Official Tournaments">
       <div>
         <p>All official tournaments are listed below. These tournaments will be hosted by AreaFiftyLAN and there are
@@ -84,40 +88,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           tournament, we will give you the opportunity to organize your own. More information about how this works can
           be found below.</p>
 
-        <!-- <lancie-activities json="scripts/activity.json"></lancie-activities> -->
+        <lancie-activities json="scripts/activity.json"></lancie-activities>
       </div>
     </lancie-section>
+    
     <lancie-section type="secondary" title="Organize your own tournament!">
-      <div>
-        <p>Is your favorite game not listed as a tournament? No problem! We offer you the possibility to become a game
-          master! For this, we would like to receive a proposal for your tournament. Your proposal should contain the
-          following information.</p>
-        <ol>
-          <li>Which game you want to host</li>
-          <li>Game format (Free-for-all, 5vs5, 1vs1, etc)</li>
-          <li>Tournament structure (Qualifiers, rounds and a final, or a single round)</li>
-          <li>Winner criteria (How is the winner chosen?)</li>
-          <li>Expected duration (4 hours for the entire tournament, or does it span multiple days?)</li>
-          <li>Required resources (Do you need our server, or host your own?)</li>
-          <li>Contact information</li>
-          <li>Mail this to <a href="mailto:lancie@ch.tudelft.nl">lancie@ch.tudelft.nl</a></li>
-        </ol>
-        <p>Official tournaments have priority, which means your tournament should be flexible enough be held at any
-          point
-          during the weekend. We prefer short compact tournaments, but don't let that stop you from proposing an
-          amazing
-          multi-day event. There is no limit to the duration of the tournament, but the format should be taken into
-          account. A truly competitive tournament should not take more than a morning or afternoon, while a casual
-          long
-          term tournaments can span multiple days.</p>
-        <p>We will review your proposal, and when accepted, we’ll appoint you as responsible person to run this
-          tournament. This means the entire organisation of the tournament will be up to you. Your tournament will be
-          placed on the website. but we can not offer any extra support for your tournament during the event.</p>
-      </div>
+      <lancie-markdown src="markdown.md"></lancie-markdown>
     </lancie-section>
+    
     <lancie-section title="2nd LANcie of W.I.S.V. 'Christiaan Huygens'">
       <lancie-commission json="/scripts/commission.json"></lancie-commission>
     </lancie-section>
+
     <lancie-section type="primary-full">
       <google-map latitude="51.9951895" longitude="4.3765975" zoom="14" disable-zoom fit-to-markers>
         <google-map-marker latitude="51.9951895" longitude="4.3765975"
