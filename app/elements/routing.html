@@ -68,6 +68,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.route = 'order-check';
   });
 
+  page('/seats', function() {
+    app.route = 'seat-map';
+  });
+
   page('*', function() {
     app.route = '404';
   });

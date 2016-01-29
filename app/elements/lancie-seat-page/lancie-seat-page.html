@@ -1,0 +1,62 @@
+<link rel="import" href="lancie-seat-group.html">
+
+<dom-module id="lancie-seat-page">
+  <template>
+    <style>
+      :host {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .seatgroup-cluster {
+        display: inline-block;
+        margin-right: 60px;
+        width: 486px;
+        white-space: normal;
+      }
+
+      lancie-seat-group {
+        padding-bottom: 20px;
+        padding-top: 20px;
+      }
+
+      .center {
+        text-align: center;
+      }
+    </style>
+    <lancie-ajax
+      auto
+      user="{{user}}"
+      refurl="seats"
+      last-response="{{seats}}"
+      ></lancie-ajax>
+
+    <div class="center">
+      <div class="seatgroup-cluster">
+        <lancie-seat-group seats="{{seats.seatmap.a}}" name="A"></lancie-seat-group>
+        <lancie-seat-group seats="{{seats.seatmap.b}}" name="B"></lancie-seat-group>
+        <lancie-seat-group seats="{{seats.seatmap.c}}" name="C"></lancie-seat-group>
+        <lancie-seat-group seats="{{seats.seatmap.d}}" name="D"></lancie-seat-group>
+        <lancie-seat-group seats="{{seats.seatmap.e}}" name="E"></lancie-seat-group>
+      </div>
+      <div class="seatgroup-cluster">
+        <lancie-seat-group seats="{{seats.seatmap.f}}" name="F"></lancie-seat-group>
+        <lancie-seat-group seats="{{seats.seatmap.g}}" name="G"></lancie-seat-group>
+        <lancie-seat-group seats="{{seats.seatmap.h}}" name="H"></lancie-seat-group>
+        <lancie-seat-group seats="{{seats.seatmap.i}}" name="I"></lancie-seat-group>
+        <lancie-seat-group seats="{{seats.seatmap.j}}" name="J"></lancie-seat-group>
+      </div>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'lancie-seat-page',
+      properties: {
+        user: {
+          type: Object
+        }
+      }
+    });
+  </script>
+</dom-module>

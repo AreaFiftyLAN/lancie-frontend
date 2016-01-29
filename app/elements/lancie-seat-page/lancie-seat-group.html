@@ -1,0 +1,44 @@
+<link rel="import" href="lancie-seat.html">
+
+<dom-module id="lancie-seat-group">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      lancie-seat {
+        width: 50px;
+      }
+    </style>
+    <span>{{name}}</span>
+    <div style$="width: {{computeWidth(seats)}}">
+      <template is="dom-repeat" items="{{seats}}">
+        <lancie-seat taken="{{item.taken}}" user="{{item.user}}" index="{{item.seatNumber}}" position="{{getPosition(seats, item.seatNumber)}}"></lancie-seat>
+      </template>
+  </div>
+  </template>
+  <script>
+  'use strict';
+
+    Polymer({
+      is: 'lancie-seat-group',
+      properties: {
+        name: {
+          type: String
+        },
+        max: {
+          type: Number
+        }
+      },
+
+      computeWidth: function(seats) {
+        return (seats.length / 2) * 54 + 'px';
+      },
+
+      getPosition: function(seats, index) {
+        return index <= seats.length / 2 ? 'top' : 'bottom';
+      }
+    });
+  </script>
+</dom-module>

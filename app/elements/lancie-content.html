@@ -15,6 +15,7 @@
 <link rel="import" href="lancie-password/lancie-password-reset-success.html">
 <link rel="import" href="lancie-password/lancie-request-password-reset.html">
 <link rel="import" href="lancie-password/lancie-request-password-reset-success.html">
+<link rel="import" href="lancie-seat-page/lancie-seat-page.html">
 
 <dom-module id="lancie-content">
   <template>
@@ -59,6 +60,10 @@
         </template>
       </div>
 
+      <div data-route="seat-map">
+        <lancie-seat-page></lancie-seat-page>
+      </div>
+
       <div data-route="check-email">
         <lancie-check-email></lancie-check-email>
       </div>
@@ -91,6 +96,7 @@
         <lancie-request-password-reset-success></lancie-request-password-reset-success>
       </div>
     </iron-pages>
+
   </template>
   <script>
   'use strict';
