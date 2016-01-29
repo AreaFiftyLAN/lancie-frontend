@@ -10,6 +10,3 @@
 [submodule "app/elements/lancie-timetable"]
 	path = app/elements/lancie-timetable
 	url = git@github.com:AreaFiftyLAN/lancie-timetable-element.git
-[submodule "app/elements/lancie-markdown"]
-	path = app/elements/lancie-markdown
-	url = https://github.com/AreaFiftyLAN/lancie-markdown.git

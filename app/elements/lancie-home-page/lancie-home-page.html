@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/marked-element/marked-element.html">
 
 <dom-module id="lancie-home-page">
   <style>
@@ -38,10 +39,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <lancie-section type="primary-full">
       <lancie-image-slider></lancie-image-slider>
     </lancie-section>
-    
+
     <lancie-section type="primary" title="Partners &amp; Sponsors">
     </lancie-section>
-    
+
     <lancie-section type="secondary" title="Area FiftyLAN">
       <div>
         <p>
@@ -63,7 +64,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </p>
       </div>
     </lancie-section>
-    
+
     <lancie-section type="primary" title="What do you get?">
       <div>
         <p>
@@ -80,7 +81,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!-- <lancie-timetable></lancie-timetable> -->
       </div>
     </lancie-section>
-    
+
     <lancie-section type="secondary" title="Official Tournaments">
       <div>
         <p>All official tournaments are listed below. These tournaments will be hosted by AreaFiftyLAN and there are
@@ -91,11 +92,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <lancie-activities json="scripts/activity.json"></lancie-activities>
       </div>
     </lancie-section>
-    
+
     <lancie-section type="secondary" title="Organize your own tournament!">
-      <lancie-markdown src="markdown.md"></lancie-markdown>
+      <iron-ajax
+         auto
+         url="markdown.md"
+         handle-as="text"
+         last-response="{{markdown}}"></iron-ajax>
+      <marked-element markdown="{{markdown}}"></marked-element>
     </lancie-section>
-    
+
     <lancie-section title="2nd LANcie of W.I.S.V. 'Christiaan Huygens'">
       <lancie-commission json="/scripts/commission.json"></lancie-commission>
     </lancie-section>
