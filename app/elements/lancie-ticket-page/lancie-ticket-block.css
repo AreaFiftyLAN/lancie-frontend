@@ -133,9 +133,8 @@ hr {
   line-height: 32px;
 }
 
-.extra-options paper-toggle-button {
-  margin: 6px 0;
-  font-size: 14px;
+paper-checkbox span {
+  line-height: 24px;
 }
 
 paper-button {

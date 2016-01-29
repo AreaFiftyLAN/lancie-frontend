@@ -18,21 +18,18 @@ This code may only be used under the BSD style license found at https://github.c
       }
 
       paper-item {
-        padding: 6px 0;
         background: #fff;
       }
     </style>
 
     <paper-item>
-      <paper-item-body two-line class="layout flex">
-        <div>Ticket Area FiftyLAN - [[ticket.type]]</div>
+      <paper-item-body two-line>
+        <div>[[ticket.type]]</div>
         <div secondary>
-          <b>Options: </b>[[_showOptions(ticket)]]
+          [[_showOptions(ticket)]]
         </div>
       </paper-item-body>
-      <div on-tap="deleteTicket">
-        <paper-icon-button icon="clear"></paper-icon-button>
-      </div>
+      <paper-icon-button on-tap="deleteTicket" icon="delete" alt="favourite this!"></paper-icon-button>
     </paper-item>
   </template>
   <script>
@@ -95,7 +92,7 @@ This code may only be used under the BSD style license found at https://github.c
             return 'Christiaan Huygens Member';
           }
 
-          return 'None';
+          return 'No extra options';
         },
 
         show: function() {

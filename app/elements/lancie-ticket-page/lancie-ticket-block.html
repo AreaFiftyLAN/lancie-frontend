@@ -11,8 +11,14 @@
       <hr themed-reverse>
       <div id="extraOptions" class="extra-options">
         <h4>Options</h4>
-        <paper-checkbox checked="{{chMember}}" disabled="{{disabled}}">Christiaan Huygens Member</paper-checkbox>
-        <paper-checkbox checked="{{pickup}}" disabled="{{disabled}}">Pickup Service</paper-checkbox>
+        <paper-checkbox checked="{{chMember}}" disabled="{{disabled}}">
+          CH Member 
+          <span>(€ {{_formatPrice(ticket.chMemberDiscountPrice)}})</span>
+        </paper-checkbox>
+        <paper-checkbox checked="{{pickup}}" disabled="{{disabled}}">
+          Pickup Service
+          <span>(€ {{_formatPrice(ticket.pickupServicePrice)}})</span>
+        </paper-checkbox>
       </div>
       <hr themed-reverse style="margin-botton: 12px;">
       <paper-button on-tap="addTicket" disabled="{{notAvailable}}">Add</paper-button>
@@ -71,7 +77,15 @@
           basePrice += (chMember ? ticket.chMemberDiscountPrice : 0);
           basePrice += (pickup ? ticket.pickupServicePrice : 0);
 
-          return basePrice;
+          return this._formatPrice(basePrice);
+        },
+
+        _formatPrice: function(price) {
+          if (price % 1 == 0) {
+            return price + ",-";
+          } else {
+            return price.toFixed(2);
+          }
         },
 
         _computeStyle: function (color) {
