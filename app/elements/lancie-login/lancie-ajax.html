@@ -17,7 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       body="{{body}}"
       params="{{params}}"
       method="{{method}}"
-      url="/v1/{{refurl}}"
+      url="/api/v1/{{refurl}}"
       handle-as="{{handleAs}}"
       last-response="{{lastResponse}}"
       loading="{{loading}}"
@@ -80,10 +80,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Object
         },
         token: {
-          type: String,
-          value: function() {
-            return token;
-          }
+          type: String
         }
       },
 

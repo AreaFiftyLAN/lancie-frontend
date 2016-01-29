@@ -14,6 +14,8 @@
       handle-as="json"
       on-response="storeUser"></iron-ajax>
 
+    <lancie-ajax id="ajax"></lancie-ajax>
+
     <iron-pages attr-for-selected="data-route" selected="{{route}}">
       <div data-route="home">
         <lancie-home-page></lancie-home-page>
@@ -31,7 +33,6 @@
         </lancie-login-check>
       </div>
     </iron-pages>
-
   </template>
   <script>
   'use strict';
@@ -47,6 +48,7 @@
       },
       storeUser: function(event, request) {
         this.user = (request.response.message === 'Not logged in') ? '' : request.response;
+        this.$.ajax.injectToken(request.xhr.getResponseHeader('X-CSRF-TOKEN'));
       }
     });
   </script>

@@ -12,9 +12,9 @@
   </template>
   <script>
   'use strict';
+  var user = '';
 
   (function() {
-    var user = '';
 
     var checks = [];
 
@@ -33,9 +33,11 @@
           this.user = newUser;
         }.bind(this));
       },
+
       exists: function(value) {
         return value !== '';
       },
+
       storeUser: function(e, response) {
         this.user = response.user;
         user = this.user;
