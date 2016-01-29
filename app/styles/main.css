@@ -11,9 +11,11 @@ body {
   background: #fafafa;
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #333;
+  background-color: #eeecec;
 }
 
 iron-pages {
+  min-height: calc(100vh - /*Height of footer*/ 268px - /*Height of top bar*/ 64px);
   padding: 0;
 }
 

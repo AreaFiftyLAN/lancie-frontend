@@ -1,17 +1,132 @@
+<!--
+@license
+Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
+This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
+-->
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="lancie-ticket-list.html">
+<link rel="import" href="lancie-ticket-iron-block.html">
+<link rel="import" href="lancie-ticket-block.html">
+<link rel="import" href="/bower_components/paper-styles/typography.html">
 <dom-module id="lancie-ticket-page">
+  <link rel="import" type="css" href="lancie-ticket-page.css">
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-
-    TICKETS YO, KOPEN DIE HANDEL
+    <iron-media-query query="(min-width: 1018px)" query-matches="{{medium}}"></iron-media-query>
+    <lancie-ajax id="ajax" refurl="orders/{{order.id}}/checkout" on-response="goToPayment"></lancie-ajax>
+    <lancie-ajax auto id="tickets" refurl="tickets/available" on-response="loadTickets"></lancie-ajax>
+    <lancie-ajax auto refurl="users/current/orders/open" method="GET" on-response="getOpenOrder"></lancie-ajax>
+    <lancie-section type="primary full" title="Ticket sale - AreaFiftyLAN 2016 - ??/??/?? June">
+      <lancie-ticket-selector id="list" tickets="{{order.tickets}}" class="layout horizontal flex">
+        <div class$="{{_setLayout(medium)}}">
+          <div class="layout horizontal flex">
+            <paper-card heading="Tickets">
+              <div class="card-content layout horizontal wrap">
+                <template is="dom-repeat" items="{{availableTickets}}">
+                  <lancie-ticket-iron-block order="{{order}}" ticket="{{item}}" color="{{_color(index)}}"></lancie-ticket-iron-block>
+                </template>
+              </div>
+            </paper-card>
+          </div>
+          <div class="layout horizontal cart start">
+            <paper-card heading="Cart" style="width: 420px;">
+              <div class="card-content" style="padding: 0;">
+                <lancie-ticket-list order="{{order}}"></lancie-ticket-list>
+              </div>
+              <template is="dom-if" if="{{order.amount > 0}}">
+                <div class="card-actions">
+                  <strong>Total amount:</strong> <span>&euro; [[_formatPrice(order.amount)]]</span>
+                </div>
+              </template>
+              <div class="card-actions">
+                <paper-button raised on-tap="payOrder" disabled="{{hasNoTickets}}">Check out</paper-button>
+              </div>
+            </paper-card>
+          </div>
+        </div>
+      </lancie-ticket-selector>
+    </lancie-section>
   </template>
   <script>
-    'use strict';
-    Polymer({
-      is: 'lancie-ticket-page'
-    });
+  'use strict';
+  Polymer({
+    is: 'lancie-ticket-page',
+    properties: {
+      order: {
+        type: Object,
+        observer: 'checkTickets'
+      },
+      hasNoTickets: {
+        type: Boolean,
+        value: true
+      },
+      availableTickets: {
+        type: Object,
+        value: []
+      }
+    },
+
+    attached: function() {
+      setTimeout(function() {
+        this.classList.add('active');
+      }.bind(this), 50);
+    },
+
+    payOrder: function() {
+      this.$.ajax.generateRequest();
+    },
+
+    _setLayout: function(medium) {
+      return "layout flex justified " + (medium ? "horizontal" : "vertical");
+    },
+
+    checkTickets: function(order) {
+      if (order && order.tickets && order.tickets.length !== 0) {
+        this.hasNoTickets = false;
+      } else {
+        this.hasNoTickets = true;
+      }
+    },
+
+    goToPayment: function(event, request) {
+      window.location.href = request.xhr.getResponseHeader('Location');
+    },
+
+    getOpenOrder: function(event, request) {
+      this.order = request.response;
+      console.log(this.order.amount);
+    },
+
+    loadTickets: function(event, request) {
+      this.availableTickets = request.response;
+    },
+
+    _color: function(index) {
+      var options = [
+        '#FF8A65',
+        '#4DD0E1',
+        '#E57373',
+        '#FFB74D',
+        '#64B5F6',
+        '#DCE775',
+        '#AED581',
+        '#81C784',
+        '#FFD54F',
+        '#FFF176',
+        '#4DB6AC',
+        '#E0E0E0',
+        '#4FC3F7',
+        '#90A4AE'
+      ];
+      return options[index];
+    },
+
+    _formatPrice: function(price) {
+      if (price % 1 == 0) {
+        return price + ",-";
+      } else {
+        return price.toFixed(2);
+      }
+    },
+  });
   </script>
 </dom-module>
