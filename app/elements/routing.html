@@ -26,6 +26,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   page('/my-area', function () {
     app.route = 'my-area';
   });
+  
+  page('*', function() {
+    app.route = '404';
+  });
 
   page('/ordersuccess', function() {
     app.route = 'order-success'
