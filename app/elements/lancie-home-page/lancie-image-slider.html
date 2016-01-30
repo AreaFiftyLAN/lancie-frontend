@@ -31,16 +31,10 @@
       </div>
 
       <div class="slider">
-        <iron-image preload fade src="https://areafiftylan.nl/photo/gallery-images/IMG_3358.JPG"
-          sizing="cover" hidden$="{{hide(current, 0)}}"></iron-image>
-        <iron-image preload fade src="https://areafiftylan.nl/photo/gallery-images/IMG_3533.JPG"
-          sizing="cover" hidden$="{{hide(current, 1)}}"></iron-image>
-        <iron-image preload fade src="https://areafiftylan.nl/photo/gallery-images/IMG_3646.JPG"
-          sizing="cover" hidden$="{{hide(current, 2)}}"></iron-image>
-        <iron-image preload fade src="https://areafiftylan.nl/photo/gallery-images/IMG_3691.JPG"
-          sizing="cover" hidden$="{{hide(current, 3)}}"></iron-image>
-        <iron-image preload fade src="https://areafiftylan.nl/photo/gallery-images/IMG_3008.JPG"
-          sizing="cover" hidden$="{{hide(current, 4)}}"></iron-image>
+        <template is="dom-repeat" items="{{images}}" index-as="index">
+          <iron-image preload fade src="images/slider/{{item}}"
+            sizing="cover" hidden$="{{hide(current, index)}}"></iron-image>
+        </template>
       </div>
 
     </div>
@@ -51,7 +45,11 @@
       is: 'lancie-image-slider',
       ready: function() {
         this.current = 0;
-        var numImages = this.querySelectorAll('.slider iron-image').length;
+        this.images = [1,2,3,4,5].map(function(i) {
+          return 'slider' + i + '.JPG';
+        });
+
+        var numImages = this.images.length;
         setInterval(function() {
           this.current++;
 
