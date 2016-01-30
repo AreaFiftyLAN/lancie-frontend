@@ -14,34 +14,22 @@
         width: 100%;
       }
 
-      lancie-sponsors-item {
-        margin: ;
-      }
-
       .head-sponsors {
         margin-right: 32px;
       }
 
-      .head-sponsors lancie-sponsor-item {
-        width: 100%;
-      }
-
-      .premium-sponsors lancie-sponsor-item,
-      .sponsors lancie-sponsor-item {
-        margin: 0 6px;
-      }
-
       .premium-sponsors lancie-sponsor-item {
-        width: calc(33% - 12px);
+        margin: 10px 6px;
       }
 
-      .sponsors lancie-sponsor-item {
-        width: calc(25% - 12px);
+      lancie-sponsor-item {
+        width: 100%;
+        max-width: 250px;
       }
     </style>
 
     <div id="grid" class="layout horizontal flex">
-      <div class="layout vertical flex-1 head-sponsors">
+      <div class="layout vertical flex head-sponsors">
         <h3>Presented by</h3>
         <lancie-sponsor-item sponsor='{
               "href": "https://ch.tudelft.nl",
@@ -54,9 +42,9 @@
               "logo": "https://areafiftylan.nl/images/logos/sponsors/logo_SC.png"
             }'></lancie-sponsor-item>
       </div>
-      <div class="layout vertical flex-3">
+      <div class="layout vertical flex">
         <h3>Premium sponsors</h3>
-        <div class="layout horizontal wrap premium-sponsors">
+        <div class="layout vertical wrap premium-sponsors">
           <lancie-sponsor-item sponsor='{
               "href": "https://ch.tudelft.nl",
               "logo": "/images/logos/Innovattic_Logo.svg"
