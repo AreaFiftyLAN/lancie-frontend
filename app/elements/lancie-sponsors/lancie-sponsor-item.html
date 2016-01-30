@@ -31,18 +31,19 @@ This code may only be used under the BSD style license found at https://github.c
         width: 100%;
       }
 
-      a {
+      div {
         position: absolute;
         top: 0;
         bottom: 0;
         right: 0;
         left: 0;
+        cursor: pointer;
       }
     </style>
 
-    <a href="{{sponsor.href}}">
-      <iron-image src="{{sponsor.logo}}" preload sizing="contain"></iron-image>
-    </a>
+    <div on-tap="go">
+      <iron-image src="{{sponsor.logo}}" sizing="contain"></iron-image>
+    </div>
   </template>
   <script>
     (function() {
@@ -53,13 +54,12 @@ This code may only be used under the BSD style license found at https://github.c
 
         properties: {
           sponsor: {
-            type: Object,
-            value: {
-              href: "https://google.com",
-              logo: "/images/logos/pbt.jpg"
-            },
-            notify: true
+            type: Object
           }
+        },
+
+        go: function() {
+          window.location = this.sponsor.href;
         }
       });
     })();
