@@ -10,32 +10,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <script src="../../bower_components/page/page.js"></script>
 <script>
-  window.addEventListener('WebComponentsReady', function() {
+'use strict';
+  // We use Page.js for routing. This is a Micro
+  // client-side router inspired by the Express router
+  // More info: https://visionmedia.github.io/page.js/
+  page('/', function () {
+    app.route = 'home';
+  });
 
-    // We use Page.js for routing. This is a Micro
-    // client-side router inspired by the Express router
-    // More info: https://visionmedia.github.io/page.js/
-    page('/', function () {
-      app.route = 'home';
-    });
+  page('/tickets', function () {
+    app.route = 'tickets';
+  });
 
-    page('/tickets', function () {
-      app.route = 'tickets';
-    });
+  page('/my-area', function () {
+    app.route = 'my-area';
+  });
 
-    page('/my-area', function () {
-      app.route = 'my-area';
-    });
-
-    page('/users/:name', function (data) {
-      app.route = 'user-info';
-      app.params = data.params;
-    });
-
-    // add #! before urls
-    page({
-      hashbang: true
-    });
-
+  // add #! before urls
+  page({
+    hashbang: true
   });
 </script>
