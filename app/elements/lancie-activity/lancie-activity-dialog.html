@@ -1,0 +1,153 @@
+<!--
+@license
+Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
+This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
+-->
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<link rel="import" href="/bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="/bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="/bower_components/iron-image/iron-image.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+
+<link rel="import" href="/bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="/bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="/bower_components/paper-material/paper-material.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="/bower_components/neon-animation/neon-animations.html">
+
+<link rel="import" href="lancie-activity-content.html">
+<link rel="import" href="lancie-activity-sponsor.html">
+
+<dom-module id="lancie-activity-dialog">
+  <!-- <link rel="import" type="css" href="dist/css/lancie-dialog-element.css"/> -->
+  <style>
+    paper-dialog.small-dialog {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: 0;
+    }
+    paper-dialog.small-dialog paper-dialog-scrollable ::shadow #scrollable {
+      height: calc(100vh);
+    }
+    .action-dialog-header {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      height: 120px;
+      background-position: 50% 25%;
+      background-size: 100% auto;
+    }
+    .action-dialog-header iron-image {
+      position: absolute;
+      display: block;
+      height: 120px;
+      width: 100%;
+    }
+    .action-dialog-header .header-text {
+      position: relative;
+      z-index: 10;
+      padding: 12px 24px;
+      color: #ffffff;
+      font-weight: 300;
+      font-size: 150%;
+      background-color: #0077aa;
+    }
+    paper-dialog-scrollable {
+      width: 100%;
+      max-width: 850px;
+      height: 350px;
+    }
+    paper-dialog-scrollable ::shadow #scrollable {
+      height: 100%;
+    }
+    lancie-activity-sponsor {
+      width: 35%;
+    }
+    lancie-activity-content {
+      width: 60%;
+      margin-right: 5%;
+    }
+    paper-dialog.small-dialog lancie-activity-sponsor,
+    paper-dialog.small-dialog lancie-activity-content {
+      width: 100%;
+    }
+  </style>
+
+  <template>
+    <iron-media-query query="(max-width: 600px)" query-matches="{{queryMatches}}"></iron-media-query>
+
+    <div id="popup-button" on-tap="openDialog">
+      <content></content>
+    </div>
+    <paper-dialog class$="{{_dialogClass(queryMatches, data.sponsor)}}" id="lancieDialog"
+      entry-animation="scale-up-animation" exit-animation="fade-out-animation"
+      with-backdrop>
+      <div class="action-dialog-header">
+        <iron-image sizing="cover" preload src="{{data.backgroundImagePath}}"></iron-image>
+        <div class="header-text horizontal justified layout center">
+          <div><strong>{{data.sponsor.name}}</strong> <span>{{data.headerTitle}}</span></div>
+          <paper-icon-button icon="close" on-tap="closeDialog"></paper-icon-button>
+        </div>
+      </div>
+      <paper-dialog-scrollable>
+        <div class$="{{_contentClass(queryMatches)}}">
+          <lancie-activity-content data="{{data}}"></lancie-activity-content>
+          <lancie-activity-sponsor sponsor="{{data.sponsor}}" prizes="{{data.prizes}}"></lancie-activity-sponsor>
+        </div>
+      </paper-dialog-scrollable>
+    </paper-dialog>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'lancie-activity-dialog',
+      properties: {
+        data: {
+          type: Object,
+          value: {},
+          notify: true
+        }
+      },
+
+      /**
+       * Opens the paper-dialog
+       * @return {void}
+       */
+      openDialog: function() {
+        this.$.lancieDialog.open();
+      },
+
+      /**
+       * Closes the paper-dialog
+       * @return {void}
+       */
+      closeDialog: function() {
+        this.$.lancieDialog.close();
+      },
+
+      /**
+       * Defines the class for the paper-dialog
+       * @param  {boolean} mediaQuery Boolean from the media-query (max-width: 600px)
+       * @param  {Object}  sponsor    Sponsor object
+       * @return {String}             String of the class for the paper-dialog
+       */
+      _dialogClass: function(mediaQuery, sponsor) {
+        return (mediaQuery ? "small-dialog " : "large-dialog ") + (sponsor ? "sponsor" : "no-sponsor");
+      },
+
+      /**
+       * Defines the class for the content of the paper-dialog
+       * @param  {boolean} mediaQuery Boolean from the media-query (max-width: 600px)
+       * @return {String}             String of the class for the content of the paper-dialog
+       */
+      _contentClass: function(mediaQuery) {
+        return "action-dialog-header layout start flex " + (mediaQuery ? "vertical" : "horizontal");
+      }
+    });
+  </script>
+</dom-module>

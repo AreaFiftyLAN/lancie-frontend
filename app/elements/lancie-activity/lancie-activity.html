@@ -1,0 +1,36 @@
+<!--
+@license
+Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
+This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
+-->
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<link rel="import" href="lancie-activity-button.html"/>
+<link rel="import" href="lancie-activity-dialog.html"/>
+
+<dom-module id="lancie-activity">
+  <template>
+    <style>
+      :host {
+          display: block;
+      }
+    </style>
+
+    <lancie-activity-dialog data="{{data}}">
+      <lancie-activity-button data="{{data}}"></lancie-activity-button>
+    </lancie-activity-dialog>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'lancie-activity',
+      properties: {
+        data: {
+          type: Object,
+          value: {},
+          notify: true
+        }
+      }
+    });
+  </script>
+</dom-module>

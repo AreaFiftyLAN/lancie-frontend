@@ -1,6 +1,3 @@
-[submodule "app/elements/lancie-activity"]
-	path = app/elements/lancie-activity
-	url = git@github.com:AreaFiftyLAN/lancie-activity-element.git
 [submodule "app/elements/lancie-section"]
 	path = app/elements/lancie-section
 	url = git@github.com:AreaFiftyLAN/lancie-section-element.git
