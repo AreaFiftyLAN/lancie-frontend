@@ -126,9 +126,8 @@ gulp.task('images', function() {
 gulp.task('copy', function() {
   var app = gulp.src([
     'app/*',
-    '!app/elements.html',
-    '!app/test',
     '!app/elements',
+    '!app/test',
     '!app/bower_components',
     '!app/cache-config.json',
     '!**/.DS_Store'
@@ -139,10 +138,15 @@ gulp.task('copy', function() {
   // Copy over only the bower_components we need
   // These are things which cannot be vulcanized
   var bower = gulp.src([
-    'app/bower_components/**/*'
+    'app/bower_components/{moment,font-awesome,webcomponentsjs,platinum-sw,sw-toolbox,promise-polyfill}/**/*'
   ]).pipe(gulp.dest(dist('bower_components')));
 
-  return merge(app, bower)
+  var scripts = gulp.src([
+    'app/scripts/*.md',
+    'app/scripts/*.json'
+  ]).pipe(gulp.dest(dist('scripts')));
+
+  return merge(app, bower, scripts)
     .pipe(load.size({title: 'copy'}));
 });
 
@@ -162,13 +166,13 @@ gulp.task('html', function() {
 
 // Vulcanize granular configuration
 gulp.task('vulcanize', function() {
-  return gulp.src('app/elements.html')
+  return gulp.src('app/elements/elements.html')
     .pipe(load.vulcanize({
       stripComments: true,
       inlineCss: true,
       inlineScripts: true
     }))
-    .pipe(gulp.dest(dist()))
+    .pipe(gulp.dest(dist('elements')))
     .pipe(load.size({title: 'vulcanize'}));
 });
 
@@ -213,7 +217,7 @@ gulp.task('clean', function() {
   return del(['.tmp', dist()]);
 });
 
-var serve = function() {
+var serve = function(baseDir) {
   var proxyOptions = url.parse('http://localhost:9000/api/');
   proxyOptions.route = '/api';
 
@@ -234,18 +238,15 @@ var serve = function() {
     //       will present a certificate warning in the browser.
     // https: true,
     server: {
-      baseDir: ['.tmp', 'app'],
-      middleware: [proxy(proxyOptions)],
-      routes: {
-        '/bower_components': 'bower_components'
-      }
+      baseDir: baseDir,
+      middleware: [proxy(proxyOptions)]
     }
   });
 };
 
 // Watch Files For Changes & Reload
 gulp.task('serve', ['styles', 'elements', 'images'], function () {
-  serve();
+  serve(['.tmp', 'app']);
 
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.css'], ['styles', reload]);
@@ -256,7 +257,7 @@ gulp.task('serve', ['styles', 'elements', 'images'], function () {
 
 // Build and serve the output from the dist build
 gulp.task('serve:dist', ['default'], function() {
-  serve();
+  serve(['dist']);
 
   gulp.watch(['app/**/*.html'], ['default', reload]);
   gulp.watch(['app/styles/**/*.css'], ['default', reload]);

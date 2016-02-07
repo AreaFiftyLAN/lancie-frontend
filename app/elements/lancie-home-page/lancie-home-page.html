@@ -105,7 +105,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <lancie-section type="secondary" title="Organize your own tournament!">
       <iron-ajax
          auto
-         url="markdown.md"
+         url="{{markdownUrl}}"
          handle-as="text"
          last-response="{{markdown}}"></iron-ajax>
       <marked-element markdown="{{markdown}}">
@@ -134,6 +134,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     properties: {
       opened: {
         type: Boolean
+      },
+      markdownUrl: {
+        type: String,
+        value: 'scripts/markdown.md'
       }
     }
   });
