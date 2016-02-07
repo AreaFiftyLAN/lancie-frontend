@@ -7,8 +7,36 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-(function(document) {
-  'use strict';
+(function(document, window) {
+'use strict';
+
+  function lazyLoadWCPolyfillsIfNecessary() {
+    var onload = function() {
+      // For native Imports, manually fire WCR so user code
+      // can use the same code path for native and polyfill'd imports.
+      if (!window.HTMLImports) {
+        document.dispatchEvent(
+            new CustomEvent('WebComponentsReady', {bubbles: true}));
+      }
+    };
+
+    var webComponentsSupported = (
+      'registerElement' in document &&
+        'import' in document.createElement('link') &&
+        'content' in document.createElement('template'));
+
+    if (!webComponentsSupported) {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'webcomponentsjs/webcomponents-lite.min.js';
+      script.onload = onload;
+      document.head.appendChild(script);
+    } else {
+      onload();
+    }
+  }
+
+  lazyLoadWCPolyfillsIfNecessary();
 
   // Grab a reference to our auto-binding template
   // and give it some initial binding values
@@ -22,5 +50,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       drawerPanel.closeDrawer();
     }
   };
-
-})(document);
+})(document, window);
