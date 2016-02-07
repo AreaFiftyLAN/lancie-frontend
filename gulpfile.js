@@ -255,7 +255,14 @@ gulp.task('serve', ['styles', 'elements', 'images'], function () {
 });
 
 // Build and serve the output from the dist build
-gulp.task('serve:dist', ['default'], serve);
+gulp.task('serve:dist', ['default'], function() {
+  serve();
+
+  gulp.watch(['app/**/*.html'], ['default', reload]);
+  gulp.watch(['app/styles/**/*.css'], ['default', reload]);
+  gulp.watch(['app/elements/**/*.css'], ['default', reload]);
+  gulp.watch(['app/images/**/*'], reload);
+});
 
 // Build production files, the default task
 gulp.task('default', ['clean'], function(cb) {

@@ -6,12 +6,13 @@
       :host {
         display: block;
         width: 100%;
+        height: 500px;
       }
 
       .slider iron-image {
         width: 100%;
         height: 500px;
-        background-color: lightgray;
+        background-color: #1a2b43;
       }
 
       .overlay {
@@ -34,7 +35,7 @@
 
       <div class="slider">
         <template is="dom-repeat" items="{{images}}" index-as="index">
-          <iron-image preload fade src="images/slider/{{item}}"
+          <iron-image preload fade src="{{item}}"
             sizing="cover" hidden$="{{hide(current, index)}}"></iron-image>
         </template>
       </div>
@@ -48,7 +49,7 @@
       ready: function() {
         this.current = 0;
         this.images = [1,2,3,4,5].map(function(i) {
-          return 'slider' + i + '.JPG';
+          return 'images/slider/slider' + i + '.JPG';
         });
 
         var numImages = this.images.length;
