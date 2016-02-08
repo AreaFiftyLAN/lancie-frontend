@@ -4,10 +4,10 @@
     "subtitle": "2 v 2",
     "headerTitle": "Rocket League",
     "description": "Rocket League is a physics-based vehicle soccer video game developed and published by Psyonix. Players control a rocket-powered car and use it to hit a ball that is much larger than the cars towards the other team's goal area to score points, in a way that resembles a soccer game. Players can also jump and use speed-boosts in order to create sick plays and score more goals.",
-    "backgroundImagePath": "/elements/lancie-activity/demo/images/rl.jpg",
+    "backgroundImagePath": "images/activities/rl.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "/elements/lancie-activity/demo/images/rl_logo.png",
+      "imagePath": "images/activities/rl_logo.png",
       "website": "http://rocketleague.psyonix.com/"
     },
     "prizes": [
@@ -40,10 +40,10 @@
     "subtitle": "5 v 5",
     "headerTitle": "League of Legends",
     "description": "League of Legends (LoL) is a 2009 multiplayer online battle arena game developed and published by Riot Games. It is a free-to-play game that is inspired by the mod Defense of the Ancients for the video game Warcraft III: The Frozen Throne. In League of Legends, players assume the role of a character, called a champion, with unique abilities, battling with a team against other player-controlled champions. In the most popular game modes, each team's goal is to destroy the opposing team's nexus, a building which lies at the heart of a base protected by defensive structures.",
-    "backgroundImagePath": "/elements/lancie-activity/demo/images/lol.jpg",
+    "backgroundImagePath": "images/activities/lol.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "/elements/lancie-activity/demo/images/lol_logo.png",
+      "imagePath": "images/activities/lol_logo.png",
       "website": "http://euw.leagueoflegends.com/"
     },
     "prizes": [
@@ -76,10 +76,10 @@
     "subtitle": "5 v 5",
     "headerTitle": "Counter Strike: Global Offensive",
     "description": "Counter-Strike: Global Offensive (CS:GO) is a tactical first-person shooter developed by Valve Corporation and Hidden Path Entertainment. It is the fourth game in the main Counter-Strike franchise. Like the previous games in the series, Global Offensive is an objective-based multiplayer first-person shooter. Each player joins either the Terrorist or Counter-Terrorist team and attempts to complete objectives or eliminate the enemy team. The game operates in short rounds that end when all players on one side are dead or a teams objective is completed",
-    "backgroundImagePath": "/elements/lancie-activity/demo/images/csgo.jpg",
+    "backgroundImagePath": "images/activities/csgo.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "/elements/lancie-activity/demo/images/csgo_logo.png",
+      "imagePath": "images/activities/csgo_logo.png",
       "website": "http://blog.counter-strike.net/"
     },
     "prizes": [
@@ -112,10 +112,10 @@
     "subtitle": "1 v 1",
     "headerTitle": "Hearthstone: Heroes of Warcraft",
     "description": "Hearthstone is a digital collectible card game that revolves around turn-based matches between two opponents. Players start the game with a substantial collection of 'basic' cards, but can gain rarer and more powerful cards through purchasing packs of cards, or as reward for competing in the Arena. Hearthstone is set within the Warcraft universe, with its characters, cards and locations drawing from existing lore.",
-    "backgroundImagePath": "/elements/lancie-activity/demo/images/hs.jpg",
+    "backgroundImagePath": "images/activities/hs.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "/elements/lancie-activity/demo/images/hs_logo.png",
+      "imagePath": "images/activities/hs_logo.png",
       "website": "http://eu.battle.net/hearthstone/en/"
     },
     "prizes": [

@@ -1,8 +1,13 @@
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+
 <dom-module id="lancie-header">
   <template>
     <style>
       :host {
         display: block;
+        height: 64px;
+        color: #ffe574;
+        padding: 16px 32px 0 0;
       }
 
       paper-menu {
@@ -21,16 +26,16 @@
       }
 
     </style>
-    <paper-menu attr-for-selected="data-route" selected="[[route]]">
+    <paper-menu attr-for-selected="data-route" selected="{{route}}">
       <a data-route="home" href="{{baseUrl}}/">
         <span>Home</span>
       </a>
 
-      <a data-route="users" href="{{baseUrl}}my-area">
+      <a data-route="users" href="{{baseUrl}}/my-area">
         <span>My Area</span>
       </a>
 
-      <a data-route="contact" href="{{baseUrl}}tickets">
+      <a data-route="contact" href="{{baseUrl}}/tickets">
         <span>Tickets</span>
       </a>
     </paper-menu>

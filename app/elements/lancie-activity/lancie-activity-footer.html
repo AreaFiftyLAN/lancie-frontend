@@ -1,0 +1,91 @@
+<!--
+@license
+Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
+This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+
+<dom-module id="lancie-activity-footer">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: absolute;
+        top: 75%;
+      }
+      .footer {
+        height: 100%;
+        background-color: rgba(26, 42, 67, 0.9);
+      }
+      ul {
+        margin: 0;
+        padding: 2% 3% 2%;
+        list-style: none;
+        overflow: hidden;
+        font-size: 0.75em;
+        line-height: 1.4em;
+        color: #ffffff;
+        display: inline-block;
+      }
+      li {
+        display: inline-block;
+        width: 100%;
+      }
+      li .info, li .label {
+        display: inline-block;
+        width: calc(50% - 2px);
+      }
+      li .label {
+        font-weight: bold;
+      }
+      li .info {
+        text-align: right;
+      }
+    </style>
+
+    <div class="footer layout vertical center-center">
+      <ul>
+        <li>
+          <span class="label">Starting time</span>
+          <span class="info">{{_parseTime(data.startingDateTime)}}</span>
+        </li>
+        <li>
+          <span class="label">Platform</span>
+
+          <div class="info">
+            <template is="dom-repeat" items="{{data.platform}}">
+              <span>{{item}}</span>
+            </template>
+          </div>
+        </li>
+        <li>
+          <span class="label">Sponsor</span>
+          <span class="info">{{data.sponsor.name}}</span>
+        </li>
+      </ul>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'lancie-activity-footer',
+      properties: {
+        data: {
+          type: Object,
+          value: {},
+          notify: true
+        }
+      },
+      _parseTime: function(dateTime) {
+        return moment(
+          dateTime.dayOfMonth + "-" +
+          dateTime.monthValue + "-" +
+          dateTime.year + " " +
+          dateTime.hour + ":" +
+          dateTime.minute, "DD-MM-YYYY hh:mm"
+        ).format("DD MMM HH:mm");
+      }
+    });
+  </script>
+</dom-module>

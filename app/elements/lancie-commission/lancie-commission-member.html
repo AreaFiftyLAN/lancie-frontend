@@ -1,0 +1,81 @@
+<dom-module id="lancie-commission-member">
+  <template>
+    <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css"/>
+    <style>
+      :host {
+        margin: 5px;
+      }
+
+      .small-device {
+        width: calc(100% - 10px);
+      }
+
+      .number {
+        background-color: #1a2a43;
+        color: #ffe574;
+        text-align: center;
+        width: 57px;
+      }
+
+      .number i {
+        font-size: 30px;
+        line-height: 57px;
+      }
+
+      .member-desc {
+        padding: 5px 10px;
+      }
+
+      h2, h3 {
+        margin: 0;
+      }
+
+      h2 {
+        font-weight: 300;
+        font-size: 19px;
+      }
+
+      h3 {
+        font-size: 14px;
+        line-height: 1em;
+        font-weight: 100;
+      }
+    }
+    </style>
+
+    <iron-media-query query="max-width: 530px" query-matches="{{small}}"></iron-media-query>
+    <paper-material elevation="1" class$="{{_computeClass(small)}}">
+        <div class="number layout">
+            <i class$="{{_getIcon(commissioner)}}"></i>
+        </div>
+        <div class="member-desc layout flex self-center">
+            <h2>{{commissioner.name}}</h2>
+            <h3>{{commissioner.function}}</h3>
+        </div>
+    </paper-material>
+  </template>
+  <script>
+    Polymer({
+      is: 'lancie-commission-member',
+      properties: {
+        commissioner: {
+          type: Object
+        }
+      },
+
+      _computeClass: function(small) {
+        var clazz = 'layout horizontal commission-member stretch ';
+
+        if (small) {
+          clazz += 'small-device';
+        }
+
+        return clazz;
+      },
+
+      _getIcon: function(data) {
+        return 'fa fa-' + data.icon;
+      }
+    });
+  </script>
+</dom-module>

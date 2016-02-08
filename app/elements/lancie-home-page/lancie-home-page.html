@@ -9,6 +9,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+<link rel="import" href="../../bower_components/google-map/google-map.html">
+<link rel="import" href="../../bower_components/google-map/google-map-marker.html">
+<link rel="import" href="../lancie-section/lancie-section.html">
+<link rel="import" href="../lancie-activity/lancie-activities.html">
+<link rel="import" href="../lancie-commission/lancie-commission.html">
+<link rel="import" href="lancie-image-slider.html">
 
 <dom-module id="lancie-home-page">
   <style>
@@ -35,7 +43,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
   </style>
   <template>
-    <lancie-section type="primary full no-padding">
+    <lancie-section type="secondary full no-padding">
       <lancie-image-slider></lancie-image-slider>
     </lancie-section>
 
@@ -97,7 +105,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <lancie-section type="secondary" title="Organize your own tournament!">
       <iron-ajax
          auto
-         url="markdown.md"
+         url="{{markdownUrl}}"
          handle-as="text"
          last-response="{{markdown}}"></iron-ajax>
       <marked-element markdown="{{markdown}}">
@@ -126,6 +134,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     properties: {
       opened: {
         type: Boolean
+      },
+      markdownUrl: {
+        type: String,
+        value: 'scripts/markdown.md'
       }
     }
   });

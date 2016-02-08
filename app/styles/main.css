@@ -12,16 +12,18 @@ body {
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #333;
   background-color: #eeecec;
+  margin: 0;
 }
 
-iron-pages {
-  min-height: calc(100vh - /*Height of footer*/ 268px - /*Height of top bar*/ 64px);
-  padding: 0;
+paper-header-panel {
+  display: block;
+  width: 100%;
 }
 
 paper-toolbar {
+  display: block;
+  width: 100%;
   background-color: #1a2b43;
-  padding: 0 32px;
   height: 64px;
 }
 
@@ -30,7 +32,12 @@ paper-tabs {
   font-weight: 200;
 }
 
+lancie-content {
+  min-height: calc(100vh - /*Height of footer*/ 268px - /*Height of top bar*/ 64px);
+}
+
 #toolbar-header {
   height: 40px;
   width: 200px;
+  margin-left: 16px;
 }
