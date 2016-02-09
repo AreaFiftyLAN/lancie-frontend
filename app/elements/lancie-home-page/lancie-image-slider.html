@@ -10,9 +10,22 @@
       }
 
       .slider iron-image {
+        position: absolute;
         width: 100%;
         height: 500px;
         background-color: #1a2b43;
+        -webkit-transition: opacity 1s ease-in-out;
+        -moz-transition: opacity 1s ease-in-out;
+        -o-transition: opacity 1s ease-in-out;
+        transition: opacity 1s ease-in-out;
+      }
+
+      .hidden {
+        opacity: 0;
+      }
+
+      .shown {
+        opacity: 1;
       }
 
       .overlay {
@@ -36,7 +49,7 @@
       <div class="slider">
         <template is="dom-repeat" items="{{images}}" index-as="index">
           <iron-image preload fade src="{{item}}"
-            sizing="cover" hidden$="{{hide(current, index)}}"></iron-image>
+            sizing="cover" class$="{{hide(current, index)}}"></iron-image>
         </template>
       </div>
 
@@ -62,7 +75,7 @@
         }.bind(this), 5000);
       },
       hide: function(current, i) {
-        return current !== i;
+        return current !== i ? 'hidden' : 'shown';
       }
     });
   </script>
