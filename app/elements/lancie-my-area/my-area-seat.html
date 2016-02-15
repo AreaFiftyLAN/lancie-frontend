@@ -1,0 +1,36 @@
+<dom-module id="my-area-seat">
+  <template>
+    <style>
+    :host {
+      display: block;
+    }
+    
+    paper-card {
+      width: 100%;
+    }
+
+    paper-tooltip {
+      --paper-tooltip-background: #1A2B43;
+      --paper-tooltip-text-color: #FEE474;
+    }
+
+    </style>
+    <paper-card heading="Seat" elevation="1" animated-shadow="true">
+        <div class="card-content">
+          Seat reservation will become available soon.
+        </div>
+        <div class="card-actions">
+          <paper-icon-button icon="icons:event-seat" id="reserve-seat" disabled></paper-icon-button>
+          <paper-tooltip for="reserve-seat" offset="0" animation-delay="1">Reserve a seat</paper-tooltip>
+        </div>
+      </paper-card>
+  </template>
+  <script>
+  Polymer({
+    is: 'my-area-seat',
+    properties: {
+      
+    }
+  });
+  </script>
+</dom-module>
