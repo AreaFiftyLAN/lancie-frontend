@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">`
 
 <dom-module id="lancie-ticket-block">
   <link rel="import" type="css" href="lancie-ticket-block.css">
@@ -82,9 +83,9 @@
 
         _formatPrice: function(price) {
           if (price % 1 == 0) {
-            return price + ",-";
+            return Math.abs(price) + ",-";
           } else {
-            return price.toFixed(2);
+            return Math.abs(price).toFixed(2);
           }
         },
 
