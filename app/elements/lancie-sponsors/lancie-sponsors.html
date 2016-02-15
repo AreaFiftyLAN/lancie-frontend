@@ -16,6 +16,7 @@
 
       .head-sponsors {
         margin-right: 32px;
+        min-width: 200px;
       }
 
       .premium-sponsors lancie-sponsor-item {
@@ -28,31 +29,25 @@
       }
     </style>
 
-    <div id="grid" class="layout horizontal flex">
-      <div class="layout vertical flex head-sponsors">
+    <div id="grid" class="layout horizontal wrap flex">
+      <div class="layout vertical flex-1 head-sponsors">
         <h3>Presented by</h3>
         <lancie-sponsor-item sponsor='{
               "href": "https://ch.tudelft.nl",
               "logo": "https://areafiftylan.nl/images/logos/lancie/logo_CH.png"
             }'></lancie-sponsor-item>
-
-        <h3>In cooperation with</h3>
-        <lancie-sponsor-item sponsor='{
-              "href": "https://ch.tudelft.nl",
-              "logo": "https://areafiftylan.nl/images/logos/sponsors/logo_SC.png"
-            }'></lancie-sponsor-item>
       </div>
-      <div class="layout vertical flex">
+      <div class="layout vertical flex-4">
         <h3>Premium sponsors</h3>
-        <div class="layout vertical wrap premium-sponsors">
+        <div class="layout horizontal wrap premium-sponsors">
           <lancie-sponsor-item sponsor='{
-              "href": "https://ch.tudelft.nl",
-              "logo": "/images/logos/Innovattic_Logo.svg"
-            }'></lancie-sponsor-item>
+            "href": "https://ch.tudelft.nl",
+            "logo": "/images/logos/Innovattic_Logo.svg"
+          }'></lancie-sponsor-item>
           <lancie-sponsor-item sponsor='{
-              "href": "https://ch.tudelft.nl",
-              "logo": "/images/logos/Keylane_Logo.svg"
-            }'></lancie-sponsor-item>
+            "href": "https://ch.tudelft.nl",
+            "logo": "/images/logos/Keylane_Logo.svg"
+          }'></lancie-sponsor-item>
           <lancie-sponsor-item sponsor='{
               "href": "https://ch.tudelft.nl",
               "logo": "/images/logos/Topicus_Logo.svg"
