@@ -1,0 +1,69 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
+<link rel="import" href="../../bower_components/paper-styles/shadow.html">
+
+<link rel="import" href="lancie-sponsor-item.html">
+
+
+<dom-module id="lancie-sponsors">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+      }
+
+      .head-sponsors {
+        margin-right: 32px;
+        min-width: 200px;
+      }
+
+      .premium-sponsors lancie-sponsor-item {
+        margin: 10px 6px;
+      }
+
+      lancie-sponsor-item {
+        width: 100%;
+        max-width: 250px;
+      }
+    </style>
+
+    <div id="grid" class="layout horizontal wrap flex">
+      <div class="layout vertical flex-1 head-sponsors">
+        <h3>Presented by</h3>
+        <lancie-sponsor-item sponsor='{
+              "href": "https://ch.tudelft.nl",
+              "logo": "https://areafiftylan.nl/images/logos/lancie/logo_CH.png"
+            }'></lancie-sponsor-item>
+      </div>
+      <div class="layout vertical flex-4">
+        <h3>Premium sponsors</h3>
+        <div class="layout horizontal wrap premium-sponsors">
+          <lancie-sponsor-item sponsor='{
+            "href": "https://ch.tudelft.nl",
+            "logo": "/images/logos/Innovattic_Logo.svg"
+          }'></lancie-sponsor-item>
+          <lancie-sponsor-item sponsor='{
+            "href": "https://ch.tudelft.nl",
+            "logo": "/images/logos/Keylane_Logo.svg"
+          }'></lancie-sponsor-item>
+          <lancie-sponsor-item sponsor='{
+              "href": "https://ch.tudelft.nl",
+              "logo": "/images/logos/Topicus_Logo.svg"
+            }'></lancie-sponsor-item>
+        </div>
+      </div>
+    </div>
+
+  </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'lancie-sponsors',
+      });
+    })();
+  </script>
+</dom-module>
