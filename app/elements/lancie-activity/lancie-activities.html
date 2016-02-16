@@ -21,6 +21,13 @@ This code may only be used under the BSD style license found at https://github.c
       lancie-activity {
         padding: 20px 10px;
         box-sizing: border-box;
+        width: 25%;
+      }
+
+      @media (max-width: 750px) {
+        lancie-activity {
+          width: 50%;
+        }
       }
     </style>
 
@@ -28,7 +35,7 @@ This code may only be used under the BSD style license found at https://github.c
 
     <div id="container" class="layout horizontal wrap start-justified">
       <template is="dom-repeat" items="[[activities]]" as="activity">
-        <lancie-activity class="lancie-block" data="{{activity}}" style$="{{_calcWidth()}}"></lancie-activity>
+        <lancie-activity class="lancie-block" data="{{activity}}"></lancie-activity>
       </template>
     </div>
 
@@ -50,14 +57,6 @@ This code may only be used under the BSD style license found at https://github.c
         json: {
           notify: true
         }
-      },
-      /**
-       * Calc width of the lancie-activity blocks depending on the client width
-       * @return {String} CSS Width syntax
-       */
-      _calcWidth: function() {
-        var width = 100 / Math.ceil(this.$.container.clientWidth / 280);
-        return "width: " + width + "%";
       }
     });
   </script>
