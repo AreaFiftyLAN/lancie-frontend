@@ -24,6 +24,8 @@ var packageJson = require('./package.json');
 var crypto = require('crypto');
 var url = require('url');
 var proxy = require('proxy-middleware');
+var polybuild = require('polybuild');
+var jsonminify = require('gulp-jsonminify');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -141,12 +143,15 @@ gulp.task('copy', function() {
     'app/bower_components/{moment,font-awesome,webcomponentsjs,platinum-sw,sw-toolbox,promise-polyfill}/**/*'
   ]).pipe(gulp.dest(dist('bower_components')));
 
-  var scripts = gulp.src([
-    'app/scripts/*.md',
-    'app/scripts/*.json'
+  var markdown = gulp.src([
+    'app/scripts/*.md'
   ]).pipe(gulp.dest(dist('scripts')));
 
-  return merge(app, bower, scripts)
+  var scripts = gulp.src(['app/scripts/*.json'])
+    .pipe(jsonminify())
+    .pipe(gulp.dest(dist('scripts')));
+
+  return merge(app, bower, markdown, scripts)
     .pipe(load.size({title: 'copy'}));
 });
 
@@ -174,6 +179,20 @@ gulp.task('vulcanize', function() {
     }))
     .pipe(gulp.dest(dist('elements')))
     .pipe(load.size({title: 'vulcanize'}));
+});
+
+gulp.task('build', function() {
+  return gulp.src('app/index.html')
+  .pipe(polybuild({
+    maximumCrush: true,
+    suffix: ''
+  }))
+  .pipe(load.if('*.html', load.minifyHtml({
+    quotes: true,
+    empty: true,
+    spare: true
+  })))
+  .pipe(gulp.dest('dist/.'));
 });
 
 
@@ -271,7 +290,7 @@ gulp.task('default', ['clean'], function(cb) {
     ['copy', 'styles'],
     'elements',
     ['images', 'fonts', 'html'],
-    'vulcanize',
+    'build',
     cb);
 });
 
