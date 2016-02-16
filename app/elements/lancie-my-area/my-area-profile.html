@@ -1,5 +1,4 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
@@ -8,10 +7,8 @@
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
-
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
-
-
 <dom-module id="my-area-profile">
   <template>
     <style>
@@ -49,18 +46,8 @@
       padding: 0;
     }
     </style>
-
-    <lancie-ajax
-    id="ajaxUpdateProfile"
-    refurl="users/current/profile"
-    method="POST"
-    on-response="onProfileUpdate"></lancie-ajax>
-
-    <lancie-ajax
-    id="ajaxUpdatePassword"
-    refurl="users/current/password"
-    method="PUT"></lancie-ajax>
-
+    <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
+    <lancie-ajax id="ajaxUpdatePassword" refurl="users/current/password" method="PUT" on-response="onPasswordUpdate"></lancie-ajax>
     <paper-card elevation="1" animated-shadow="true">
       <div class="card-content">
         <div class="title">Profile</div>
@@ -116,12 +103,12 @@
             </paper-icon-item>
           </template>
           <hr>
-            <paper-icon-item>
-              <iron-icon icon="communication:email" item-icon></iron-icon>
-              <paper-item-body>
-                <div>{{user.email}}</div>
-              </paper-item-body>
-            </paper-icon-item>
+          <paper-icon-item>
+            <iron-icon icon="communication:email" item-icon></iron-icon>
+            <paper-item-body>
+              <div>{{user.email}}</div>
+            </paper-item-body>
+          </paper-icon-item>
           <hr>
           <template is="dom-if" if="{{!editingPassword}}">
             <paper-icon-item>
@@ -135,9 +122,9 @@
             <paper-icon-item>
               <iron-icon icon="icons:lock" item-icon></iron-icon>
               <paper-item-body>
-                <paper-input label="currentPassword" type="password"></paper-input>
-                <paper-input label="newPassword" type="password"></paper-input>
-                <paper-input label="newPasswordRepeat" type="password"></paper-input>
+                <paper-input label="Current Password" type="password" value="{{currentPassword}}"></paper-input>
+                <paper-input label="New Password" type="password" value="{{newPassword}}"></paper-input>
+                <paper-input id="passwordRepeatInput" error-message="Passwords don't match!" label="Repeat New Password" type="password" value="{{newPasswordRepeat}}"></paper-input>
               </paper-item-body>
             </paper-icon-item>
           </template>
@@ -159,6 +146,10 @@
         </div>
       </div>
     </paper-card>
+    <paper-toast id="profileUpdateSuccessToast" text="Profile succcesfully updated!" duration="3000"></paper-toast>
+    <paper-toast id="profileUpdateFailedToast" text="Something went wrong updating your profile" duration="3000"></paper-toast>
+    <paper-toast id="passwordUpdateSuccessToast" text="Password changed!" duration="3000"></paper-toast>
+    <paper-toast id="passwordUpdateFailedToast" text="Something went wrong changing your password" duration="3000"></paper-toast>
   </template>
   <script>
   (function() {
@@ -186,6 +177,10 @@
         this.editingProfile = !this.editingProfile;
       },
       switchPasswordForm: function() {
+        this.currentPassword = '';
+        this.newPassword = '';
+        this.newPasswordRepeat = '';
+
         this.editingPassword = !this.editingPassword;
       },
       resetForms: function() {
@@ -193,9 +188,7 @@
         this.editingPassword = false;
       },
       submitEdit: function() {
-        // this.user = this.editingUser;
-
-        if(this.editingProfile){
+        if (this.editingProfile) {
           this.$.ajaxUpdateProfile.body = {
             displayName: this.editingUser.profile.displayName,
             firstName: this.editingUser.profile.firstName,
@@ -210,23 +203,39 @@
           this.switchProfileForm();
         }
 
-        if(this.editingPassword){
-          this.ajaxUpdatePassword.$.body = {
-
+        if (this.editingPassword) {
+          if (this.newPassword === this.newPasswordRepeat) {
+            this.$.ajaxUpdatePassword.body = {
+              oldPassword: this.currentPassword,
+              newPassword: this.newPassword
+            }
+            this.$.ajaxUpdatePassword.generateRequest();
+            this.switchPasswordForm();
+          } else {
+            this.$$("#passwordRepeatInput").invalid = true;
           }
-          this.$.ajaxUpdatePassword.generateRequest();
-          this.switchPasswordForm();
         }
-
       },
-      onProfileUpdate: function(e, response){
-        console.log(response.status);
-        if(response.succeeded){
+      onProfileUpdate: function(e, response) {
+        if (response.succeeded) {
           this.user = this.editingUser;
           // load toast
+          this.$.profileUpdateSuccessToast.show();
         } else {
           console.log("Update profile failed");
+          this.editingUser = this.user;
           // load failed toast
+          this.$.profileUpdateFailedToast.show();
+        }
+      },
+      onPasswordUpdate: function(e, response) {
+        this.$$("#passwordRepeatInput").invalid = false;
+        
+        if (response.succeeded) {
+          // load toast
+          this.$.passwordUpdateSuccessToast.show();
+        } else {
+          this.$.passwordUpdateFailedToast.show();
         }
       },
       isEditing: function(editingProfile, editingPassword) {
