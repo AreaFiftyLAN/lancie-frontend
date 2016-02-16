@@ -56,6 +56,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       lancie-commission-member.small-device {
         width: calc(100% - 10px);
       }
+
+      @media (max-width: 600px) {
+        lancie-commission-member {
+          width: 100%;
+        }
+      }
     </style>
     <iron-media-query query="max-width: 950px" query-matches="{{small}}"></iron-media-query>
     <iron-media-query query="max-width: 600px" query-matches="{{small-device}}"></iron-media-query>
