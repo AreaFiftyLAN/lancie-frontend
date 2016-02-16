@@ -89,13 +89,13 @@
           }
         },
 
-        _ucfirst: function(string) {
-          if (typeof string == 'undefined') {
+        _ucfirst: function(str) {
+          if (!str || 0 === str.length) {
             return "No Name";
           }
-          var f = string.charAt(0)
+          var f = str.charAt(0)
                   .toUpperCase();
-          return f + string.substr(1);
+          return f + str.substr(1);
         },
 
         _computeStyle: function (color) {
