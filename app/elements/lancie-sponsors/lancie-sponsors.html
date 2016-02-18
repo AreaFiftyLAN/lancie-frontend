@@ -27,6 +27,18 @@
         width: 100%;
         max-width: 250px;
       }
+
+      .topicus {
+        margin-top: -33px !important;
+        max-width: 264px !important;
+      }
+
+      @media screen and (max-width: 1067px) {
+        .topicus {
+          margin-top: 10px !important;
+          max-width: 250px !important;
+        }
+      }
     </style>
 
     <div id="grid" class="layout horizontal wrap flex">
@@ -48,7 +60,7 @@
             "href": "http://www.keylane.com/nl/",
             "logo": "/images/logos/Keylane_Logo.svg"
           }'></lancie-sponsor-item>
-          <lancie-sponsor-item sponsor='{
+          <lancie-sponsor-item class="topicus" sponsor='{
               "href": "http://www.topicusfinance.nl/",
               "logo": "/images/logos/Topicus_Logo.svg"
             }'></lancie-sponsor-item>
