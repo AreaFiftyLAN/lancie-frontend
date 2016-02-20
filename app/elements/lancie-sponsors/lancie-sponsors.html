@@ -27,6 +27,18 @@
         width: 100%;
         max-width: 250px;
       }
+
+      .premium-sponsors lancie-sponsor-item.topicus {
+        margin-top: -33px;
+        max-width: 264px;
+      }
+
+      @media screen and (max-width: 1067px) {
+        .premium-sponsors lancie-sponsor-item.topicus {
+          margin-top: 10px;
+          max-width: 250px;
+        }
+      }
     </style>
 
     <div id="grid" class="layout horizontal wrap flex">
@@ -34,7 +46,7 @@
         <h3>Presented by</h3>
         <lancie-sponsor-item sponsor='{
               "href": "https://ch.tudelft.nl",
-              "logo": "https://areafiftylan.nl/images/logos/lancie/logo_CH.png"
+              "logo": "/images/logos/lancie/logo_CH.png"
             }'></lancie-sponsor-item>
       </div>
       <div class="layout vertical flex-4">
@@ -48,7 +60,7 @@
             "href": "http://www.keylane.com/nl/",
             "logo": "/images/logos/Keylane_Logo.svg"
           }'></lancie-sponsor-item>
-          <lancie-sponsor-item sponsor='{
+          <lancie-sponsor-item class="topicus" sponsor='{
               "href": "http://www.topicusfinance.nl/",
               "logo": "/images/logos/Topicus_Logo.svg"
             }'></lancie-sponsor-item>
