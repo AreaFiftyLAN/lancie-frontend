@@ -71,7 +71,7 @@
         text-transform: uppercase;
         letter-spacing: 10px;
         font-weight: 500;
-        margin-bottom: 32px;
+        margin-bottom: 64px;
       }
 
       .content .subtitle {
@@ -86,22 +86,65 @@
         text-transform: uppercase;
       }
 
-      .logo-frontpage {
-        position: relative !important;
-        background-color: transparent !important;
+      .content .logo-frontpage {
+        width: 1300px;
+        margin-left: -275px;
+        height: 209px;
+        background: url('/images/logos/lancie/logo_without_date.png') no-repeat;
+        background-position: 50% 39%;
+        background-size: 70%;
+      }
+
+      @media (max-width: 1000px) {
+        .content .logo-frontpage {
+          margin-left: 0;
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 750px) {
+        .content .date {
+          font-size: 56px;
+        }
       }
 
       @media (max-width: 600px) {
         :host {
-          height: 300px;
+          width: 100%;
         }
 
         .slider iron-image {
-          height: 300px;
+          width: 100%;
         }
 
         .overlay iron-image {
-          height: 300px;
+          width: 100%;
+        }
+
+        .content .date {
+          font-size: 40px;
+        }
+
+        .content .tickets {
+          font-size: 36px;
+        }
+      }
+
+      @media (max-width: 530px) {
+        .content .logo-frontpage {
+          background-size: 40%;
+        }
+
+        .content .date {
+          width: 200px;
+          margin: -70px 0 20px 275px;
+          font-size: 28px;
+        }
+
+        .content .tickets {
+          width: 300px;
+          margin: 11px 0 20px 225px;
+          font-size: 28px;
         }
       }
     </style>
@@ -109,8 +152,9 @@
       <div class="slider">
         <div class="overlay"></div>
         <div class="content layout vertical">
-          <iron-image preload fade sizing="contain" class="logo-frontpage"
-                      src="https://areafiftylan.nl/images/logos/lancie/logo_without_date.png"></iron-image>
+          <div class="logo-frontpage">
+            <!--<img class="logo-frontpage" src="https://areafiftylan.nl/images/logos/lancie/logo_without_date.png">-->
+          </div>
           <span class="date">3-4-5 JUNE 2016</span>
 
           <span class="tickets">Tickets available soon!</span>
