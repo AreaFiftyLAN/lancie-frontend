@@ -80,7 +80,6 @@ This code may only be used under the BSD style license found at https://github.c
 
     _onAnimationFinish: function() {
       if (!this.opened) {
-        this.style.display = '';
         this.fire('delete-ticket', {ticket: this.ticket});
       }
     },
