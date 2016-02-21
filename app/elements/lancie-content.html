@@ -4,6 +4,7 @@
 <link rel="import" href="lancie-login/lancie-login-check.html">
 <link rel="import" href="lancie-order-success.html">
 <link rel="import" href="lancie-order-failure.html">
+<link rel="import" href="lancie-404.html">
 
 <dom-module id="lancie-content">
   <template>
@@ -44,6 +45,10 @@
 
       <div data-route="order-failure">
         <lancie-order-failure></lancie-order-failure>
+      </div>
+
+      <div data-route="404">
+        <lancie-404></lancie-404>
       </div>
     </iron-pages>
   </template>
