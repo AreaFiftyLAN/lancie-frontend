@@ -2,6 +2,8 @@
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="lancie-login/lancie-ajax.html">
 <link rel="import" href="lancie-login/lancie-login-check.html">
+<link rel="import" href="lancie-order-success.html">
+<link rel="import" href="lancie-order-failure.html">
 
 <dom-module id="lancie-content">
   <template>
@@ -34,6 +36,14 @@
         <lancie-login-check user="{{user}}">
           <lancie-ticket-page></lancie-ticket-page>
         </lancie-login-check>
+      </div>
+
+      <div data-route="order-success">
+        <lancie-order-success></lancie-order-success>
+      </div>
+
+      <div data-route="order-failure">
+        <lancie-order-failure></lancie-order-failure>
       </div>
     </iron-pages>
   </template>
