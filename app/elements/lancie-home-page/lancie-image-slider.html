@@ -49,9 +49,7 @@
         position: absolute;
         z-index: 100;
         display: inline-block;
-        width: 750px;
-        left: calc(50% - 375px);
-        top: calc(50% - 210px);
+        width: 100vw;
         text-align: center;
       }
 
@@ -88,14 +86,18 @@
 
       .content .logo-frontpage {
         width: 1300px;
-        margin-left: -275px;
         height: 209px;
+        margin: auto;
         background: url('/images/logos/lancie/logo_without_date.png') no-repeat;
         background-position: 50% 39%;
-        background-size: 70%;
+        background-size: 80%;
       }
 
-      @media (max-width: 1000px) {
+      @media (max-width: 1300px) {
+        .content .date {
+          letter-spacing: 0px;
+        }
+
         .content .logo-frontpage {
           margin-left: 0;
           width: 100%;
@@ -131,19 +133,13 @@
       }
 
       @media (max-width: 530px) {
-        .content .logo-frontpage {
-          background-size: 40%;
-        }
-
         .content .date {
-          width: 200px;
-          margin: -70px 0 20px 275px;
+          margin: auto;
           font-size: 28px;
         }
 
         .content .tickets {
-          width: 300px;
-          margin: 11px 0 20px 225px;
+          margin: 64px auto auto;
           font-size: 28px;
         }
       }
