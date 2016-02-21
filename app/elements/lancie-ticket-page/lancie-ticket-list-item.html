@@ -29,7 +29,8 @@ This code may only be used under the BSD style license found at https://github.c
       <paper-item-body two-line>
         <div>[[ticket.text]]</div>
         <div secondary>
-          [[_showOptions(ticket)]]
+          <div>[[_showOptions(ticket)]]</div>
+          <div>&euro; [[ticket.price]]</div>
         </div>
       </paper-item-body>
       <paper-icon-button on-tap="deleteTicket" icon="delete" alt="favourite this!"></paper-icon-button>
