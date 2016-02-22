@@ -51,15 +51,18 @@ This code may only be used under the BSD style license found at https://github.c
       <paper-item-body four-line class="ticketBlock">
         <template is="dom-if" if="{{ticket.lockedForTransfer}}">
           <div>
-            <paper-icon-button icon="icons:receipt" id="buy-ticket"></paper-icon-button>
-            Your Ticket
+            <paper-icon-button icon="icons:receipt"></paper-icon-button>
+            {{ticket.text}} Ticket
           </div>
           <div>CH: {{_boolToYN(ticket.chMember)}}</div>
           <div>Pickup: {{_boolToYN(ticket.pickupService)}}</div>
           <div></div>
         </template>
         <template is="dom-if" if="{{!ticket.lockedForTransfer}}">
-          <div>Extra Ticket</div>
+          <div>
+            <paper-icon-button icon="icons:receipt"></paper-icon-button>
+            {{ticket.text}} Ticket
+          </div>
           <div>{{_boolToYN(ticket.chMember)}}</div>
           <div>{{_boolToYN(ticket.pickupService)}}</div>
           <div>

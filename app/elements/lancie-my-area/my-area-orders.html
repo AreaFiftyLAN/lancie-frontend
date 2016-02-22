@@ -37,6 +37,14 @@
       color: #cc0000;
     }
 
+    .message {
+      color: var(--paper-red-800);
+      background-color: var(--paper-red-300);
+      border: 1px solid var(--paper-red-800);
+      padding: 4px;
+      margin-bottom: 10px;
+    }
+
     
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
@@ -46,6 +54,9 @@
     <paper-card heading="Orders &amp; Tickets" elevation="1" animated-shadow="true">
       <div class="card-content">
         <template is="dom-if" if="{{orders.length}}">
+          <div class="message">
+            Ticket transfer will be available soon!
+          </div>
           <div class="header">
             <div style="width: 20%" class="order">Order Id</div>
             <div style="width: 30%" class="order">Date ordered</div>
