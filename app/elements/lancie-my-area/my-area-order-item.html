@@ -8,6 +8,7 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 
 <dom-module id="my-area-order-item">
   <template>
@@ -31,11 +32,11 @@ This code may only be used under the BSD style license found at https://github.c
       }
 
       paper-item-body div.my-area-order-item:nth-child(2) {
-        width: 10%;
+        width: 15%;
       }
 
       paper-item-body div.my-area-order-item:nth-child(3) {
-        width: 10%;
+        width: 15%;
       }
 
       paper-item-body div.my-area-order-item:nth-child(4) {
@@ -51,20 +52,20 @@ This code may only be used under the BSD style license found at https://github.c
       <paper-item-body four-line class="ticketBlock">
         <template is="dom-if" if="{{ticket.lockedForTransfer}}">
           <div>
-            <paper-icon-button icon="icons:receipt"></paper-icon-button>
+            <iron-icon icon="icons:receipt"></iron-icon>
             {{ticket.text}} Ticket
           </div>
-          <div>CH: {{_boolToYN(ticket.chMember)}}</div>
-          <div>Pickup: {{_boolToYN(ticket.pickupService)}}</div>
+          <div>CH-Member: {{_boolToYN(ticket.chMember)}}</div>
+          <div>PickupService: {{_boolToYN(ticket.pickupService)}}</div>
           <div></div>
         </template>
         <template is="dom-if" if="{{!ticket.lockedForTransfer}}">
           <div>
-            <paper-icon-button icon="icons:receipt"></paper-icon-button>
+            <iron-icon icon="icons:receipt"></iron-icon>
             {{ticket.text}} Ticket
           </div>
-          <div>{{_boolToYN(ticket.chMember)}}</div>
-          <div>{{_boolToYN(ticket.pickupService)}}</div>
+          <div>CH-Member: {{_boolToYN(ticket.chMember)}}</div>
+          <div>PickupService: {{_boolToYN(ticket.pickupService)}}</div>
           <div>
             <paper-icon-button on-tap="shareTicket" icon="share" alt="Share Ticket!"></paper-icon-button>
           </div>
