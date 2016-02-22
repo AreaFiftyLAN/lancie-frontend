@@ -17,17 +17,30 @@
     }
 
     .order:not(:last-child) {
-      border-right: 1px solid #e8e8e8;
+      /*border-right: 1px solid #e8e8e8;*/
     }
 
     .header {
       font-weight: bold;
-      border-bottom: 1px solid #e8e8e8;
     }
 
     .orderRow {
       border-bottom: 1px solid #e8e8e8;
+      border-top: 1px solid #e8e8e8;
     }
+
+    .order.WAITING {
+      color: #ffeb00;
+    }
+
+    .order.PAID {
+      color: green;
+    }
+
+    .order.EXPIRED {
+      color: #cc0000;
+    }
+
     
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
@@ -46,7 +59,7 @@
             <div class="orderRow">
               <div style="width: 20%" class="order">{{item.id}}</div>
               <div style="width: 30%" class="order">{{item.creationDateTime}}</div>
-              <div style="width: 30%" class="order">{{item.status}}</div>
+              <div style="width: 30%" class$="{{_orderStatusColor(item.status)}}">{{item.status}}</div>
             </div>
             <template is="dom-repeat" items="{{item.tickets}}" status="{{item.status}}" index-as="index">
               <my-area-order-item ticket="{{item}}"></my-area-order-item>
@@ -75,7 +88,7 @@
     properties: {
       orders: {
         type: Array,
-        value: function() {
+        value: function () {
           return [];
         }
       }
@@ -86,6 +99,9 @@
     },
     storeOrders: function(event, request) {
       this.orders = request.response.length > 0 ? request.response : false;
+    },
+    _orderStatusColor: function(status) {
+      return "order "+ status;
     },
     attached: function() {
       this.$.ajaxOrders.generateRequest();
