@@ -45,6 +45,13 @@
       margin: 1em 0;
       padding: 0;
     }
+
+    .header.paper-card .title-text.paper-card {
+      padding: 16px;
+      font-size: 24px;
+      font-weight: 400;
+    }
+
     </style>
     <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
     <lancie-ajax id="ajaxUpdatePassword" refurl="users/current/password" method="PUT" on-response="onPasswordUpdate"></lancie-ajax>
