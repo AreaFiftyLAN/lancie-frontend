@@ -1,0 +1,115 @@
+<link rel="import" href="my-area-order-item.html">
+
+<dom-module id="my-area-orders">
+  <template>
+    <lancie-ajax id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-response="storeOrders"></lancie-ajax>
+    <style>
+    :host {
+      display: block;
+    }
+    
+    paper-card {
+      width: 100%;
+    }
+
+    .order {
+      display: inline-block;
+    }
+
+    .header {
+      font-weight: bold;
+    }
+
+    .orderRow {
+      border-bottom: 1px solid #e8e8e8;
+      border-top: 1px solid #e8e8e8;
+    }
+
+    .order.WAITING {
+      color: #ffeb00;
+    }
+
+    .order.PAID {
+      color: green;
+    }
+
+    .order.EXPIRED {
+      color: #cc0000;
+    }
+
+    .message {
+      color: var(--paper-red-800);
+      background-color: var(--paper-red-300);
+      border: 1px solid var(--paper-red-800);
+      padding: 4px;
+      margin-bottom: 10px;
+    }
+
+    
+    paper-tooltip {
+      --paper-tooltip-background: #1A2B43;
+      --paper-tooltip-text-color: #FEE474;
+    }
+    </style>
+    <paper-card heading="Orders &amp; Tickets" elevation="1" animated-shadow="true">
+      <div class="card-content">
+        <template is="dom-if" if="{{orders.length}}">
+          <div class="message">
+            Ticket transfer will be available soon!
+          </div>
+          <div class="header">
+            <div style="width: 20%" class="order">Order Id</div>
+            <div style="width: 30%" class="order">Date ordered</div>
+            <div style="width: 30%" class="order">Status</div>
+          </div>
+          <template is="dom-repeat" items="{{orders}}">
+            <div class="orderRow">
+              <div style="width: 20%" class="order">{{item.id}}</div>
+              <div style="width: 30%" class="order">{{item.creationDateTime}}</div>
+              <div style="width: 30%" class$="{{_orderStatusColor(item.status)}}">{{item.status}}</div>
+            </div>
+            <template is="dom-repeat" items="{{item.tickets}}" status="{{item.status}}" index-as="index">
+              <my-area-order-item ticket="{{item}}"></my-area-order-item>
+            </template>
+          </template>
+        </template>
+        <template is="dom-if" if="{{!orders.length}}">
+          You don't have any orders yet
+        </template>
+      </div>
+      <div class="card-actions">
+        <paper-icon-button on-tap="buyTickets" icon="icons:add-shopping-cart" id="buy-ticket">Buy tickets</paper-icon-button>
+        <paper-tooltip for="buy-ticket" offset="0" animation-delay="1">Buy tickets</paper-tooltip>        
+        
+        <paper-icon-button icon="icons:redeem" id="redeem-ticket" disabled></paper-icon-button>
+        <paper-tooltip for="redeem-ticket" offset="0" animation-delay="1">Redeem a ticket code</paper-tooltip>
+      </div>
+    </paper-card>
+  </template>
+  <script>
+  Polymer({
+    is: 'my-area-orders',
+    properties: {
+      orders: {
+        type: Array,
+        value: function () {
+          return [];
+        }
+      }
+    },
+    buyTickets: function() {
+      location.href = location.href.replace('my-area', 'tickets');
+      location.reload();
+    },
+    storeOrders: function(event, request) {
+      this.orders = request.response.length > 0 ? request.response : false;
+    },
+    _orderStatusColor: function(status) {
+      return "order "+ status;
+    },
+    attached: function() {
+      this.$.ajaxOrders.generateRequest();
+    }
+  });
+  </script>
+</dom-module>

@@ -1,0 +1,69 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+
+<link rel="import" href="../lancie-login/lancie-ajax.html">
+
+
+<dom-module id="my-area-teams">
+  <template>
+    <lancie-ajax refurl="users/current/teams" handle-as="json" on-response="storeTeams" id="ajaxTeams"></lancie-ajax>
+
+    <style>
+    :host {
+      display: block;
+    }
+    
+    paper-card {
+      width: 100%;
+    }
+
+    paper-tooltip {
+      --paper-tooltip-background: #1A2B43;
+      --paper-tooltip-text-color: #FEE474;
+    }
+
+    </style>
+    <paper-card heading="Teams" elevation="1" animated-shadow="true">
+      <div class="card-content">
+        <template is="dom-if" if="{{teams.length}}">
+          <template is="dom-repeat" items="{{teams}}">
+            <div>Teamname: {{item.teamName}}</div>
+            <template is="dom-repeat" items="{{item.members}}">
+              <div>Member: {{item.profile.displayName}}</div>
+            </template>
+          </template>
+        </template>
+        <template is="dom-if" if="{{!teams.length}}">
+          <!-- You're not in a team yet! -->
+          Teams functionality will be available soon!
+        </template>
+      </div>
+      <div class="card-actions">
+        <paper-icon-button id="new-team" icon="social:group-add" disabled></paper-icon-button>
+        <paper-tooltip for="new-team" offset="0" animation-delay="1">Create a new team</paper-tooltip>
+      </div>
+    </paper-card>
+  </template>
+  <script>
+  Polymer({
+    is: 'my-area-teams',
+    properties: {
+      teams: {
+        type: Array
+      }
+    },
+    storeTeams: function(event, request) {
+      this.teams = request.response.length > 0 ? request.response : false;
+    },
+    attached: function(){
+      this.$.ajaxTeams.generateRequest();
+    }
+  });
+  </script>
+</dom-module>

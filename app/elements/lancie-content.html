@@ -5,6 +5,9 @@
 <link rel="import" href="lancie-order-success.html">
 <link rel="import" href="lancie-order-failure.html">
 <link rel="import" href="lancie-404.html">
+<link rel="import" href="lancie-home-page/lancie-home-page.html">
+<link rel="import" href="lancie-my-area/lancie-my-area.html">
+<link rel="import" href="lancie-ticket-page/lancie-ticket-page.html">
 
 <dom-module id="lancie-content">
   <template>
@@ -29,7 +32,7 @@
 
       <div data-route="my-area">
         <lancie-login-check user="{{user}}">
-          <lancie-my-area></lancie-my-area>
+          <lancie-my-area user="{{user}}"></lancie-my-area>
         </lancie-login-check>
       </div>
 
