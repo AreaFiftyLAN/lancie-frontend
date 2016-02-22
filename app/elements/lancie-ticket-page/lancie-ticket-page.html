@@ -29,7 +29,7 @@ This code may only be used under the BSD style license found at https://github.c
             </paper-card>
           </div>
           <div class="layout horizontal cart start">
-            <paper-card heading="Cart" style="width: 420px;">
+            <paper-card heading="Cart" style="width: 400px;">
               <div class="card-content" style="padding: 0;">
                 <lancie-ticket-list order="{{order}}"></lancie-ticket-list>
               </div>
@@ -102,20 +102,8 @@ This code may only be used under the BSD style license found at https://github.c
 
     _color: function(index) {
       var options = [
-        '#FF8A65',
-        '#4DD0E1',
-        '#E57373',
-        '#FFB74D',
-        '#64B5F6',
-        '#DCE775',
-        '#AED581',
         '#81C784',
-        '#FFD54F',
-        '#FFF176',
-        '#4DB6AC',
-        '#E0E0E0',
-        '#4FC3F7',
-        '#90A4AE'
+        '#E57373'
       ];
       return options[index];
     },
@@ -126,7 +114,7 @@ This code may only be used under the BSD style license found at https://github.c
       } else {
         return price.toFixed(2);
       }
-    },
+    }
   });
   </script>
 </dom-module>
