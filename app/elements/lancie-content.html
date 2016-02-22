@@ -2,12 +2,16 @@
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="lancie-login/lancie-ajax.html">
 <link rel="import" href="lancie-login/lancie-login-check.html">
+<link rel="import" href="lancie-login/lancie-register-confirmation.html">
+<link rel="import" href="lancie-login/lancie-check-email.html">
 <link rel="import" href="lancie-order-success.html">
 <link rel="import" href="lancie-order-failure.html">
 <link rel="import" href="lancie-404.html">
 <link rel="import" href="lancie-home-page/lancie-home-page.html">
 <link rel="import" href="lancie-my-area/lancie-my-area.html">
 <link rel="import" href="lancie-ticket-page/lancie-ticket-page.html">
+<link rel="import" href="lancie-password/lancie-password-reset.html">
+<link rel="import" href="lancie-password/lancie-request-password-reset.html">
 
 <dom-module id="lancie-content">
   <template>
@@ -42,6 +46,14 @@
         </lancie-login-check>
       </div>
 
+      <div data-route="confirmRegistration">
+        <lancie-register-confirmation></lancie-register-confirmation>
+      </div>
+
+      <div data-route="check-email">
+        <lancie-check-email></lancie-check-email>
+      </div>
+
       <div data-route="order-success">
         <lancie-order-success></lancie-order-success>
       </div>
@@ -52,6 +64,14 @@
 
       <div data-route="404">
         <lancie-404></lancie-404>
+      </div>
+
+      <div data-route="password-reset">
+        <lancie-password-reset></lancie-password-reset>
+      </div>
+
+      <div data-route="request-password-reset">
+        <lancie-request-password-reset></lancie-request-password-reset>
       </div>
     </iron-pages>
   </template>

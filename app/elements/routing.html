@@ -26,18 +26,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   page('/my-area', function () {
     app.route = 'my-area';
   });
-  
-  page('*', function() {
-    app.route = '404';
+
+  page('/password-reset', function() {
+    app.route = 'password-reset';
+  });
+
+  page('/request-password-reset', function() {
+    app.route = 'request-password-reset';
+  });
+
+  page('/check-email', function() {
+    app.route = 'check-email';
+  });
+
+  page('/confirmRegistration', function() {
+    app.route = 'confirmRegistration';
   });
 
   page('/ordersuccess', function() {
-    app.route = 'order-success'
+    app.route = 'order-success';
   });
 
   page('/orderfailure', function() {
-    app.route = 'order-failure'
+    app.route = 'order-failure';
   });
+
+  // page('*', function() {
+  //   app.route = '404';
+  // });
 
   // add #! before urls
   page({
