@@ -16,10 +16,6 @@
       display: inline-block;
     }
 
-    .order:not(:last-child) {
-      /*border-right: 1px solid #e8e8e8;*/
-    }
-
     .header {
       font-weight: bold;
     }
@@ -47,7 +43,7 @@
       --paper-tooltip-text-color: #FEE474;
     }
     </style>
-    <paper-card heading="Orders & Tickets" elevation="1" animated-shadow="true">
+    <paper-card heading="Orders &amp; Tickets" elevation="1" animated-shadow="true">
       <div class="card-content">
         <template is="dom-if" if="{{orders.length}}">
           <div class="header">
@@ -64,9 +60,6 @@
             <template is="dom-repeat" items="{{item.tickets}}" status="{{item.status}}" index-as="index">
               <my-area-order-item ticket="{{item}}"></my-area-order-item>
             </template>
-            <!--<template is="dom-repeat" items="{{item.tickets}}">-->
-              <!--<div>Member: {{item.profile.displayName}}</div>-->
-            <!--</template>-->
           </template>
         </template>
         <template is="dom-if" if="{{!orders.length}}">
