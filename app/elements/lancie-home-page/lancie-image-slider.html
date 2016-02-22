@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
 
 <dom-module id="lancie-image-slider">
   <template>
@@ -9,7 +10,14 @@
         height: 500px;
       }
 
-      .slider iron-image {
+      .slider {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        background-color: #1a2b43;  
+      }
+
+      .image-slider iron-image {
         position: absolute;
         width: 100%;
         height: 500px;
@@ -28,13 +36,6 @@
         opacity: 1;
       }
 
-      .slider {
-        position: relative;
-        width: 100%;
-        height: 500px;
-        background-color: lightgray;
-      }
-
       .overlay {
         position: absolute;
         z-index: 5;
@@ -47,82 +48,48 @@
 
       .content {
         position: absolute;
-        z-index: 100;
+        z-index: 10;
         display: inline-block;
         width: 100%;
         text-align: center;
+        margin-top: 50px;
       }
 
       .content iron-image {
         height: 120px;
-        width: 750px;
-        margin-bottom: 64px;
+        width: 75%;
+        margin-bottom: 48px;
       }
 
       .content span {
         color: rgb(255, 255, 255);
-        line-height: 1.2em;
+        line-height: 1.1em;
+        font-weight: 500;
       }
 
       .content .date {
         font-size: 72px;
         text-transform: uppercase;
         letter-spacing: 10px;
-        font-weight: 500;
-        margin-bottom: 64px;
-      }
-
-      .content .subtitle {
-        font-size: 42px;
-        text-transform: lowercase;
-        font-weight: 100;
+        margin-bottom: 32px;
       }
 
       .content .tickets {
         font-size: 48px;
-        font-weight: 500;
         text-transform: uppercase;
-      }
-
-      .content .logo-frontpage {
-        width: 1300px;
-        height: 209px;
-        margin: auto;
-        background: url('/images/logos/lancie/logo_without_date.png') no-repeat;
-        background-position: 50% 39%;
-        background-size: 80%;
-      }
-
-      @media (max-width: 1300px) {
-        .content .date {
-          letter-spacing: 0px;
-        }
-
-        .content .logo-frontpage {
-          margin-left: 0;
-          width: 100%;
-        }
       }
 
       @media (max-width: 750px) {
         .content .date {
           font-size: 56px;
         }
+
+        .content .tickets {
+          font-size: 36px;
+        }
       }
 
       @media (max-width: 600px) {
-        :host {
-          width: 100%;
-        }
-
-        .slider iron-image {
-          width: 100%;
-        }
-
-        .overlay iron-image {
-          width: 100%;
-        }
-
         .content .date {
           font-size: 40px;
         }
@@ -134,29 +101,31 @@
 
       @media (max-width: 530px) {
         .content .date {
-          margin: auto;
           font-size: 28px;
         }
 
         .content .tickets {
-          margin: 64px auto auto;
           font-size: 28px;
         }
-      }
+      }*/
     </style>
     <div>
       <div class="slider">
         <div class="overlay"></div>
-        <div class="content layout vertical">
-          <div class="logo-frontpage"></div>
+        <div class="content layout vertical center-justified">
           <span class="date">3-4-5 JUNE 2016</span>
-
+          <div>
+            <iron-image preload fade src="/images/logos/lancie/logo_without_date.png"
+              sizing="contain"></iron-image>
+          </div>
           <span class="tickets">Tickets available soon!</span>
         </div>
-        <template is="dom-repeat" items="{{images}}" index-as="index">
-          <iron-image preload fade src="{{item}}"
-            sizing="cover" class$="{{hide(current, index)}}"></iron-image>
-        </template>
+        <div class="image-slider">
+          <template is="dom-repeat" items="{{images}}" index-as="index">
+            <iron-image preload fade src="{{item}}"
+              sizing="cover" class$="{{hide(current, index)}}"></iron-image>
+          </template>
+        </div>
       </div>
     </div>
   </template>
