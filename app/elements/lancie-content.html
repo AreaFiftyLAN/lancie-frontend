@@ -3,6 +3,8 @@
 <link rel="import" href="lancie-login/lancie-ajax.html">
 <link rel="import" href="lancie-login/lancie-login-check.html">
 <link rel="import" href="lancie-login/lancie-register-confirmation.html">
+<link rel="import" href="lancie-login/lancie-register-confirmation-success.html">
+<link rel="import" href="lancie-login/lancie-register-confirmation-error.html">
 <link rel="import" href="lancie-login/lancie-check-email.html">
 <link rel="import" href="lancie-order-success.html">
 <link rel="import" href="lancie-order-failure.html">
@@ -48,6 +50,14 @@
 
       <div data-route="confirmRegistration">
         <lancie-register-confirmation></lancie-register-confirmation>
+      </div>
+
+      <div data-route="confirm-registration-success">
+        <lancie-register-confirmation-success></lancie-register-confirmation-success>
+      </div>
+
+      <div data-route="confirm-registration-error">
+        <lancie-register-confirmation-error></lancie-register-confirmation-error>
       </div>
 
       <div data-route="check-email">

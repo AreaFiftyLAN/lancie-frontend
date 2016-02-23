@@ -16,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
-<dom-module id="lancie-register-confirmation">
+<dom-module id="lancie-register-confirmation-success">
   <template>
     <style>
       :host {
@@ -35,11 +35,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <lancie-ajax id="ajaxConfirmRegistration" refurl="confirmRegistration?token={{token}}" method="GET" handle-as="json" on-response="onResponse"></lancie-ajax>
-
     <paper-card image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png" class="white">
       <div class="card-content">
-        Confirming.
+        You have successfully verified your email and account!
       </div>
     </paper-card>
   </template>
@@ -48,27 +46,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   (function() {
     Polymer({
-      is: 'lancie-register-confirmation',
-      properties: {
-        token: {
-          type: String,
-          value: ''
-        }
-      },
-      
-      attached: function() {
-        this.token = window.location.href.split('token=')[1];
-        this.$.ajaxConfirmRegistration.generateRequest();
-      },
-
-      onResponse: function(e, response) {
-        var app = document.querySelector('#app');
-        if (response.succeeded) {
-          window.location = '#!/confirm-registration-success';
-        } else {
-          window.location = '#!/confirm-registration-error';
-        }
-      }
+      is: 'lancie-register-confirmation-success'
     });
   })();
   </script>
