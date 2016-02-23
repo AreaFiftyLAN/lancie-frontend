@@ -26,6 +26,7 @@ var url = require('url');
 var proxy = require('proxy-middleware');
 var polybuild = require('polybuild');
 var jsonminify = require('gulp-jsonminify');
+var polyclean = require('polyclean');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -177,6 +178,13 @@ gulp.task('vulcanize', function() {
       inlineCss: true,
       inlineScripts: true
     }))
+    .pipe(polyclean.uglifyJs())
+    .pipe(polyclean.cleanCss())
+    .pipe(load.minifyHtml({
+      quotes: true,
+      empty: true,
+      spare: true
+    }))
     .pipe(gulp.dest(dist('elements')))
     .pipe(load.size({title: 'vulcanize'}));
 });
@@ -281,6 +289,7 @@ gulp.task('serve:dist', ['default'], function() {
   gulp.watch(['app/**/*.html'], ['default', reload]);
   gulp.watch(['app/styles/**/*.css'], ['default', reload]);
   gulp.watch(['app/elements/**/*.css'], ['default', reload]);
+  gulp.watch(['app/scripts/**/*.js'], ['default', reload]);
   gulp.watch(['app/images/**/*'], reload);
 });
 
@@ -290,7 +299,7 @@ gulp.task('default', ['clean'], function(cb) {
     ['copy', 'styles'],
     'elements',
     ['images', 'fonts', 'html'],
-    'build',
+    'vulcanize', 'build',
     cb);
 });
 

@@ -42,6 +42,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- Tile icon for Win8 (144x144) -->
   <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
 
+  <!-- Temporary styling for slow loading pages -->
+  <style>
+    #replacement-content .header {
+      background-color: #1a2b43;
+      height: 64px;
+      width: 100%;
+    }
+    #replacement-content .content {
+      text-align: center;
+      height: calc(100vh - 64px);
+      width: 100%;
+    }
+    #replacement-content .content span {
+      display: block;
+      line-height: calc(100vh - 64px);
+      font-size: calc(100vw * 0.12);
+      color: #ffe574;
+    }
+  </style>
+
   <!-- build:css styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild-->
@@ -52,14 +72,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- endbuild-->
 
   <script type="text/javascript" src="bower_components/moment/min/moment.min.js" async></script>
-
-  <!-- will be replaced with elements/elements.vulcanized.html -->
-  <link rel="import" href="elements/elements.html" async>
-  <!-- endreplace-->
 </head>
-
 <body class="fullbleed layout vertical">
 <span id="browser-sync-binding"></span>
+  <div id="replacement-content">
+    <div class="header"></div>
+    <div class="content">
+      <span>AREA51LAN</span>
+    </div>
+  </div>
 <template is="dom-bind" id="app">
 
   <paper-header-panel class="flex" id="paperDrawerPanel">
