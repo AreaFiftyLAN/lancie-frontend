@@ -43,6 +43,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background: #1a2b43;
       }
 
+      .request-password-reset {
+        margin: 8px auto;
+        text-align: center;
+      }
+
       .errormessage {
         padding: 10px 20px 9px;
         border-left: 3px solid #F44336;
@@ -72,7 +77,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       handle-as="json"
       body="{{bodyFrom(username, password, email)}}"
       headers="{{headerFrom('application/json', csrfToken)}}"
-      on-response="onLoggedIn"></iron-ajax>
+      on-response="onRegister"></iron-ajax>
 
     <paper-card heading="{{getHeading(registering)}}" image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png" class="white">
       <div class="card-content">
@@ -92,6 +97,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div hidden$="{{registering}}">
           <paper-button class="btn btn-primary" raised on-tap="tryLogIn">Log in!</paper-button>
           <paper-button class="btn" raised on-tap="switchForm">Register</paper-button>
+          <div class="request-password-reset">
+            <a href="/request-password-reset">Reset password</a>
+          </div>
         </div>
         <div hidden$="{{!registering}}">
           <paper-button class="btn btn-primary" raised on-tap="tryRegister">Register!</paper-button>
@@ -171,6 +179,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         } else {
           this.badCredentials = true;
         }
+      },
+
+      onRegister: function() {
+        var app = document.querySelector('#app');
+        app.route = 'check-email';
       },
 
       bodyFrom: function(username, password, email) {

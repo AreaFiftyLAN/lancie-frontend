@@ -1,0 +1,75 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="lancie-register-confirmation">
+  <template>
+    <style>
+      :host {
+        display: block;
+        height: calc(100vh - 348px);
+      }
+
+      paper-card {
+        margin: 64px auto;
+        display: block;
+        width: 500px;
+      }
+
+      .white {
+        --paper-card-header-color: #ffffff;
+      }
+    </style>
+
+    <lancie-ajax id="ajaxConfirmRegistration" refurl="confirmRegistration?token={{token}}" method="GET" handle-as="json" on-response="onResponse"></lancie-ajax>
+
+    <paper-card image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png" class="white">
+      <div class="card-content">
+        Confirming.
+      </div>
+    </paper-card>
+  </template>
+  <script>
+  'use strict';
+
+  (function() {
+    Polymer({
+      is: 'lancie-register-confirmation',
+      properties: {
+        token: {
+          type: String,
+          value: ''
+        }
+      },
+      
+      attached: function() {
+        this.token = window.location.href.split('token=')[1];
+        this.$.ajaxConfirmRegistration.generateRequest();
+      },
+
+      onResponse: function(e, response) {
+        var app = document.querySelector('#app');
+        if (response.succeeded) {
+          window.location = '#!/confirm-registration-success';
+        } else {
+          window.location = '#!/confirm-registration-error';
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>
