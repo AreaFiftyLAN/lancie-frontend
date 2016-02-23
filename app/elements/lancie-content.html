@@ -51,7 +51,9 @@
       </div>
 
       <div data-route="confirmRegistration">
-        <lancie-register-confirmation></lancie-register-confirmation>
+        <template is="dom-if" if="{{_matches('confirmRegistration', route)}}" restamp="true">
+          <lancie-register-confirmation></lancie-register-confirmation>
+        </template>
       </div>
 
       <div data-route="confirm-registration-success">
@@ -114,6 +116,10 @@
       storeUser: function(event, request) {
         this.user = (request.response.message === 'Not logged in') ? '' : request.response;
         this.$.ajax.injectToken(request.xhr.getResponseHeader('X-CSRF-TOKEN'));
+      },
+
+      _matches: function(path, route) {
+        return path === route;
       }
     });
   </script>
