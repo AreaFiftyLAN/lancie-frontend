@@ -56,14 +56,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- will be replaced with elements/elements.vulcanized.html -->
   <link rel="import" href="elements/elements.html" async>
   <!-- endreplace-->
-
 </head>
 
 <body class="fullbleed layout vertical">
 <span id="browser-sync-binding"></span>
 <template is="dom-bind" id="app">
 
-  <paper-header-panel class="flex">
+  <paper-header-panel class="flex" id="paperDrawerPanel">
     <paper-toolbar class="layout horizontal center-center">
       <a href="/">
         <iron-image class="logo-frontpage" preload fade sizing="contain" id="toolbar-header"
