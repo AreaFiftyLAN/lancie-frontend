@@ -55,13 +55,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: ''
         }
       },
-
-      ready: function() {
-        this.tryRequestPasswordReset();
-      },
       
       attached: function() {
         this.token = window.location.href.split('token=')[1];
+        this.tryRequestPasswordReset();
       },
 
       tryRequestPasswordReset: function() {
