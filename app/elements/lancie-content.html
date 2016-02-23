@@ -2,12 +2,20 @@
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="lancie-login/lancie-ajax.html">
 <link rel="import" href="lancie-login/lancie-login-check.html">
+<link rel="import" href="lancie-login/lancie-register-confirmation.html">
+<link rel="import" href="lancie-login/lancie-register-confirmation-success.html">
+<link rel="import" href="lancie-login/lancie-register-confirmation-error.html">
+<link rel="import" href="lancie-login/lancie-check-email.html">
 <link rel="import" href="lancie-order-success.html">
 <link rel="import" href="lancie-order-failure.html">
 <link rel="import" href="lancie-404.html">
 <link rel="import" href="lancie-home-page/lancie-home-page.html">
 <link rel="import" href="lancie-my-area/lancie-my-area.html">
 <link rel="import" href="lancie-ticket-page/lancie-ticket-page.html">
+<link rel="import" href="lancie-password/lancie-password-reset.html">
+<link rel="import" href="lancie-password/lancie-password-reset-success.html">
+<link rel="import" href="lancie-password/lancie-request-password-reset.html">
+<link rel="import" href="lancie-password/lancie-request-password-reset-success.html">
 
 <dom-module id="lancie-content">
   <template>
@@ -42,6 +50,28 @@
         </lancie-login-check>
       </div>
 
+      <div data-route="confirmRegistration">
+        <template is="dom-if" if="{{_matches('confirmRegistration', route)}}" restamp="true">
+          <lancie-register-confirmation></lancie-register-confirmation>
+        </template>
+      </div>
+
+      <div data-route="confirm-registration-success">
+        <lancie-register-confirmation-success></lancie-register-confirmation-success>
+      </div>
+
+      <div data-route="confirm-registration-error">
+        <lancie-register-confirmation-error></lancie-register-confirmation-error>
+      </div>
+
+      <div data-route="check-email">
+        <lancie-check-email></lancie-check-email>
+      </div>
+
+      <div data-route="request-password-reset-success">
+        <lancie-request-password-reset-success></lancie-request-password-reset-success>
+      </div>
+
       <div data-route="order-success">
         <lancie-order-success></lancie-order-success>
       </div>
@@ -52,6 +82,22 @@
 
       <div data-route="404">
         <lancie-404></lancie-404>
+      </div>
+
+      <div data-route="resetPassword">
+        <lancie-password-reset></lancie-password-reset>
+      </div>
+
+      <div data-route="password-reset-success">
+        <lancie-password-reset-success></lancie-password-reset-success>
+      </div>
+
+      <div data-route="request-password-reset">
+        <lancie-request-password-reset></lancie-request-password-reset>
+      </div>
+
+      <div data-route="request-password-reset-success">
+        <lancie-request-password-reset-success></lancie-request-password-reset-success>
       </div>
     </iron-pages>
   </template>
@@ -70,6 +116,10 @@
       storeUser: function(event, request) {
         this.user = (request.response.message === 'Not logged in') ? '' : request.response;
         this.$.ajax.injectToken(request.xhr.getResponseHeader('X-CSRF-TOKEN'));
+      },
+
+      _matches: function(path, route) {
+        return path === route;
       }
     });
   </script>
