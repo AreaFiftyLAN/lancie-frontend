@@ -12,6 +12,7 @@
 <link rel="import" href="lancie-ticket-page/lancie-ticket-page.html">
 <link rel="import" href="lancie-password/lancie-password-reset.html">
 <link rel="import" href="lancie-password/lancie-request-password-reset.html">
+<link rel="import" href="lancie-password/lancie-request-password-reset-success.html">
 
 <dom-module id="lancie-content">
   <template>
@@ -54,6 +55,10 @@
         <lancie-check-email></lancie-check-email>
       </div>
 
+      <div data-route="request-password-reset-success">
+        <lancie-request-password-reset-success></lancie-request-password-reset-success>
+      </div>
+
       <div data-route="order-success">
         <lancie-order-success></lancie-order-success>
       </div>
@@ -66,7 +71,7 @@
         <lancie-404></lancie-404>
       </div>
 
-      <div data-route="password-reset">
+      <div data-route="resetPassword">
         <lancie-password-reset></lancie-password-reset>
       </div>
 

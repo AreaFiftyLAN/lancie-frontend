@@ -27,12 +27,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.route = 'my-area';
   });
 
-  page('/password-reset', function() {
-    app.route = 'password-reset';
+  page('/resetPassword', function() {
+    app.route = 'resetPassword';
   });
 
   page('/request-password-reset', function() {
     app.route = 'request-password-reset';
+  });
+
+  page('/request-password-reset-success', function() {
+    app.route = 'request-password-reset-success';
   });
 
   page('/check-email', function() {
