@@ -13,6 +13,7 @@
 <link rel="import" href="lancie-my-area/lancie-my-area.html">
 <link rel="import" href="lancie-ticket-page/lancie-ticket-page.html">
 <link rel="import" href="lancie-password/lancie-password-reset.html">
+<link rel="import" href="lancie-password/lancie-password-reset-success.html">
 <link rel="import" href="lancie-password/lancie-request-password-reset.html">
 <link rel="import" href="lancie-password/lancie-request-password-reset-success.html">
 
@@ -65,10 +66,6 @@
         <lancie-check-email></lancie-check-email>
       </div>
 
-      <div data-route="request-password-reset-success">
-        <lancie-request-password-reset-success></lancie-request-password-reset-success>
-      </div>
-
       <div data-route="order-success">
         <lancie-order-success></lancie-order-success>
       </div>
@@ -85,8 +82,16 @@
         <lancie-password-reset></lancie-password-reset>
       </div>
 
+      <div data-route="password-reset-success">
+        <lancie-password-reset-success></lancie-password-reset-success>
+      </div>
+
       <div data-route="request-password-reset">
         <lancie-request-password-reset></lancie-request-password-reset>
+      </div>
+
+      <div data-route="request-password-reset-success">
+        <lancie-request-password-reset-success></lancie-request-password-reset-success>
       </div>
     </iron-pages>
   </template>
