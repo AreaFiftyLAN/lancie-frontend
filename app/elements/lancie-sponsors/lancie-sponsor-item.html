@@ -59,7 +59,7 @@ This code may only be used under the BSD style license found at https://github.c
         },
 
         go: function() {
-          window.location = this.sponsor.href;
+          window.open(this.sponsor.href, '_blank').focus();
         }
       });
     })();
