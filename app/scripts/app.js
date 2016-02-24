@@ -21,11 +21,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
   };
 
-  var link = document.createElement('link');
-  link.setAttribute('rel', 'import');
-  link.setAttribute('href', 'elements/elements.html');
-  link.setAttribute('async', 'true');
-  document.head.appendChild(link);
+  setTimeout(function() {
+    var link = document.createElement('link');
+    link.setAttribute('rel', 'import');
+    link.setAttribute('href', 'elements/elements.html');
+    link.setAttribute('async', true);
+    document.head.appendChild(link);
+  });
 
   app.addEventListener('dom-change', function() {
     document.getElementById('replacement-content').style.display = 'none';
