@@ -1,6 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
@@ -85,7 +87,16 @@
             <paper-icon-item>
               <iron-icon icon="icons:account-circle" item-icon></iron-icon>
               <paper-item-body two-line>
-                <paper-input label="Display Name" type="text" value="{{editingUser.profile.displayName}}"></paper-input>
+                <div class="layout horizontal wrap">
+                  <paper-input class="flex" label="Display Name" type="text" value="{{editingUser.profile.displayName}}"></paper-input>
+                  <paper-dropdown-menu class="flex" label="Gender">
+                    <paper-listbox class="dropdown-content" selected="{{editingUser.profile.gender}}" attr-for-selected="data-value">
+                      <paper-item data-value="MALE">MALE</paper-item>
+                      <paper-item data-value="FEMALE">FEMALE</paper-item>
+                      <paper-item data-value="OTHER">OTHER</paper-item>
+                    </paper-listbox>
+                  </paper-dropdown-menu>
+                </div>
                 <div class="layout horizontal wrap">
                   <paper-input label="First Name" type="text" value="{{editingUser.profile.firstName}}" class="flex"></paper-input>
                   <paper-input label="Last Name" type="text" value="{{editingUser.profile.lastName}}" class="flex"></paper-input>
