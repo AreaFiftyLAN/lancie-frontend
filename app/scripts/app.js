@@ -15,7 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   var app = document.querySelector('#app');
   // Close drawer after menu item is selected if drawerPanel is narrow
   app.onMenuSelect = function() {
-    var drawerPanel = document.querySelector('#paperDrawerPanel');
+    var drawerPanel = document.getElementById('paperDrawerPanel');
     if (drawerPanel.narrow) {
       drawerPanel.closeDrawer();
     }
@@ -28,6 +28,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   document.head.appendChild(link);
 
   app.addEventListener('dom-change', function() {
-    document.querySelector('#replacement-content').style.display = 'none';
+    document.getElementById('replacement-content').style.display = 'none';
   });
 })(document, window);
