@@ -196,7 +196,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       onLoggedIn: function(event, newUser) {
-        if (newUser.response != null) {
+        if (newUser.response !== null) {
           this.fire('logged-in', {
             token: newUser.xhr.getResponseHeader('X-CSRF-TOKEN'),
             user: newUser.response
@@ -207,8 +207,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       onRegister: function(e, response) {
-        var app = document.querySelector('#app');
-        app.route = 'check-email';
+        if (response.succeeded) {
+          var app = document.querySelector('#app');
+          app.route = 'check-email';
+        }
       },
 
       onRegisterError: function(e, error) {
