@@ -105,7 +105,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         user: {
           type: Object,
-          observer: '_copyUser'
+          observer: '_copyUser',
+          notify: true
         },
         editingUser: {
           type: Object
