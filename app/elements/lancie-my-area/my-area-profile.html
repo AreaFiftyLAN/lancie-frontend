@@ -85,7 +85,7 @@
             </paper-icon-item>
           </template>
           <template is="dom-if" if="{{editingProfile}}">
-            <profile-edit-form editingUser={{editingUser}}></profile-edit-form>
+            <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
           </template>
           <hr>
           <paper-icon-item>
@@ -193,11 +193,11 @@
             this.$.ajaxUpdatePassword.body = {
               oldPassword: this.currentPassword,
               newPassword: this.newPassword
-            }
+            };
             this.$.ajaxUpdatePassword.generateRequest();
             this.switchPasswordForm();
           } else {
-            this.$$("#passwordRepeatInput").invalid = true;
+            this.$$('#passwordRepeatInput').invalid = true;
           }
         }
       },

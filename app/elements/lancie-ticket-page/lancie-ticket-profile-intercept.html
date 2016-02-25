@@ -88,7 +88,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-card heading="Fill in profile" image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png" class="white">
       <div class="card-content">
         <paper-material class="errormessage" hidden$="{{complete}}">Please fill in all fields.</paper-material>
-        <profile-edit-form editing-user={{editingUser}}></profile-edit-form>
+        <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
       </div>
       <div class="card-actions">
         <paper-button class="btn btn-primary" raised on-tap="onSubmit">Submit</paper-button>
