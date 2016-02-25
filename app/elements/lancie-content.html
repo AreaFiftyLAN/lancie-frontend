@@ -47,12 +47,12 @@
 
       <div data-route="tickets">
         <lancie-login-check user="{{user}}">
-          <lancie-ticket-page user="{{user}}"></lancie-ticket-page>
+          <lancie-ticket-page route="{{route}}" user="{{user}}"></lancie-ticket-page>
         </lancie-login-check>
       </div>
 
       <div data-route="tickets-profile-intercept">
-          <lancie-ticket-profile-intercept user="{{user}}"></lancie-ticket-profile-intercept>
+        <lancie-ticket-profile-intercept route="{{route}}" user="{{user}}"></lancie-ticket-profile-intercept>
       </div>
 
       <div data-route="confirmRegistration">
@@ -112,7 +112,8 @@
       is: 'lancie-content',
       properties: {
         route: {
-          type: String
+          type: String,
+          notify: true
         },
         user: {
           type: Object

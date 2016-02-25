@@ -24,13 +24,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="../lancie-my-area/profile-edit-form.html">
+
 <dom-module id="lancie-ticket-profile-intercept">
   <template>
     <style>
       :host {
         display: block;
       }
-      
+
       paper-card {
         margin: 64px auto;
         display: block;
@@ -40,16 +42,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .white {
         --paper-card-header-color: #ffffff;
       }
-      
+
       paper-tooltip {
         --paper-tooltip-background: #1A2B43;
         --paper-tooltip-text-color: #FEE474;
       }
-      
+
       paper-input {
         margin: 0 10px 0 10px;
       }
-      
+
       .btn {
         width: calc(100% - 15px);
       }
@@ -58,7 +60,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: #ffe574;
         background: #1a2b43;
       }
-      
+
       hr {
         display: block;
         height: 1px;
@@ -86,40 +88,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-card heading="Fill in profile" image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png" class="white">
       <div class="card-content">
         <paper-material class="errormessage" hidden$="{{complete}}">Please fill in all fields.</paper-material>
-        <paper-icon-item>
-          <iron-icon icon="icons:account-circle" item-icon></iron-icon>
-          <paper-item-body two-line>
-            <div class="layout horizontal wrap">
-              <paper-input class="flex-4" label="Display Name" type="text" value="{{editingUser.profile.displayName}}"></paper-input>
-              <paper-dropdown-menu class="flex" label="Gender">
-                <paper-listbox class="dropdown-content" selected="{{editingUser.profile.gender}}" attr-for-selected="data-value">
-                  <paper-item data-value="MALE">MALE</paper-item>
-                  <paper-item data-value="FEMALE">FEMALE</paper-item>
-                </paper-listbox>
-              </paper-dropdown-menu>
-            </div>
-            <div class="layout horizontal wrap">
-              <paper-input label="First Name" type="text" value="{{editingUser.profile.firstName}}" class="flex"></paper-input>
-              <paper-input label="Last Name" type="text" value="{{editingUser.profile.lastName}}" class="flex"></paper-input>
-            </div>
-          </paper-item-body>
-        </paper-icon-item>
-        <paper-icon-item>
-          <iron-icon icon="communication:phone" item-icon></iron-icon>
-          <paper-item-body>
-            <paper-input label="Phone Number" type="text" value="{{editingUser.profile.phoneNumber}}"></paper-input>
-          </paper-item-body>
-        </paper-icon-item>
-        <paper-icon-item>
-          <iron-icon icon="communication:location-on" item-icon></iron-icon>
-          <paper-item-body two-line>
-            <div class="layout horizontal wrap">
-              <paper-input label="Address" type="text" value="{{editingUser.profile.address}}" class="flex-3"></paper-input>
-              <paper-input label="Zipcode" type="text" value="{{editingUser.profile.zipcode}}" class="flex"></paper-input>
-              <paper-input label="City" type="text" value="{{editingUser.profile.city}}" class="flex"></paper-input>
-            </div>
-          </paper-item-body>
-        </paper-icon-item>
+        <profile-edit-form editing-user={{editingUser}}></profile-edit-form>
       </div>
       <div class="card-actions">
         <paper-button class="btn btn-primary" raised on-tap="onSubmit">Submit</paper-button>
@@ -144,6 +113,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         complete: {
           type: Boolean,
           value: true
+        },
+        route: {
+          type: String,
+          notify: true
         }
       },
 
@@ -176,10 +149,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       onProfileUpdate: function(e, response) {
-        var app = document.querySelector('#app');
         if (response.succeeded) {
           this.user = this.editingUser;
-          app.route = 'my-area';
+          this.async(function() {
+            this.route = 'tickets';
+          });
         } else {
           this.$.profileUpdateFailedToast.show();
         }

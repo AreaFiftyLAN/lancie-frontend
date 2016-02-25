@@ -12,46 +12,49 @@ This code may only be used under the BSD style license found at https://github.c
 <dom-module id="lancie-ticket-page">
   <link rel="import" type="css" href="lancie-ticket-page.css">
   <template>
-    <iron-media-query query="(min-width: 1018px)" query-matches="{{medium}}"></iron-media-query>
-    <lancie-ajax id="ajax" refurl="orders/{{order.id}}/checkout" on-response="goToPayment"></lancie-ajax>
-    <lancie-ajax auto id="tickets" refurl="tickets/available" on-response="loadTickets"></lancie-ajax>
-    <lancie-ajax auto refurl="users/current/orders/open" method="GET" on-response="getOpenOrder"></lancie-ajax>
-    <lancie-section type="primary full" title="Ticket sale - AreaFiftyLAN 2016, 03 - 04 - 05 June">
-      <lancie-ticket-selector id="list" tickets="{{order.tickets}}" class="layout horizontal flex">
-        <div class$="{{_setLayout(medium)}}">
-          <div class="layout horizontal flex">
-            <paper-card heading="Tickets">
-              <div class="card-content layout horizontal wrap">
-                <template is="dom-repeat" items="{{availableTickets}}">
-                  <lancie-ticket-iron-block order="{{order}}" ticket="{{item}}" color="{{_color(index)}}"></lancie-ticket-iron-block>
-                </template>
-              </div>
-            </paper-card>
-          </div>
-          <div class="layout horizontal cart start">
-            <paper-card heading="Cart" style="width: 400px;">
-              <div class="card-content" style="padding: 0;">
-                <lancie-ticket-list order="{{order}}"></lancie-ticket-list>
-              </div>
-              <template is="dom-if" if="{{order.amount > 0}}">
-                <div class="card-actions">
-                  <strong>Total amount:</strong> <span>&euro; [[_formatPrice(order.amount)]]</span>
+    <template is="dom-if" if="{{canOrderTickets}}" restamp="true">
+      <iron-media-query query="(min-width: 1018px)" query-matches="{{medium}}"></iron-media-query>
+      <lancie-ajax id="ajax" refurl="orders/{{order.id}}/checkout" on-response="goToPayment"></lancie-ajax>
+      <lancie-ajax auto id="tickets" refurl="tickets/available" on-response="loadTickets"></lancie-ajax>
+      <lancie-ajax auto refurl="users/current/orders/open" method="GET" on-response="getOpenOrder"></lancie-ajax>
+      <lancie-section type="primary full" title="Ticket sale - AreaFiftyLAN 2016, 03 - 04 - 05 June">
+        <lancie-ticket-selector id="list" tickets="{{order.tickets}}" class="layout horizontal flex">
+          <div class$="{{_setLayout(medium)}}">
+            <div class="layout horizontal flex">
+              <paper-card heading="Tickets">
+                <div class="card-content layout horizontal wrap">
+                  <template is="dom-repeat" items="{{availableTickets}}">
+                    <lancie-ticket-iron-block order="{{order}}" ticket="{{item}}" color="{{_color(index)}}"></lancie-ticket-iron-block>
+                  </template>
                 </div>
-              </template>
-              <div class="card-actions">
-                <paper-button raised on-tap="payOrder" disabled="{{hasNoTickets}}">Check out</paper-button>
-              </div>
-            </paper-card>
+              </paper-card>
+            </div>
+            <div class="layout horizontal cart start">
+              <paper-card heading="Cart" style="width: 400px;">
+                <div class="card-content" style="padding: 0;">
+                  <lancie-ticket-list order="{{order}}"></lancie-ticket-list>
+                </div>
+                <template is="dom-if" if="{{order.amount > 0}}">
+                  <div class="card-actions">
+                    <strong>Total amount:</strong> <span>&euro; [[_formatPrice(order.amount)]]</span>
+                  </div>
+                </template>
+                <div class="card-actions">
+                  <paper-button raised on-tap="payOrder" disabled="{{hasNoTickets}}">Check out</paper-button>
+                </div>
+              </paper-card>
+            </div>
           </div>
-        </div>
-      </lancie-ticket-selector>
-    </lancie-section>
+        </lancie-ticket-selector>
+      </lancie-section>
+    </template>
   </template>
   <script>
   'use strict';
   Polymer({
     is: 'lancie-ticket-page',
     properties: {
+      user: Object,
       order: {
         type: Object,
         observer: 'checkTickets'
@@ -63,10 +66,37 @@ This code may only be used under the BSD style license found at https://github.c
       availableTickets: {
         type: Object,
         value: []
+      },
+      route: {
+        type: String,
+        notify: true,
+        observer: '_changedRoute'
       }
     },
 
+    _changedRoute: function() {
+      if (this.route !== 'tickets') {
+        return;
+      }
+
+      var missing = false;
+      for (var a in this.user.profile) {
+        if (a !== 'notes' && !this.user.profile[a]) {
+          missing = true;
+        }
+      }
+
+      if (missing) {
+        this.async(function() {
+          this.route = 'tickets-profile-intercept';
+        });
+      }
+
+      this.canOrderTickets = !missing;
+    },
+
     attached: function() {
+      this._changedRoute();
       setTimeout(function() {
         this.classList.add('active');
       }.bind(this), 50);
@@ -77,7 +107,7 @@ This code may only be used under the BSD style license found at https://github.c
     },
 
     _setLayout: function(medium) {
-      return "layout flex justified " + (medium ? "horizontal" : "vertical");
+      return 'layout flex justified ' + (medium ? 'horizontal' : 'vertical');
     },
 
     checkTickets: function(order) {
@@ -109,8 +139,8 @@ This code may only be used under the BSD style license found at https://github.c
     },
 
     _formatPrice: function(price) {
-      if (price % 1 == 0) {
-        return price + ",-";
+      if (price % 1 === 0) {
+        return price + ',-';
       } else {
         return price.toFixed(2);
       }
