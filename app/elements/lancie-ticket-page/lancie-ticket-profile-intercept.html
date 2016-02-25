@@ -1,0 +1,177 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="../lancie-my-area/profile-edit-form.html">
+
+<dom-module id="lancie-ticket-profile-intercept">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      paper-card {
+        margin: 64px auto;
+        display: block;
+        width: 800px;
+      }
+
+      .white {
+        --paper-card-header-color: #ffffff;
+      }
+
+      paper-tooltip {
+        --paper-tooltip-background: #1A2B43;
+        --paper-tooltip-text-color: #FEE474;
+      }
+
+      paper-input {
+        margin: 0 10px 0 10px;
+      }
+
+      .btn {
+        width: calc(100% - 15px);
+      }
+
+      .btn-primary {
+        color: #ffe574;
+        background: #1a2b43;
+      }
+
+      hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #e8e8e8;
+        margin: 1em 0;
+        padding: 0;
+      }
+
+      .header.paper-card .title-text.paper-card {
+        padding: 16px;
+        font-size: 24px;
+        font-weight: 400;
+      }
+
+      .errormessage {
+        padding: 10px 20px 9px;
+        border-left: 3px solid #F44336;
+        background: #FFCDD2;
+        color: #B71C1C;
+      }
+    </style>
+
+    <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
+    <paper-card heading="Fill in profile" image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png" class="white">
+      <div class="card-content">
+        <paper-material class="errormessage" hidden$="{{complete}}">Please fill in all fields.</paper-material>
+        <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
+      </div>
+      <div class="card-actions">
+        <paper-button class="btn btn-primary" raised on-tap="onSubmit">Submit</paper-button>
+      </div>
+    </paper-card>
+    <paper-toast id="profileUpdateFailedToast" text="Something went wrong updating your profile" duration="3000"></paper-toast>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'lancie-ticket-profile-intercept',
+      properties: {
+        user: {
+          type: Object,
+          observer: '_copyUser',
+          notify: true
+        },
+        editingUser: {
+          type: Object
+        },
+        complete: {
+          type: Boolean,
+          value: true
+        },
+        route: {
+          type: String,
+          notify: true
+        }
+      },
+
+      onSubmit: function() {
+        if (this.allFilledIn()) {
+          this.$.ajaxUpdateProfile.body = {
+            displayName: this.editingUser.profile.displayName,
+            firstName: this.editingUser.profile.firstName,
+            lastName: this.editingUser.profile.lastName,
+            phoneNumber: this.editingUser.profile.phoneNumber,
+            address: this.editingUser.profile.address,
+            zipcode: this.editingUser.profile.zipcode,
+            city: this.editingUser.profile.city,
+            gender: this.editingUser.profile.gender
+          };
+          this.$.ajaxUpdateProfile.generateRequest();
+        }
+      },
+
+      allFilledIn: function() {
+        if (!this.editingUser.profile.displayName || !this.editingUser.profile.firstName || !this.editingUser.profile.lastName || !this.editingUser.profile.phoneNumber || !this.editingUser.profile.address || !this.editingUser.profile.zipcode || !this.editingUser.profile.city || !this.editingUser.profile.gender) {
+          this.complete = false;
+          return false;
+        }
+        if (this.editingUser.profile.displayName === '' || this.editingUser.profile.firstName === '' || this.editingUser.profile.lastName === '' || this.editingUser.profile.phoneNumber === '' || this.editingUser.profile.address === '' || this.editingUser.profile.zipcode === '' || this.editingUser.profile.city === '' || this.editingUser.profile.gender === '') {
+          this.complete = false;
+          return false;
+        }
+        return true;
+      },
+
+      onProfileUpdate: function(e, response) {
+        if (response.succeeded) {
+          this.user = this.editingUser;
+          this.async(function() {
+            this.route = 'tickets';
+          });
+        } else {
+          this.$.profileUpdateFailedToast.show();
+        }
+      },
+
+      _copyUser: function(newValue) {
+        var user = {
+          profile: {}
+        };
+
+        for (var a in newValue.profile) {
+          user.profile[a] = newValue.profile[a];
+        }
+        user.email = newValue.email;
+        this.editingUser = user;
+      }
+    });
+  })();
+  </script>
+</dom-module>

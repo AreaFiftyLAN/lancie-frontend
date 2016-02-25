@@ -1,6 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
@@ -9,34 +11,35 @@
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="profile-edit-form.html">
 <dom-module id="my-area-profile">
   <template>
     <style>
     :host {
       display: block;
     }
-    
+
     paper-card {
       width: 100%;
     }
-    
+
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
     }
-    
+
     paper-input {
       margin: 0 10px 0 10px;
     }
-    
+
     #checkIcon {
       --iron-icon-fill-color: #4CAF50;
     }
-    
+
     #closeIcon {
       --iron-icon-fill-color: #F44336;
     }
-    
+
     hr {
       display: block;
       height: 1px;
@@ -82,32 +85,7 @@
             </paper-icon-item>
           </template>
           <template is="dom-if" if="{{editingProfile}}">
-            <paper-icon-item>
-              <iron-icon icon="icons:account-circle" item-icon></iron-icon>
-              <paper-item-body two-line>
-                <paper-input label="Display Name" type="text" value="{{editingUser.profile.displayName}}"></paper-input>
-                <div class="layout horizontal wrap">
-                  <paper-input label="First Name" type="text" value="{{editingUser.profile.firstName}}" class="flex"></paper-input>
-                  <paper-input label="Last Name" type="text" value="{{editingUser.profile.lastName}}" class="flex"></paper-input>
-                </div>
-              </paper-item-body>
-            </paper-icon-item>
-            <paper-icon-item>
-              <iron-icon icon="communication:phone" item-icon></iron-icon>
-              <paper-item-body>
-                <paper-input label="Phone Number" type="text" value="{{editingUser.profile.phoneNumber}}"></paper-input>
-              </paper-item-body>
-            </paper-icon-item>
-            <paper-icon-item>
-              <iron-icon icon="communication:location-on" item-icon></iron-icon>
-              <paper-item-body two-line>
-                <div class="layout horizontal wrap">
-                  <paper-input label="Address" type="text" value="{{editingUser.profile.address}}" class="flex-3"></paper-input>
-                  <paper-input label="Zipcode" type="text" value="{{editingUser.profile.zipcode}}" class="flex"></paper-input>
-                  <paper-input label="City" type="text" value="{{editingUser.profile.city}}" class="flex-3"></paper-input>
-                </div>
-              </paper-item-body>
-            </paper-icon-item>
+            <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
           </template>
           <hr>
           <paper-icon-item>
@@ -215,11 +193,11 @@
             this.$.ajaxUpdatePassword.body = {
               oldPassword: this.currentPassword,
               newPassword: this.newPassword
-            }
+            };
             this.$.ajaxUpdatePassword.generateRequest();
             this.switchPasswordForm();
           } else {
-            this.$$("#passwordRepeatInput").invalid = true;
+            this.$$('#passwordRepeatInput').invalid = true;
           }
         }
       },
@@ -237,7 +215,7 @@
       },
       onPasswordUpdate: function(e, response) {
         this.$$("#passwordRepeatInput").invalid = false;
-        
+
         if (response.succeeded) {
           // load toast
           this.$.passwordUpdateSuccessToast.show();

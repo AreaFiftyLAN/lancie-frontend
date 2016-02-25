@@ -1,0 +1,55 @@
+<dom-module id="profile-edit-form">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <paper-icon-item>
+      <iron-icon icon="icons:account-circle" item-icon></iron-icon>
+      <paper-item-body two-line>
+        <div class="layout horizontal wrap">
+          <paper-input class="flex" label="Display Name" type="text" value="{{profile.displayName}}"></paper-input>
+          <paper-dropdown-menu class="flex" label="Gender">
+            <paper-listbox class="dropdown-content" selected="{{profile.gender}}" attr-for-selected="data-value">
+              <paper-item data-value="MALE">MALE</paper-item>
+              <paper-item data-value="FEMALE">FEMALE</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
+        </div>
+        <div class="layout horizontal wrap">
+          <paper-input label="First Name" type="text" value="{{profile.firstName}}" class="flex"></paper-input>
+          <paper-input label="Last Name" type="text" value="{{profile.lastName}}" class="flex"></paper-input>
+        </div>
+      </paper-item-body>
+    </paper-icon-item>
+    <paper-icon-item>
+      <iron-icon icon="communication:phone" item-icon></iron-icon>
+      <paper-item-body>
+        <paper-input label="Phone Number" type="text" value="{{profile.phoneNumber}}"></paper-input>
+      </paper-item-body>
+    </paper-icon-item>
+    <paper-icon-item>
+      <iron-icon icon="communication:location-on" item-icon></iron-icon>
+      <paper-item-body two-line>
+        <div class="layout horizontal wrap">
+          <paper-input label="Address" type="text" value="{{profile.address}}" class="flex-3"></paper-input>
+          <paper-input label="Zipcode" type="text" value="{{profile.zipcode}}" class="flex"></paper-input>
+          <paper-input label="City" type="text" value="{{profile.city}}" class="flex-3"></paper-input>
+        </div>
+      </paper-item-body>
+    </paper-icon-item>
+  </template>
+  <script>
+    Polymer({
+      is: 'profile-edit-form',
+      properties: {
+        profile: {
+          type: Object,
+          notify: true
+        }
+      }
+    });
+  </script>
+</dom-module>
