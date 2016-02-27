@@ -79,6 +79,10 @@ This code may only be used under the BSD style license found at https://github.c
         return;
       }
 
+      if (!this.user) {
+        return;
+      }
+
       var missing = false;
       for (var a in this.user.profile) {
         if (a !== 'notes' && !this.user.profile[a]) {
