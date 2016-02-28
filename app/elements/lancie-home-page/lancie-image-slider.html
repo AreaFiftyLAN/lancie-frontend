@@ -78,6 +78,9 @@
         font-size: 48px;
         text-transform: uppercase;
       }
+      .content .tickets a {
+        color: #ffe574
+      }
 
       @media (max-width: 750px) {
         .content .date {
@@ -107,7 +110,7 @@
         .content .tickets {
           font-size: 28px;
         }
-      }*/
+      }
     </style>
     <div>
       <div class="slider">
@@ -118,7 +121,7 @@
             <iron-image preload fade src="/images/logos/lancie/logo_without_date.png"
               sizing="contain"></iron-image>
           </div>
-          <span class="tickets">Order your tickets now!</span>
+          <span class="tickets">Order your tickets <a href="/tickets">here!</a></span>
         </div>
         <div class="image-slider">
           <template is="dom-repeat" items="{{images}}" index-as="index">
