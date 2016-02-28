@@ -70,8 +70,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <iron-media-query query="max-width: 530px" query-matches="{{small}}"></iron-media-query>
     <div class$="{{_setType(type)}}">
       <div class="content">
-        <template is="dom-if" if="{{title}}">
-          <h1>{{title}}</h1>
+        <template is="dom-if" if="{{header}}">
+          <h1>{{header}}</h1>
         </template>
         <div class$="{{_setOrientation(small)}}">
           <content></content>
@@ -88,20 +88,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         type: {
           type: String,
-          value: "primary",
+          value: 'primary',
           notify: true
         },
-        title: {
+        header: {
           type: String,
-          value: "",
+          value: '',
           notify: true
         }
       },
       _setType: function() {
-        return "container " + this.type;
+        return 'container ' + this.type;
       },
       _setOrientation: function(horizontal) {
-        return "layout " + (horizontal ? "vertical" : "horizontal");
+        return 'layout ' + (horizontal ? 'vertical' : 'horizontal');
       }
     });
   })();
