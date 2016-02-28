@@ -14,7 +14,7 @@
         position: relative;
         width: 100%;
         height: 500px;
-        background-color: #1a2b43;  
+        background-color: #1a2b43;
       }
 
       .image-slider iron-image {
@@ -78,6 +78,9 @@
         font-size: 48px;
         text-transform: uppercase;
       }
+      .content .tickets a {
+        color: #ffe574
+      }
 
       @media (max-width: 750px) {
         .content .date {
@@ -107,7 +110,7 @@
         .content .tickets {
           font-size: 28px;
         }
-      }*/
+      }
     </style>
     <div>
       <div class="slider">
@@ -118,7 +121,7 @@
             <iron-image preload fade src="/images/logos/lancie/logo_without_date.png"
               sizing="contain"></iron-image>
           </div>
-          <span class="tickets">Tickets available soon!</span>
+          <span class="tickets">Order your tickets <a href="/tickets">here!</a></span>
         </div>
         <div class="image-slider">
           <template is="dom-repeat" items="{{images}}" index-as="index">
