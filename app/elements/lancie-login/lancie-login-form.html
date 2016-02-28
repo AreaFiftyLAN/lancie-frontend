@@ -69,7 +69,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       method="POST"
       handle-as="json"
       headers="{{headerFrom('application/x-www-form-urlencoded', csrfToken)}}"
-      on-response="onLoggedIn"></iron-ajax>
+      on-response="onLoggedIn"
+      on-error="onFailedLogin"></iron-ajax>
+
+    <iron-ajax
+      id="getCurrentUser"
+      url="/api/v1/users/current"
+      method="GET"
+      handle-as="json"
+      on-response="onCurrentUser"></iron-ajax>
 
     <iron-ajax
       id="ajaxRegister"
@@ -196,14 +204,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       onLoggedIn: function(event, newUser) {
-        if (newUser.response !== null) {
-          this.fire('logged-in', {
-            token: newUser.xhr.getResponseHeader('X-CSRF-TOKEN'),
-            user: newUser.response
-          });
-        } else {
-          this.badCredentials = true;
-        }
+        this.$.getCurrentUser.generateRequest();
+      },
+
+      onFailedLogin: function() {
+        this.badCredentials = true;
+      },
+
+      onCurrentUser: function(event, newUser) {
+        this.fire('logged-in', {
+          token: newUser.xhr.getResponseHeader('X-CSRF-TOKEN'),
+          user: newUser.response
+        });
       },
 
       onRegister: function(e, response) {
