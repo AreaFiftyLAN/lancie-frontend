@@ -21,13 +21,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       :host {
         display: block;
-        height: calc(100vh - 348px);
+        min-height: calc(100vh - 348px);
+        padding: 25px;
       }
 
       paper-card {
         margin: 10% auto 10%;
         display: block;
-        width: 500px;
+        max-width: 500px;
+
+        --paper-card-header-text: {
+          width: 100%;
+          text-align: center;
+          padding-left: 0;
+        }
       }
 
       .white {
