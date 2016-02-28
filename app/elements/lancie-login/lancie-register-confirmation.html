@@ -9,12 +9,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="lancie-ajax.html">
 
 <dom-module id="lancie-register-confirmation">
   <template>
@@ -55,7 +51,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: ''
         }
       },
-      
+
       attached: function() {
         this.token = window.location.href.split('token=')[1];
         this.tryRequestPasswordReset();
