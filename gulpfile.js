@@ -169,14 +169,18 @@ gulp.task('html', function() {
     dist());
 });
 
-// Vulcanize granular configuration
-gulp.task('vulcanize', function() {
+// Build elements.html
+gulp.task('elements.html', function() {
   return gulp.src('app/elements/elements.html')
-    .pipe(load.vulcanize({
-      stripComments: true,
-      inlineCss: true,
-      inlineScripts: true
+    .pipe(polybuild({
+      maximumCrush: true,
+      suffix: ''
     }))
+    .pipe(load.if('*.html', load.minifyHtml({
+      quotes: true,
+      empty: true,
+      spare: true
+    })))
     .pipe(gulp.dest(dist('elements')))
     .pipe(load.size({title: 'vulcanize'}));
 });
@@ -281,6 +285,7 @@ gulp.task('serve:dist', ['default'], function() {
   gulp.watch(['app/**/*.html'], ['default', reload]);
   gulp.watch(['app/styles/**/*.css'], ['default', reload]);
   gulp.watch(['app/elements/**/*.css'], ['default', reload]);
+  gulp.watch(['app/scripts/**/*.js'], ['default', reload]);
   gulp.watch(['app/images/**/*'], reload);
 });
 
@@ -290,7 +295,7 @@ gulp.task('default', ['clean'], function(cb) {
     ['copy', 'styles'],
     'elements',
     ['images', 'fonts', 'html'],
-    'build',
+    'elements.html', 'build',
     cb);
 });
 

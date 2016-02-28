@@ -9,18 +9,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 (function(document, window) {
 'use strict';
-  window.onload = function () {
-    // Grab a reference to our auto-binding template
-    // and give it some initial binding values
-    // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
-    var app = document.querySelector('#app');
-
-    // Close drawer after menu item is selected if drawerPanel is narrow
-    app.onMenuSelect = function() {
-      var drawerPanel = document.querySelector('#paperDrawerPanel');
-      if (drawerPanel.narrow) {
-        drawerPanel.closeDrawer();
-      }
-    };
+  // Grab a reference to our auto-binding template
+  // and give it some initial binding values
+  // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
+  var app = document.querySelector('#app');
+  // Close drawer after menu item is selected if drawerPanel is narrow
+  app.onMenuSelect = function() {
+    var drawerPanel = document.getElementById('paperDrawerPanel');
+    if (drawerPanel.narrow) {
+      drawerPanel.closeDrawer();
+    }
   };
+
+  setTimeout(function() {
+    var link = document.createElement('link');
+    link.setAttribute('rel', 'import');
+    link.setAttribute('href', 'elements/elements.html');
+    link.setAttribute('async', true);
+    document.head.appendChild(link);
+  });
+
+  app.addEventListener('dom-change', function() {
+    document.getElementById('replacement-content').style.display = 'none';
+  });
 })(document, window);
