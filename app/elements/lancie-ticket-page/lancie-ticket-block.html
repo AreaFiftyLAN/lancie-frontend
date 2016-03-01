@@ -6,9 +6,9 @@
 
   <template>
     <paper-material elevation="0" class="ticket-selector-block layout vertical" style$="{{_computeStyle(color)}}">
-      <div class="version layout horizontal self-end">{{ticket.numberSold}}/{{ticket.limit}}</div>
+      <div class="version layout horizontal self-end">{{remaining}}</div>
       <h2>{{_ucfirst(ticket.text)}}</h2>
-      <h3 class="horizontal layout start">Price: € {{_formatPrice(ticket.price)}}</h3>
+      <h3 class="horizontal layout start">Price: € {{price}}</h3>
       <hr themed-reverse>
       <div id="extraOptions" class="extra-options">
         <h4>Options</h4>
@@ -22,7 +22,7 @@
         </paper-checkbox>
       </div>
       <hr themed-reverse style="margin-botton: 12px;">
-      <paper-button on-tap="addTicket" disabled="{{notAvailable}}">Add</paper-button>
+      <paper-button on-tap="addTicket" disabled="{{disabled}}">Add</paper-button>
     </paper-material>
   </template>
   <script>
@@ -35,6 +35,11 @@
           ticket: {
             type: Object,
             notify: true
+          },
+
+          remaining: {
+            type: String,
+            computed: '_computeRemainingString(ticket)'
           },
 
           chMember: {
@@ -72,6 +77,17 @@
           this.fire('add-ticket', {chMember: this.chMember, pickup: this.pickup});
         },
 
+        _computeRemainingString: function(ticket) {
+          var remaining = ticket.limit - ticket.numberSold;
+          if (remaining === 0) {
+            return 'SOLD OUT!';
+          }
+          if (ticket.text === 'Regular') {
+            return 'Available!';
+          }
+          return remaining + ' tickets left!';
+        },
+
         _computePrice: function(ticket, chMember, pickup) {
           var basePrice = ticket.price;
 
@@ -91,7 +107,7 @@
 
         _ucfirst: function(str) {
           if (!str || 0 === str.length) {
-            return "No Name";
+            return 'No Name';
           }
           var f = str.charAt(0)
                   .toUpperCase();
