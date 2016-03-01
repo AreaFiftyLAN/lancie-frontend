@@ -66,20 +66,20 @@
             <paper-icon-item>
               <iron-icon icon="icons:account-circle" item-icon></iron-icon>
               <paper-item-body two-line>
-                <div>{{user.profile.displayName}}</div>
+                <div>{{_checkEmpty(user.profile.displayName)}}</div>
                 <div>{{user.profile.firstName}} {{user.profile.lastName}}</div>
               </paper-item-body>
             </paper-icon-item>
             <paper-icon-item>
               <iron-icon icon="communication:phone" item-icon></iron-icon>
               <paper-item-body>
-                <div>{{user.profile.phoneNumber}}</div>
+                <div>{{_checkEmpty(user.profile.phoneNumber)}}</div>
               </paper-item-body>
             </paper-icon-item>
             <paper-icon-item>
               <iron-icon icon="communication:location-on" item-icon></iron-icon>
               <paper-item-body two-line>
-                <div>{{user.profile.address}}</div>
+                <div>{{_checkEmpty(user.profile.address)}}</div>
                 <div>{{user.profile.zipcode}} {{user.profile.city}}</div>
               </paper-item-body>
             </paper-icon-item>
@@ -137,8 +137,8 @@
     <paper-toast id="passwordUpdateFailedToast" text="Something went wrong changing your password" duration="3000"></paper-toast>
   </template>
   <script>
+  'use strict';
   (function() {
-    var lastUser;
     Polymer({
       is: 'my-area-profile',
       properties: {
@@ -207,14 +207,14 @@
           // load toast
           this.$.profileUpdateSuccessToast.show();
         } else {
-          console.log("Update profile failed");
+          console.log('Update profile failed');
           this.editingUser = this.user;
           // load failed toast
           this.$.profileUpdateFailedToast.show();
         }
       },
       onPasswordUpdate: function(e, response) {
-        this.$$("#passwordRepeatInput").invalid = false;
+        this.$$('#passwordRepeatInput').invalid = false;
 
         if (response.succeeded) {
           // load toast
@@ -236,6 +236,9 @@
         }
         user.email = newValue.email;
         this.editingUser = user;
+      },
+      _checkEmpty(value) {
+        return value || 'Not yet filled in.';
       }
     });
   })();
