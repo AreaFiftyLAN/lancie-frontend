@@ -8,36 +8,16 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../lancie-message-card.html">
 <link rel="import" href="lancie-ajax.html">
 
 <dom-module id="lancie-register-confirmation">
   <template>
-    <style>
-      :host {
-        display: block;
-        height: calc(100vh - 348px);
-      }
-
-      paper-card {
-        margin: 64px auto;
-        display: block;
-        width: 500px;
-      }
-
-      .white {
-        --paper-card-header-color: #ffffff;
-      }
-    </style>
-
     <lancie-ajax id="ajaxConfirmRegistration" refurl="confirmRegistration?token={{token}}" method="GET" handle-as="json" on-response="onResponse"></lancie-ajax>
 
-    <paper-card image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png" class="white">
-      <div class="card-content">
-        Confirming.
-      </div>
-    </paper-card>
+    <lancie-message-card>
+      Confirming.
+    </lancie-message-card>
   </template>
   <script>
   'use strict';

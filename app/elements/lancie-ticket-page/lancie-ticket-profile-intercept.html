@@ -31,15 +31,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       :host {
         display: block;
+        padding: 10px;
       }
 
       paper-card {
-        margin: 64px auto;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
         display: block;
-        width: 800px;
-      }
+        max-width: 800px;
 
-      .white {
+        --paper-card-header-text: {
+          width: 100%;
+          text-align: center;
+          padding-left: 0;
+        }
+
         --paper-card-header-color: #ffffff;
       }
 

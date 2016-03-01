@@ -8,38 +8,13 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../lancie-message-card.html">
 
 <dom-module id="lancie-check-email">
   <template>
-    <style>
-      :host {
-        display: block;
-        height: calc(100vh - 348px);
-      }
-
-      paper-card {
-        margin: 64px auto;
-        display: block;
-        width: 500px;
-      }
-
-      .white {
-        --paper-card-header-color: #ffffff;
-      }
-    </style>
-
-    <paper-card image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png" class="white">
-      <div class="card-content">
-        Please check your email to verify your registration. After this you can complete your profile data and order tickets!
-      </div>
-    </paper-card>
+    <lancie-message-card>
+      Please check your email to verify your registration. After this you can complete your profile data and order tickets!
+    </lancie-message-card>
   </template>
   <script>
   'use strict';
