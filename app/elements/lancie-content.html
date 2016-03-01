@@ -53,10 +53,6 @@
         <lancie-ticket-profile-intercept route="{{route}}" user="{{user}}"></lancie-ticket-profile-intercept>
       </div>
 
-      <div data-route="terms-of-service">
-        <lancie-terms-of-service></lancie-terms-of-service>
-      </div>
-
       <div data-route="confirmRegistration">
         <template is="dom-if" if="{{_matches('confirmRegistration', route)}}" restamp="true">
           <lancie-register-confirmation></lancie-register-confirmation>
