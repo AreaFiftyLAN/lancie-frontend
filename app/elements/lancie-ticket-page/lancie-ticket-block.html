@@ -6,7 +6,7 @@
 
   <template>
     <paper-material elevation="0" class="ticket-selector-block layout vertical" style$="{{_computeStyle(color)}}">
-      <div class="version layout horizontal self-end">{{ticket.numberSold}}/{{ticket.limit}}</div>
+      <div class="version layout horizontal self-end">{{remaining}}</div>
       <h2>{{_ucfirst(ticket.text)}}</h2>
       <h3 class="horizontal layout start">Price: € {{price}}</h3>
       <hr themed-reverse>
@@ -35,6 +35,11 @@
           ticket: {
             type: Object,
             notify: true
+          },
+
+          remaining: {
+            type: String,
+            computed: '_computeRemainingString(ticket)'
           },
 
           chMember: {
@@ -70,6 +75,13 @@
         addTicket: function() {
           this.ticket.numberSold++;
           this.fire('add-ticket', {chMember: this.chMember, pickup: this.pickup});
+        },
+
+        _computeRemainingString: function(ticket) {
+          if (ticket.text === 'Regular') {
+            return 'Available!';
+          }
+          return ticket.limit - ticket.numberSold + ' tickets left!';
         },
 
         _computePrice: function(ticket, chMember, pickup) {
