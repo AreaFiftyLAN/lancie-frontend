@@ -9,9 +9,14 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="lancie-ticket-list.html">
 <link rel="import" href="lancie-ticket-iron-block.html">
 <link rel="import" href="lancie-ticket-block.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 
 <dom-module id="lancie-ticket-page">
   <link rel="import" type="css" href="lancie-ticket-page.css">
+
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
 
@@ -54,6 +59,16 @@ This code may only be used under the BSD style license found at https://github.c
         </lancie-ticket-selector>
       </lancie-section>
     </template>
+    <paper-dialog id="termsofservice" on-iron-overlay-opened="patchOverlay" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+      <h2>Terms and conditions</h2>
+      <paper-dialog-scrollable>
+        terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms terms 
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss on-tap="closeDialog">Cancel</paper-button>
+        <paper-button dialog-confirm on-tap="payOrder">I agree to the terms of service</paper-button>
+      </div>
+    </paper-dialog>
   </template>
   <script>
   'use strict';
@@ -114,6 +129,18 @@ This code may only be used under the BSD style license found at https://github.c
 
     payOrder: function() {
       this.$.ajax.generateRequest();
+    },
+
+    openDialog: function() {
+      this.$.termsofservice.open();
+    },
+
+    closeDialog: function() {
+      this.$.termsofservice.close();
+    },
+
+    patchOverlay: function(e) {
+      this.insertBefore(e.target.backdropElement, e.target);
     },
 
     _setLayout: function(medium) {
