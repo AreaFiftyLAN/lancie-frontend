@@ -78,10 +78,14 @@
         },
 
         _computeRemainingString: function(ticket) {
+          var remaining = ticket.limit - ticket.numberSold;
+          if (remaining === 0) {
+            return 'SOLD OUT!';
+          }
           if (ticket.text === 'Regular') {
             return 'Available!';
           }
-          return ticket.limit - ticket.numberSold + ' tickets left!';
+          return remaining + ' tickets left!';
         },
 
         _computePrice: function(ticket, chMember, pickup) {
