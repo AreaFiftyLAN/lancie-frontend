@@ -99,7 +99,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-card heading="{{getHeading(registering)}}" image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png" class="white">
       <div class="card-content">
         <div hidden$="{{registering}}">
-          <paper-material class="errormessage" hidden$="{{!badCredentials}}">Bad credentials.</paper-material>
+          <paper-material class="errormessage" hidden$="{{!loginError}}">{{loginErrorMessage}}</paper-material>
           <paper-input label="Username" type="text" value="{{username}}"></paper-input>
           <paper-input label="Password" type="password" value="{{password}}" on-keypress="enterAndTryLogIn"></paper-input>
         </div>
@@ -149,7 +149,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return csrfToken;
           }
         },
-        badCredentials: {
+        loginError: {
           type: Boolean,
           value: false
         },
@@ -214,8 +214,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.getCurrentUser.generateRequest();
       },
 
-      onFailedLogin: function() {
-        this.badCredentials = true;
+      onFailedLogin: function(event, request) {
+        this.loginError = true;
+        if (request.request.status === 401) {
+          this.loginErrorMessage = 'Bad credentials.';
+        } else {
+          this.loginErrorMessage = 'Server failed processing the request.';
+        }
       },
 
       onCurrentUser: function(event, newUser) {
