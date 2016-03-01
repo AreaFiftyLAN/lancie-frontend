@@ -7,7 +7,7 @@
   <template>
     <paper-material elevation="0" class="ticket-selector-block layout vertical" style$="{{_computeStyle(color)}}">
       <div class="version layout horizontal self-end">{{remaining}}</div>
-      <h2>{{_ucfirst(ticket)}}</h2>
+      <h2>{{_ucfirst(ticket.text)}}</h2>
       <h3 class="horizontal layout start">Price: € {{price}}</h3>
       <hr themed-reverse>
       <div id="extraOptions" class="extra-options">
@@ -80,7 +80,7 @@
         _computeRemainingString: function(ticket) {
           var remaining = ticket.limit - ticket.numberSold;
           if (remaining === 0) {
-            return '-';
+            return 'SOLD OUT!';
           }
           if (ticket.text === 'Regular') {
             return 'Available!';
@@ -105,11 +105,7 @@
           }
         },
 
-        _ucfirst: function(ticket) {
-          var str = ticket.text;
-          if (ticket.limit - ticket.numberSold === 0) {
-            return 'SOLD OUT';
-          }
+        _ucfirst: function(str) {
           if (!str || 0 === str.length) {
             return 'No Name';
           }
