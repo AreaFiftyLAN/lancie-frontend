@@ -15,6 +15,11 @@
   width: 100%;
 }
 
+.termsofservice {
+    font-size: 10px;
+    text-align: center;
+}
+
 hr {
   border: 0;
   background: #606060;
@@ -27,6 +32,10 @@ hr {
 
 lancie-ticket-list {
   margin: 6px 0;
+}
+
+paper-button {
+  width: 100%
 }
 
 paper-card {
