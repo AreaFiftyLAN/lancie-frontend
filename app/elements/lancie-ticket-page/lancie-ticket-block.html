@@ -8,7 +8,7 @@
     <paper-material elevation="0" class="ticket-selector-block layout vertical" style$="{{_computeStyle(color)}}">
       <div class="version layout horizontal self-end">{{ticket.numberSold}}/{{ticket.limit}}</div>
       <h2>{{_ucfirst(ticket.text)}}</h2>
-      <h3 class="horizontal layout start">Price: € {{_formatPrice(ticket.price)}}</h3>
+      <h3 class="horizontal layout start">Price: € {{price}}</h3>
       <hr themed-reverse>
       <div id="extraOptions" class="extra-options">
         <h4>Options</h4>
