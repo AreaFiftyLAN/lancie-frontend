@@ -7,7 +7,7 @@
   <template>
     <paper-material elevation="0" class="ticket-selector-block layout vertical" style$="{{_computeStyle(color)}}">
       <div class="version layout horizontal self-end">{{remaining}}</div>
-      <h2>{{_ucfirst(ticket.text)}}</h2>
+      <h2>{{_ucfirst(ticket)}}</h2>
       <h3 class="horizontal layout start">Price: € {{price}}</h3>
       <hr themed-reverse>
       <div id="extraOptions" class="extra-options">
@@ -22,7 +22,7 @@
         </paper-checkbox>
       </div>
       <hr themed-reverse style="margin-botton: 12px;">
-      <paper-button on-tap="addTicket" disabled="{{notAvailable}}">Add</paper-button>
+      <paper-button on-tap="addTicket" disabled="{{disabled}}">Add</paper-button>
     </paper-material>
   </template>
   <script>
@@ -80,7 +80,7 @@
         _computeRemainingString: function(ticket) {
           var remaining = ticket.limit - ticket.numberSold;
           if (remaining === 0) {
-            return 'SOLD OUT!';
+            return '-';
           }
           if (ticket.text === 'Regular') {
             return 'Available!';
@@ -105,9 +105,13 @@
           }
         },
 
-        _ucfirst: function(str) {
+        _ucfirst: function(ticket) {
+          var str = ticket.text;
+          if (ticket.limit - ticket.numberSold === 0) {
+            return 'SOLD OUT';
+          }
           if (!str || 0 === str.length) {
-            return "No Name";
+            return 'No Name';
           }
           var f = str.charAt(0)
                   .toUpperCase();
