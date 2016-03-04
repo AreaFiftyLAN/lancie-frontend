@@ -1,11 +1,24 @@
 <link rel="import" href="my-area-order-item.html">
-
+<link rel="import" href="../../bower_components/paper-datatable/paper-datatable.html">
 <dom-module id="my-area-orders">
   <template>
     <lancie-ajax id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-response="storeOrders"></lancie-ajax>
     <style>
     :host {
       display: block;
+    }
+
+    h3 {
+      margin: 0;
+    }
+
+    hr {
+      display: block;
+      height: 1px;
+      border: 0;
+      border-top: 1px solid #e8e8e8;
+      margin: 0;
+      padding: 0;
     }
 
     paper-card {
@@ -44,8 +57,7 @@
       padding: 4px;
       margin-bottom: 10px;
     }
-
-
+    
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
@@ -54,7 +66,72 @@
     <paper-card heading="Orders &amp; Tickets" elevation="1" animated-shadow="true">
       <div class="card-content">
         <template is="dom-if" if="{{orders.length}}">
-          <div class="message">
+          <hr>
+          <paper-item>
+            <paper-item-body class="layout horizontal center layout justified">
+              <div><h3>Order #13</h3></div>
+              <div><b>Date ordered: </b>14-02-2016</div>
+              <div><b>Amount: </b>&euro; 60</div>
+              <div><b>Status: </b>Paid</div>
+              <div><paper-icon-button icon="icons:info"></paper-icon-button></div>
+            </paper-item-body>
+          </paper-item>
+          <hr>
+          <paper-item>
+            <paper-item-body class="layout horizontal center layout justified">
+              <iron-icon icon="receipt" item-icon></iron-icon>
+              <div><b>Name: </b>EARLY BIRD</div>
+              <div><b>Amount: </b>&euro; 40</div>
+              <div>CH member: <iron-icon icon="icons:check"></iron-icon></div>
+              <div>Pickup service: <iron-icon icon="icons:clear"></iron-icon></div>
+              <div><paper-icon-button icon="icons:send"></paper-icon-button></div>
+            </paper-item-body>
+          </paper-item>
+          <paper-item>
+            <paper-item-body class="layout horizontal center layout justified">
+              <iron-icon icon="receipt" item-icon></iron-icon>
+              <div><b>Name: </b>EARLY BIRD</div>
+              <div><b>Amount: </b>&euro; 40</div>
+              <div>CH member: <iron-icon icon="icons:check"></iron-icon></div>
+              <div>Pickup service: <iron-icon icon="icons:clear"></iron-icon></div>
+              <div><paper-icon-button icon="icons:send"></paper-icon-button></div>
+            </paper-item-body>
+          </paper-item>
+          <hr>
+          <div style="margin-bottom: 20px;"></div>
+          <paper-item>
+            <paper-item-body class="layout horizontal center layout justified">
+              <div><h3>Order #13</h3></div>
+              <div><b>Date ordered: </b>14-02-2016</div>
+              <div><b>Amount: </b>&euro; 60</div>
+              <div><b>Status: </b>Paid</div>
+              <div><paper-icon-button icon="icons:info"></paper-icon-button></div>
+            </paper-item-body>
+          </paper-item>
+          <hr>
+          <paper-item>
+            <paper-item-body class="layout horizontal center layout justified">
+              <iron-icon icon="receipt" item-icon></iron-icon>
+              <div><b>Name: </b>EARLY BIRD</div>
+              <div><b>Amount: </b>&euro; 40</div>
+              <div>CH member: <iron-icon icon="icons:check"></iron-icon></div>
+              <div>Pickup service: <iron-icon icon="icons:clear"></iron-icon></div>
+              <div><paper-icon-button icon="icons:send"></paper-icon-button></div>
+            </paper-item-body>
+          </paper-item>
+          <paper-item>
+            <paper-item-body class="layout horizontal center layout justified">
+              <iron-icon icon="receipt" item-icon></iron-icon>
+              <div><b>Name: </b>EARLY BIRD</div>
+              <div><b>Amount: </b>&euro; 40</div>
+              <div>CH member: <iron-icon icon="icons:check"></iron-icon></div>
+              <div>Pickup service: <iron-icon icon="icons:clear"></iron-icon></div>
+              <div><paper-icon-button icon="icons:send"></paper-icon-button></div>
+            </paper-item-body>
+          </paper-item>
+          <hr>
+
+          <!-- <div class="message">
             Ticket transfer will be available soon!
           </div>
           <div class="header">
@@ -71,7 +148,7 @@
             <template is="dom-repeat" items="{{item.tickets}}" status="{{item.status}}" index-as="index">
               <my-area-order-item ticket="{{item}}"></my-area-order-item>
             </template>
-          </template>
+          </template> -->
         </template>
         <template is="dom-if" if="{{!orders.length}}">
           You don't have any orders yet

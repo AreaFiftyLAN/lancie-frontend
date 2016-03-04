@@ -11,7 +11,8 @@
     "google-youtube": "GoogleWebComponents/google-youtube#~1.1.2",
     "font-awesome": "FortAwesome/Font-Awesome#^4.4.0",
     "moment": "momentjs#~2.10.6",
-    "polymer": "polymer/polymer#1.2.4"
+    "polymer": "polymer/polymer#1.2.4",
+    "paper-datatable": "David-Mulder/paper-datatable#^0.9.8"
   },
   "devDependencies": {
     "web-component-tester": "*",
