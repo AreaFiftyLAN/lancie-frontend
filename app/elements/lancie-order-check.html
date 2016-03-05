@@ -1,0 +1,65 @@
+<link rel="import" href="lancie-section/lancie-section.html">
+<link rel="import" href="../lancie-message-card.html">
+
+<dom-module id="lancie-order-check">
+  <template>
+    <lancie-ajax id="ajaxConfirmOrder" refurl="orders/{{orderId}}/status" method="GET" handle-as="json" on-response="onResponse" on-error="onError"></lancie-ajax>
+    <lancie-message-card hidden$="{{!error}}">
+      Hmm, there seemed to have gone something wrong. If you have paid for the tickets please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your email-adres and username. We will then check what went wrong.
+      <a href="/">Head back to the homepage</a>
+    </lancie-message-card>
+    <lancie-message-card hidden$="{{!success}}">
+      Congratulations, your ticket(s) were successfully ordered and are now available in your area. Click my area below or in header to go to your area to manage your tickets and profile.
+      <a href="/my-area">My Area</a>
+    </lancie-message-card>
+    <lancie-message-card hidden$="{{!cancelled}}">
+      Your order was cancelled. Please place a new order if you still want to buy tickets. Your previous order will be automatically removed. If you have questions, please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your email-adres and username.
+      <a href="/">Head back to the homepage</a>
+    </lancie-message-card>
+    <lancie-message-card hidden$="{{!waiting}}">
+      You didn't finish your payment yet, or your order is still being processed. Please try again later. If this problem persists, please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your email-adres and username. We will then check what went wrong.
+      <a href="/">Head back to the homepage</a>
+    </lancie-message-card>
+  </template>
+  <script>
+  Polymer({
+    is: 'lancie-order-check',
+    properties: {
+      orderId: {
+        type: String,
+        value: ''
+      }
+    },
+    attached: function() {
+      this.success = false;
+      this.error = false;
+      this.cancelled = false
+      this.waiting = false;
+      this.orderId = window.location.href.split('order=')[1];
+      this.$.ajaxConfirmOrder.generateRequest();
+    },
+
+    onResponse: function(e, request) {
+      // Such beauty Tour-De-France-code
+      switch (request.response.object.status) {
+        case "PAID":
+          this.success = true;
+          break;
+        case "CANCELLED":
+          this.cancelled = true;
+          break;
+        case "WAITING":
+          this.waiting = true;
+          break;
+        default:
+          this.error = true;
+      }
+    },
+
+    onError: function(e, request) {
+      this.error = true;
+    }
+
+  });
+  </script>
+</dom-module>
