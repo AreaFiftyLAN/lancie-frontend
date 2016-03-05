@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
@@ -18,10 +18,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="lancie-commission-member.html">
 <dom-module id="lancie-commission">
   <template>
+    <style include="iron-flex iron-flex-alignment">
     <style>
       :host {
-        display: flex;
-        flex-wrap: wrap;
+        display: block;
       }
 
       p {
@@ -51,6 +51,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       lancie-commission-member {
         width: calc(50% - 10px);
+        margin: 5px;
       }
 
       lancie-commission-member.small-device {
@@ -63,28 +64,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
     </style>
-    <iron-media-query query="max-width: 950px" query-matches="{{small}}"></iron-media-query>
-    <iron-media-query query="max-width: 600px" query-matches="{{small-device}}"></iron-media-query>
+    <div class="layout horizontal wrap">
+      <iron-media-query query="max-width: 950px" query-matches="{{small}}"></iron-media-query>
+      <iron-media-query query="max-width: 600px" query-matches="{{small-device}}"></iron-media-query>
 
-    <iron-ajax auto url="{{json}}"
-               last-response="{{commission}}"
-               handle-as="json"
-               debounce-duration="300"></iron-ajax>
+      <iron-ajax auto url="{{json}}"
+                 last-response="{{commission}}"
+                 handle-as="json"
+                 debounce-duration="300"></iron-ajax>
 
-    <div class$="{{_computeSmall('textual', small)}}">
-      <p>The LANcie is the newest and coolest committee of W.I.S.V ‘Christiaan Huygens’. This
-        club of superheroes
-        will ensure that you will never forget this gaming event. The LANcie does not bite and is not afraid of
-        questions or a good conversation about gaming, food, UTP cables or networks. From the start to finish of
-        this adventure we will assist you. With classified regards, the LANcie!</p>
+      <div class$="{{_computeSmall('textual', small)}}">
+        <p>The LANcie is the newest and coolest committee of W.I.S.V ‘Christiaan Huygens’. This
+          club of superheroes
+          will ensure that you will never forget this gaming event. The LANcie does not bite and is not afraid of
+          questions or a good conversation about gaming, food, UTP cables or networks. From the start to finish of
+          this adventure we will assist you. With classified regards, the LANcie!</p>
 
-      <p>If you have any questions, please send a mail to lancie@ch.tudelft.nl</p>
-    </div>
-    <div class$="{{_computeSmall('visual', small)}}">
-      <div class="layout horizontal wrap start-justified">
-        <template is="dom-repeat" items="[[commission]]" as="commissioner">
-          <lancie-commission-member commissioner="{{commissioner}}" class$="{{_computeSmallDevice(small-device)}}"></lancie-commission-member>
-        </template>
+        <p>If you have any questions, please send a mail to lancie@ch.tudelft.nl</p>
+      </div>
+      <div class$="{{_computeSmall('visual', small)}}">
+        <div class="layout horizontal wrap start-justified">
+          <template is="dom-repeat" items="[[commission]]" as="commissioner">
+            <lancie-commission-member commissioner="{{commissioner}}" class$="{{_computeSmallDevice(small-device)}}"></lancie-commission-member>
+          </template>
+        </div>
       </div>
     </div>
   </template>
