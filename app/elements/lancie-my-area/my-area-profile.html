@@ -237,7 +237,7 @@
         user.email = newValue.email;
         this.editingUser = user;
       },
-      _checkEmpty(value) {
+      _checkEmpty: function(value) {
         return value || 'Not yet filled in, please click the pencil icon in the bottom left to complete your profile.';
       }
     });
