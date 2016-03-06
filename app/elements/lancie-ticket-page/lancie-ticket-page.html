@@ -48,7 +48,13 @@ This code may only be used under the BSD style license found at https://github.c
                   </div>
                 </template>
                 <div class="card-actions">
-                  <paper-button raised on-tap="payOrder" disabled="{{hasNoTickets}}">Check out</paper-button>
+                    <ul style="list-style-type:circle">
+                        <li>Pickup radius is 7.5Km</li>
+                        <li>Under 18 years, you must be able to provide parental approval</li>
+                    </ul>
+                </div>
+                <div class="card-actions">
+                  <paper-button raised on-tap="openDialog" disabled="{{hasNoTickets}}">Check out</paper-button>
                   <br />
                   <br />
                   <small>Note: If you do not pay the tickets within 30 minutes, the order will be removed.</small>
