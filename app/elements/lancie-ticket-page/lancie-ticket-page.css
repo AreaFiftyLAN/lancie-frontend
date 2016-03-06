@@ -29,6 +29,10 @@ lancie-ticket-list {
   margin: 6px 0;
 }
 
+ul {
+  list-style-type: circle;
+}
+
 paper-button {
   width: 100%
 }
