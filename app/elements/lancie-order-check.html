@@ -1,5 +1,5 @@
 <link rel="import" href="lancie-section/lancie-section.html">
-<link rel="import" href="../lancie-message-card.html">
+<link rel="import" href="lancie-message-card.html">
 <dom-module id="lancie-order-check">
   <template>
     <lancie-ajax id="ajaxConfirmOrder" refurl="orders/{{orderId}}/status" method="GET" handle-as="json" on-response="onResponse"></lancie-ajax>
@@ -40,7 +40,11 @@
       this.cancelled = false
       this.waiting = false;
       this.orderId = window.location.href.split('order=')[1];
-      this.$.ajaxConfirmOrder.generateRequest();
+      if (this.orderId) {
+        this.$.ajaxConfirmOrder.generateRequest();
+      } else {
+        this.error = true;
+      }
     },
 
     onResponse: function(e, request) {
