@@ -1,23 +1,23 @@
 <link rel="import" href="lancie-section/lancie-section.html">
 <link rel="import" href="../lancie-message-card.html">
-
 <dom-module id="lancie-order-check">
   <template>
-    <lancie-ajax id="ajaxConfirmOrder" refurl="orders/{{orderId}}/status" method="GET" handle-as="json" on-response="onResponse" on-error="onError"></lancie-ajax>
+    <lancie-ajax id="ajaxConfirmOrder" refurl="orders/{{orderId}}/status" method="GET" handle-as="json" on-response="onResponse"></lancie-ajax>
     <lancie-message-card hidden$="{{!error}}">
-      Hmm, there seemed to have gone something wrong. If you have paid for the tickets please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your email-adres and username. We will then check what went wrong.
+      <p>Hmm, there seemed to have gone something wrong. If you have paid for the tickets please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your email-adres and username. We will then check what went wrong.</p>
       <a href="/">Head back to the homepage</a>
     </lancie-message-card>
     <lancie-message-card hidden$="{{!success}}">
-      Congratulations, your ticket(s) were successfully ordered and are now available in your area. Click my area below or in header to go to your area to manage your tickets and profile.
+      <p>Congratulations, your ticket(s) were successfully ordered and are now available in your area. Click my area below or in header to go to your area to manage your tickets and profile.</p>
       <a href="/my-area">My Area</a>
     </lancie-message-card>
     <lancie-message-card hidden$="{{!cancelled}}">
-      Your order was cancelled. Please place a new order if you still want to buy tickets. Your previous order will be automatically removed. If you have questions, please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your email-adres and username.
+      <p>Your order was cancelled. Please place a new order if you still want to buy tickets. Your previous order will be automatically removed. If you have questions, please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your email-adres and username.</p>
       <a href="/">Head back to the homepage</a>
     </lancie-message-card>
     <lancie-message-card hidden$="{{!waiting}}">
-      You didn't finish your payment yet, or your order is still being processed. Please try again later. If this problem persists, please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your email-adres and username. We will then check what went wrong.
+      <p>
+        You didn't finish your payment yet, or your order is still being processed. Please try again later. If this problem persists, please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your email-adres and username. We will then check what went wrong.</p>
       <a href="/">Head back to the homepage</a>
     </lancie-message-card>
   </template>
@@ -41,18 +41,22 @@
 
     onResponse: function(e, request) {
       // Such beauty Tour-De-France-code
-      switch (request.response.object.status) {
-        case "PAID":
-          this.success = true;
-          break;
-        case "CANCELLED":
-          this.cancelled = true;
-          break;
-        case "WAITING":
-          this.waiting = true;
-          break;
-        default:
-          this.error = true;
+      if (request.succeeded) {
+        switch (request.response.object.status) {
+          case "PAID":
+            this.success = true;
+            break;
+          case "CANCELLED":
+            this.cancelled = true;
+            break;
+          case "WAITING":
+            this.waiting = true;
+            break;
+          default:
+            this.error = true;
+        }
+      } else {
+        this.error = true;
       }
     },
 
