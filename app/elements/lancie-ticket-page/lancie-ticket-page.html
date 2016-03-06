@@ -5,13 +5,19 @@ This code may only be used under the BSD style license found at https://github.c
 -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="lancie-ticket-list.html">
 <link rel="import" href="lancie-ticket-iron-block.html">
 <link rel="import" href="lancie-ticket-block.html">
+<link rel="import" href="lancie-terms-of-service.html">
 
 <dom-module id="lancie-ticket-page">
   <link rel="import" type="css" href="lancie-ticket-page.css">
+
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
 
@@ -43,7 +49,13 @@ This code may only be used under the BSD style license found at https://github.c
                   </div>
                 </template>
                 <div class="card-actions">
-                  <paper-button raised on-tap="payOrder" disabled="{{hasNoTickets}}">Check out</paper-button>
+                    <ul>
+                        <li>Pickup radius is 7.5Km</li>
+                        <li>Under 18 years, you must be able to provide parental approval</li>
+                    </ul>
+                </div>
+                <div class="card-actions">
+                  <paper-button raised on-tap="openDialog" disabled="{{hasNoTickets}}">Check out</paper-button>
                   <br />
                   <br />
                   <small>Note: If you do not pay the tickets within 30 minutes, the order will be removed.</small>
@@ -54,6 +66,16 @@ This code may only be used under the BSD style license found at https://github.c
         </lancie-ticket-selector>
       </lancie-section>
     </template>
+    <paper-dialog id="termsofservice" on-iron-overlay-opened="patchOverlay" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+      <h2>Terms and conditions</h2>
+      <paper-dialog-scrollable>
+        <lancie-terms-of-service></lancie-terms-of-service>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss on-tap="closeDialog">Cancel</paper-button>
+        <paper-button dialog-confirm on-tap="payOrder">I agree to the terms of service</paper-button>
+      </div>
+    </paper-dialog>
   </template>
   <script>
   'use strict';
@@ -114,6 +136,18 @@ This code may only be used under the BSD style license found at https://github.c
 
     payOrder: function() {
       this.$.ajax.generateRequest();
+    },
+
+    openDialog: function() {
+      this.$.termsofservice.open();
+    },
+
+    closeDialog: function() {
+      this.$.termsofservice.close();
+    },
+
+    patchOverlay: function(e) {
+      this.insertBefore(e.target.backdropElement, e.target);
     },
 
     _setLayout: function(medium) {
