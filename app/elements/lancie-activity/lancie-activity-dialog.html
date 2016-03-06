@@ -104,50 +104,51 @@ This code may only be used under the BSD style license found at https://github.c
   </template>
 
   <script>
-    Polymer({
-      is: 'lancie-activity-dialog',
-      properties: {
-        data: {
-          type: Object,
-          value: {},
-          notify: true
-        }
-      },
-
-      /**
-       * Opens the paper-dialog
-       * @return {void}
-       */
-      openDialog: function() {
-        this.$.lancieDialog.open();
-      },
-
-      /**
-       * Closes the paper-dialog
-       * @return {void}
-       */
-      closeDialog: function() {
-        this.$.lancieDialog.close();
-      },
-
-      /**
-       * Defines the class for the paper-dialog
-       * @param  {boolean} mediaQuery Boolean from the media-query (max-width: 600px)
-       * @param  {Object}  sponsor    Sponsor object
-       * @return {String}             String of the class for the paper-dialog
-       */
-      _dialogClass: function(mediaQuery, sponsor) {
-        return (mediaQuery ? "small-dialog " : "large-dialog ") + (sponsor ? "sponsor" : "no-sponsor");
-      },
-
-      /**
-       * Defines the class for the content of the paper-dialog
-       * @param  {boolean} mediaQuery Boolean from the media-query (max-width: 600px)
-       * @return {String}             String of the class for the content of the paper-dialog
-       */
-      _contentClass: function(mediaQuery) {
-        return "action-dialog-header layout start flex " + (mediaQuery ? "vertical" : "horizontal");
+  'use strict';
+  Polymer({
+    is: 'lancie-activity-dialog',
+    properties: {
+      data: {
+        type: Object,
+        value: {},
+        notify: true
       }
-    });
+    },
+
+    /**
+     * Opens the paper-dialog
+     * @return {void}
+     */
+    openDialog: function() {
+      this.$.lancieDialog.open();
+    },
+
+    /**
+     * Closes the paper-dialog
+     * @return {void}
+     */
+    closeDialog: function() {
+      this.$.lancieDialog.close();
+    },
+
+    /**
+     * Defines the class for the paper-dialog
+     * @param  {boolean} mediaQuery Boolean from the media-query (max-width: 600px)
+     * @param  {Object}  sponsor    Sponsor object
+     * @return {String}             String of the class for the paper-dialog
+     */
+    _dialogClass: function(mediaQuery, sponsor) {
+      return (mediaQuery ? 'small-dialog ' : 'large-dialog ') + (sponsor ? 'sponsor' : 'no-sponsor');
+    },
+
+    /**
+     * Defines the class for the content of the paper-dialog
+     * @param  {boolean} mediaQuery Boolean from the media-query (max-width: 600px)
+     * @return {String}             String of the class for the content of the paper-dialog
+     */
+    _contentClass: function(mediaQuery) {
+      return 'action-dialog-header layout start flex ' + (mediaQuery ? 'vertical' : 'horizontal');
+    }
+  });
   </script>
 </dom-module>

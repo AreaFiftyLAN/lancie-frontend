@@ -25,6 +25,7 @@
     </lancie-message-card>
   </template>
   <script>
+  'use strict';
   Polymer({
     is: 'lancie-order-check',
     properties: {
@@ -37,7 +38,7 @@
       this.confirming = true;
       this.success = false;
       this.error = false;
-      this.cancelled = false
+      this.cancelled = false;
       this.waiting = false;
       this.orderId = window.location.href.split('order=')[1];
       if (this.orderId) {
@@ -52,13 +53,13 @@
       this.confirming = false;
       if (request.succeeded) {
         switch (request.response.object.status) {
-          case "PAID":
+          case 'PAID':
             this.success = true;
             break;
-          case "CANCELLED":
+          case 'CANCELLED':
             this.cancelled = true;
             break;
-          case "WAITING":
+          case 'WAITING':
             this.waiting = true;
             break;
           default:

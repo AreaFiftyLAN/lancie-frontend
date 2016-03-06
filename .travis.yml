@@ -6,4 +6,5 @@ before_script:
   - 'bower install'
 env:
   - COMMAND=jshint
+  - COMMAND=default
 script: "gulp $COMMAND"
