@@ -3,6 +3,9 @@
 <dom-module id="lancie-order-check">
   <template>
     <lancie-ajax id="ajaxConfirmOrder" refurl="orders/{{orderId}}/status" method="GET" handle-as="json" on-response="onResponse"></lancie-ajax>
+    <lancie-message-card hidden$="{{!confirming}}">
+      Hold on while we check the status of your order.
+    </lancie-message-card>
     <lancie-message-card hidden$="{{!error}}">
       <p>Hmm, there seemed to have gone something wrong. If you have paid for the tickets please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your email-adres and username. We will then check what went wrong.</p>
       <a href="/">Head back to the homepage</a>
@@ -31,6 +34,7 @@
       }
     },
     attached: function() {
+      this.confirming = true;
       this.success = false;
       this.error = false;
       this.cancelled = false
@@ -40,7 +44,7 @@
     },
 
     onResponse: function(e, request) {
-      // Such beauty Tour-De-France-code
+      this.confirming = false;
       if (request.succeeded) {
         switch (request.response.object.status) {
           case "PAID":
@@ -58,12 +62,7 @@
       } else {
         this.error = true;
       }
-    },
-
-    onError: function(e, request) {
-      this.error = true;
     }
-
   });
   </script>
 </dom-module>
