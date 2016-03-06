@@ -67,26 +67,26 @@ This code may only be used under the BSD style license found at https://github.c
       </ul>
     </div>
   </template>
-
   <script>
-    Polymer({
-      is: 'lancie-activity-footer',
-      properties: {
-        data: {
-          type: Object,
-          value: {},
-          notify: true
-        }
-      },
-      _parseTime: function(dateTime) {
-        return moment(
-          dateTime.dayOfMonth + "-" +
-          dateTime.monthValue + "-" +
-          dateTime.year + " " +
-          dateTime.hour + ":" +
-          dateTime.minute, "DD-MM-YYYY hh:mm"
-        ).format("DD MMM HH:mm");
+  'use strict';
+  Polymer({
+    is: 'lancie-activity-footer',
+    properties: {
+      data: {
+        type: Object,
+        value: {},
+        notify: true
       }
-    });
+    },
+    _parseTime: function(dateTime) {
+      return moment(
+        dateTime.dayOfMonth + '-' +
+        dateTime.monthValue + '-' +
+        dateTime.year + ' ' +
+        dateTime.hour + ':' +
+        dateTime.minute, 'DD-MM-YYYY hh:mm'
+      ).format('DD MMM HH:mm');
+    }
+  });
   </script>
 </dom-module>

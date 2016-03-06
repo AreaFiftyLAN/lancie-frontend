@@ -7,7 +7,7 @@
     :host {
       display: block;
     }
-    
+
     paper-card {
       width: 100%;
     }
@@ -45,7 +45,7 @@
       margin-bottom: 10px;
     }
 
-    
+
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
@@ -79,14 +79,15 @@
       </div>
       <div class="card-actions">
         <paper-icon-button on-tap="buyTickets" icon="icons:add-shopping-cart" id="buy-ticket">Buy tickets</paper-icon-button>
-        <paper-tooltip for="buy-ticket" offset="0" animation-delay="1">Buy tickets</paper-tooltip>        
-        
+        <paper-tooltip for="buy-ticket" offset="0" animation-delay="1">Buy tickets</paper-tooltip>
+
         <paper-icon-button icon="icons:redeem" id="redeem-ticket" disabled></paper-icon-button>
         <paper-tooltip for="redeem-ticket" offset="0" animation-delay="1">Redeem a ticket code</paper-tooltip>
       </div>
     </paper-card>
   </template>
   <script>
+  'use strict';
   Polymer({
     is: 'my-area-orders',
     properties: {
@@ -105,7 +106,7 @@
       this.orders = request.response.length > 0 ? request.response : false;
     },
     _orderStatusColor: function(status) {
-      return "order "+ status;
+      return 'order ' + status;
     },
     attached: function() {
       this.$.ajaxOrders.generateRequest();

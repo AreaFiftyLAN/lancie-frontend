@@ -58,27 +58,28 @@
     </paper-material>
   </template>
   <script>
-    Polymer({
-      is: 'lancie-commission-member',
-      properties: {
-        commissioner: {
-          type: Object
-        }
-      },
-
-      _computeClass: function(small) {
-        var clazz = 'layout horizontal commission-member stretch ';
-
-        if (small) {
-          clazz += 'small-device';
-        }
-
-        return clazz;
-      },
-
-      _getIcon: function(data) {
-        return 'fa fa-' + data.icon;
+  'use strict';
+  Polymer({
+    is: 'lancie-commission-member',
+    properties: {
+      commissioner: {
+        type: Object
       }
-    });
+    },
+
+    _computeClass: function(small) {
+      var clazz = 'layout horizontal commission-member stretch ';
+
+      if (small) {
+        clazz += 'small-device';
+      }
+
+      return clazz;
+    },
+
+    _getIcon: function(data) {
+      return 'fa fa-' + data.icon;
+    }
+  });
   </script>
 </dom-module>

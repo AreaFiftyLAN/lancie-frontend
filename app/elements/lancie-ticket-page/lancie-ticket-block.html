@@ -98,8 +98,8 @@
         },
 
         _formatPrice: function(price) {
-          if (price % 1 == 0) {
-            return Math.abs(price) + ",-";
+          if (price % 1 === 0) {
+            return Math.abs(price) + ',-';
           } else {
             return Math.abs(price).toFixed(2);
           }

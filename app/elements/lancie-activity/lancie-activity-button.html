@@ -77,23 +77,24 @@ This code may only be used under the BSD style license found at https://github.c
     </paper-material>
   </template>
   <script>
-    Polymer({
-      is: 'lancie-activity-button',
-      properties: {
-        data: {
-          type: Object,
-          value: {},
-          notify:true
-        }
-      },
-      ready: function() {
-        if (this.clientWidth !== 0) {
-          return this.$.header.style.fontSize = (this.clientWidth / 6) + "px";
-        }
-      },
-      _computeClass: function(footer) {
-        return (footer) ? "footer" : "no-footer"
+  'use strict';
+  Polymer({
+    is: 'lancie-activity-button',
+    properties: {
+      data: {
+        type: Object,
+        value: {},
+        notify:true
       }
-    })
-    </script>
+    },
+    ready: function() {
+      if (this.clientWidth !== 0) {
+        this.$.header.style.fontSize = (this.clientWidth / 6) + 'px';
+      }
+    },
+    _computeClass: function(footer) {
+      return (footer) ? 'footer' : 'no-footer';
+    }
+  });
+  </script>
 </dom-module>
