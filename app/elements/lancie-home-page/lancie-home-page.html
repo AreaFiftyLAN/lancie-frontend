@@ -125,10 +125,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <lancie-commission json="/scripts/commission.json"></lancie-commission>
     </lancie-section>
     <lancie-section type="primary full no-padding">
-      <google-map latitude="51.999020" longitude="4.371175" zoom="14" disable-zoom fit-to-markers draggable="false">
-        <google-map-marker latitude="51.999020" longitude="4.371175"
-            draggable="true" title="Area FiftyLAN"></google-map-marker>
-      </google-map>
+      <iron-ajax
+        auto
+        url="/api/v1/googlemapskey"
+        handle-as="json"
+        last-response="{{googleMapsToken}}"></iron-ajax>
+      <template is="dom-if" if="{{googleMapsToken}}" restamp="true">
+        <google-map latitude="51.999020" longitude="4.371175" zoom="14" disable-zoom fit-to-markers draggable="false" api-key="{{googleMapsToken.message}}">
+          <google-map-marker latitude="51.999020" longitude="4.371175"
+              draggable="true" title="Area FiftyLAN"></google-map-marker>
+        </google-map>
+      </template>
     </lancie-section>
   </template>
 </dom-module>
