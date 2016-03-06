@@ -8,14 +8,19 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/marked-element/marked-element.html" />
 <dom-module id="lancie-section">
   <template>
+    <style include="iron-flex iron-flex-alignment">
     <style>
     :host {
       display: block;
+    }
+
+    .layout ::content > * {
+      width: 100%;
     }
 
     .container {
@@ -101,7 +106,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return 'container ' + this.type;
       },
       _setOrientation: function(horizontal) {
-        return 'layout ' + (horizontal ? 'vertical' : 'horizontal');
+        return 'layout flex-auto ' + (horizontal ? 'vertical' : 'horizontal');
       }
     });
   })();
