@@ -127,7 +127,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <lancie-section type="primary full no-padding">
       <iron-ajax
         auto
-        url="/api/v1/googlemapskey"
+        url="/api/v1/web/properties/googlemapskey"
         handle-as="json"
         last-response="{{googleMapsToken}}"></iron-ajax>
       <template is="dom-if" if="{{googleMapsToken}}" restamp="true">
