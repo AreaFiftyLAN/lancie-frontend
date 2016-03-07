@@ -41,8 +41,8 @@ paper-card {
   width: 100%;
   /*max-width: 420px;*/
   /*width: 420px;*/
-  margin: 8px;
   --paper-card-header-color: #ffe574;
+  margin: 8px;
   --paper-card-header: {
     background-color: #1a2b43;
   }
