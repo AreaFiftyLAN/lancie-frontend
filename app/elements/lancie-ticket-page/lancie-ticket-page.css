@@ -46,3 +46,7 @@ paper-card {
     background-color: #1a2b43;
   };
 }
+
+.ticket-container {
+  margin-right: 10px;
+}
