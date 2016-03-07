@@ -8,3 +8,6 @@ env:
   - COMMAND=jshint
   - COMMAND=default
 script: "gulp $COMMAND"
+cache:
+  directories:
+    - node_modules
