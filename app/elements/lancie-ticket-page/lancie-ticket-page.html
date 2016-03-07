@@ -17,19 +17,18 @@ This code may only be used under the BSD style license found at https://github.c
 
 <dom-module id="lancie-ticket-page">
   <link rel="import" type="css" href="lancie-ticket-page.css">
-
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
 
     <lancie-ajax id="ajax" refurl="orders/{{order.id}}/checkout" on-response="goToPayment"></lancie-ajax>
-    <lancie-ajax auto id="tickets" refurl="tickets/available" on-response="loadTickets"></lancie-ajax>
+    <lancie-ajax auto refurl="tickets/available" on-response="loadTickets"></lancie-ajax>
     <lancie-ajax auto refurl="users/current/orders/open" method="GET" on-response="getOpenOrder"></lancie-ajax>
     <template is="dom-if" if="{{canOrderTickets}}" restamp="true">
       <iron-media-query query="(min-width: 1018px)" query-matches="{{medium}}"></iron-media-query>
       <lancie-section type="primary full" header="Ticket sale - AreaFiftyLAN 2016, 03 - 04 - 05 June">
         <lancie-ticket-selector id="list" tickets="{{order.tickets}}" class="layout horizontal flex">
           <div class$="{{_setLayout(medium)}}">
-            <div class="layout horizontal flex">
+            <div class="ticket-container flex-2">
               <paper-card heading="Tickets">
                 <div class="card-content layout horizontal wrap">
                   <template is="dom-repeat" items="{{availableTickets}}">
@@ -38,8 +37,8 @@ This code may only be used under the BSD style license found at https://github.c
                 </div>
               </paper-card>
             </div>
-            <div class="layout horizontal cart start">
-              <paper-card heading="Cart" style="width: 400px;">
+            <div class="cart flex-1">
+              <paper-card heading="Cart">
                 <div class="card-content" style="padding: 0;">
                   <lancie-ticket-list order="{{order}}"></lancie-ticket-list>
                 </div>
@@ -58,7 +57,7 @@ This code may only be used under the BSD style license found at https://github.c
                   <paper-button raised on-tap="openDialog" disabled="{{hasNoTickets}}">Check out</paper-button>
                   <br />
                   <br />
-                  <small>Note: Upon pressing the button the tickets will be reserved and you will have 30 minutes to pay. Tickets will be released after this period if not paid.</small>
+                  <small>Note: Every ticket added to this order will be reserved and you will have 30 minutes to pay. Tickets will be released after this period if not paid.</small>
                 </div>
               </paper-card>
             </div>
