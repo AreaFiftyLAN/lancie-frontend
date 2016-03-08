@@ -39,11 +39,14 @@ paper-button {
 
 paper-card {
   width: 100%;
-  /*max-width: 420px;*/
-  /*width: 420px;*/
-  --paper-card-header-color: #ffe574;
   margin: 8px;
+
+  --paper-card-header-color: #ffe574;
   --paper-card-header: {
     background-color: #1a2b43;
-  }
+  };
+}
+
+.ticket-container, .cart {
+  margin-right: 10px;
 }
