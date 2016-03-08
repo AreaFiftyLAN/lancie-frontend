@@ -47,6 +47,6 @@ paper-card {
   };
 }
 
-.ticket-container {
+.ticket-container, .cart {
   margin-right: 10px;
 }
