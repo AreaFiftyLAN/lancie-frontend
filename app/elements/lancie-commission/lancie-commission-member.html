@@ -14,7 +14,7 @@
 
       .number {
         background-color: #1a2a43;
-        padding: 5px;
+        padding: 15px;
       }
 
       .member-desc {
@@ -41,7 +41,7 @@
     <iron-media-query query="max-width: 530px" query-matches="{{small}}"></iron-media-query>
     <paper-material elevation="1" class$="{{_computeClass(small)}}">
         <div class="number layout">
-            <img height="60px" width="60px" src$="{{_getIcon(commissioner)}}"></img>
+            <img height="30px" width="30px" src$="{{_getIcon(commissioner)}}"></img>
         </div>
         <div class="member-desc layout flex self-center">
             <h2>{{commissioner.name}}</h2>
