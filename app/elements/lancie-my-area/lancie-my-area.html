@@ -27,21 +27,21 @@
 
     .card {
       margin: 13px 30px 0 0;
+      min-width: 300px;
     }
 
     paper-button {
       background-color: #1A2B43;
       color: #FEE474;
       --paper-button-raised-keyboard-focus: {
-        background-color: var(--paper-pink-a200) !important;
-        color: white !important;
-      }
-      ;
+        background-color: var(--paper-pink-a200);
+        color: white;
+      };
     }
     </style>
-    <div class="layout horizontal start content">
-      <my-area-profile user="{{user}}" class="flex-3 card"></my-area-profile>
-      <my-area-teams class="flex-2 card"></my-area-teams>
+    <div class="layout horizontal start content wrap">
+      <my-area-profile user="{{user}}" class="flex card"></my-area-profile>
+      <my-area-teams class="flex card"></my-area-teams>
     </div>
     <div class="layout horizontal start content">
       <my-area-orders class="flex-3 card"></my-area-orders>
