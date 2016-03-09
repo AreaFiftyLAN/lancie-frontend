@@ -26,7 +26,7 @@ This code may only be used under the BSD style license found at https://github.c
     <template is="dom-if" if="{{canOrderTickets}}" restamp="true">
       <iron-media-query query="(min-width: 1018px)" query-matches="{{medium}}"></iron-media-query>
       <lancie-section type="primary full" header="Ticket sale - AreaFiftyLAN 2016, 03 - 04 - 05 June">
-        <lancie-ticket-selector id="list" tickets="{{order.tickets}}" class="layout horizontal flex">
+        <lancie-ticket-selector id="list" tickets="{{order.tickets}}" class="layout horizontal flex lancie-tickets">
           <div class$="{{_setLayout(medium)}}">
             <div class="ticket-container flex-2">
               <paper-card heading="Tickets">
