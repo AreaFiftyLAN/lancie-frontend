@@ -47,6 +47,25 @@ paper-card {
   };
 }
 
+
 .ticket-container, .cart {
   margin-right: 10px;
+}
+
+@media(max-width: 1017px) {
+  .ticket-container {
+    display: block;
+  }
+
+  paper-card {
+    margin: 0 0 20px;
+  }
+
+  :host:last-child {
+    margin: 0;
+  }
+
+  .ticket-container, .cart {
+    margin-right: 0;
+  }
 }
