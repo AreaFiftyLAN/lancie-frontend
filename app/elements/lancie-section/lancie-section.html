@@ -71,6 +71,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     .secondary h1 {
       color: #ffe574;
     }
+
+    @media(max-width: 1017px) {
+      .content {
+        padding: 30px 8px;
+      }
+    }
     </style>
     <iron-media-query query="max-width: 530px" query-matches="{{small}}"></iron-media-query>
     <div class$="{{_setType(type)}}">
