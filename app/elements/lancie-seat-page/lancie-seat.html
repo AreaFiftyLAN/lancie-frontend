@@ -10,13 +10,17 @@
         background-color: red;
       }
 
+      :host[claimed] {
+        background-color: blue;
+      }
+
       span {
         border: 1px black solid;
         display: inline-block;
         width: 100%;
       }
     </style>
-    <span>{{index}}</span>
+    <span on-tap="toggle">{{index}}</span>
     <template is="dom-if" if="{{taken}}">
       <paper-tooltip position="{{position}}">{{user.profile.displayName}}</paper-tooltip>
     </template>
@@ -39,7 +43,20 @@
         },
         position: {
           type: String
+        },
+        claimed: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
         }
+      },
+
+      toggle: function() {
+        if (this.taken) {
+          return;
+        }
+
+        this.claimed = !this.claimed;
       }
     });
   </script>
