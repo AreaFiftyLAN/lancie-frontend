@@ -61,7 +61,9 @@
       </div>
 
       <div data-route="seat-map">
-        <lancie-seat-page></lancie-seat-page>
+        <lancie-login-check user="{{user}}">
+          <lancie-seat-page user="{{user}}"></lancie-seat-page>
+        </lancie-login-check>
       </div>
 
       <div data-route="check-email">
