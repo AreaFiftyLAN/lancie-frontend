@@ -37,28 +37,28 @@
 
     <div class="center">
       <div class="seatgroup-cluster">
-        <lancie-seat-group seats="{{seats.seatmap.a}}" name="A"></lancie-seat-group>
-        <lancie-seat-group seats="{{seats.seatmap.b}}" name="B"></lancie-seat-group>
-        <lancie-seat-group seats="{{seats.seatmap.c}}" name="C"></lancie-seat-group>
-        <lancie-seat-group seats="{{seats.seatmap.d}}" name="D"></lancie-seat-group>
-        <lancie-seat-group seats="{{seats.seatmap.e}}" name="E"></lancie-seat-group>
+        <template is="dom-repeat" items='["A", "B", "C", "D", "E"]'>
+          <lancie-seat-group seats="{{_getSeatGroup(seats, item)}}" name="{{item}}"></lancie-seat-group>
+        </template>
       </div>
       <div class="seatgroup-cluster">
-        <lancie-seat-group seats="{{seats.seatmap.f}}" name="F"></lancie-seat-group>
-        <lancie-seat-group seats="{{seats.seatmap.g}}" name="G"></lancie-seat-group>
-        <lancie-seat-group seats="{{seats.seatmap.h}}" name="H"></lancie-seat-group>
-        <lancie-seat-group seats="{{seats.seatmap.i}}" name="I"></lancie-seat-group>
-        <lancie-seat-group seats="{{seats.seatmap.j}}" name="J"></lancie-seat-group>
+        <template is="dom-repeat" items='["F", "G", "H", "I", "J"]'>
+          <lancie-seat-group seats="{{_getSeatGroup(seats, item)}}" name="{{item}}"></lancie-seat-group>
+        </template>
       </div>
     </div>
   </template>
   <script>
+  'use strict';
     Polymer({
       is: 'lancie-seat-page',
       properties: {
         user: {
           type: Object
         }
+      },
+      _getSeatGroup: function(seats, key) {
+        return seats.seatmap[key];
       }
     });
   </script>
