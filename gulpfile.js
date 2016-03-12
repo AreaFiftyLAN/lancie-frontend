@@ -26,6 +26,7 @@ var url = require('url');
 var proxy = require('proxy-middleware');
 var polybuild = require('polybuild');
 var jsonminify = require('gulp-jsonminify');
+var jshint = require('gulp-jshint');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -68,12 +69,7 @@ var imageOptimizeTask = function(src, dest) {
 };
 
 var optimizeHtmlTask = function(src, dest) {
-  var assets = load.useref.assets({
-    searchPath: ['.tmp', 'app']
-  });
-
   return gulp.src(src)
-    .pipe(assets)
     // Concatenate and minify JavaScript
     .pipe(load.if('*.js', load.uglify({
       preserveComments: 'some'
@@ -81,7 +77,6 @@ var optimizeHtmlTask = function(src, dest) {
     // Concatenate and minify styles
     // In case you are still using useref build blocks
     .pipe(load.if('*.css', load.minifyCss()))
-    .pipe(assets.restore())
     .pipe(load.useref())
     // Minify any HTML
     .pipe(load.if('*.html', load.minifyHtml({
@@ -113,10 +108,10 @@ gulp.task('jshint', function () {
       'app/elements/**/*.html'
     ])
     .pipe(reload({stream: true, once: true}))
-    .pipe(load.jshint.extract()) // Extract JS from .html files
-    .pipe(load.jshint())
-    .pipe(load.jshint.reporter('jshint-stylish'))
-    .pipe(load.if(!browserSync.active, load.jshint.reporter('fail')));
+    .pipe(jshint.extract()) // Extract JS from .html files
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(load.if(!browserSync.active, jshint.reporter('fail')));
 });
 
 // Optimize images
