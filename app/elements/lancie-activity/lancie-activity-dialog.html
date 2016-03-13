@@ -23,6 +23,9 @@ This code may only be used under the BSD style license found at https://github.c
 <dom-module id="lancie-activity-dialog">
   <style include="iron-flex iron-flex-alignment"></style>
   <style>
+    :host {
+      display: block;
+    }
     paper-dialog.small-dialog {
       position: fixed;
       top: 0;
@@ -31,13 +34,14 @@ This code may only be used under the BSD style license found at https://github.c
       bottom: 0;
       margin: 0;
     }
-    paper-dialog.small-dialog paper-dialog-scrollable ::shadow #scrollable {
-      height: calc(100vh);
-    }
     .action-dialog-header {
       position: relative;
-      margin: 0;
-      padding: 0;
+      /*
+        !important is here required because there is no mix-in
+        in paper-dialog-behavior to override the ::content css.
+      */
+      margin: 0 !important;
+      padding: 0 !important;
       height: 120px;
       background-position: 50% 25%;
       background-size: 100% auto;
@@ -62,7 +66,7 @@ This code may only be used under the BSD style license found at https://github.c
       max-width: 850px;
       height: 350px;
     }
-    paper-dialog-scrollable ::shadow #scrollable {
+    paper-dialog-scrollable {
       height: 100%;
     }
     lancie-activity-sponsor {
@@ -94,7 +98,7 @@ This code may only be used under the BSD style license found at https://github.c
           <paper-icon-button icon="close" on-tap="closeDialog"></paper-icon-button>
         </div>
       </div>
-      <paper-dialog-scrollable>
+      <paper-dialog-scrollable class$="{{_dialogClass(queryMatches, data.sponsor)}}">
         <div class$="{{_contentClass(queryMatches)}}">
           <lancie-activity-content data="{{data}}"></lancie-activity-content>
           <lancie-activity-sponsor sponsor="{{data.sponsor}}" prizes="{{data.prizes}}"></lancie-activity-sponsor>
@@ -147,7 +151,7 @@ This code may only be used under the BSD style license found at https://github.c
      * @return {String}             String of the class for the content of the paper-dialog
      */
     _contentClass: function(mediaQuery) {
-      return 'action-dialog-header layout start flex ' + (mediaQuery ? 'vertical' : 'horizontal');
+      return 'layout start flex ' + (mediaQuery ? 'vertical' : 'horizontal');
     }
   });
   </script>
