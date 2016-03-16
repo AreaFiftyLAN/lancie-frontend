@@ -104,7 +104,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <paper-input label="Password" type="password" value="{{password}}" on-keypress="enterAndTryLogIn"></paper-input>
         </div>
         <div hidden$="{{!registering}}">
-          <paper-material class="errormessage" hidden$="{{valid}}">Username and/or email are already taken.</paper-material>
+          <paper-material class="errormessage" hidden$="{{!registerError}}">{{registerErrorMessage}}</paper-material>
           <paper-material class="errormessage" hidden$="{{equalPassword}}">Passwords are not equal.</paper-material>
           <paper-material class="errormessage" hidden$="{{!badEmailFormat}}">Type in a valid email address.</paper-material>
           <paper-input label="Username" type="text" value="{{username}}"></paper-input>
@@ -173,9 +173,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           value: false
         },
-        valid: {
+        registerError: {
           type: Boolean,
-          value: true
+          value: false
         }
       },
 
@@ -237,8 +237,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      onRegisterError: function(e, error) {
-        this.valid = false;
+      onRegisterError: function(event, request) {
+        this.registerError = true;
+
+        if (request.request.status === 409) {
+          this.registerErrorMessage = 'Username and/or email is already in use.';
+        } else {
+          this.registerErrorMessage = 'Something went wrong. Please try again later...';
+        }
       },
 
       bodyFrom: function(username, password, email) {
