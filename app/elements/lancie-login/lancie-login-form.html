@@ -240,12 +240,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       onRegisterError: function(event, request) {
         this.registerError = true;
 
-        if (request.request.status === 500) {
-          this.registerErrorMessage = 'Server failed processing the request.';
-        } else if (request.request.status == 409) {
+        if (request.request.status === 409) {
           this.registerErrorMessage = 'Username and/or email is already in use.';
         } else {
-          this.registerErrorMessage = 'Something went wrong.'
+          this.registerErrorMessage = 'Something went wrong. Please try again later...';
         }
       },
 
