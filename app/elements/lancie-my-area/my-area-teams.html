@@ -9,7 +9,7 @@
 <dom-module id="my-area-teams">
   <template>
     <lancie-ajax refurl="users/current/teams" handle-as="json" on-response="storeTeams" id="ajaxTeams"></lancie-ajax>
-    <lancie-ajax id="createTeam" refurl="teams" handle-as "json" on-response="onCreateTeama"></lancie-ajax>
+    <lancie-ajax id="ajaxCreateTeam" refurl="teams" method="POST" handle-as="json" on-response="onCreateTeam"></lancie-ajax>
     <style>
     :host {
       display: block;
@@ -23,17 +23,17 @@
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
     }
+    
+    .errormessage {
+      padding: 10px 20px 9px;
+      margin-bottom: 4px;
+      border-left: 3px solid #F44336;
+      background: #FFCDD2;
+      color: #B71C1C;
+    }
     </style>
     <paper-card heading="Teams" elevation="1" animated-shadow="true">
       <div class="card-content">
-        <template is="dom-if" if="{{teams.length}}">
-          <template is="dom-repeat" items="{{teams}}">
-            <div>Teamname: {{item.teamName}}</div>
-            <template is="dom-repeat" items="{{item.members}}">
-              <div>Member: {{item.profile.displayName}}</div>
-            </template>
-          </template>
-        </template>
         <template is="dom-if" if="{{!teams.length}}">
           <!-- You're not in a team yet! -->
           Teams functionality will be available soon!
@@ -44,10 +44,10 @@
             <paper-item>
               <paper-item-body class="layout horizontal center layout justified">
                 <div>
-                  <h3>Team {{item.teamName}}</h3></div>
-                <div><b>Captain: </b>{{item.captain.displayName}}</div>
+                  <h3>Team: {{item.teamName}}</h3></div>
+                <div><b>Captain: </b>{{item.captain.profile.displayName}}</div>
                 <div>
-                  <paper-icon-button icon="icons:info" disabled></paper-icon-button>
+                  <paper-icon-button icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
                 </div>
               </paper-item-body>
             </paper-item>
@@ -55,11 +55,10 @@
               <hr>
               <paper-item>
                 <paper-item-body class="layout horizontal center layout justified">
-                  <iron-icon icon="receipt" item-icon></iron-icon>
-                  <div><b>Name: </b>{{item.displayName}}</div>
-                    <paper-icon-button icon="icons:clear" disabled></paper-icon-button>
-                    <paper-tooltip offset="0" animation-delay="1">Remove from team</paper-tooltip>
-                  </div>
+                  <iron-icon icon="social:person" item-icon></iron-icon>
+                  <div><b>Name: </b>{{item.profile.displayName}}</div>
+                  <paper-icon-button icon="icons:clear" disabled></paper-icon-button>
+                  <paper-tooltip offset="0" animation-delay="1">Remove from team</paper-tooltip>
                 </paper-item-body>
               </paper-item>
             </template>
@@ -71,12 +70,22 @@
         <paper-tooltip for="new-team" offset="0" animation-delay="1">Create a new team</paper-tooltip>
       </div>
     </paper-card>
+    <!-- Dialogs -->
     <paper-dialog id="createTeamDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Create a Team</h2>
-      <paper-input label="Team name" type="text"></paper-input>
+      <paper-material class="errormessage" hidden$="{{!createTeamError}}">{{createTeamMessage}}</paper-material>
+      <paper-input label="Team name" type="text" value="{{teamName}}"></paper-input>
       <div class="buttons">
         <paper-button dialog-dismiss>Cancel</paper-button>
-        <paper-button dialog-confirm on-tap="createTeam">Create</paper-button>
+        <paper-button on-tap="submitCreateTeam">Create</paper-button>
+      </div>
+    </paper-dialog>
+    <paper-dialog id="addMemberDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+      <h2>Add a team member</h2>
+      <paper-input label="Username" type="text" value="{{memberName}}"></paper-input>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button on-tap="submitAddMember" disabled>Invite</paper-button>
       </div>
     </paper-dialog>
   </template>
@@ -87,6 +96,13 @@
     properties: {
       teams: {
         type: Array
+      },
+      user: {
+        type: Object
+      },
+      createTeamError: {
+        type: Boolean,
+        value: false
       }
     },
     storeTeams: function(event, request) {
@@ -97,6 +113,39 @@
     },
     openCreateTeamDialog: function() {
       this.$.createTeamDialog.open();
+    },
+    openAddMemberDialog: function() {
+      this.$.addMemberDialog.open();
+    },
+    submitCreateTeam: function() {
+      this.$.ajaxCreateTeam.body = {
+        teamName: this.teamName,
+        captainUsername: this.user.username
+      }
+      this.$.ajaxCreateTeam.generateRequest();
+    },
+    onCreateTeam: function(e, r) {
+      this.createTeamError = !r.succeeded;
+
+      if (r.succeeded) {
+
+        this.$.ajaxTeams.generateRequest();
+
+        this.resetTeamDialogs();
+
+      } else {
+
+        if (r.request.status === 409) {
+          this.createTeamMessage = 'Teamname already in use.';
+        } else {
+          this.createTeamMessage = 'Something went wrong';
+        }
+      }
+    },
+    resetTeamDialogs: function() {
+      this.createTeamError = false;
+      this.createTeamMessage = '';
+      this.$.createTeamDialog.close();
     }
   });
   </script>
