@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
 <dom-module id="my-area-teams">
   <template>
@@ -23,6 +24,14 @@
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
+    }
+    
+    paper-dialog {
+      min-width: 60%;
+    }
+    
+    .member-icon {
+      margin-left: 8%;
     }
     
     .errormessage {
@@ -48,14 +57,16 @@
                   <h3>Team: {{item.teamName}}</h3></div>
                 <div><b>Captain: </b>{{item.captain.profile.displayName}}</div>
                 <div>
-                  <paper-icon-button id="{{item.id}}" icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
+                  <paper-icon-button teamId="{{item.id}}" id="addMemberButton" icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
+                  <paper-tooltip offset="0" for="addMemberButton" animation-delay="1">Invite a member</paper-tooltip>
+                  <paper-icon-button teamId="{{item.id}}" id="openInvitesButton" icon="icons:markunread-mailbox" on-tap="openInvitesDialog"></paper-icon-button>
+                  <paper-tooltip offset="0" for="openInvitesButton" animation-delay="1">View open invites</paper-tooltip>
                 </div>
               </paper-item-body>
             </paper-item>
             <template is="dom-repeat" items="{{item.members}}">
-              <hr>
               <paper-item>
-                <paper-item-body class="layout horizontal center layout justified">
+                <paper-item-body class="layout horizontal justified member-icon">
                   <iron-icon icon="social:person" item-icon></iron-icon>
                   <div><b>Name: </b>{{item.profile.displayName}}</div>
                   <paper-icon-button icon="icons:clear" disabled></paper-icon-button>
@@ -69,6 +80,8 @@
       <div class="card-actions">
         <paper-icon-button id="new-team" icon="social:group-add" on-tap="openCreateTeamDialog"></paper-icon-button>
         <paper-tooltip for="new-team" offset="0" animation-delay="1">Create a new team</paper-tooltip>
+        <paper-icon-button id="teamInviteButton" icon="icons:inbox"></paper-icon-button>
+        <paper-tooltip for="teamInviteButton" offset="0" animation-delay="1">View your open invites</paper-tooltip>
       </div>
     </paper-card>
     <!-- Dialogs -->
@@ -116,8 +129,7 @@
       this.$.createTeamDialog.open();
     },
     openAddMemberDialog: function() {
-      console.log(event.target.parentNode.id);
-      this.teamId = event.target.parentNode.id;
+      this.teamId = event.target.parentNode.teamId;
       this.$.addMemberDialog.open();
     },
     submitCreateTeam: function() {
@@ -157,6 +169,9 @@
       this.createTeamError = false;
       this.createTeamMessage = '';
       this.$.createTeamDialog.close();
+
+      this.$.memberUsername = '';
+      this.$.addMemberDialog.close();
     }
   });
   </script>
