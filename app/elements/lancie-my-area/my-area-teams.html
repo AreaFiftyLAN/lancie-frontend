@@ -10,6 +10,7 @@
   <template>
     <lancie-ajax refurl="users/current/teams" handle-as="json" on-response="storeTeams" id="ajaxTeams"></lancie-ajax>
     <lancie-ajax id="ajaxCreateTeam" refurl="teams" method="POST" handle-as="json" on-response="onCreateTeam"></lancie-ajax>
+    <lancie-ajax id="ajaxInviteMember" refurl="teams/{{teamId}}/invites" method="POST" handle-as="json" on-response="onInviteMember"></lancie-ajax>
     <style>
     :host {
       display: block;
@@ -47,7 +48,7 @@
                   <h3>Team: {{item.teamName}}</h3></div>
                 <div><b>Captain: </b>{{item.captain.profile.displayName}}</div>
                 <div>
-                  <paper-icon-button icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
+                  <paper-icon-button id="{{item.id}}" icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
                 </div>
               </paper-item-body>
             </paper-item>
@@ -82,10 +83,10 @@
     </paper-dialog>
     <paper-dialog id="addMemberDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Add a team member</h2>
-      <paper-input label="Username" type="text" value="{{memberName}}"></paper-input>
+      <paper-input label="Username" type="text" value="{{memberUsername}}"></paper-input>
       <div class="buttons">
         <paper-button dialog-dismiss>Cancel</paper-button>
-        <paper-button on-tap="submitAddMember" disabled>Invite</paper-button>
+        <paper-button on-tap="submitInviteMember">Invite</paper-button>
       </div>
     </paper-dialog>
   </template>
@@ -115,31 +116,41 @@
       this.$.createTeamDialog.open();
     },
     openAddMemberDialog: function() {
+      console.log(event.target.parentNode.id);
+      this.teamId = event.target.parentNode.id;
       this.$.addMemberDialog.open();
     },
     submitCreateTeam: function() {
       this.$.ajaxCreateTeam.body = {
         teamName: this.teamName,
         captainUsername: this.user.username
-      }
+      };
       this.$.ajaxCreateTeam.generateRequest();
     },
     onCreateTeam: function(e, r) {
       this.createTeamError = !r.succeeded;
-
       if (r.succeeded) {
-
         this.$.ajaxTeams.generateRequest();
-
         this.resetTeamDialogs();
-
       } else {
-
         if (r.request.status === 409) {
           this.createTeamMessage = 'Teamname already in use.';
         } else {
           this.createTeamMessage = 'Something went wrong';
         }
+      }
+    },
+    submitInviteMember: function() {
+      this.$.ajaxInviteMember.body = this.memberUsername;
+      this.$.ajaxInviteMember.generateRequest();
+    },
+    onInviteMember: function(e, r) {
+      this.inviteMemberError = !r.succeeded;
+      if (r.succeeded) {
+        this.$.ajaxTeams.generateRequest();
+        this.resetTeamDialogs();
+      } else {
+        this.inviteMemberMessage = 'Something went wrong';
       }
     },
     resetTeamDialogs: function() {
