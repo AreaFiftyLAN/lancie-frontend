@@ -10,6 +10,7 @@
 <dom-module id="my-area-teams">
   <template>
     <lancie-ajax refurl="users/current/teams" handle-as="json" on-response="storeTeams" id="ajaxTeams"></lancie-ajax>
+    <lancie-ajax refurl="users/current/teams/invites" handle-as="json" on-response="storePersonalInvites" id="ajaxGetPersonalInvites"></lancie-ajax>
     <lancie-ajax id="ajaxCreateTeam" refurl="teams" method="POST" handle-as="json" on-response="onCreateTeam"></lancie-ajax>
     <lancie-ajax id="ajaxInviteMember" refurl="teams/{{teamId}}/invites" method="POST" handle-as="json" on-response="onInviteMember"></lancie-ajax>
     <style>
@@ -58,9 +59,9 @@
                 <div><b>Captain: </b>{{item.captain.profile.displayName}}</div>
                 <template is="dom-if" if="{{_isSameUser(item.captain)}}">
                   <div>
-                    <paper-icon-button teamId="{{item.id}}" id="addMemberButton" icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
+                    <paper-icon-button id="{{item.id}}" icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
                     <paper-tooltip offset="0" for="addMemberButton" animation-delay="1">Invite a member</paper-tooltip>
-                    <paper-icon-button teamId="{{item.id}}" id="openInvitesButton" icon="icons:markunread-mailbox" on-tap="openInvitesDialog"></paper-icon-button>
+                    <paper-icon-button teamId="{{item.id}}" id="openInvitesButton" icon="icons:markunread-mailbox" on-tap="openTeamInvitesDialog"></paper-icon-button>
                     <paper-tooltip offset="0" for="openInvitesButton" animation-delay="1">View open invites</paper-tooltip>
                   </div>
                 </template>
@@ -72,8 +73,8 @@
                   <iron-icon icon="social:person" item-icon></iron-icon>
                   <div><b>Name: </b>{{member.profile.displayName}}</div>
                   <template is="dom-if" if="{{_isSameUser(item.captain)}}">
-                    <paper-icon-button icon="icons:clear" disabled={{_isSameUser(member)}}></paper-icon-button>
-                    <paper-tooltip offset="0" animation-delay="1">Remove from team</paper-tooltip>
+                    <paper-icon-button id="removeMemberButton" icon="icons:clear" disabled={{_isSameUser(member)}}></paper-icon-button>
+                    <paper-tooltip for="removeMemberButton" offset="0" animation-delay="1">Remove from team</paper-tooltip>
                   </template>
                 </paper-item-body>
               </paper-item>
@@ -84,7 +85,7 @@
       <div class="card-actions">
         <paper-icon-button id="new-team" icon="social:group-add" on-tap="openCreateTeamDialog"></paper-icon-button>
         <paper-tooltip for="new-team" offset="0" animation-delay="1">Create a new team</paper-tooltip>
-        <paper-icon-button id="teamInviteButton" icon="icons:inbox"></paper-icon-button>
+        <paper-icon-button id="teamInviteButton" icon="icons:inbox" on-tap="openPersonalInvitesDialog"></paper-icon-button>
         <paper-tooltip for="teamInviteButton" offset="0" animation-delay="1">View your open invites</paper-tooltip>
       </div>
     </paper-card>
@@ -106,6 +107,29 @@
         <paper-button on-tap="submitInviteMember">Invite</paper-button>
       </div>
     </paper-dialog>
+    <paper-dialog id="personalInvitesDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+      <h2>Your team invites</h2>
+      <template is="dom-if" if="{{personalInvites.length}}">
+        <template is="dom-repeat" items="{{personalInvites}}">
+          <paper-item>
+            <paper-item-body class="layout horizontal center layout justified">
+              <div>
+                <h3>Team: {{item.teamName}}</h3>
+              </div>
+              <div>
+                <paper-icon-button id="acceptInviteButton" icon="social:person-add" on-tap="submitAcceptInvite"></paper-icon-button>
+                <paper-tooltip offset="0" for="addMemberButton" animation-delay="1">Accept invite</paper-tooltip>
+                <paper-icon-button id="openInvitesButton" icon="icons:markunread-mailbox" on-tap="openInvitesDialog"></paper-icon-button>
+                <paper-tooltip offset="0" for="openInvitesButton" animation-delay="1">Cancel Invite</paper-tooltip>
+              </div>
+            </paper-item-body>
+          </paper-item>
+        </template>
+      </template>
+      <div class="buttons">
+        <paper-button dialog-dismiss>OK</paper-button>
+      </div>
+    </paper-dialog>
   </template>
   <script>
   'use strict';
@@ -121,10 +145,16 @@
       createTeamError: {
         type: Boolean,
         value: false
+      },
+      personalInvites: {
+        type: Array
       }
     },
     storeTeams: function(event, request) {
       this.teams = request.response.length > 0 ? request.response : false;
+    },
+    storePersonalInvites: function(event, request) {
+      this.personalInvites = request.response.length > 0 ? request.response : false;
     },
     attached: function() {
       this.$.ajaxTeams.generateRequest();
@@ -133,8 +163,13 @@
       this.$.createTeamDialog.open();
     },
     openAddMemberDialog: function() {
-      this.teamId = event.target.parentNode.teamId;
+      this.teamId = event.target.parentNode.id;
+      console.log(this.teamId);
       this.$.addMemberDialog.open();
+    },
+    openPersonalInvitesDialog: function() {
+      this.$.ajaxGetPersonalInvites.generateRequest();
+      this.$.personalInvitesDialog.open();
     },
     submitCreateTeam: function() {
       this.$.ajaxCreateTeam.body = {
