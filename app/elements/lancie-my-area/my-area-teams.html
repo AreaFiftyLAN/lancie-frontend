@@ -56,21 +56,25 @@
                 <div>
                   <h3>Team: {{item.teamName}}</h3></div>
                 <div><b>Captain: </b>{{item.captain.profile.displayName}}</div>
-                <div>
-                  <paper-icon-button teamId="{{item.id}}" id="addMemberButton" icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
-                  <paper-tooltip offset="0" for="addMemberButton" animation-delay="1">Invite a member</paper-tooltip>
-                  <paper-icon-button teamId="{{item.id}}" id="openInvitesButton" icon="icons:markunread-mailbox" on-tap="openInvitesDialog"></paper-icon-button>
-                  <paper-tooltip offset="0" for="openInvitesButton" animation-delay="1">View open invites</paper-tooltip>
-                </div>
+                <template is="dom-if" if="{{_isSameUser(item.captain)}}">
+                  <div>
+                    <paper-icon-button teamId="{{item.id}}" id="addMemberButton" icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
+                    <paper-tooltip offset="0" for="addMemberButton" animation-delay="1">Invite a member</paper-tooltip>
+                    <paper-icon-button teamId="{{item.id}}" id="openInvitesButton" icon="icons:markunread-mailbox" on-tap="openInvitesDialog"></paper-icon-button>
+                    <paper-tooltip offset="0" for="openInvitesButton" animation-delay="1">View open invites</paper-tooltip>
+                  </div>
+                </template>
               </paper-item-body>
             </paper-item>
-            <template is="dom-repeat" items="{{item.members}}">
+            <template is="dom-repeat" items="{{item.members}}" as="member">
               <paper-item>
                 <paper-item-body class="layout horizontal justified member-icon">
                   <iron-icon icon="social:person" item-icon></iron-icon>
-                  <div><b>Name: </b>{{item.profile.displayName}}</div>
-                  <paper-icon-button icon="icons:clear" disabled></paper-icon-button>
-                  <paper-tooltip offset="0" animation-delay="1">Remove from team</paper-tooltip>
+                  <div><b>Name: </b>{{member.profile.displayName}}</div>
+                  <template is="dom-if" if="{{_isSameUser(item.captain)}}">
+                    <paper-icon-button icon="icons:clear" disabled={{_isSameUser(member)}}></paper-icon-button>
+                    <paper-tooltip offset="0" animation-delay="1">Remove from team</paper-tooltip>
+                  </template>
                 </paper-item-body>
               </paper-item>
             </template>
@@ -172,6 +176,9 @@
 
       this.$.memberUsername = '';
       this.$.addMemberDialog.close();
+    },
+    _isSameUser: function(other) {
+      return other.reference === this.user.reference;
     }
   });
   </script>
