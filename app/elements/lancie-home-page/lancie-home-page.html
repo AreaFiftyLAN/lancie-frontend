@@ -42,6 +42,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       height: 400px;
       width: 100%;
     }
+
+    .google-maps-section {
+      height: 400px;
+      width: 100%;
+      display: block;
+    }
   </style>
   <template>
     <lancie-section type="secondary full no-padding">
@@ -124,7 +130,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <lancie-section header="2nd LANcie of W.I.S.V. 'Christiaan Huygens'">
       <lancie-commission json="/scripts/commission.json"></lancie-commission>
     </lancie-section>
-    <lancie-section type="primary full no-padding">
+    <lancie-section type="google-maps-section primary full no-padding">
       <iron-ajax
         auto
         url="/api/v1/web/properties/googlemapskey"
