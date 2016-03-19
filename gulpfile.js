@@ -28,34 +28,10 @@ var polybuild = require('polybuild');
 var jsonminify = require('gulp-jsonminify');
 var jshint = require('gulp-jshint');
 
-var AUTOPREFIXER_BROWSERS = [
-  'ie >= 10',
-  'ie_mob >= 10',
-  'ff >= 30',
-  'chrome >= 34',
-  'safari >= 7',
-  'opera >= 23',
-  'ios >= 7',
-  'android >= 4.4',
-  'bb >= 10'
-];
-
 var DIST = 'dist';
 
 var dist = function(subpath) {
   return !subpath ? DIST : path.join(DIST, subpath);
-};
-
-var styleTask = function (stylesPath, srcs) {
-  return gulp.src(srcs.map(function(src) {
-      return path.join('app', stylesPath, src);
-    }))
-    .pipe(load.changed(stylesPath, {extension: '.css'}))
-    .pipe(load.autoprefixer(AUTOPREFIXER_BROWSERS))
-    .pipe(gulp.dest('.tmp/' + stylesPath))
-    .pipe(load.minifyCss())
-    .pipe(gulp.dest(dist(stylesPath)))
-    .pipe(load.size({title: stylesPath}));
 };
 
 var imageOptimizeTask = function(src, dest) {
@@ -67,38 +43,6 @@ var imageOptimizeTask = function(src, dest) {
     .pipe(gulp.dest(dest))
     .pipe(load.size({title: 'images'}));
 };
-
-var optimizeHtmlTask = function(src, dest) {
-  return gulp.src(src)
-    // Concatenate and minify JavaScript
-    .pipe(load.if('*.js', load.uglify({
-      preserveComments: 'some'
-    })))
-    // Concatenate and minify styles
-    // In case you are still using useref build blocks
-    .pipe(load.if('*.css', load.minifyCss()))
-    .pipe(load.useref())
-    // Minify any HTML
-    .pipe(load.if('*.html', load.minifyHtml({
-      quotes: true,
-      empty: true,
-      spare: true
-    })))
-    // Output files
-    .pipe(gulp.dest(dest))
-    .pipe(load.size({
-      title: 'html'
-    }));
-};
-
-// Compile and automatically prefix stylesheets
-gulp.task('styles', function() {
-  return styleTask('styles', ['**/*.css']);
-});
-
-gulp.task('elements', function() {
-  return styleTask('elements', ['**/*.css']);
-});
 
 // Lint JavaScript
 gulp.task('jshint', function () {
@@ -151,13 +95,6 @@ gulp.task('fonts', function () {
     .pipe(load.size({title: 'fonts'}));
 });
 
-// Scan your HTML for assets & optimize them
-gulp.task('html', function() {
-  return optimizeHtmlTask(
-    ['app/**/*.html', '!app/{elements,test,bower_components}/**/*.html'],
-    dist());
-});
-
 // Vulcanize granular configuration
 gulp.task('vulcanize', function() {
   return gulp.src('app/elements/elements.html')
@@ -176,6 +113,8 @@ gulp.task('build', function() {
     maximumCrush: true,
     suffix: ''
   }))
+  .pipe(load.if('*.js', load.rev()))
+  .pipe(load.revReplace())
   .pipe(load.if('*.html', load.minifyHtml({
     quotes: true,
     empty: true,
@@ -253,13 +192,13 @@ var serve = function(baseDir) {
 };
 
 // Watch Files For Changes & Reload
-gulp.task('serve', ['styles', 'elements', 'images'], function () {
+gulp.task('serve', ['images'], function () {
   serve(['.tmp', 'app']);
 
   gulp.watch(['app/**/*.html'], reload);
-  gulp.watch(['app/styles/**/*.css'], ['styles', reload]);
-  gulp.watch(['app/elements/**/*.css'], ['elements', reload]);
-  gulp.watch(['app/{scripts,elements}/**/*.js'], ['jshint']);
+  gulp.watch(['app/styles/**/*.css'], [reload]);
+  gulp.watch(['app/elements/**/*.css'], [reload]);
+  gulp.watch(['app/{scripts,elements}/**/*.js'], ['jshint', reload]);
   gulp.watch(['app/images/**/*'], reload);
 });
 
@@ -276,9 +215,8 @@ gulp.task('serve:dist', ['default'], function() {
 // Build production files, the default task
 gulp.task('default', ['clean'], function(cb) {
   runSequence(
-    ['copy', 'styles'],
-    'elements',
-    ['images', 'fonts', 'html'],
+    'copy',
+    ['images', 'fonts'],
     'build',
     cb);
 });
