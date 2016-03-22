@@ -7,6 +7,8 @@
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="my-area-teams-invite.html">
+
 <dom-module id="my-area-teams">
   <template>
     <lancie-ajax id="ajaxTeams" refurl="users/current/teams" handle-as="json" on-response="storeTeams"></lancie-ajax>
@@ -15,6 +17,7 @@
     <lancie-ajax id="ajaxCreateTeam" refurl="teams" method="POST" handle-as="json" on-response="onCreateTeam"></lancie-ajax>
     <lancie-ajax id="ajaxInviteMember" refurl="teams/{{teamId}}/invites" method="POST" handle-as="json" on-response="onInviteMember"></lancie-ajax>
     <lancie-ajax id="ajaxAcceptInvite" refurl="teams/invites" method="POST" handle-as="json" on-response="onAcceptInvite"></lancie-ajax>
+    <style include="iron-flex iron-flex-alignment"></style>
     <style>
     :host {
       display: block;
@@ -113,22 +116,10 @@
     </paper-dialog>
     <!-- Personal Invites Overview Dialog -->
     <paper-dialog id="personalInvitesDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
-      <h2>Your team invites</h2>
+      <h2>Your personal invites</h2>
       <template is="dom-if" if="{{personalInvites.length}}">
         <template is="dom-repeat" items="{{personalInvites}}">
-          <paper-item  id="{{item.token}}">
-            <paper-item-body class="layout horizontal center layout justified">
-              <div>
-                <h3>Team: {{item.teamName}}</h3>
-              </div>
-              <div>
-                <paper-icon-button id="acceptInviteButton" icon="social:person-add" on-tap="submitAcceptInvite"></paper-icon-button>
-                <paper-tooltip offset="0" for="addMemberButton" animation-delay="1">Accept invite</paper-tooltip>
-                <paper-icon-button id="openInvitesButton" icon="icons:markunread-mailbox" on-tap="openInvitesDialog"></paper-icon-button>
-                <paper-tooltip offset="0" for="openInvitesButton" animation-delay="1">Cancel Invite</paper-tooltip>
-              </div>
-            </paper-item-body>
-          </paper-item>
+          <my-area-teams-invite invite="{{item}}" personal></my-area-teams-invite>
         </template>
       </template>
       <div class="buttons">
@@ -140,20 +131,7 @@
       <h2>Your team invites</h2>
       <template is="dom-if" if="{{teamInvites.length}}">
         <template is="dom-repeat" items="{{teamInvites}}">
-          <paper-item>
-            <paper-item-body class="layout horizontal center layout justified">
-              <div>
-                <h3>Team: {{item.teamName}}</h3>
-              </div>
-              <div>
-                <h3>User: {{item.username}}</h3>
-              </div>
-              <div>
-                <paper-icon-button id="openInvitesButton" icon="icons:cancel" on-tap="openInvitesDialog"></paper-icon-button>
-                <paper-tooltip offset="0" for="openInvitesButton" animation-delay="1">Cancel Invite</paper-tooltip>
-              </div>
-            </paper-item-body>
-          </paper-item>
+          <my-area-teams-invite invite="{{item}}" team></my-area-teams-invite>
         </template>
       </template>
       <div class="buttons">
@@ -237,7 +215,7 @@
       this.$.ajaxInviteMember.generateRequest();
     },
     submitAcceptInvite: function() {
-      var token = event.target.parentNode.parentNode.parentNode.parentNode.id
+      var token = event.target.parentNode.parentNode.parentNode.parentNode.id;
       console.log(token);
       this.$.ajaxAcceptInvite.body = token;
       this.$.ajaxAcceptInvite.generateRequest();
