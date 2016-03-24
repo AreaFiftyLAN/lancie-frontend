@@ -117,16 +117,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </lancie-section>
 
     <lancie-section type="secondary" header="Organize your own tournament!">
-      <iron-ajax
-         auto
-         url="{{markdownUrl}}"
-         handle-as="text"
-         last-response="{{markdown}}"></iron-ajax>
-      <marked-element markdown="{{markdown}}">
-        <div class="markdown-html"></div>
-      </marked-element>
+      <div>
+        <iron-ajax
+           auto
+           url="{{markdownUrl}}"
+           handle-as="text"
+           last-response="{{markdown}}"></iron-ajax>
+        <marked-element markdown="{{markdown}}">
+          <div class="markdown-html"></div>
+        </marked-element>
+        <lancie-activities json="scripts/unofficial-tournaments.json"></lancie-activities>
+      </div>
     </lancie-section>
-
+    
     <lancie-section header="2nd LANcie of W.I.S.V. 'Christiaan Huygens'">
       <lancie-commission json="/scripts/commission.json"></lancie-commission>
     </lancie-section>
