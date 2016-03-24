@@ -1,0 +1,148 @@
+[
+  {
+    "title": "MC",
+    "subtitle": "FFA",
+    "headerTitle": "Minecraft",
+    "description": "Minecraft is a sandbox video game created by Swedish programmer Markus 'Notch' Persson and later developed and published by Mojang. The creative and building aspects of Minecraft enable players to build constructions out of textured cubes in a 3D procedurally generated world. Other activities in the game include exploration, resource gathering, crafting, and combat. Multiple gameplay modes are available, including survival mode where the player must acquire resources to build the world and maintain health, a creative mode where players have unlimited resources to build with and the ability to fly, an adventure mode where players can play custom maps created by other players, and a spectator mode where players can fly around and clip through blocks, but cannot place or destroy any.",
+    "backgroundImagePath": "images/unofficial/minecraft.jpg",
+    "sponsor": {
+      "name": "",
+      "imagePath": "images/unofficial/minecraft_logo.png",
+      "website": "http://www.minecraft.net/"
+    },
+    "prizes": [
+      "T.B.A."
+    ],
+    "format": "FFA",
+    "startingDateTime": {
+      "monthValue": 6,
+      "month": "June",
+      "year": 2016,
+      "dayOfMonth": 4,
+      "dayOfWeek": "Saterday",
+      "dayOfYear": 237,
+      "nano": 876000000,
+      "second": 36,
+      "chronology": {
+        "id": "ISO",
+        "calendarType": "iso8601"
+      }
+    },
+    "rulePath": "T.B.A.",
+    "platform": [
+      "PC",
+      "Mac"
+    ],
+    "footer": false
+  },
+  {
+    "title": "SSBM",
+    "subtitle": "1 vs 1",
+    "headerTitle": "Super Smash Bros Melee",
+    "description": "Super Smash Bros. Melee is a crossover fighting game released for the GameCube, released in Japan in November 2001, with other territories later. It is the second game in the Super Smash Bros. series, following the first game. The game features characters from Nintendo video game franchises such as Mario, The Legend of Zelda, Star Fox, and Pokémon.",
+    "backgroundImagePath": "images/unofficial/ssbm.jpg",
+    "sponsor": {
+      "name": "",
+      "imagePath": "images/unofficial/ssbm-logo.png",
+      "website": "http://www.smashbros.com/en-uk/"
+    },
+    "prizes": [
+      "T.B.A."
+    ],
+    "format": "1 vs 1",
+    "startingDateTime": {
+      "monthValue": 6,
+      "month": "June",
+      "year": 2016,
+      "dayOfMonth": 4,
+      "dayOfWeek": "Saterday",
+      "dayOfYear": 237,
+      "nano": 876000000,
+      "second": 36,
+      "chronology": {
+        "id": "ISO",
+        "calendarType": "iso8601"
+      }
+    },
+    "rulePath": "T.B.A.",
+    "platform": [
+      "GameCube"
+    ],
+    "footer": false
+  },
+  {
+    "title": "Poker",
+    "subtitle": "Texas Hold'm",
+    "headerTitle": "Poker",
+    "description": "Poker is a family of gambling card games. All poker variants involve betting as an intrinsic part of play, and determine the winner of each hand according to the combinations of players' cards, at least some of which remain hidden until the end of the hand. Poker games vary in the number of cards dealt, the number of shared or 'community' cards, the number of cards that remain hidden, and the betting procedures.",
+    "backgroundImagePath": "images/unofficial/poker.jpg",
+    "sponsor": {
+      "name": "",
+      "imagePath": "images/unofficial/poker-logo.png",
+      "website": "#"
+    },
+    "prizes": [
+      "T.B.A."
+    ],
+    "format": "Texas Hold'm",
+    "startingDateTime": {
+      "monthValue": 6,
+      "month": "June",
+      "year": 2016,
+      "dayOfMonth": 4,
+      "dayOfWeek": "Saterday",
+      "dayOfYear": 237,
+      "nano": 876000000,
+      "second": 36,
+      "chronology": {
+        "id": "ISO",
+        "calendarType": "iso8601"
+      }
+    },
+    "rulePath": "T.B.A.",
+    "platform": [
+      "None"
+    ],
+    "footer": false
+  },
+  {
+    "title": "SC 2",
+    "subtitle": "1 v 1",
+    "headerTitle": "Starcraft II",
+    "description": "StarCraft II: Wings of Liberty is a military science fiction real-time strategy video game developed and released by Blizzard Entertainment for Microsoft Windows and Mac OS X. A sequel to the award-winning 1998 video game StarCraft and its expansion set Brood War, the game was released worldwide on July 27, 2010. It is split into three installments: the base game with the subtitle Wings of Liberty, an expansion pack Heart of the Swarm, and a stand-alone expansion pack Legacy of the Void.",
+    "backgroundImagePath": "images/unofficial/starcraft.jpg",
+    "sponsor": {
+      "name": "",
+      "imagePath": "images/unofficial/starcraft-logo.png",
+      "website": "#"
+    },
+    "prizes": [
+      "T.B.A."
+    ],
+    "format": "1 vs 1",
+    "startingDateTime": {
+      "monthValue": 6,
+      "month": "June",
+      "year": 2016,
+      "dayOfMonth": 4,
+      "dayOfWeek": "Saterday",
+      "dayOfYear": 237,
+      "nano": 876000000,
+      "second": 36,
+      "chronology": {
+        "id": "ISO",
+        "calendarType": "iso8601"
+      }
+    },
+    "rulePath": "T.B.A.",
+    "platform": [
+      "PC",
+      "Mac"
+    ],
+    "footer": false
+  }
+]
+
+
+
+
