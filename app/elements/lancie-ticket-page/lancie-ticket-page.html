@@ -114,7 +114,7 @@ This code may only be used under the BSD style license found at https://github.c
                 <div class="card-content" style="padding: 0;">
                   <lancie-ticket-list order="{{order}}"></lancie-ticket-list>
                 </div>
-                <template is="dom-if" if="{{order.amount > 0}}">
+                <template is="dom-if" if="{{order.amount}}">
                   <div class="card-actions">
                     <strong>Total amount:</strong> <span>&euro; [[_formatPrice(order.amount)]]</span>
                   </div>
