@@ -27,6 +27,7 @@ var proxy = require('proxy-middleware');
 var polybuild = require('polybuild');
 var jsonminify = require('gulp-jsonminify');
 var jshint = require('gulp-jshint');
+var htmlmin = require('gulp-htmlmin');
 
 var DIST = 'dist';
 
@@ -95,18 +96,6 @@ gulp.task('fonts', function () {
     .pipe(load.size({title: 'fonts'}));
 });
 
-// Vulcanize granular configuration
-gulp.task('vulcanize', function() {
-  return gulp.src('app/elements/elements.html')
-    .pipe(load.vulcanize({
-      stripComments: true,
-      inlineCss: true,
-      inlineScripts: true
-    }))
-    .pipe(gulp.dest(dist('elements')))
-    .pipe(load.size({title: 'vulcanize'}));
-});
-
 gulp.task('build', function() {
   return gulp.src('app/index.html')
   .pipe(polybuild({
@@ -115,10 +104,16 @@ gulp.task('build', function() {
   }))
   .pipe(load.if('*.js', load.rev()))
   .pipe(load.revReplace())
-  .pipe(load.if('*.html', load.minifyHtml({
-    quotes: true,
-    empty: true,
-    spare: true
+  .pipe(load.if('*.html', htmlmin({
+    collapseWhitespace: true,
+    removeComments: true,
+    removeAttributeQuotes: true,
+    removeRedundantAttributes: true,
+    useShortDoctype: true,
+    removeEmptyAttributes: true,
+    removeScriptTypeAttributes: true,
+    removeStyleLinkTypeAttributes: true,
+    removeOptionalTags: true
   })))
   .pipe(gulp.dest('dist/.'));
 });
