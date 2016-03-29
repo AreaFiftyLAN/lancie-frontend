@@ -15,7 +15,7 @@
         width: 100%;
       }
 
-      .head-sponsors {
+      .main-sponsors {
         margin-right: 32px;
         min-width: 200px;
       }
@@ -43,7 +43,7 @@
     </style>
 
     <div id="grid" class="layout horizontal wrap flex">
-      <div class="layout vertical flex-1 head-sponsors">
+      <div class="layout vertical flex-1 main-sponsors">
         <h3>Presented by</h3>
         <lancie-sponsor-item sponsor='{
               "href": "https://ch.tudelft.nl",
@@ -69,6 +69,15 @@
               "href": "http://www.topicusfinance.nl/",
               "logo": "/images/logos/Topicus_Logo.svg"
             }'></lancie-sponsor-item>
+        </div>
+      <div class="layout vertical flex-4">
+        <h3>Sponsors</h3>
+        <div class="layout horizontal wrap regular-sponsors">
+          <lancie-sponsor-item sponsor='{
+            "href": "http://www.spam-energydrink.com/",
+            "logo": "/images/logos/spam-logo.png"
+          }'></lancie-sponsor-item>
+
         </div>
       </div>
     </div>
