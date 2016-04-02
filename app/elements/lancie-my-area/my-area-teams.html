@@ -8,7 +8,6 @@
 <link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
 <link rel="import" href="my-area-teams-invite.html">
-
 <dom-module id="my-area-teams">
   <template>
     <lancie-ajax id="ajaxTeams" refurl="users/current/teams" handle-as="json" on-response="storeTeams"></lancie-ajax>
@@ -21,6 +20,7 @@
     <style>
     :host {
       display: block;
+      --primary-text-color: #FEE474;
     }
     
     paper-card {
@@ -29,11 +29,19 @@
     
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
-      --paper-tooltip-text-color: #FEE474;
+      /*--paper-tooltip-text-color: #FEE474;*/
     }
     
     paper-dialog {
-      min-width: 60%;
+      min-width: 40%;
+      --primary-background-color: #1a2b43;
+      --paper-dialog-button-color: #FEE474;
+    }
+    
+    paper-input {
+      --paper-input-container-underline-focus: {
+        background: #FEE474;
+      }
     }
     
     .member-icon {
@@ -47,6 +55,10 @@
       background: #FFCDD2;
       color: #B71C1C;
     }
+
+    h3.my-area-teams h3{
+      width: 40%;
+    }
     </style>
     <paper-card heading="Teams" elevation="1" animated-shadow="true">
       <div class="card-content">
@@ -57,7 +69,7 @@
         <template is="dom-if" if="{{teams.length}}">
           <template is="dom-repeat" items="{{teams}}">
             <hr>
-            <paper-item>
+            <paper-item class="team-info">
               <paper-item-body class="layout horizontal center layout justified">
                 <div>
                   <h3>Team: {{item.teamName}}</h3></div>
