@@ -1,9 +1,16 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
@@ -22,32 +29,32 @@
       display: block;
       --primary-text-color: #FEE474;
     }
-    
+
     paper-card {
       width: 100%;
     }
-    
+
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
       /*--paper-tooltip-text-color: #FEE474;*/
     }
-    
+
     paper-dialog {
       min-width: 40%;
       --primary-background-color: #1a2b43;
       --paper-dialog-button-color: #FEE474;
     }
-    
+
     paper-input {
       --paper-input-container-underline-focus: {
         background: #FEE474;
       }
     }
-    
+
     .member-icon {
       margin-left: 8%;
     }
-    
+
     .errormessage {
       padding: 10px 20px 9px;
       margin-bottom: 4px;
@@ -171,7 +178,10 @@
       },
       teamInvites: {
         type: Array
-      }
+      },
+      teamName: String,
+      memberUsername: String,
+      createTeamMessage: String
     },
     storeTeams: function(event, request) {
       this.teams = request.response.length > 0 ? request.response : false;
