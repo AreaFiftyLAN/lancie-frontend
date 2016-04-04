@@ -1,9 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
-
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
@@ -15,46 +13,39 @@
 <link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
 <link rel="import" href="my-area-teams-invite.html">
+<link rel="import" href="my-area-teams/team-member-item.html">
+<link rel="import" href="my-area-teams/team-item.html">
 <dom-module id="my-area-teams">
   <template>
     <lancie-ajax id="ajaxTeams" refurl="users/current/teams" handle-as="json" on-response="storeTeams"></lancie-ajax>
     <lancie-ajax id="ajaxGetPersonalInvites" refurl="users/current/teams/invites" handle-as="json" on-response="storePersonalInvites"></lancie-ajax>
-    <lancie-ajax id="ajaxGetTeamInvites" refurl="teams/{{teamId}}/invites" method="GET" handle-as="json" on-response="storeTeamInvites"></lancie-ajax>
     <lancie-ajax id="ajaxCreateTeam" refurl="teams" method="POST" handle-as="json" on-response="onCreateTeam"></lancie-ajax>
-    <lancie-ajax id="ajaxInviteMember" refurl="teams/{{teamId}}/invites" method="POST" handle-as="json" on-response="onInviteMember"></lancie-ajax>
     <lancie-ajax id="ajaxAcceptInvite" refurl="teams/invites" method="POST" handle-as="json" on-response="onAcceptInvite"></lancie-ajax>
     <style include="iron-flex iron-flex-alignment"></style>
     <style>
     :host {
       display: block;
-      --primary-text-color: #FEE474;
     }
-
+    
     paper-card {
       width: 100%;
     }
-
+    
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
-      /*--paper-tooltip-text-color: #FEE474;*/
+      --paper-tooltip-text-color: #FEE474;
     }
-
+    
     paper-dialog {
       min-width: 40%;
-      --primary-background-color: #1a2b43;
-      --paper-dialog-button-color: #FEE474;
+      /*--primary-text-color: #FEE474;*/
+      --paper-dialog-button-color: #1A2B43;
     }
-
-    paper-input {
-      --paper-input-container-underline-focus: {
-        background: #FEE474;
-      }
-    }
-
+    
     .member-icon {
       margin-left: 8%;
     }
-
+    
     .errormessage {
       padding: 10px 20px 9px;
       margin-bottom: 4px;
@@ -62,47 +53,16 @@
       background: #FFCDD2;
       color: #B71C1C;
     }
-
-    h3.my-area-teams h3{
-      width: 40%;
-    }
     </style>
     <paper-card heading="Teams" elevation="1" animated-shadow="true">
       <div class="card-content">
         <template is="dom-if" if="{{!teams.length}}">
-          <!-- You're not in a team yet! -->
-          Teams functionality will be available soon!
+          You're not in a team yet!
         </template>
         <template is="dom-if" if="{{teams.length}}">
           <template is="dom-repeat" items="{{teams}}">
+            <team-item team="{{item}}" user="{{user}}" on-invite-success="refreshTeams"></team-item>
             <hr>
-            <paper-item class="team-info">
-              <paper-item-body class="layout horizontal center layout justified">
-                <div>
-                  <h3>Team: {{item.teamName}}</h3></div>
-                <div><b>Captain: </b>{{item.captain.profile.displayName}}</div>
-                <template is="dom-if" if="{{_isSameUser(item.captain)}}">
-                  <div>
-                    <paper-icon-button id="{{item.id}}" icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
-                    <!-- <paper-tooltip offset="0" for="addMemberButton" animation-delay="1">Invite a member</paper-tooltip> -->
-                    <paper-icon-button id="{{item.id}}" icon="icons:markunread-mailbox" on-tap="openTeamInvitesDialog"></paper-icon-button>
-                    <!-- <paper-tooltip offset="0" for="openInvitesButton" animation-delay="1">View open invites</paper-tooltip> -->
-                  </div>
-                </template>
-              </paper-item-body>
-            </paper-item>
-            <template is="dom-repeat" items="{{item.members}}" as="member">
-              <paper-item>
-                <paper-item-body class="layout horizontal justified member-icon">
-                  <iron-icon icon="social:person" item-icon></iron-icon>
-                  <div><b>Name: </b>{{member.profile.displayName}}</div>
-                  <template is="dom-if" if="{{_isSameUser(item.captain)}}">
-                    <paper-icon-button id="removeMemberButton" icon="icons:clear" disabled={{_isSameUser(member)}}></paper-icon-button>
-                    <paper-tooltip for="removeMemberButton" offset="0" animation-delay="1">Remove from team</paper-tooltip>
-                  </template>
-                </paper-item-body>
-              </paper-item>
-            </template>
           </template>
         </template>
       </div>
@@ -124,34 +84,16 @@
         <paper-button on-tap="submitCreateTeam">Create</paper-button>
       </div>
     </paper-dialog>
-    <!-- Invite a Member dialog -->
-    <paper-dialog id="addMemberDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
-      <h2>Add a team member</h2>
-      <paper-input label="Username" type="text" value="{{memberUsername}}"></paper-input>
-      <div class="buttons">
-        <paper-button dialog-dismiss>Cancel</paper-button>
-        <paper-button on-tap="submitInviteMember">Invite</paper-button>
-      </div>
-    </paper-dialog>
     <!-- Personal Invites Overview Dialog -->
     <paper-dialog id="personalInvitesDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Your personal invites</h2>
       <template is="dom-if" if="{{personalInvites.length}}">
         <template is="dom-repeat" items="{{personalInvites}}">
-          <my-area-teams-invite invite="{{item}}" personal></my-area-teams-invite>
+          <my-area-teams-invite invite="{{item}}" personal on-invite-cancel="refreshInvites"></my-area-teams-invite>
         </template>
       </template>
-      <div class="buttons">
-        <paper-button dialog-dismiss>OK</paper-button>
-      </div>
-    </paper-dialog>
-    <!-- Team Invite Overview Dialog -->
-    <paper-dialog id="teamInvitesDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
-      <h2>Your team invites</h2>
-      <template is="dom-if" if="{{teamInvites.length}}">
-        <template is="dom-repeat" items="{{teamInvites}}">
-          <my-area-teams-invite invite="{{item}}" team></my-area-teams-invite>
-        </template>
+      <template is="dom-if" if="{{!personalInvites.length}}">
+        <p>You don't have any open invites!</p>
       </template>
       <div class="buttons">
         <paper-button dialog-dismiss>OK</paper-button>
@@ -176,12 +118,16 @@
       personalInvites: {
         type: Array
       },
-      teamInvites: {
-        type: Array
-      },
       teamName: String,
       memberUsername: String,
       createTeamMessage: String
+    },
+    refreshTeams: function() {
+      console.log("refreshing Teams");
+      this.$.ajaxTeams.generateRequest();
+    },
+    refreshInvites: function() {
+      this.$.ajaxGetPersonalInvites.generateRequest();
     },
     storeTeams: function(event, request) {
       this.teams = request.response.length > 0 ? request.response : false;
@@ -189,28 +135,15 @@
     storePersonalInvites: function(event, request) {
       this.personalInvites = request.response.length > 0 ? request.response : false;
     },
-    storeTeamInvites: function(event, request) {
-      this.teamInvites = request.response.length > 0 ? request.response : false;
-    },
     attached: function() {
       this.$.ajaxTeams.generateRequest();
     },
     openCreateTeamDialog: function() {
       this.$.createTeamDialog.open();
     },
-    openAddMemberDialog: function() {
-      this.teamId = event.target.parentNode.id;
-      this.$.addMemberDialog.open();
-    },
     openPersonalInvitesDialog: function() {
       this.$.ajaxGetPersonalInvites.generateRequest();
       this.$.personalInvitesDialog.open();
-    },
-    openTeamInvitesDialog: function() {
-      this.teamId = event.target.parentNode.id;
-
-      this.$.ajaxGetTeamInvites.generateRequest();
-      this.$.teamInvitesDialog.open();
     },
     submitCreateTeam: function() {
       this.$.ajaxCreateTeam.body = {
@@ -220,6 +153,7 @@
       this.$.ajaxCreateTeam.generateRequest();
     },
     onCreateTeam: function(e, r) {
+      this.teamName = '';
       this.createTeamError = !r.succeeded;
       if (r.succeeded) {
         this.$.ajaxTeams.generateRequest();
@@ -232,36 +166,16 @@
         }
       }
     },
-    submitInviteMember: function() {
-      this.$.ajaxInviteMember.body = this.memberUsername;
-      this.$.ajaxInviteMember.generateRequest();
-    },
     submitAcceptInvite: function() {
       var token = event.target.parentNode.parentNode.parentNode.parentNode.id;
       console.log(token);
       this.$.ajaxAcceptInvite.body = token;
       this.$.ajaxAcceptInvite.generateRequest();
-
-    },
-    onInviteMember: function(e, r) {
-      this.inviteMemberError = !r.succeeded;
-      if (r.succeeded) {
-        this.$.ajaxTeams.generateRequest();
-        this.resetTeamDialogs();
-      } else {
-        this.inviteMemberMessage = 'Something went wrong';
-      }
     },
     resetTeamDialogs: function() {
       this.createTeamError = false;
       this.createTeamMessage = '';
       this.$.createTeamDialog.close();
-
-      this.$.memberUsername = '';
-      this.$.addMemberDialog.close();
-    },
-    _isSameUser: function(other) {
-      return other.reference === this.user.reference;
     }
   });
   </script>
