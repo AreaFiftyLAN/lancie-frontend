@@ -1,8 +1,16 @@
-<link rel="import" href="my-area-order-item.html">
-
+<!-- <link rel="import" href="my-area-order-item.html">
+ -->
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <dom-module id="my-area-orders">
   <template>
     <lancie-ajax id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-response="storeOrders"></lancie-ajax>
+    <lancie-ajax id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-response="storeTickets"></lancie-ajax>
+    
+    <style include="iron-flex iron-flex-alignment"></style>
     <style>
     :host {
       display: block;
@@ -50,9 +58,14 @@
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
     }
+
+    paper-dialog div {
+      margin: 0 10px;
+    }
     </style>
-    <paper-card heading="Orders &amp; Tickets" elevation="1" animated-shadow="true">
+    <paper-card elevation="1" animated-shadow="true">
       <div class="card-content">
+        <h2>Orders</h2>
         <template is="dom-if" if="{{orders.length}}">
           <div class="message">
             Ticket transfer will be available soon!
@@ -63,18 +76,78 @@
             <div style="width: 30%" class="order">Status</div>
           </div>
           <template is="dom-repeat" items="{{orders}}">
-            <div class="orderRow">
-              <div style="width: 20%" class="order">{{item.id}}</div>
-              <div style="width: 30%" class="order">{{item.creationDateTime}}</div>
-              <div style="width: 30%" class$="{{_orderStatusColor(item.status)}}">{{item.status}}</div>
-            </div>
-            <template is="dom-repeat" items="{{item.tickets}}" status="{{item.status}}" index-as="index">
-              <my-area-order-item ticket="{{item}}"></my-area-order-item>
-            </template>
+            <hr>
+            <paper-item>
+              <paper-item-body class="layout horizontal center layout justified">
+                <div>
+                  <h3>Order #{{item.id}}</h3></div>
+                <div><b>Date ordered: </b>{{item.creationDateTime}}</div>
+                <div><b>Amount: </b>&euro; {{item.amount}}</div>
+                <div><b>Status: </b>{{item.status}}</div>
+                <div>
+                  <paper-icon-button id="{{item.id}}" icon="icons:info" on-tap="showOrderTickets"></paper-icon-button>
+                  <paper-tooltip offset="0" animation-delay="1">Order details</paper-tooltip>
+                </div>
+
+                <paper-dialog id="orderInfo{{item.id}}" with-backdrop>
+                  <h2>Order #{{item.id}}</h2>
+                    <template is="dom-repeat" items="{{item.tickets}}" status="{{item.status}}" index-as="index">
+                      <hr>
+                      <paper-item>
+                        <paper-item-body class="layout horizontal center layout justified">
+                          <iron-icon icon="receipt" item-icon></iron-icon>
+                          <div><b>Name: </b>{{item.text}}</div>
+                          <div><b>Amount: </b>&euro; {{item.price}}</div>
+                          <div>CH member:
+                            <iron-icon icon="{{getIcon(item.chMember)}}"></iron-icon>
+                          </div>
+                          <div>Pickup service:
+                            <iron-icon icon="{{getIcon(item.pickupService)}}"></iron-icon>
+                          </div>
+                        </paper-item-body>
+                      </paper-item>
+                    </template>
+                  <div class="buttons">
+                    <paper-button dialog-dismiss>Back</paper-button>
+                  </div>
+                </paper-dialog>
+
+              </paper-item-body>
+            </paper-item>
           </template>
+          <hr>
         </template>
         <template is="dom-if" if="{{!orders.length}}">
           You don't have any orders yet
+        </template>
+      </div>
+
+      <div class="card-content">
+        <h2>Tickets</h2>
+        <template is="dom-if" if="{{tickets.length}}">
+          <template is="dom-repeat" items="{{tickets}}" index-as="index">
+            <hr>
+            <paper-item>
+              <paper-item-body class="layout horizontal center layout justified">
+                <iron-icon icon="receipt" item-icon></iron-icon>
+                <div><b>Name: </b>{{item.text}}</div>
+                <div><b>Amount: </b>&euro; {{item.price}}</div>
+                <div>CH member:
+                  <iron-icon icon="{{getIcon(item.chMember)}}"></iron-icon>
+                </div>
+                <div>Pickup service:
+                  <iron-icon icon="{{getIcon(item.pickupService)}}"></iron-icon>
+                </div>
+                <div>
+                  <paper-icon-button icon="icons:send" disabled></paper-icon-button>
+                  <paper-tooltip offset="0" animation-delay="1">Transfer this ticket</paper-tooltip>
+                </div>
+              </paper-item-body>
+            </paper-item>
+          </template>
+        </template>
+        <template is="dom-if" if="{{!tickets.length}}">
+          You don't have any tickets yet
         </template>
       </div>
       <div class="card-actions">
@@ -96,6 +169,15 @@
         value: function () {
           return [];
         }
+      },
+      tickets: {
+        type: Array,
+        value: function() {
+          return [];
+        }
+      },
+      orderTickets: {
+        type: Array
       }
     },
     buyTickets: function() {
@@ -105,11 +187,21 @@
     storeOrders: function(event, request) {
       this.orders = request.response.length > 0 ? request.response : false;
     },
-    _orderStatusColor: function(status) {
-      return 'order ' + status;
+    storeTickets: function(event, request) {
+      this.tickets = request.response.length > 0 ? request.response : false;
+      console.log(request.response);
     },
     attached: function() {
       this.$.ajaxOrders.generateRequest();
+      this.$.ajaxTickets.generateRequest();
+    },
+    getIcon: function(binding) {
+      return binding ? 'icons:check' : 'icons:clear';
+    },
+    showOrderTickets: function(e) {
+      // Hello, this is captain McSpaghetti. I want my code back.
+      var id = e.srcElement.offsetParent.id;
+      document.querySelector('#orderInfo' + id).toggle();
     }
   });
   </script>
