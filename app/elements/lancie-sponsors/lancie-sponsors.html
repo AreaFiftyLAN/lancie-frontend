@@ -15,23 +15,46 @@
         width: 100%;
       }
 
+      #grid {
+        text-align: center;
+      }
+
       .head-sponsors {
         margin-right: 32px;
-        min-width: 200px;
+        min-width: 250px;
       }
 
       .premium-sponsors lancie-sponsor-item {
-        margin: 10px 6px;
+        margin: 10px 10px;
+      }
+
+      .topicus {
+        margin-top: -33px;
+        max-width: 264px;
       }
 
       lancie-sponsor-item {
         width: 100%;
         max-width: 250px;
+        max-height: 15vh;
       }
 
-      .premium-sponsors lancie-sponsor-item.topicus {
-        margin-top: -33px;
-        max-width: 264px;
+      @media (max-width: 500px) {
+        .head-sponsors {
+          min-width: 100%;
+        }
+
+        lancie-sponsor-item, .premium-sponsors lancie-sponsor-item {
+          max-width: 100%;
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
+
+      @media (orientation: landscape) {
+        lancie-sponsor-item {
+          max-height: 25vh;
+        }
       }
 
       @media screen and (max-width: 1067px) {
