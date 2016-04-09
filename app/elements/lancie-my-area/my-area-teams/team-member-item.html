@@ -1,0 +1,82 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../lancie-login/lancie-ajax.html">
+<dom-module id="team-member-item">
+  <template>
+    <style include="iron-flex iron-flex-alignment"></style>
+    <style>
+    :host {
+      display: block;
+    }
+    
+    .member-info {
+      margin-left: 10%;
+    }
+    </style>
+    <lancie-ajax id="ajaxRemoveMember" refurl="teams/{{team.id}}/members" method="DELETE" handle-as="json" body="{{member.username}}" on-response="onCancelInvite"></lancie-ajax>
+
+    <paper-item>
+      <paper-item-body class="layout horizontal center member-icon">
+        <div class="flex-3">
+          <iron-icon icon="social:person" item-icon></iron-icon>
+        </div>
+        <div class="flex member-info"><b>Name: </b>{{member.profile.displayName}}</div>
+        <template is="dom-if" if="{{isCaptain}}">
+          <paper-icon-button class="flex-2" id="removeMemberButton" icon="icons:clear" disabled={{isCurrentUser}} on-tap="openRemoveMemberDialog">
+          </paper-icon-button>
+          <paper-tooltip for="removeMemberButton" offset="0" animation-delay="1">Remove from team</paper-tooltip>
+        </template>        
+        <template is="dom-if" if="{{_displaySelfRemove}}">
+          <paper-icon-button class="flex-2" id="removeMemberButton" icon="icons:clear" on-tap="openRemoveMemberDialog">
+          </paper-icon-button>
+          <paper-tooltip for="removeMemberButton" offset="0" animation-delay="1">Remove from team</paper-tooltip>
+        </template>
+      </paper-item-body>
+    </paper-item>
+    <!-- Invite a Member dialog -->
+    <paper-dialog id="removeMemberDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+      <h2>Remove a team member</h2>
+      <h3>You are about to remove {{member.profile.displayName}} from your team. Are you sure?</h2>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button on-tap="submitDeleteUser">Remove</paper-button>
+      </div>
+    </paper-dialog>
+  </template>
+  <script>
+  'use strict';
+  Polymer({
+    is: 'team-member-item',
+    properties: {
+      member: {
+        type: Object
+      },
+      team: {
+        type: Object
+      },
+      isCurrentUser: Boolean,
+      isCaptain: Boolean
+    },
+    attached: function() {
+
+    },
+    openRemoveMemberDialog: function(){
+        this.$.removeMemberDialog.open();
+    },
+    submitDeleteUser: function(){
+
+    },
+    _displaySelfRemove: function(){
+        return !isCaptain && isCurrentUser;
+    }
+  });
+  </script>
+</dom-module>
