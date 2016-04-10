@@ -8,10 +8,11 @@
 <link rel="import" href="../../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../lancie-login/lancie-ajax.html">
 <link rel="import" href="team-member-item.html">
-<link rel="import" href="../my-area-teams-invite.html">
+<link rel="import" href="my-area-teams-invite.html">
 <dom-module id="team-item">
   <template>
     <style include="iron-flex iron-flex-alignment"></style>
@@ -21,7 +22,7 @@
     }
     
     paper-dialog {
-      min-width: 40%;
+      min-width: 30%;
       /*--primary-text-color: #FEE474;*/
       --paper-dialog-button-color: #1A2B43;
     }
@@ -33,6 +34,14 @@
     .captain-info {
       margin-left: 5%;
     }
+    
+    .errormessage {
+      padding: 10px 20px 9px;
+      margin-bottom: 4px;
+      border-left: 3px solid #F44336;
+      background: #FFCDD2;
+      color: #B71C1C;
+    }
     </style>
     <lancie-ajax id="ajaxInviteMember" refurl="teams/{{team.id}}/invites" method="POST" handle-as="json" on-response="onInviteMember"></lancie-ajax>
     <lancie-ajax id="ajaxGetTeamInvites" refurl="teams/{{team.id}}/invites" method="GET" handle-as="json" on-response="storeTeamInvites"></lancie-ajax>
@@ -43,10 +52,10 @@
         <div class="flex captain-info"><b>Captain: </b>{{team.captain.profile.displayName}}</div>
         <template is="dom-if" if="{{_isSameUser(team.captain, user)}}">
           <div>
-            <paper-icon-button icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
-            <!-- <paper-tooltip offset="0" for="addMemberButton" animation-delay="1">Invite a member</paper-tooltip> -->
-            <paper-icon-button icon="icons:markunread-mailbox" on-tap="openTeamInvitesDialog"></paper-icon-button>
-            <!-- <paper-tooltip offset="0" for="openInvitesButton" animation-delay="1">View open invites</paper-tooltip> -->
+            <paper-icon-button id="addMemberButton" icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
+            <paper-tooltip offset="0" for="addMemberButton" animation-delay="1">Invite a member</paper-tooltip>
+            <paper-icon-button id="openInvitesButton" icon="icons:markunread-mailbox" on-tap="openTeamInvitesDialog"></paper-icon-button>
+            <paper-tooltip offset="0" for="openInvitesButton" animation-delay="1">View open invites</paper-tooltip>
           </div>
         </template>
       </paper-item-body>
@@ -58,6 +67,7 @@
     <!-- Invite a Member dialog -->
     <paper-dialog id="addMemberDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Add a team member</h2>
+      <paper-material class="errormessage" hidden$="{{!addMemberError}}">{{addMemberMessage}}</paper-material>
       <paper-input label="Username" type="text" value="{{memberUsername}}"></paper-input>
       <div class="buttons">
         <paper-button dialog-dismiss>Cancel</paper-button>
@@ -79,6 +89,7 @@
         <paper-button dialog-dismiss>OK</paper-button>
       </div>
     </paper-dialog>
+    <paper-toast id="memberInviteSuccessToast" text="User successfully invited!" duration="3000"></paper-toast>
   </template>
   <script>
   'use strict';
@@ -94,18 +105,25 @@
       teamInvites: {
         type: Array
       },
+      addMemberError: {
+        type: Boolean,
+        value: false
+      },
       isCurrentUser: Boolean,
       isCaptain: Boolean,
-      memberUsername: String
+      memberUsername: String,
+      addMemberMessage: String
     },
     attached: function() {
 
     },
     refreshInvites: function() {
-      console.log("refreshing invites");
       this.$.ajaxGetTeamInvites.generateRequest();
     },
     openAddMemberDialog: function() {
+      this.addMemberMessage = '';
+      this.addMemberError = false;
+      this.memberUsername = '';
       this.$.addMemberDialog.open();
     },
     submitInviteMember: function() {
@@ -113,12 +131,19 @@
       this.$.ajaxInviteMember.generateRequest();
     },
     onInviteMember: function(e, r) {
-      this.inviteMemberError = !r.succeeded;
+      this.addMemberError = !r.succeeded;
       if (r.succeeded) {
         this.fire('invite-success');
         this.$.addMemberDialog.close();
+        this.$.memberInviteSuccessToast.show();
       } else {
-        this.inviteMemberMessage = 'Something went wrong';
+        if (r.request.status === 403) {
+          this.addMemberMessage = 'User can\'t be added to this team, does he/she have a ticket?';
+        } else if (r.request.status === 409) {
+          this.addMemberMessage = 'User is already invited for this team!';
+        } else {
+          this.addMemberMessage = 'Something went wrong';
+        }
       }
     },
     storeTeamInvites: function(event, request) {
@@ -128,6 +153,7 @@
       this.$.ajaxGetTeamInvites.generateRequest();
       this.$.teamInvitesDialog.open();
     },
+
     _isSameUser: function(other, user) {
       return other.reference === user.reference;
     }

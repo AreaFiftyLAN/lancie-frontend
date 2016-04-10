@@ -21,8 +21,7 @@
       margin-left: 10%;
     }
     </style>
-    <lancie-ajax id="ajaxRemoveMember" refurl="teams/{{team.id}}/members" method="DELETE" handle-as="json" body="{{member.username}}" on-response="onCancelInvite"></lancie-ajax>
-
+    <lancie-ajax id="ajaxRemoveMember" refurl="teams/{{team.id}}/members" method="DELETE" handle-as="json" body="{{member.username}}" on-response="onRemoveMember"></lancie-ajax>
     <paper-item>
       <paper-item-body class="layout horizontal center member-icon">
         <div class="flex-3">
@@ -33,8 +32,8 @@
           <paper-icon-button class="flex-2" id="removeMemberButton" icon="icons:clear" disabled={{isCurrentUser}} on-tap="openRemoveMemberDialog">
           </paper-icon-button>
           <paper-tooltip for="removeMemberButton" offset="0" animation-delay="1">Remove from team</paper-tooltip>
-        </template>        
-        <template is="dom-if" if="{{_displaySelfRemove}}">
+        </template>
+        <template is="dom-if" if="{{_displaySelfRemove(isCaptain, isCurrentUser)}}">
           <paper-icon-button class="flex-2" id="removeMemberButton" icon="icons:clear" on-tap="openRemoveMemberDialog">
           </paper-icon-button>
           <paper-tooltip for="removeMemberButton" offset="0" animation-delay="1">Remove from team</paper-tooltip>
@@ -44,12 +43,13 @@
     <!-- Invite a Member dialog -->
     <paper-dialog id="removeMemberDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Remove a team member</h2>
-      <h3>You are about to remove {{member.profile.displayName}} from your team. Are you sure?</h2>
+      <h3>{{removeMemberMessage}}</h3>
       <div class="buttons">
         <paper-button dialog-dismiss>Cancel</paper-button>
         <paper-button on-tap="submitDeleteUser">Remove</paper-button>
       </div>
     </paper-dialog>
+    <paper-toast id="memberRemoveToast" text="User successfully removed!" duration="3000"></paper-toast>
   </template>
   <script>
   'use strict';
@@ -63,19 +63,32 @@
         type: Object
       },
       isCurrentUser: Boolean,
-      isCaptain: Boolean
+      isCaptain: Boolean,
+      removeMemberMessage: String
     },
     attached: function() {
 
     },
-    openRemoveMemberDialog: function(){
-        this.$.removeMemberDialog.open();
+    openRemoveMemberDialog: function() {
+      if (this.isCaptain) {
+        this.removeMemberMessage = 'You are about to remove ' + this.member.profile.displayName + ' from your team. Are you sure?';
+      } else {
+        this.removeMemberMessage = 'You are about to remove yourself from Team ' + this.team.teamName + '. Are you sure?';
+      }
+      this.$.removeMemberDialog.open();
     },
-    submitDeleteUser: function(){
-
+    submitDeleteUser: function() {
+      this.$.ajaxRemoveMember.generateRequest();
     },
-    _displaySelfRemove: function(){
-        return !isCaptain && isCurrentUser;
+    onRemoveMember: function(e, r) {
+      if (r.succeeded) {
+        this.$.removeMemberDialog.close();
+        this.$.memberRemoveToast.show();
+        this.fire('remove-member');
+      }
+    },
+    _displaySelfRemove: function(isCaptain, isCurrentUser) {
+      return !isCaptain && isCurrentUser;
     }
   });
   </script>
