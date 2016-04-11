@@ -1,3 +1,5 @@
+<link rel="import" href="my-area-order-item.html">
+
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
@@ -19,8 +21,8 @@
       width: 100%;
     }
 
-    .order {
-      display: inline-block;
+    paper-item {
+      padding: 0;
     }
 
     .header {
@@ -33,14 +35,6 @@
       border: 0;
       border-top: 1px solid #e8e8e8;
       padding: 0;
-    }
-
-    h3 {
-      margin: 0px;
-    }
-
-    .info {
-      margin: 0 5px 0 0;
     }
 
     paper-tooltip {
@@ -58,45 +52,8 @@
         <hr>
         <template is="dom-if" if="{{orders.length}}">
           <template is="dom-repeat" items="{{orders}}">
-            <paper-item id="{{item.id}}" on-tap="showOrderTickets">
-              <hr>
-              <paper-item-body class="layout horizontal center layout justified wrap">
-                <div>
-                  <h3>Order #{{item.id}}</h3>
-                </div>
-                <div class="info"><b>Date ordered: </b>{{item.creationDateTime}}</div>
-                <div class="info"><b>Amount: </b>&euro; {{item.amount}}</div>
-                <div class="info"><b>Status: </b>{{item.status}}</div>
-
-                <paper-dialog id="orderInfo{{item.id}}" with-backdrop>
-                  <h2>Order #{{item.id}}</h2>
-                  <paper-dialog-scrollable>
-                    <template is="dom-repeat" items="{{item.tickets}}" status="{{item.status}}" index-as="index">
-                      <hr>
-                      <paper-item>
-                        <paper-item-body class="layout horizontal center layout justified wrap">
-                          <!-- <iron-icon icon="receipt" item-icon></iron-icon> -->
-                          <div><b>Type: </b>{{item.text}}</div>
-                          <div><b>Amount: </b>&euro; {{item.price}}</div>
-                          <div>CH member:
-                            <iron-icon icon="{{getIcon(item.chMember)}}"></iron-icon>
-                          </div>
-                          <div>Pickup service:
-                            <iron-icon icon="{{getIcon(item.pickupService)}}"></iron-icon>
-                          </div>
-                        </paper-item-body>
-                      </paper-item>
-                    </template>
-                  </paper-dialog-scrollable>
-                  <div class="buttons">
-                    <paper-button dialog-dismiss>Back</paper-button>
-                  </div>
-                </paper-dialog>
-
-              </paper-item-body>
-            </paper-item>
+            <my-area-order-item order="{{item}}"></my-area-order-item>
           </template>
-          <hr>
         </template>
         <template is="dom-if" if="{{!orders.length}}">
           You don't have any orders yet
@@ -109,7 +66,7 @@
           <template is="dom-repeat" items="{{tickets}}" index-as="index">
             <hr>
             <paper-item>
-              <paper-item-body class="layout horizontal center layout justified wrap">
+              <paper-item-body class="layout horizontal center justified wrap">
                 <!-- <iron-icon icon="receipt" item-icon></iron-icon> -->
                 <div><b>Type: </b>{{item.text}}</div>
                 <div><b>Amount: </b>&euro; {{item.price}}</div>
@@ -170,19 +127,13 @@
     },
     storeTickets: function(event, request) {
       this.tickets = request.response.length > 0 ? request.response : false;
-      console.log(request.response);
-    },
-    attached: function() {
-      this.$.ajaxOrders.generateRequest();
-      this.$.ajaxTickets.generateRequest();
     },
     getIcon: function(binding) {
       return binding ? 'icons:check' : 'icons:clear';
     },
-    showOrderTickets: function(e) {
-      // Hello, this is captain McSpaghetti. I want my code back.
-      var id = e.srcElement.offsetParent.id;
-      document.querySelector('#orderInfo' + id).toggle();
+    attached: function() {
+      this.$.ajaxOrders.generateRequest();
+      this.$.ajaxTickets.generateRequest();
     }
   });
   </script>
