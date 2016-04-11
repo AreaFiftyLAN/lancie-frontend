@@ -127,6 +127,7 @@
     },
     refreshInvites: function() {
       this.$.ajaxGetPersonalInvites.generateRequest();
+      this.refreshTeams();
     },
     storeTeams: function(event, request) {
       this.teams = request.response.length > 0 ? request.response : false;
