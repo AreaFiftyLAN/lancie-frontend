@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <dom-module id="my-area-orders">
   <template>
@@ -34,6 +35,10 @@
 
     .order {
       display: inline-block;
+    }
+
+    .info {
+      margin: 0 5px 0 0;
     }
     
     hr {
@@ -70,29 +75,28 @@
     <paper-card elevation="1" animated-shadow="true">
       <div class="card-content">
         <h2>Orders</h2>
+        <hr>
         <template is="dom-if" if="{{orders.length}}">
           <template is="dom-repeat" items="{{orders}}">
-            <hr>
-            <paper-item>
-              <paper-item-body class="layout horizontal center layout justified">
+            <paper-item id="{{item.id}}" on-tap="showOrderTickets">
+              <hr>
+              <paper-item-body class="layout horizontal center layout justified wrap">
                 <div>
-                  <h3>Order #{{item.id}}</h3></div>
-                <div><b>Date ordered: </b>{{item.creationDateTime}}</div>
-                <div><b>Amount: </b>&euro; {{item.amount}}</div>
-                <div><b>Status: </b>{{item.status}}</div>
-                <div>
-                  <paper-icon-button id="{{item.id}}" icon="icons:info" on-tap="showOrderTickets"></paper-icon-button>
-                  <paper-tooltip offset="0" animation-delay="1">Order details</paper-tooltip>
+                  <h3>Order #{{item.id}}</h3>
                 </div>
+                <div class="info"><b>Date ordered: </b>{{item.creationDateTime}}</div>
+                <div class="info"><b>Amount: </b>&euro; {{item.amount}}</div>
+                <div class="info"><b>Status: </b>{{item.status}}</div>
 
                 <paper-dialog id="orderInfo{{item.id}}" with-backdrop>
                   <h2>Order #{{item.id}}</h2>
+                  <paper-dialog-scrollable>
                     <template is="dom-repeat" items="{{item.tickets}}" status="{{item.status}}" index-as="index">
                       <hr>
                       <paper-item>
-                        <paper-item-body class="layout horizontal center layout justified">
-                          <iron-icon icon="receipt" item-icon></iron-icon>
-                          <div><b>Name: </b>{{item.text}}</div>
+                        <paper-item-body class="layout horizontal center layout justified wrap">
+                          <!-- <iron-icon icon="receipt" item-icon></iron-icon> -->
+                          <div><b>Type: </b>{{item.text}}</div>
                           <div><b>Amount: </b>&euro; {{item.price}}</div>
                           <div>CH member:
                             <iron-icon icon="{{getIcon(item.chMember)}}"></iron-icon>
@@ -103,6 +107,7 @@
                         </paper-item-body>
                       </paper-item>
                     </template>
+                  </paper-dialog-scrollable>
                   <div class="buttons">
                     <paper-button dialog-dismiss>Back</paper-button>
                   </div>
@@ -124,9 +129,9 @@
           <template is="dom-repeat" items="{{tickets}}" index-as="index">
             <hr>
             <paper-item>
-              <paper-item-body class="layout horizontal center layout justified">
-                <iron-icon icon="receipt" item-icon></iron-icon>
-                <div><b>Name: </b>{{item.text}}</div>
+              <paper-item-body class="layout horizontal center layout justified wrap">
+                <!-- <iron-icon icon="receipt" item-icon></iron-icon> -->
+                <div><b>Type: </b>{{item.text}}</div>
                 <div><b>Amount: </b>&euro; {{item.price}}</div>
                 <div>CH member:
                   <iron-icon icon="{{getIcon(item.chMember)}}"></iron-icon>
