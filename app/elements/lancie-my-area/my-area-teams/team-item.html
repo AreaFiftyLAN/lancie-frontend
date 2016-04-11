@@ -96,15 +96,9 @@
   Polymer({
     is: 'team-item',
     properties: {
-      team: {
-        type: Object
-      },
-      user: {
-        type: Object
-      },
-      teamInvites: {
-        type: Array
-      },
+      team: Object,
+      user: Object,
+      teamInvites: Array,
       addMemberError: {
         type: Boolean,
         value: false
@@ -113,9 +107,6 @@
       isCaptain: Boolean,
       memberUsername: String,
       addMemberMessage: String
-    },
-    attached: function() {
-
     },
     refreshInvites: function() {
       this.$.ajaxGetTeamInvites.generateRequest();
@@ -153,7 +144,6 @@
       this.$.ajaxGetTeamInvites.generateRequest();
       this.$.teamInvitesDialog.open();
     },
-
     _isSameUser: function(other, user) {
       return other.reference === user.reference;
     }

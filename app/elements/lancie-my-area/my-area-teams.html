@@ -38,14 +38,9 @@
     
     paper-dialog {
       min-width: 30%;
-      /*--primary-text-color: #FEE474;*/
       --paper-dialog-button-color: #1A2B43;
     }
-    
-    .member-icon {
-      margin-left: 8%;
-    }
-    
+       
     .errormessage {
       padding: 10px 20px 9px;
       margin-bottom: 4px;
@@ -105,21 +100,14 @@
   Polymer({
     is: 'my-area-teams',
     properties: {
-      teams: {
-        type: Array
-      },
-      user: {
-        type: Object
-      },
+      teams: Array,
+      user: Object,
       createTeamError: {
         type: Boolean,
         value: false
       },
-      personalInvites: {
-        type: Array
-      },
+      personalInvites: Array,
       teamName: String,
-      memberUsername: String,
       createTeamMessage: String
     },
     refreshTeams: function() {
@@ -167,12 +155,6 @@
           this.createTeamMessage = 'Something went wrong';
         }
       }
-    },
-    submitAcceptInvite: function() {
-      var token = event.target.parentNode.parentNode.parentNode.parentNode.id;
-      console.log(token);
-      this.$.ajaxAcceptInvite.body = token;
-      this.$.ajaxAcceptInvite.generateRequest();
     },
     resetTeamDialogs: function() {
       this.createTeamError = false;

@@ -6,6 +6,7 @@
 <link rel="import" href="../../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../lancie-login/lancie-ajax.html">
 <dom-module id="my-area-teams-invite">
   <template>
@@ -47,22 +48,15 @@
       </paper-item-body>
     </paper-item>
     <paper-toast id="acceptInviteSuccess" text="Welcome to Team {{invite.teamName}}!" duration="3000"></paper-toast>
-
   </template>
   <script>
   'use strict';
   Polymer({
     is: 'my-area-teams-invite',
     properties: {
-      invite: {
-        type: Object
-      },
+      invite: Object,
       team: Boolean,
       personal: Boolean
-    },
-    attached: function() {
-
-
     },
     submitAcceptInvite: function() {
       this.$.ajaxAcceptInvite.generateRequest();
@@ -71,7 +65,6 @@
       if (r.succeeded) {
         this.fire('invite-change');
         this.$.acceptInviteSuccess.show();
-        // this.fire('invite-accept');
       } else {
         this.inviteMemberMessage = 'Something went wrong';
       }
