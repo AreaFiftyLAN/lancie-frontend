@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 <dom-module id="my-area-order-item">
   <template>
@@ -34,6 +35,19 @@
       border-top: 1px solid #e8e8e8;
       padding: 0;
     }
+
+    .layout div {
+      flex: 1;
+      text-align: center;
+    }
+
+    .layout div:first-child {
+      text-align: left;
+    }
+
+    paper-item {
+      width: 100%;
+    }
     </style>
 
     <paper-item id="{{order.id}}" on-tap="showOrderTickets">
@@ -48,13 +62,13 @@
     </paper-item>
     <hr>
 
-    <paper-dialog id="orderInfo" with-backdrop>
+    <paper-dialog id="orderInfo" with-backdrop auto-fit-on-attach>
       <h2>Order #{{order.id}}</h2>
       <paper-dialog-scrollable>
         <template is="dom-repeat" items="{{order.tickets}}" status="{{order.status}}" index-as="index">
           <hr>
           <paper-item>
-            <paper-item-body>
+            <paper-item-body class="layout horizontal center justified">
               <!-- <iron-icon icon="receipt" item-icon></iron-icon> -->
               <div><b>Type: </b>{{order.text}}</div>
               <div><b>Amount: </b>&euro; {{order.price}}</div>
