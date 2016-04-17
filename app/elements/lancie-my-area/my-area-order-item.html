@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 
 <dom-module id="my-area-order-item">
   <template>
@@ -14,14 +15,8 @@
       display: block;
     }
 
-    paper-item {
-      display: inline-block;
-      padding: 0;
-      position: relative;
-    }
-
     h3 {
-      margin: 0px;
+      margin: 0;
     }
 
     .info {
@@ -45,8 +40,8 @@
       text-align: left;
     }
 
-    paper-item {
-      width: 100%;
+    .stats {
+      width: 200px;
     }
     </style>
 
@@ -62,23 +57,21 @@
     </paper-item>
     <hr>
 
-    <paper-dialog id="orderInfo" with-backdrop auto-fit-on-attach>
+    <paper-dialog id="orderInfo" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop >
       <h2>Order #{{order.id}}</h2>
       <paper-dialog-scrollable>
         <template is="dom-repeat" items="{{order.tickets}}" status="{{order.status}}" index-as="index">
           <hr>
-          <paper-item>
-            <paper-item-body class="layout horizontal center justified">
+            <paper-item class="layout horizontal center justified">
               <!-- <iron-icon icon="receipt" item-icon></iron-icon> -->
-              <div><b>Type: </b>{{item.text}}</div>
-              <div><b>Amount: </b>&euro; {{item.price}}</div>
-              <div>CH member:
-                <iron-icon icon="{{getIcon(item.chMember)}}"></iron-icon>
-              </div>
-              <div>Pickup service:
-                <iron-icon icon="{{getIcon(item.pickupService)}}"></iron-icon>
-              </div>
-            </paper-item-body>
+            <div class="stats"><b>Type: </b>{{item.text}}</div>
+            <div class="stats"><b>Amount: </b>&euro; {{item.price}}</div>
+            <div class="stats">CH member:
+              <iron-icon icon="{{getIcon(item.chMember)}}"></iron-icon>
+            </div>
+            <div class="stats">Pickup service:
+              <iron-icon icon="{{getIcon(item.pickupService)}}"></iron-icon>
+            </div>
           </paper-item>
         </template>
       </paper-dialog-scrollable>
