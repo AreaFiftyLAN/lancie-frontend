@@ -70,13 +70,13 @@
           <paper-item>
             <paper-item-body class="layout horizontal center justified">
               <!-- <iron-icon icon="receipt" item-icon></iron-icon> -->
-              <div><b>Type: </b>{{order.text}}</div>
-              <div><b>Amount: </b>&euro; {{order.price}}</div>
+              <div><b>Type: </b>{{item.text}}</div>
+              <div><b>Amount: </b>&euro; {{item.price}}</div>
               <div>CH member:
-                <iron-icon icon="{{getIcon(order.chMember)}}"></iron-icon>
+                <iron-icon icon="{{getIcon(item.chMember)}}"></iron-icon>
               </div>
               <div>Pickup service:
-                <iron-icon icon="{{getIcon(order.pickupService)}}"></iron-icon>
+                <iron-icon icon="{{getIcon(item.pickupService)}}"></iron-icon>
               </div>
             </paper-item-body>
           </paper-item>
