@@ -21,6 +21,7 @@
 
     .info {
       margin: 0 0 0 5px;
+      width: 200px;
     }
 
     hr {
@@ -43,22 +44,31 @@
     .stats {
       width: 200px;
     }
+
+    .orderstats {
+      position: absolute;
+      right: 0;
+      top: 0;
+      text-align: right;
+    }
     </style>
 
-    <paper-item id="{{order.id}}" on-tap="showOrderTickets">
-      <paper-item-body class="layout horizontal center justified">
-        <div>
-          <h3>Order #{{order.id}}</h3>
-        </div>
-        <div class="info"><b>Date ordered: </b>{{order.creationDateTime}}</div>
-        <div class="info"><b>Amount: </b>&euro; {{order.amount}}</div>
-        <div class="info"><b>Status: </b>{{order.status}}</div>
-      </paper-item-body>
+    <paper-item id="{{order.id}}" class="layout horizontal center justified wrap" on-tap="showOrderTickets">
+      <div>
+        <h3>#{{order.id}}</h3>
+      </div>
+      <div class="info">{{order.creationDateTime}}</div>
+      <div class="info">{{order.status}}</div>
     </paper-item>
     <hr>
 
     <paper-dialog id="orderInfo" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop >
       <h2>Order #{{order.id}}</h2>
+      <div class="orderstats">
+        <div>{{order.creationDateTime}}</div>
+        <div>&euro; {{order.amount}}</div>
+        <div>{{order.status}}</div>
+      </div>
       <paper-dialog-scrollable>
         <template is="dom-repeat" items="{{order.tickets}}" status="{{order.status}}" index-as="index">
           <hr>
