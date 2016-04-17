@@ -24,6 +24,8 @@
     }
     </style>
 
+    <lancie-ajax id="ajaxTicketTransfer" refurl="tickets/transfer/{{ticket.id}}" method="POST" handle-as="json" on-response="onTicketTransfer"></lancie-ajax>
+
     <hr>
     <paper-item>
       <paper-item-body class="layout horizontal center justified wrap">
@@ -36,11 +38,23 @@
           <iron-icon icon="{{getIcon(ticket.pickupService)}}"></iron-icon>
         </div>
         <div>
-          <paper-icon-button icon="icons:send" on-tap="ticketTransfer" disabled></paper-icon-button>
+          <paper-icon-button icon="icons:send" on-tap="ticketTransferDialog"></paper-icon-button>
           <paper-tooltip offset="0" animation-delay="1">Transfer this ticket</paper-tooltip>
         </div>
       </paper-item-body>
     </paper-item>
+
+    <paper-dialog id="ticketTransferDialog" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop>
+      <h2>Add a team member</h2>
+      <paper-material class="errormessage" hidden$="{{!transferError}}">{{transferErrorMessage}}</paper-material>
+      <paper-input label="Username" type="text" value="{{transferUsername}}"></paper-input>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button on-tap="submitTicketTransfer">Transfer</paper-button>
+      </div>
+    </paper-dialog>
+
+    <paper-toast id="ticketTransferSuccessToast" text="Ticket successfully set up for transfer!" duration="3000"></paper-toast>
   </template>
   <script>
     'use strict';
@@ -52,13 +66,37 @@
         ticket: {
           type: Object,
           notify: true
-        }
+        },
+        transferError: String,
+        transferErrorMessage: String,
+        transferUsername: String
       },
       getIcon: function(binding) {
         return binding ? 'icons:check' : 'icons:clear';
       },
-      ticketTransfer: function() {
-        this.$.ticketTransfer.toggle();
+      ticketTransferDialog: function() {
+        this.$.ticketTransferDialog.toggle();
+      },
+      submitTicketTransfer: function() {
+        if (!this.transferUsername || this.transferUsername.length == 0) {
+          this.transferError = true;
+          this.transferErrorMessage = "Please fill in a username";
+          return;
+        }
+        this.$.ajaxTicketTransfer.body = this.transferUsername;
+        this.$.ajaxTicketTransfer.generateRequest();
+
+        this.transferError = false;
+        this.transferErrorMessage = "";
+      },
+      onTicketTransfer: function(e, r) {
+        if (r.succeeded) {
+          this.ticketTransferDialog();
+          this.$.ticketTransferSuccessToast.show();
+        } else {
+          console.log("whoops");
+          console.log(r.request);
+        }
       }
     });
   </script>
