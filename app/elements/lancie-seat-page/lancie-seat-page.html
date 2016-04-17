@@ -11,19 +11,30 @@
 
       .seatgroup-cluster {
         display: inline-block;
-        margin-right: 60px;
-        width: 486px;
+        margin-top: 21px;
         white-space: normal;
       }
 
+      .seatgroup-cluster:last-child {
+        margin-right: 85px;
+      }
+
+      .seatgroup-cluster:not(:last-child) {
+        margin-right: 40px;
+      }
+
       lancie-seat-group {
-        padding-bottom: 20px;
-        padding-top: 20px;
+        padding-bottom: 25px;
+        padding-top: 23px;
       }
 
       .center {
+        background: url('/images/seatmap/seatmap2.png') no-repeat;
+        background-size: 100% 100%;
         text-align: center;
-        width: 1032px; /* 2 times the cluster width + margin */
+        /* width: 1032px; */ /* 2 times the cluster width + margin */
+        width: 1250px;
+        height: 601px;
         margin-left: auto;
         margin-right: auto;
       }
@@ -58,7 +69,10 @@
         }
       },
       _getSeatGroup: function(seats, key) {
-        return seats.seatmap[key];
+        var unsorted = seats.seatmap[key];
+        return unsorted.sort(function(a, b) {
+          return a.seatNumber - b.seatNumber;
+        });
       }
     });
   </script>
