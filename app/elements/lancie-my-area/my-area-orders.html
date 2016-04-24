@@ -70,7 +70,7 @@
         <h2>Tickets</h2>
         <template is="dom-if" if="{{tickets.length}}">
           <template is="dom-repeat" items="{{tickets}}" index-as="index">
-            <my-area-ticket-item ticket="{{item}}"></my-area-ticket-item>
+            <my-area-ticket-item username="{{username}}" ticket="{{item}}"></my-area-ticket-item>
           </template>
         </template>
         <template is="dom-if" if="{{!tickets.length}}">
@@ -105,7 +105,8 @@
       },
       orderTickets: {
         type: Array
-      }
+      },
+      username: String
     },
     buyTickets: function() {
       location.href = location.href.replace('my-area', 'tickets');

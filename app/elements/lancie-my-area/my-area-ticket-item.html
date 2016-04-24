@@ -23,8 +23,12 @@
       padding: 0;
     }
 
-    .cancelTicketTransfer {
-      color: red;
+    .errormessage {
+        padding: 10px 20px 9px;
+        margin-bottom: 4px;
+        border-left: 3px solid #F44336;
+        background: #FFCDD2;
+        color: #B71C1C;
     }
     </style>
 
@@ -85,7 +89,8 @@
           type: Object,
           notify: true
         },
-        transferError: String,
+        username: String,
+        transferError: Boolean,
         transferErrorMessage: String,
         transferUsername: String
       },
@@ -100,12 +105,20 @@
         }
       },
       setupTicketTransferDialog: function() {
+        this.transferUsername = '';
+        this.transferError = false;
+        this.transferErrorMessage = '';
         this.$.setupTicketTransferDialog.toggle();
       },
       setupTicketTransfer: function() {
         if (!this.transferUsername || this.transferUsername.length === 0) {
           this.transferError = true;
-          this.transferErrorMessage = 'Please fill in a username';
+          this.transferErrorMessage = 'Please fill in a username.';
+          return;
+        }
+        if (this.transferUsername === this.username) {
+          this.transferError = true;
+          this.transferErrorMessage = 'This ticket is already yours.';
           return;
         }
         this.$.ajaxSetupTicketTransfer.body = this.transferUsername;
@@ -116,12 +129,16 @@
       },
       onSetupTicketTransfer: function(e, r) {
         if (r.succeeded) {
-          this.transferUsername = '';
           this.ticket.token = r.response.object.token;
           this.setupTicketTransferDialog();
           this.$.setupTicketTransferSuccessToast.show();
         } else {
-          console.log(r.request);
+          this.transferError = true;
+          if (r.request.status === 403) {
+            this.transferErrorMessage = 'User not found.';
+          } else {
+            this.transferErrorMessage = 'The server was unable to process your request.';
+          }
         }
       },
       cancelTicketTransferDialog: function() {
@@ -137,7 +154,8 @@
           this.cancelTicketTransferDialog();
           this.$.cancelTicketTransferSuccessToast.show();
         } else {
-          console.log(r.request);
+          this.transferError = true;
+          this.transferErrorMessage = 'The server was unable to process your request.';
         }
       }      
     });
