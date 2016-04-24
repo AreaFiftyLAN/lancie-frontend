@@ -49,7 +49,7 @@
       position: absolute;
       right: 0;
       top: 0;
-      text-align: right;
+      text-align: left;
     }
     </style>
 
@@ -66,20 +66,20 @@
     <paper-dialog id="orderInfo" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop >
       <h2>Order #{{order.id}}</h2>
       <div class="orderstats">
-        <div>{{order.creationDateTime}}</div>
-        <div>&euro; {{order.amount}}</div>
-        <div>{{order.status}}</div>
+        <div><b>Ordered on: </b>{{order.creationDateTime}}</div>
+        <div><b>Price: </b>&euro; {{order.amount}}</div>
+        <div><b>Status: </b>{{order.status}}</div>
       </div>
       <paper-dialog-scrollable>
         <template is="dom-repeat" items="{{order.tickets}}" status="{{order.status}}" index-as="index">
           <hr>
-            <paper-item class="layout horizontal center justified">
-            <div class="stats">Type: {{item.text}}</div>
-            <div class="stats">Amount: &euro; {{item.price}}</div>
-            <div class="stats">CH member:
+            <paper-item>
+            <div class="stats flex">Type: {{item.text}}</div>
+            <div class="stats flex">Amount: &euro; {{item.price}}</div>
+            <div class="stats flex">CH member:
               <iron-icon icon="{{getIcon(item.chMember)}}"></iron-icon>
             </div>
-            <div class="stats">Pickup service:
+            <div class="stats flex">Pickup service:
               <iron-icon icon="{{getIcon(item.pickupService)}}"></iron-icon>
             </div>
           </paper-item>
