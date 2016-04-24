@@ -55,10 +55,11 @@
 
     <paper-item id="{{order.id}}" class="layout horizontal center justified wrap" on-tap="showOrderTickets">
       <div>
-        <h3>#{{order.id}}</h3>
+        <h3>Order #{{order.id}}</h3>
       </div>
-      <div class="info">{{order.creationDateTime}}</div>
-      <div class="info">{{order.status}}</div>
+      <div class="info"><b>Ordered on: </b>{{order.creationDateTime}}</div>
+      <div class="info"><b>Status: </b>{{order.status}}</div>
+      <iron-icon icon="info" item-icon></iron-icon>
     </paper-item>
     <hr>
 
@@ -73,9 +74,8 @@
         <template is="dom-repeat" items="{{order.tickets}}" status="{{order.status}}" index-as="index">
           <hr>
             <paper-item class="layout horizontal center justified">
-              <!-- <iron-icon icon="receipt" item-icon></iron-icon> -->
-            <div class="stats"><b>Type: </b>{{item.text}}</div>
-            <div class="stats"><b>Amount: </b>&euro; {{item.price}}</div>
+            <div class="stats">Type: {{item.text}}</div>
+            <div class="stats">Amount: &euro; {{item.price}}</div>
             <div class="stats">CH member:
               <iron-icon icon="{{getIcon(item.chMember)}}"></iron-icon>
             </div>
