@@ -11,6 +11,7 @@
   <template>
     <lancie-ajax id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-response="storeOrders"></lancie-ajax>
     <lancie-ajax id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-response="storeTickets"></lancie-ajax>
+    <lancie-ajax id="ajaxTokens" refurl="tickets/tokens" method="GET" handle-as="json" on-response="storeTokens"></lancie-ajax>
 
     <style include="iron-flex iron-flex-alignment"></style>
     <style>
@@ -115,6 +116,21 @@
     },
     storeTickets: function(event, request) {
       this.tickets = request.response.length > 0 ? request.response : false;
+      this.$.ajaxTokens.generateRequest();
+    },
+    storeTokens: function(event, request) {
+      if (request.succeeded) {
+        request.response.object.forEach(function(ttt) {
+          this.tickets.forEach(function(ticket) {
+            if (ticket.id === ttt.ticket.id) {
+              ticket.token = ttt.token;
+            }
+          });
+        }.bind(this));
+        console.log(this.tickets);
+      } else {
+        console.log(request.request);
+      }
     },
     getIcon: function(binding) {
       return binding ? 'icons:check' : 'icons:clear';
