@@ -8,6 +8,7 @@
 <link rel="import" href="lancie-404.html">
 <link rel="import" href="lancie-home-page/lancie-home-page.html">
 <link rel="import" href="lancie-my-area/lancie-my-area.html">
+<link rel="import" href="lancie-my-area/lancie-accept-ticket-transfer.html">
 <link rel="import" href="lancie-ticket-page/lancie-ticket-page.html">
 <link rel="import" href="lancie-ticket-page/lancie-terms-of-service.html">
 <link rel="import" href="lancie-ticket-page/lancie-ticket-profile-intercept.html">
@@ -40,6 +41,12 @@
       <div data-route="my-area">
         <lancie-login-check user="{{user}}">
           <lancie-my-area user="{{user}}"></lancie-my-area>
+        </lancie-login-check>
+      </div>
+
+      <div data-route="accept-ticket-transfer">
+        <lancie-login-check user="{{user}}">
+          <lancie-accept-ticket-transfer></lancie-accept-ticket-transfer>
         </lancie-login-check>
       </div>
 
