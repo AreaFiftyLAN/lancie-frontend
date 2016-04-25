@@ -53,13 +53,13 @@
     }
     </style>
 
-    <paper-item id="{{order.id}}" class="layout horizontal center justified wrap" on-tap="showOrderTickets">
+    <paper-item id="{{order.id}}" class="layout horizontal center justified wrap">
       <div>
         <h3>Order #{{order.id}}</h3>
       </div>
       <div class="info"><b>Ordered on: </b>{{order.creationDateTime}}</div>
       <div class="info"><b>Status: </b>{{order.status}}</div>
-      <iron-icon icon="info" item-icon></iron-icon>
+      <paper-icon-button icon="icons:info" on-tap="showOrderTickets"></paper-icon-button>
     </paper-item>
     <hr>
 

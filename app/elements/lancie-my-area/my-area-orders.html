@@ -45,6 +45,10 @@
     paper-dialog div {
       margin: 0 10px;
     }
+
+    .ticket-info {
+      min-width: 120px;
+    }
     </style>
     <paper-card elevation="1" animated-shadow="true">
       <div class="card-content">
@@ -67,12 +71,12 @@
             <hr>
             <paper-item>
               <paper-item-body class="layout horizontal center justified wrap">
-                <div><b>Type: </b>{{item.text}}</div>
-                <div><b>Amount: </b>&euro; {{item.price}}</div>
-                <div>CH member:
+                <div class="ticket-info flex"><b>Type: </b>{{item.text}}</div>
+                <div class="ticket-info flex"><b>Amount: </b>&euro; {{item.price}}</div>
+                <div class="ticket-info flex">CH member:
                   <iron-icon icon="{{getIcon(item.chMember)}}"></iron-icon>
                 </div>
-                <div>Pickup service:
+                <div class="ticket-info flex">Pickup service:
                   <iron-icon icon="{{getIcon(item.pickupService)}}"></iron-icon>
                 </div>
                 <div>
