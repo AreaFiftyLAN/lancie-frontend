@@ -94,7 +94,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (r.succeeded) {
           this.success = true;
         } else {
-          if (r.request.status == 400) {
+          if (r.request.status === 400) {
             this.tokenTwice = true;
           } else {
             this.error = true;
