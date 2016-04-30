@@ -46,7 +46,10 @@
 
       <div data-route="accept-ticket-transfer">
         <lancie-login-check user="{{user}}">
-          <lancie-accept-ticket-transfer></lancie-accept-ticket-transfer>
+          <!-- This is done to prevent firing this request when it is not supposed to fire. -->
+          <template is="dom-if" if="{{_matches('accept-ticket-transfer', route)}}" restamp="true">
+            <lancie-accept-ticket-transfer></lancie-accept-ticket-transfer>
+          </template>
         </lancie-login-check>
       </div>
 
