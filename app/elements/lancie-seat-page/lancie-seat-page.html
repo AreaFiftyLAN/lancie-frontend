@@ -39,18 +39,9 @@
         margin-right: auto;
       }
     </style>
-    <lancie-ajax
-            auto
-            user="{{user}}"
-            refurl="seats"
-            last-response="{{seats}}"
-    ></lancie-ajax>
-    <lancie-ajax
-            auto
-            user="{{user}}"
-            refurl="tickets/teammembers"
-            last-response="{{tickets}}"
-    ></lancie-ajax>
+    <lancie-ajax auto user="{{user}}" refurl="seats" last-response="{{seats}}"></lancie-ajax>
+    <lancie-ajax auto user="{{user}}" refurl="tickets/teammembers" last-response="{{tickets}}"></lancie-ajax>
+    <lancie-ajax id="ajaxReserveSeat" method="POST" on-response="onSeatReserve"></lancie-ajax>
 
     <div class="center">
       <div class="seatgroup-cluster">
@@ -69,7 +60,8 @@
       <h2>Select Ticket</h2>
       <paper-dropdown-menu label="Ticket">
         <paper-menu class="dropdown-content" selected="{{selectedTicket}}">
-          <template is="dom-repeat" items="{{tickets}}">
+          <template is="dom-repeat" items="{{_setTickets(tickets)}}">
+            <paper-item>Select a ticket</paper-item>>
             <paper-item>id: {{item.id}} - owner: {{item.owner.username}}</paper-item>
           </template>
         </paper-menu>
@@ -77,35 +69,52 @@
     </paper-dialog>
   </template>
   <script>
+   var prevSeat = null;
+   var tickets = [];
   'use strict';
-  (function() {
-    var prevSeat = null;
-    Polymer({
-      is: 'lancie-seat-page',
-      properties: {
-        user: {
-          type: Object
-        },
-        selectedTicket: {
-          type: Number,
-          value: 0,
-          observer: '_selectedTicketChanged'
-        }
+  Polymer({
+    is: 'lancie-seat-page',
+    properties: {
+      user: {
+        type: Object
       },
-      _getSeatGroup: function(seats, key) {
-        var unsorted = seats.seatmap[key];
-        return unsorted.sort(function(a, b) {
-          return a.seatNumber - b.seatNumber;
-        });
-      },
-      _selectedTicketChanged: function(newIndex, oldIndex) {
-        console.log(newIndex);
-        console.log(oldIndex);
-        if (typeof prevSeat !== 'undefined') {
-          console.log("test");
+
+      selectedTicket: {
+        type: Number,
+        value: 0,
+        observer: '_selectedTicketChanged'
+      }
+    },
+
+    _getSeatGroup: function(seats, key) {
+      var unsorted = seats.seatmap[key];
+      return unsorted.sort(function(a, b) {
+        return a.seatNumber - b.seatNumber;
+      });
+    },
+
+    _selectedTicketChanged: function(newIndex, oldIndex) {
+      if (typeof prevSeat !== 'undefined') {
+        if (newIndex > 0 && newIndex <= tickets.length) {
+          var group = prevSeat.getElementsByTagName("paper-button")[0].group;
+          var number = prevSeat.getElementsByTagName("paper-button")[0].number;
+          this.$.ajaxReserveSeat.refurl = 'seats/'+ group +'/'+ number;
+          this.$.ajaxReserveSeat.body = {
+            ticketId: tickets[newIndex - 1].id
+          };
+          this.$.ajaxReserveSeat.generateRequest();
         }
       }
-    });
-  })();
+    },
+
+    _setTickets: function(ticks) {
+      tickets = ticks;
+      return ticks;
+    },
+
+    onSeatReserve: function(result) {
+      console.log(result);
+    }
+  });
   </script>
 </dom-module>

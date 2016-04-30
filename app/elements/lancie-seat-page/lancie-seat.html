@@ -24,7 +24,7 @@
         min-width: 0;
       }
     </style>
-    <paper-button data-dialog="seatTicketPopup" on-tap="selectSeatTicket">{{index}}</paper-button>
+    <paper-button data-dialog="seatTicketPopup" on-tap="selectSeatTicket" number="{{index}}" group="{{group}}">{{index}}</paper-button>
     <template is="dom-if" if="{{taken}}">
       <paper-tooltip position="{{position}}">{{user.profile.displayName}}</paper-tooltip>
     </template>

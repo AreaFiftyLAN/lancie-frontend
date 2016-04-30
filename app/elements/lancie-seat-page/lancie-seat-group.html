@@ -14,7 +14,8 @@
     <span>{{name}}</span>
     <div style$="width: {{computeWidth(seats)}}">
       <template is="dom-repeat" items="{{seats}}">
-        <lancie-seat taken="{{item.taken}}" user="{{item.user}}" index="{{item.seatNumber}}" position="{{getPosition(seats, item.seatNumber)}}"></lancie-seat>
+        <lancie-seat taken="{{item.taken}}" user="{{item.user}}" index="{{item.seatNumber}}" group="{{name}}"
+                     position="{{getPosition(seats, item.seatNumber)}}"></lancie-seat>
       </template>
   </div>
   </template>
