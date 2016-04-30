@@ -40,11 +40,17 @@
       }
     </style>
     <lancie-ajax
-      auto
-      user="{{user}}"
-      refurl="seats"
-      last-response="{{seats}}"
-      ></lancie-ajax>
+            auto
+            user="{{user}}"
+            refurl="seats"
+            last-response="{{seats}}"
+    ></lancie-ajax>
+    <lancie-ajax
+            auto
+            user="{{user}}"
+            refurl="tickets/teammembers"
+            last-response="{{tickets}}"
+    ></lancie-ajax>
 
     <div class="center">
       <div class="seatgroup-cluster">
@@ -58,14 +64,32 @@
         </template>
       </div>
     </div>
+
+    <paper-dialog id="seatTicketPopup">
+      <h2>Select Ticket</h2>
+      <paper-dropdown-menu label="Ticket">
+        <paper-menu class="dropdown-content" selected="{{selectedTicket}}">
+          <template is="dom-repeat" items="{{tickets}}">
+            <paper-item>id: {{item.id}} - owner: {{item.owner.username}}</paper-item>
+          </template>
+        </paper-menu>
+      </paper-dropdown-menu>
+    </paper-dialog>
   </template>
   <script>
   'use strict';
+  (function() {
+    var prevSeat = null;
     Polymer({
       is: 'lancie-seat-page',
       properties: {
         user: {
           type: Object
+        },
+        selectedTicket: {
+          type: Number,
+          value: 0,
+          observer: '_selectedTicketChanged'
         }
       },
       _getSeatGroup: function(seats, key) {
@@ -73,7 +97,15 @@
         return unsorted.sort(function(a, b) {
           return a.seatNumber - b.seatNumber;
         });
+      },
+      _selectedTicketChanged: function(newIndex, oldIndex) {
+        console.log(newIndex);
+        console.log(oldIndex);
+        if (typeof prevSeat !== 'undefined') {
+          console.log("test");
+        }
       }
     });
+  })();
   </script>
 </dom-module>
