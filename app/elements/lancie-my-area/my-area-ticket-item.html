@@ -129,7 +129,7 @@
       },
       onSetupTicketTransfer: function(e, r) {
         if (r.succeeded) {
-          this.ticket.token = r.response.object.token;
+          this.ticket.token = r.response.object;
           this.setupTicketTransferDialog();
           this.$.setupTicketTransferSuccessToast.show();
         } else {

@@ -85,6 +85,8 @@
         <paper-tooltip for="redeem-ticket" offset="0" animation-delay="1">Redeem a ticket code</paper-tooltip>
       </div>
     </paper-card>
+
+    <paper-toast id="ticketTransferTokensRetrievalError" text="Unable to check for open ticket transfers!" duration="3000"></paper-toast>
   </template>
   <script>
   'use strict';
@@ -128,9 +130,8 @@
             }
           });
         }.bind(this));
-        console.log(this.tickets);
       } else {
-        console.log(request.request);
+        this.$.ticketTransferTokensRetrievalError.show();
       }
     },
     getIcon: function(binding) {
