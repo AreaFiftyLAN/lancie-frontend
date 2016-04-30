@@ -25,10 +25,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <lancie-ajax id="ajaxConfirmTicketTransfer" refurl="tickets/transfer" method="PUT" on-response="onAcceptTicketTransfer"></lancie-ajax>
 
-    <lancie-message-card hidden$="{{!transferring}}">
+    <lancie-message-card hidden$="{{!info}}">
       A ticket has been sent to you. Click below to claim your ticket!
       <br><br>
       <paper-button raised on-tap="openDialog">Claim ticket</paper-button>
+    </lancie-message-card>
+
+    <lancie-message-card hidden$="{{!transferring}}">
+      Transferring ticket...
     </lancie-message-card>
 
     <lancie-message-card hidden$="{{!error}}">
@@ -49,7 +53,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <lancie-message-card hidden$="{{!success}}">
       You have successfully received your new ticket!
 
-      <a href="/my-area">You can view your ticket here</a>
+      <a href="/my-area">You can view your ticket here.</a>
     </lancie-message-card>
 
     <paper-dialog id="termsofservice" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
@@ -76,7 +80,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
       attached: function() {
-        this.transferring = true;
+        this.info = true;
+        this.transferring = false;
         this.success = false;
         this.error = false;
         this.tokenTwice = false;
@@ -86,6 +91,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.termsofservice.toggle();
       },
       tryAcceptTicketTransfer: function() {
+        this.info = false;
+        this.transferring = true;
         this.$.ajaxConfirmTicketTransfer.body = this.token;
         this.$.ajaxConfirmTicketTransfer.generateRequest();
       },

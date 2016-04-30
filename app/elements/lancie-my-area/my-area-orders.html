@@ -9,10 +9,6 @@
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <dom-module id="my-area-orders">
   <template>
-    <lancie-ajax id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-response="storeOrders"></lancie-ajax>
-    <lancie-ajax id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-response="storeTickets"></lancie-ajax>
-    <lancie-ajax id="ajaxTokens" refurl="tickets/tokens" method="GET" handle-as="json" on-response="storeTokens"></lancie-ajax>
-
     <style include="iron-flex iron-flex-alignment"></style>
     <style>
     :host {
@@ -52,6 +48,11 @@
       min-width: 120px;
     }
     </style>
+
+    <lancie-ajax id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-response="storeOrders"></lancie-ajax>
+    <lancie-ajax id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-response="storeTickets"></lancie-ajax>
+    <lancie-ajax id="ajaxTokens" refurl="tickets/tokens" method="GET" handle-as="json" on-response="storeTokens"></lancie-ajax>
+
     <paper-card elevation="1" animated-shadow="true">
       <div class="card-content">
         <h2>Orders</h2>
