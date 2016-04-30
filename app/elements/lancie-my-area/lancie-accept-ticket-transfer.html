@@ -10,17 +10,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../lancie-message-card.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <dom-module id="lancie-accept-ticket-transfer">
   <template>
-    <lancie-ajax id="ajaxConfirmTicketTransfer" refurl="tickets/transfer" method="PUT" on-response="onResponse"></lancie-ajax>
+    <style>
+      paper-button {
+        width: 100%;
+      }
+
+      .actions {
+        text-align: center;
+      }
+    </style>
+    <lancie-ajax id="ajaxConfirmTicketTransfer" refurl="tickets/transfer" method="PUT" on-response="onAcceptTicketTransfer"></lancie-ajax>
 
     <lancie-message-card hidden$="{{!transferring}}">
-      Transferring.
+      A ticket has been sent to you. Click below to claim your ticket!
+      <br><br>
+      <paper-button raised on-tap="openDialog">Claim ticket</paper-button>
     </lancie-message-card>
 
     <lancie-message-card hidden$="{{!error}}">
-      Hmm, something went wrong with transferring your ticket. You can try to transfer the ticket again.
+      Hmm, something went wrong while transferring your ticket. You can try to transfer the ticket again.
       <br><br>
       If this does not work please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your email address and username.
       We will then check what went wrong.
@@ -29,7 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </lancie-message-card>
 
     <lancie-message-card hidden$="{{!tokenTwice}}">
-      Hmm, this transfertoken was already claimed. Is this ticket already transferred?
+      Hmm, this token was already claimed. Is this ticket already transferred?
 
       <a href="/">Head back to the homepage</a>
     </lancie-message-card>
@@ -39,6 +51,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <a href="/my-area">You can view your ticket here</a>
     </lancie-message-card>
+
+    <paper-dialog id="termsofservice" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+      <h2>Terms and conditions</h2>
+      <paper-dialog-scrollable>
+        <lancie-terms-of-service></lancie-terms-of-service>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss on-tap="closeDialog">Cancel</paper-button>
+        <paper-button dialog-confirm on-tap="tryAcceptTicketTransfer">I agree to the terms of service</paper-button>
+      </div>
+    </paper-dialog>
   </template>
   <script>
   'use strict';
@@ -58,20 +81,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.error = false;
         this.tokenTwice = false;
         this.token = window.location.href.split('token=')[1];
-        this.tryAcceptTicketTransfer();
+      },
+      openDialog: function() {
+        this.$.termsofservice.toggle();
       },
       tryAcceptTicketTransfer: function() {
         this.$.ajaxConfirmTicketTransfer.body = this.token;
         this.$.ajaxConfirmTicketTransfer.generateRequest();
       },
-      onResponse: function(event, r) {
+      onAcceptTicketTransfer: function(event, r) {
         this.transferring = false;
         if (r.succeeded) {
           this.success = true;
-          console.log(r.response);
         } else {
-          this.error = true;
-          console.log(r.request);
+          if (r.request.status == 400) {
+            this.tokenTwice = true;
+          } else {
+            this.error = true;
+          }
         }
       }
     });
