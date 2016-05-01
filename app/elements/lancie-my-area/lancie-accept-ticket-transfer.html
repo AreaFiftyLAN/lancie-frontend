@@ -99,6 +99,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       onAcceptTicketTransfer: function(event, r) {
         this.transferring = false;
         if (r.succeeded) {
+          document.querySelector('#ajaxTickets').generateRequest();
           this.success = true;
         } else {
           if (r.request.status === 400) {
