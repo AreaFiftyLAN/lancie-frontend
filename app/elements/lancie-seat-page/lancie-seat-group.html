@@ -14,8 +14,8 @@
     <span>{{name}}</span>
     <div style$="width: {{computeWidth(seats)}}">
       <template is="dom-repeat" items="{{seats}}">
-        <lancie-seat taken="{{item.taken}}" user="{{item.user}}" index="{{item.seatNumber}}" group="{{name}}"
-                     position="{{getPosition(seats, item.seatNumber)}}"></lancie-seat>
+        <lancie-seat taken="{{item.taken}}" ticket="{{item.ticket}}" index="{{item.seatNumber}}" group="{{name}}"
+                     yours="{{_seatIsYours(item.ticket)}}" position="{{getPosition(seats, item.seatNumber)}}"></lancie-seat>
       </template>
   </div>
   </template>
@@ -30,6 +30,9 @@
         },
         max: {
           type: Number
+        },
+        tickets: {
+          type: Object
         }
       },
 
@@ -39,6 +42,19 @@
 
       getPosition: function(seats, index) {
         return index <= seats.length / 2 ? 'top' : 'bottom';
+      },
+
+      _seatIsYours: function(ticket) {
+        var yours = false;
+        if (ticket != null) {
+          tickets.forEach(function (element, index, array) {
+            if (element.owner.reference == ticket.owner.reference) {
+              yours = true;
+            }
+          });
+          console.log();
+        }
+        return yours;
       }
     });
   </script>

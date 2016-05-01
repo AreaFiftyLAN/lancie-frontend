@@ -10,6 +10,10 @@
         background-color: red;
       }
 
+      :host[yours] {
+        background-color: yellow;
+      }
+
       :host[selected] {
         background-color: blue;
       }
@@ -38,7 +42,7 @@
           type: Boolean,
           reflectToAttribute: true
         },
-        user: {
+        ticket: {
           type: Object
         },
         index: {
@@ -50,6 +54,10 @@
         selected: {
           type: Boolean,
           value: false,
+          reflectToAttribute: true
+        },
+        yours: {
+          type: Boolean,
           reflectToAttribute: true
         }
       },
@@ -63,24 +71,28 @@
       },
 
       selectSeatTicket: function(e) {
-        var selected = this.selected;
-        if (prevSeat != null) {
-          prevSeat.selected = false;
-        }
-        prevSeat = this;
-        this.selected = !selected;
-        if (!selected) {
-          var button = e.target;
-          while (!button.hasAttribute('data-dialog') && button !== document.body) {
-            button = button.parentElement;
+        if (!this.taken) {
+          var selected = this.selected;
+          if (prevSeat != null) {
+            prevSeat.selected = false;
           }
-          if (!button.hasAttribute('data-dialog')) {
-            return;
-          }
-          var id = button.getAttribute('data-dialog');
-          var dialog = document.getElementById(id);
-          if (dialog) {
-            dialog.open();
+          prevSeat = this;
+          this.selected = !selected;
+          //This could be used to have a popup as well already containing the right option, when its your ticket.
+//          var ticket = this.ticket;
+//          if (typeof ticket !== 'undefined') {
+//            tickets.forEach(function (element, index, array) {
+//              console.log(index);
+//              if (element.owner.reference == ticket.owner.reference) {
+//                document.getElementById("selectedTicket").selected = index + 1;
+//              }
+//            });
+//          }
+          if (!selected) {
+            var dialog = document.getElementById("seatTicketPopup");
+            if (dialog) {
+              dialog.open();
+            }
           }
         }
       }

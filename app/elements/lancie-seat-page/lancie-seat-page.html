@@ -38,28 +38,37 @@
         margin-left: auto;
         margin-right: auto;
       }
+
+      .errormessage {
+        padding: 10px 20px 9px;
+        margin-bottom: 4px;
+        border-left: 3px solid #F44336;
+        background: #FFCDD2;
+        color: #B71C1C;
+      }
     </style>
-    <lancie-ajax auto user="{{user}}" refurl="seats" last-response="{{seats}}"></lancie-ajax>
     <lancie-ajax auto user="{{user}}" refurl="tickets/teammembers" last-response="{{tickets}}"></lancie-ajax>
+    <lancie-ajax auto id="ajaxRequestSeats" user="{{user}}" refurl="seats" last-response="{{seats}}"></lancie-ajax>
     <lancie-ajax id="ajaxReserveSeat" method="POST" on-response="onSeatReserve"></lancie-ajax>
 
     <div class="center">
       <div class="seatgroup-cluster">
         <template is="dom-repeat" items='["A", "B", "C", "D", "E"]'>
-          <lancie-seat-group seats="{{_getSeatGroup(seats, item)}}" name="{{item}}"></lancie-seat-group>
+          <lancie-seat-group seats="{{_getSeatGroup(seats, item)}}" tickets="{{tickets}}" name="{{item}}"></lancie-seat-group>
         </template>
       </div>
       <div class="seatgroup-cluster">
         <template is="dom-repeat" items='["F", "G", "H", "I", "J"]'>
-          <lancie-seat-group seats="{{_getSeatGroup(seats, item)}}" name="{{item}}"></lancie-seat-group>
+          <lancie-seat-group seats="{{_getSeatGroup(seats, item)}}" tickets="{{tickets}}" name="{{item}}"></lancie-seat-group>
         </template>
       </div>
     </div>
 
-    <paper-dialog id="seatTicketPopup">
+    <paper-dialog id="seatTicketPopup" on-iron-overlay-closed="resetSeatDialog">
       <h2>Select Ticket</h2>
+      <paper-material class="errormessage" hidden$="{{!reserveSeatError}}">{{reserveSeatMessage}}</paper-material>
       <paper-dropdown-menu label="Ticket">
-        <paper-menu class="dropdown-content" selected="{{selectedTicket}}">
+        <paper-menu class="dropdown-content" id="selectedTicket" selected="{{selectedTicket}}">
           <template is="dom-repeat" items="{{_setTickets(tickets)}}">
             <paper-item>Select a ticket</paper-item>>
             <paper-item>id: {{item.id}} - owner: {{item.owner.username}}</paper-item>
@@ -83,7 +92,12 @@
         type: Number,
         value: 0,
         observer: '_selectedTicketChanged'
-      }
+      },
+      reserveSeatError: {
+        type: Boolean,
+        value: false
+      },
+      reserveSeatMessage: String
     },
 
     _getSeatGroup: function(seats, key) {
@@ -99,7 +113,7 @@
           var group = prevSeat.getElementsByTagName("paper-button")[0].group;
           var number = prevSeat.getElementsByTagName("paper-button")[0].number;
           this.$.ajaxReserveSeat.refurl = 'seats/'+ group +'/'+ number;
-          this.$.ajaxReserveSeat.body = {
+          this.$.ajaxReserveSeat.params = {
             ticketId: tickets[newIndex - 1].id
           };
           this.$.ajaxReserveSeat.generateRequest();
@@ -112,8 +126,34 @@
       return ticks;
     },
 
-    onSeatReserve: function(result) {
-      console.log(result);
+    onSeatReserve: function(e, r) {
+      //Todo: Check if succesful, if not tell the user why.
+
+      prevSeat.selected = false;
+      this.reserveSeatError = !r.succeeded;
+      this.$.ajaxRequestSeats.generateRequest();
+      if (r.succeeded) {
+        var dialog = document.getElementById("seatTicketPopup");
+        if (dialog) {
+          dialog.close();
+        }
+      } else {
+        if (r.request.status === 409) {
+          this.reserveSeatMessage = 'Seat already in use.';
+        } else {
+          this.reserveSeatMessage = 'Something went wrong';
+        }
+      }
+    },
+
+    resetSeatDialog: function(e, r) {
+      this.reserveSeatError = false;
+      this.reserveSeatMessage = "";
+      document.getElementById("selectedTicket").selected = 0;
+      if (prevSeat) {
+        prevSeat.selected = false;
+        prevSeat = null;
+      }
     }
   });
   </script>
