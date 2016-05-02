@@ -121,12 +121,15 @@
       this.teams = request.response.length > 0 ? request.response : false;
     },
     storePersonalInvites: function(event, request) {
-      this.personalInvites = request.response.length > 0 ? request.response : false;
+      this.personalInvites = request.response ? request.response : false;
     },
     attached: function() {
       this.$.ajaxTeams.generateRequest();
     },
     openCreateTeamDialog: function() {
+      this.createTeamError = false;
+      this.createTeamMessage = '';
+      this.teamName = '';
       this.$.createTeamDialog.open();
     },
     openPersonalInvitesDialog: function() {
@@ -141,11 +144,10 @@
       this.$.ajaxCreateTeam.generateRequest();
     },
     onCreateTeam: function(e, r) {
-      this.teamName = '';
       this.createTeamError = !r.succeeded;
       if (r.succeeded) {
         this.$.ajaxTeams.generateRequest();
-        this.resetTeamDialogs();
+      this.$.createTeamDialog.close();
       } else {
         if (r.request.status === 409) {
           this.createTeamMessage = 'Teamname already in use.';
@@ -155,11 +157,6 @@
           this.createTeamMessage = 'Something went wrong';
         }
       }
-    },
-    resetTeamDialogs: function() {
-      this.createTeamError = false;
-      this.createTeamMessage = '';
-      this.$.createTeamDialog.close();
     }
   });
   </script>

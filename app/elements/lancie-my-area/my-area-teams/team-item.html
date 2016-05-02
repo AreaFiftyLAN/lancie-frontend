@@ -23,7 +23,6 @@
     
     paper-dialog {
       min-width: 30%;
-      /*--primary-text-color: #FEE474;*/
       --paper-dialog-button-color: #1A2B43;
     }
     
@@ -138,7 +137,7 @@
       }
     },
     storeTeamInvites: function(event, request) {
-      this.teamInvites = request.response.length > 0 ? request.response : false;
+      this.teamInvites = request.response ? request.response : false;
     },
     openTeamInvitesDialog: function() {
       this.$.ajaxGetTeamInvites.generateRequest();
