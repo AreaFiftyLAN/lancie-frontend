@@ -1,3 +1,6 @@
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+
 <dom-module id="lancie-seat">
   <template>
     <style>
@@ -51,6 +54,7 @@
         position: {
           type: String
         },
+        group: String,
         selected: {
           type: Boolean,
           value: false,
@@ -73,10 +77,10 @@
       selectSeatTicket: function(e) {
         if (!this.taken) {
           var selected = this.selected;
-          if (prevSeat != null) {
-            prevSeat.selected = false;
+          if (this.prevSeat !== null) {
+            this.prevSeat.selected = false;
           }
-          prevSeat = this;
+          this.prevSeat = this;
           this.selected = !selected;
           //This could be used to have a popup as well already containing the right option, when its your ticket.
 //          var ticket = this.ticket;
@@ -89,7 +93,7 @@
 //            });
 //          }
           if (!selected) {
-            var dialog = document.getElementById("seatTicketPopup");
+            var dialog = document.getElementById('seatTicketPopup');
             if (dialog) {
               dialog.open();
             }

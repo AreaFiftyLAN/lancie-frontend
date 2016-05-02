@@ -1,4 +1,11 @@
 <link rel="import" href="lancie-seat-group.html">
+<link rel="import" href="../lancie-login/lancie-ajax.html">
+
+<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
 
 <dom-module id="lancie-seat-page">
   <template>
@@ -78,16 +85,17 @@
     </paper-dialog>
   </template>
   <script>
-   var prevSeat = null;
-   var tickets = [];
   'use strict';
+  var prevSeat = null;
+  var tickets = [];
   Polymer({
     is: 'lancie-seat-page',
     properties: {
       user: {
         type: Object
       },
-
+      tickets: Object,
+      seats: Object,
       selectedTicket: {
         type: Number,
         value: 0,
@@ -110,8 +118,8 @@
     _selectedTicketChanged: function(newIndex, oldIndex) {
       if (typeof prevSeat !== 'undefined') {
         if (newIndex > 0 && newIndex <= tickets.length) {
-          var group = prevSeat.getElementsByTagName("paper-button")[0].group;
-          var number = prevSeat.getElementsByTagName("paper-button")[0].number;
+          var group = prevSeat.getElementsByTagName('paper-button')[0].group;
+          var number = prevSeat.getElementsByTagName('paper-button')[0].number;
           this.$.ajaxReserveSeat.refurl = 'seats/'+ group +'/'+ number;
           this.$.ajaxReserveSeat.params = {
             ticketId: tickets[newIndex - 1].id
@@ -133,7 +141,7 @@
       this.reserveSeatError = !r.succeeded;
       this.$.ajaxRequestSeats.generateRequest();
       if (r.succeeded) {
-        var dialog = document.getElementById("seatTicketPopup");
+        var dialog = document.getElementById('seatTicketPopup');
         if (dialog) {
           dialog.close();
         }
@@ -148,8 +156,8 @@
 
     resetSeatDialog: function(e, r) {
       this.reserveSeatError = false;
-      this.reserveSeatMessage = "";
-      document.getElementById("selectedTicket").selected = 0;
+      this.reserveSeatMessage = '';
+      document.getElementById('selectedTicket').selected = 0;
       if (prevSeat) {
         prevSeat.selected = false;
         prevSeat = null;

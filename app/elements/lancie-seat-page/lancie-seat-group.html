@@ -46,9 +46,9 @@
 
       _seatIsYours: function(ticket) {
         var yours = false;
-        if (ticket != null) {
-          tickets.forEach(function (element, index, array) {
-            if (element.owner.reference == ticket.owner.reference) {
+        if (ticket !== null) {
+          this.tickets.forEach(function (element, index, array) {
+            if (element.owner.reference === ticket.owner.reference) {
               yours = true;
             }
           });
