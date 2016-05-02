@@ -63,7 +63,8 @@
           type: Boolean,
           reflectToAttribute: true
         },
-        group: String
+        group: String,
+        prevSeat: Object
       },
 
       toggle: function() {
@@ -77,7 +78,7 @@
       selectSeatTicket: function(e) {
         if (!this.taken) {
           var selected = this.selected;
-          if (prevSeat != null) {
+          if (prevSeat !== null) {
             prevSeat.selected = false;
           }
           prevSeat = this;
@@ -93,7 +94,7 @@
 //            });
 //          }
           if (!selected) {
-            var dialog = document.getElementById("seatTicketPopup");
+            var dialog = document.getElementById('seatTicketPopup');
             if (dialog) {
               dialog.open();
             }
