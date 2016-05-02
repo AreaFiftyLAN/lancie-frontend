@@ -21,7 +21,6 @@
   </template>
   <script>
   'use strict';
-
     Polymer({
       is: 'lancie-seat-group',
       properties: {
@@ -31,9 +30,7 @@
         max: {
           type: Number
         },
-        tickets: {
-          type: Object
-        }
+        tickets: Object
       },
 
       computeWidth: function(seats) {
@@ -47,12 +44,11 @@
       _seatIsYours: function(ticket) {
         var yours = false;
         if (ticket !== null) {
-          this.tickets.forEach(function (element, index, array) {
+          tickets.forEach(function (element, index, array) {
             if (element.owner.reference === ticket.owner.reference) {
               yours = true;
             }
           });
-          console.log();
         }
         return yours;
       }

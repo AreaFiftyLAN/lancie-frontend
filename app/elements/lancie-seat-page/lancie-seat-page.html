@@ -76,9 +76,9 @@
       <paper-material class="errormessage" hidden$="{{!reserveSeatError}}">{{reserveSeatMessage}}</paper-material>
       <paper-dropdown-menu label="Ticket">
         <paper-menu class="dropdown-content" id="selectedTicket" selected="{{selectedTicket}}">
+          <paper-item>Select a ticket</paper-item>
           <template is="dom-repeat" items="{{_setTickets(tickets)}}">
-            <paper-item>Select a ticket</paper-item>>
-            <paper-item>id: {{item.id}} - owner: {{item.owner.username}}</paper-item>
+            <paper-item>Ticket: {{item.id}} - Owned by: {{item.owner.profile.displayName}}</paper-item>
           </template>
         </paper-menu>
       </paper-dropdown-menu>
