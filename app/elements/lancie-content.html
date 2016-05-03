@@ -9,6 +9,7 @@
 <link rel="import" href="lancie-home-page/lancie-home-page.html">
 <link rel="import" href="lancie-my-area/lancie-my-area.html">
 <link rel="import" href="lancie-my-area/lancie-accept-ticket-transfer.html">
+<link rel="import" href="lancie-my-area/lancie-success-ticket-transfer.html">
 <link rel="import" href="lancie-ticket-page/lancie-ticket-page.html">
 <link rel="import" href="lancie-ticket-page/lancie-terms-of-service.html">
 <link rel="import" href="lancie-ticket-page/lancie-ticket-profile-intercept.html">
@@ -51,6 +52,11 @@
             <lancie-accept-ticket-transfer></lancie-accept-ticket-transfer>
           </template>
         </lancie-login-check>
+      </div>
+
+      <div data-route="success-ticket-transfer">
+          <!-- This is done to prevent firing this request when it is not supposed to fire. -->
+            <lancie-success-ticket-transfer></lancie-success-ticket-transfer>
       </div>
 
       <div data-route="tickets">

@@ -50,12 +50,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <a href="/">Head back to the homepage</a>
     </lancie-message-card>
 
-    <lancie-message-card hidden$="{{!success}}">
-      You have successfully received your new ticket!
-
-      <a href="/my-area">You can view your ticket here.</a>
-    </lancie-message-card>
-
     <paper-dialog id="termsofservice" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Terms and conditions</h2>
       <paper-dialog-scrollable>
@@ -82,7 +76,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       attached: function() {
         this.info = true;
         this.transferring = false;
-        this.success = false;
         this.error = false;
         this.tokenTwice = false;
         this.token = window.location.href.split('token=')[1];
@@ -99,8 +92,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       onAcceptTicketTransfer: function(event, r) {
         this.transferring = false;
         if (r.succeeded) {
-          document.querySelector('#ajaxTickets').generateRequest();
-          this.success = true;
+          window.location.href = '/#!/transfer-success';
         } else {
           if (r.request.status === 400) {
             this.tokenTwice = true;
