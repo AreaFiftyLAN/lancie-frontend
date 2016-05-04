@@ -36,41 +36,6 @@
     "footer": false
   },
   {
-    "title": "Smash",
-    "subtitle": "Melee",
-    "headerTitle": "Super Smash Bros Melee",
-    "description": "Super Smash Bros. Melee is a crossover fighting game released for the GameCube, released in Japan in November 2001, with other territories later. It is the second game in the Super Smash Bros. series, following the first game. The game features characters from Nintendo video game franchises such as Mario, The Legend of Zelda, Star Fox, and Pokémon.",
-    "backgroundImagePath": "images/unofficial/ssbm.jpg",
-    "sponsor": {
-      "name": "",
-      "imagePath": "images/unofficial/ssbm-logo.png",
-      "website": "http://www.smashbros.com/en-uk/"
-    },
-    "prizes": [
-      "T.B.A."
-    ],
-    "format": "1 vs 1",
-    "startingDateTime": {
-      "monthValue": 6,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saterday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "GameCube"
-    ],
-    "footer": false
-  },
-  {
     "title": "Poker",
     "subtitle": "Texas Hold'm",
     "headerTitle": "Poker",

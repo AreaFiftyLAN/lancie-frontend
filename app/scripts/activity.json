@@ -39,7 +39,7 @@
     "title": "LoL",
     "subtitle": "5 v 5",
     "headerTitle": "League of Legends",
-    "description": "League of Legends (LoL) is a 2009 multiplayer online battle arena game developed and published by Riot Games. It is a free-to-play game that is inspired by the mod Defense of the Ancients for the video game Warcraft III: The Frozen Throne. In League of Legends, players assume the role of a character, called a champion, with unique abilities, battling with a team against other player-controlled champions. In the most popular game modes, each team's goal is to destroy the opposing team's nexus, a building which lies at the heart of a base protected by defensive structures.",
+    "description": "In League of Legends, players assume the role of a character, called a champion, with unique abilities, battling with a team against other player-controlled champions. In the most popular game modes, each team's goal is to destroy the opposing team's nexus, a building which lies at the heart of a base protected by defensive structures.\n## Rules\nAll the rules in the [LoL tournament rules](http://cdn.leagueoflegends.com/prized-events/Tournament+Rules+Beta.pdf) are in effect.\n### Format\n**5v5**\n - Best of 1 in the 8th finals\n - Best of 3 in the other rounds.\n\n### Played Map\nSummoner's Rift\n### Game Settings\nTournament Draft Mode",
     "backgroundImagePath": "images/activities/lol.jpg",
     "sponsor": {
       "name": "",
