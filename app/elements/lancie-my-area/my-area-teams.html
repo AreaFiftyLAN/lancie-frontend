@@ -17,8 +17,8 @@
 <link rel="import" href="my-area-teams/team-item.html">
 <dom-module id="my-area-teams">
   <template>
-    <lancie-ajax id="ajaxTeams" auto refurl="users/current/teams" handle-as="json" on-response="storeTeams"></lancie-ajax>
-    <lancie-ajax id="ajaxGetPersonalInvites" auto refurl="users/current/teams/invites" handle-as="json" on-response="storePersonalInvites"></lancie-ajax>
+    <lancie-ajax id="ajaxTeams" auto refurl="users/current/teams" handle-as="json" last-response="{{teams}}"></lancie-ajax>
+    <lancie-ajax id="ajaxGetPersonalInvites" auto refurl="users/current/teams/invites" handle-as="json" last-response="{{personalInvites}}"></lancie-ajax>
     <lancie-ajax id="ajaxCreateTeam" refurl="teams" method="POST" handle-as="json" on-response="onCreateTeam"></lancie-ajax>
     <lancie-ajax id="ajaxAcceptInvite" refurl="teams/invites" method="POST" handle-as="json" on-response="onAcceptInvite"></lancie-ajax>
 
@@ -124,29 +124,27 @@
       teamName: String,
       createTeamMessage: String
     },
+    
     refreshTeams: function() {
       this.$.ajaxTeams.generateRequest();
     },
+
     refreshInvites: function() {
       this.$.ajaxGetPersonalInvites.generateRequest();
       this.refreshTeams();
     },
-    storeTeams: function(event, request) {
-      this.teams = request.response.length > 0 ? request.response : false;
-    },
-    storePersonalInvites: function(event, request) {
-      this.personalInvites = request.response ? request.response : false;
-    },
+
     openCreateTeamDialog: function() {
       this.createTeamError = false;
       this.createTeamMessage = '';
       this.teamName = '';
       this.$.createTeamDialog.open();
     },
+
     openPersonalInvitesDialog: function() {
-      this.$.ajaxGetPersonalInvites.generateRequest();
       this.$.personalInvitesDialog.open();
     },
+
     submitCreateTeam: function() {
       this.$.ajaxCreateTeam.body = {
         teamName: this.teamName,
@@ -154,6 +152,7 @@
       };
       this.$.ajaxCreateTeam.generateRequest();
     },
+
     onCreateTeam: function(e, r) {
       this.createTeamError = !r.succeeded;
       if (r.succeeded) {
