@@ -17,11 +17,11 @@
 <link rel="import" href="my-area-teams/team-item.html">
 <dom-module id="my-area-teams">
   <template>
-    <lancie-ajax id="ajaxTeams" refurl="users/current/teams" handle-as="json" on-response="storeTeams"></lancie-ajax>
-    <lancie-ajax id="ajaxGetPersonalInvites" refurl="users/current/teams/invites" handle-as="json" on-response="storePersonalInvites"></lancie-ajax>
+    <lancie-ajax id="ajaxTeams" auto refurl="users/current/teams" handle-as="json" on-response="storeTeams"></lancie-ajax>
+    <lancie-ajax id="ajaxGetPersonalInvites" auto refurl="users/current/teams/invites" handle-as="json" on-response="storePersonalInvites"></lancie-ajax>
     <lancie-ajax id="ajaxCreateTeam" refurl="teams" method="POST" handle-as="json" on-response="onCreateTeam"></lancie-ajax>
     <lancie-ajax id="ajaxAcceptInvite" refurl="teams/invites" method="POST" handle-as="json" on-response="onAcceptInvite"></lancie-ajax>
-    <style include="iron-flex iron-flex-alignment"></style>
+
     <style>
     :host {
       display: block;
@@ -57,6 +57,11 @@
       background: #FFCDD2;
       color: #B71C1C;
     }
+
+    paper-badge {
+      --paper-badge-margin-left: -12px;
+      --paper-badge-margin-bottom: -12px;
+    }
     </style>
     <paper-card heading="Teams" elevation="1" animated-shadow="true">
       <div class="card-content">
@@ -74,6 +79,7 @@
         <paper-tooltip for="new-team" offset="0" animation-delay="1">Create a new team</paper-tooltip>
         <paper-icon-button id="teamInviteButton" icon="icons:inbox" on-tap="openPersonalInvitesDialog"></paper-icon-button>
         <paper-tooltip for="teamInviteButton" offset="0" animation-delay="1">View your open invites</paper-tooltip>
+        <paper-badge for="teamInviteButton" label="{{personalInvites.length}}"></paper-badge>
       </div>
     </paper-card>
     <!-- Dialogs -->
@@ -130,9 +136,6 @@
     },
     storePersonalInvites: function(event, request) {
       this.personalInvites = request.response ? request.response : false;
-    },
-    attached: function() {
-      this.$.ajaxTeams.generateRequest();
     },
     openCreateTeamDialog: function() {
       this.createTeamError = false;
