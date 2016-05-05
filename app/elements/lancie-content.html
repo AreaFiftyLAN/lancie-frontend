@@ -17,6 +17,7 @@
 <link rel="import" href="lancie-password/lancie-password-reset-success.html">
 <link rel="import" href="lancie-password/lancie-request-password-reset.html">
 <link rel="import" href="lancie-password/lancie-request-password-reset-success.html">
+<link rel="import" href="lancie-seat-page/lancie-seat-page.html">
 
 <dom-module id="lancie-content">
   <template>
@@ -73,6 +74,12 @@
         <template is="dom-if" if="{{_matches('confirmRegistration', route)}}" restamp="true">
           <lancie-register-confirmation></lancie-register-confirmation>
         </template>
+      </div>
+
+      <div data-route="seat-map">
+        <lancie-login-check user="{{user}}">
+          <lancie-seat-page user="{{user}}"></lancie-seat-page>
+        </lancie-login-check>
       </div>
 
       <div data-route="check-email">

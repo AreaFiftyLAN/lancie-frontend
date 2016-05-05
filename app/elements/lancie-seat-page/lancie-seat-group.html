@@ -1,0 +1,57 @@
+<link rel="import" href="lancie-seat.html">
+
+<dom-module id="lancie-seat-group">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      lancie-seat {
+        width: 35px;
+      }
+    </style>
+    <span>{{name}}</span>
+    <div style$="width: {{computeWidth(seats)}}">
+      <template is="dom-repeat" items="{{seats}}">
+        <lancie-seat taken="{{item.taken}}" ticket="{{item.ticket}}" index="{{item.seatNumber}}" group="{{name}}"
+                     yours="{{_seatIsYours(item.ticket)}}" position="{{getPosition(seats, item.seatNumber)}}"></lancie-seat>
+      </template>
+  </div>
+  </template>
+  <script>
+  'use strict';
+    Polymer({
+      is: 'lancie-seat-group',
+      properties: {
+        name: {
+          type: String
+        },
+        max: {
+          type: Number
+        },
+        tickets: Object
+      },
+
+      computeWidth: function(seats) {
+        return (seats.length / 2) * 39 + 'px';
+      },
+
+      getPosition: function(seats, index) {
+        return index <= seats.length / 2 ? 'top' : 'bottom';
+      },
+
+      _seatIsYours: function(ticket) {
+        var yours = false;
+        if (ticket !== null) {
+          tickets.forEach(function (element, index, array) {
+            if (element.owner.reference === ticket.owner.reference) {
+              yours = true;
+            }
+          });
+        }
+        return yours;
+      }
+    });
+  </script>
+</dom-module>

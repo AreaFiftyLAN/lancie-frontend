@@ -1,0 +1,106 @@
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+
+<dom-module id="lancie-seat">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        background-color: green;
+      }
+
+      :host[taken] {
+        background-color: red;
+      }
+
+      :host[yours] {
+        background-color: yellow;
+      }
+
+      :host[selected] {
+        background-color: blue;
+      }
+
+      paper-button {
+        border: 1px black solid;
+        display: inline-block;
+        width: 100%;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+        min-width: 0;
+      }
+    </style>
+    <paper-button data-dialog="seatTicketPopup" on-tap="selectSeatTicket" number="{{index}}" group="{{group}}">{{index}}</paper-button>
+    <template is="dom-if" if="{{taken}}">
+      <paper-tooltip position="{{position}}">{{user.profile.displayName}}</paper-tooltip>
+    </template>
+  </template>
+  <script>
+    'use strict';
+    Polymer({
+      is: 'lancie-seat',
+      properties: {
+        taken: {
+          type: Boolean,
+          reflectToAttribute: true
+        },
+        ticket: {
+          type: Object
+        },
+        index: {
+          type: Number
+        },
+        position: {
+          type: String
+        },
+        selected: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+        yours: {
+          type: Boolean,
+          reflectToAttribute: true
+        },
+        group: String,
+        prevSeat: Object
+      },
+
+      toggle: function() {
+        if (this.taken) {
+          return;
+        }
+
+        this.selected = !this.selected;
+      },
+
+      selectSeatTicket: function(e) {
+        if (!this.taken) {
+          var selected = this.selected;
+          if (prevSeat !== null) {
+            prevSeat.selected = false;
+          }
+          prevSeat = this;
+          this.selected = !selected;
+          //This could be used to have a popup as well already containing the right option, when its your ticket.
+//          var ticket = this.ticket;
+//          if (typeof ticket !== 'undefined') {
+//            tickets.forEach(function (element, index, array) {
+//              console.log(index);
+//              if (element.owner.reference == ticket.owner.reference) {
+//                document.getElementById("selectedTicket").selected = index + 1;
+//              }
+//            });
+//          }
+          if (!selected) {
+            var dialog = document.getElementById('seatTicketPopup');
+            if (dialog) {
+              dialog.open();
+            }
+          }
+        }
+      }
+    });
+  </script>
+</dom-module>
