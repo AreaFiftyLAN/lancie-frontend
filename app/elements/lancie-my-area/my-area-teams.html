@@ -59,8 +59,10 @@
     }
 
     paper-badge {
-      --paper-badge-margin-left: -12px;
-      --paper-badge-margin-bottom: -12px;
+      --paper-badge-margin-left: -20px;
+      --paper-badge-margin-bottom: -18px;
+      --paper-badge-background: #1A2B43;
+      --paper-badge-text-color: #FEE474;
     }
     </style>
     <paper-card heading="Teams" elevation="1" animated-shadow="true">
@@ -93,6 +95,7 @@
         <paper-button on-tap="submitCreateTeam">Create</paper-button>
       </div>
     </paper-dialog>
+
     <!-- Personal Invites Overview Dialog -->
     <paper-dialog id="personalInvitesDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Your personal invites</h2>
@@ -124,7 +127,7 @@
       teamName: String,
       createTeamMessage: String
     },
-    
+
     refreshTeams: function() {
       this.$.ajaxTeams.generateRequest();
     },
