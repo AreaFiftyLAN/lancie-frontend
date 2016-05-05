@@ -17,6 +17,10 @@
     :host {
       display: block;
     }
+
+    .team {
+      margin-right: 20px;
+    }
     
     paper-card {
       width: 100%;
@@ -29,12 +33,12 @@
     </style>
     <paper-item>
       <paper-item-body class="layout horizontal center layout justified">
-        <div>
-          <h3>Team: {{invite.teamName}}</h3>
+        <div class="team">
+          Team: {{invite.teamName}}
         </div>
         <template is="dom-if" if="{{team}}">
           <div>
-            <h3>User: {{invite.username}}</h3>
+            User: {{invite.username}}
           </div>
         </template>
         <div>
