@@ -79,9 +79,12 @@
       <div class="card-actions">
         <paper-icon-button id="new-team" icon="social:group-add" on-tap="openCreateTeamDialog"></paper-icon-button>
         <paper-tooltip for="new-team" offset="0" animation-delay="1">Create a new team</paper-tooltip>
+
         <paper-icon-button id="teamInviteButton" icon="icons:inbox" on-tap="openPersonalInvitesDialog"></paper-icon-button>
         <paper-tooltip for="teamInviteButton" offset="0" animation-delay="1">View your open invites</paper-tooltip>
-        <paper-badge for="teamInviteButton" label="{{personalInvites.length}}"></paper-badge>
+        <template is="dom-if" if="{{personalInvites.length}}">
+          <paper-badge for="teamInviteButton" label="{{personalInvites.length}}"></paper-badge>
+        </template>
       </div>
     </paper-card>
     <!-- Dialogs -->
