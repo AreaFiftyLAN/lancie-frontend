@@ -1,46 +1,48 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-
 <link rel="import" href="my-area-profile.html">
 <link rel="import" href="my-area-teams.html">
 <link rel="import" href="my-area-orders.html">
 <link rel="import" href="my-area-seat.html">
-
 <dom-module id="lancie-my-area">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
     <style>
     :host {
       display: block;
-      padding: 24px 24px;
     }
-
+    
     .start:last-child .card:last-child {
       margin-bottom: 13px;
     }
-
+    
     .card {
       margin: 8px;
       min-width: 300px;
     }
-
+    
     paper-button {
       background-color: #1A2B43;
       color: #FEE474;
       --paper-button-raised-keyboard-focus: {
         background-color: var(--paper-pink-a200);
         color: white;
-      };
+      }
+      ;
     }
     </style>
-    <div class="layout horizontal start wrap">
-      <my-area-profile user="{{user}}" class="flex card"></my-area-profile>
-      <my-area-teams user="{{user}}" class="flex card"></my-area-teams>
-    </div>
-    <div class="layout horizontal start wrap">
-      <my-area-orders username="{{user.username}}" class="flex-3 card"></my-area-orders>
-      <my-area-seat class="flex-2 card"></my-area-seat>
-    </div>
+    <lancie-section type="primary full" header="My Area - {{user.username}}">
+      <div>
+        <div class="layout horizontal start wrap">
+          <my-area-profile user="{{user}}" class="flex card"></my-area-profile>
+          <my-area-teams user="{{user}}" class="flex card"></my-area-teams>
+        </div>
+        <div class="layout horizontal start wrap">
+          <my-area-orders username="{{user.username}}" class="flex-3 card"></my-area-orders>
+          <my-area-seat class="flex-2 card"></my-area-seat>
+        </div>
+      </div>
+    </lancie-section>
   </template>
   <script>
   Polymer({

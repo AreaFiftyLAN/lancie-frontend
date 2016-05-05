@@ -9,7 +9,10 @@
 <link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../../bower_components/paper-toast/paper-toast.html">
+
 <link rel="import" href="../../lancie-login/lancie-ajax.html">
+<link rel="import" href="../../lancie-dialog/lancie-dialog.html">
+
 <dom-module id="team-member-item">
   <template>
     <style include="iron-flex iron-flex-alignment"></style>
@@ -40,14 +43,14 @@
       </paper-item-body>
     </paper-item>
     <!-- Invite a Member dialog -->
-    <paper-dialog id="removeMemberDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="removeMemberDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Remove a team member</h2>
-      <div>{{removeMemberMessage}}</div>
+      <div class="card-content">{{removeMemberMessage}}</div>
       <div class="buttons">
-        <paper-button dialog-dismiss>Cancel</paper-button>
-        <paper-button on-tap="submitDeleteUser">Remove</paper-button>
+        <paper-button raised dialog-dismiss>Cancel</paper-button>
+        <paper-button raised on-tap="submitDeleteUser">Remove</paper-button>
       </div>
-    </paper-dialog>
+    </lancie-dialog>
     <paper-toast id="memberRemoveToast" text="User successfully removed!" duration="3000"></paper-toast>
   </template>
   <script>
