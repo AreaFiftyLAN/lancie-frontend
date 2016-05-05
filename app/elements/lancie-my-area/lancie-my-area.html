@@ -12,12 +12,7 @@
     <style>
     :host {
       display: block;
-    }
-
-    .content {
-      width: 100%;
-      margin-left: auto;
-      margin-right: auto;
+      padding: 24px 24px;
     }
 
     .start:last-child .card:last-child {
@@ -25,7 +20,7 @@
     }
 
     .card {
-      margin: 5px 13px;
+      margin: 8px;
       min-width: 300px;
     }
 
@@ -38,13 +33,13 @@
       };
     }
     </style>
-    <div class="layout horizontal start content wrap">
+    <div class="layout horizontal start wrap">
       <my-area-profile user="{{user}}" class="flex card"></my-area-profile>
       <my-area-teams class="flex card"></my-area-teams>
     </div>
-    <div class="layout horizontal start content wrap">
-      <my-area-orders class="flex card"></my-area-orders>
-      <my-area-seat class="card"></my-area-seat>
+    <div class="layout horizontal start wrap">
+      <my-area-orders username="{{user.username}}" class="flex-3 card"></my-area-orders>
+      <my-area-seat class="flex-2 card"></my-area-seat>
     </div>
   </template>
   <script>

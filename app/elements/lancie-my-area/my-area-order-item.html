@@ -1,77 +1,94 @@
-<!--
-@license
-Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
-This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
--->
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 
 <dom-module id="my-area-order-item">
   <template>
+    <style include="iron-flex iron-flex-alignment"></style>
     <style>
-      :host {
-        display: block;
-      }
+    :host {
+      display: block;
+    }
 
-      paper-item {
-        background: #fff;
-        padding: 0;
-      }
+    h3 {
+      margin: 0;
+    }
 
-      paper-item-body div.my-area-order-item {
-        display: inline-block;
-      }
+    .info {
+      margin: 0 0 0 5px;
+      width: 200px;
+    }
 
-      paper-item-body div.my-area-order-item:nth-child(1) {
-        width: 50%;
-        margin-left: 20px;
-      }
+    hr {
+      display: block;
+      height: 1px;
+      border: 0;
+      border-top: 1px solid #e8e8e8;
+      padding: 0;
+    }
 
-      paper-item-body div.my-area-order-item:nth-child(2) {
-        width: 15%;
-      }
+    .layout div {
+      flex: 1;
+      text-align: center;
+    }
 
-      paper-item-body div.my-area-order-item:nth-child(3) {
-        width: 15%;
-      }
+    .layout div:first-child {
+      text-align: left;
+    }
 
-      paper-item-body div.my-area-order-item:nth-child(4) {
-        width: 10%;
-      }
+    .stats {
+      width: 200px;
+    }
 
-      .ticketBlock {
-        display: block;
-      }
+    .orderstats {
+      position: absolute;
+      right: 0;
+      top: 0;
+      text-align: left;
+    }
     </style>
 
-    <paper-item>
-      <paper-item-body four-line class="ticketBlock">
-        <template is="dom-if" if="{{ticket.lockedForTransfer}}">
-          <div>
-            <iron-icon icon="icons:receipt"></iron-icon>
-            {{ticket.text}} Ticket
-          </div>
-          <div>CH-Member: {{_boolToYN(ticket.chMember)}}</div>
-          <div>PickupService: {{_boolToYN(ticket.pickupService)}}</div>
-          <div></div>
-        </template>
-        <template is="dom-if" if="{{!ticket.lockedForTransfer}}">
-          <div>
-            <iron-icon icon="icons:receipt"></iron-icon>
-            {{ticket.text}} Ticket
-          </div>
-          <div>CH-Member: {{_boolToYN(ticket.chMember)}}</div>
-          <div>PickupService: {{_boolToYN(ticket.pickupService)}}</div>
-          <div>
-            <paper-icon-button on-tap="shareTicket" icon="share" alt="Share Ticket!"></paper-icon-button>
-          </div>
-        </template>
-      </paper-item-body>
+    <paper-item id="{{order.id}}" class="layout horizontal center justified wrap">
+      <div>
+        <h3>Order #{{order.id}}</h3>
+      </div>
+      <div class="info"><b>Ordered on: </b>{{order.creationDateTime}}</div>
+      <div class="info"><b>Status: </b>{{order.status}}</div>
+      <paper-icon-button icon="icons:info" on-tap="showOrderTickets"></paper-icon-button>
     </paper-item>
+    <hr>
+
+    <paper-dialog id="orderInfo" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop >
+      <h2>Order #{{order.id}}</h2>
+      <div class="orderstats">
+        <div><b>Ordered on: </b>{{order.creationDateTime}}</div>
+        <div><b>Price: </b>&euro; {{order.amount}}</div>
+        <div><b>Status: </b>{{order.status}}</div>
+      </div>
+      <paper-dialog-scrollable>
+        <template is="dom-repeat" items="{{order.tickets}}" status="{{order.status}}" index-as="index">
+          <hr>
+            <paper-item>
+            <div class="stats flex">Type: {{item.text}}</div>
+            <div class="stats flex">Amount: &euro; {{item.price}}</div>
+            <div class="stats flex">CH member:
+              <iron-icon icon="{{getIcon(item.chMember)}}"></iron-icon>
+            </div>
+            <div class="stats flex">Pickup service:
+              <iron-icon icon="{{getIcon(item.pickupService)}}"></iron-icon>
+            </div>
+          </paper-item>
+        </template>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Back</paper-button>
+      </div>
+    </paper-dialog>
   </template>
   <script>
     'use strict';
@@ -80,21 +97,16 @@ This code may only be used under the BSD style license found at https://github.c
       is: 'my-area-order-item',
 
       properties: {
-        ticket: {
+        order: {
           type: Object,
           notify: true
         }
       },
-
-      ready: function() {
+      getIcon: function(binding) {
+        return binding ? 'icons:check' : 'icons:clear';
       },
-
-      _boolToYN: function(bool) {
-        if (bool) {
-          return 'Yes';
-        } else {
-          return 'No';
-        }
+      showOrderTickets: function() {
+        this.$.orderInfo.toggle();
       }
     });
   </script>

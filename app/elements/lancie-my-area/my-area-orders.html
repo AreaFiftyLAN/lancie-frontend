@@ -1,8 +1,15 @@
 <link rel="import" href="my-area-order-item.html">
+<link rel="import" href="my-area-ticket-item.html">
 
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <dom-module id="my-area-orders">
   <template>
-    <lancie-ajax id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-response="storeOrders"></lancie-ajax>
+    <style include="iron-flex iron-flex-alignment"></style>
     <style>
     :host {
       display: block;
@@ -12,69 +19,64 @@
       width: 100%;
     }
 
-    .order {
-      display: inline-block;
+    paper-item {
+      padding: 0;
     }
 
-    .header {
-      font-weight: bold;
+    .header-title {
+      font-size: 24px;
+      font-weight: 400;
+      color: #000;
     }
 
-    .orderRow {
-      border-bottom: 1px solid #e8e8e8;
+    hr {
+      display: block;
+      height: 1px;
+      border: 0;
       border-top: 1px solid #e8e8e8;
+      padding: 0;
     }
-
-    .order.WAITING {
-      color: #ffeb00;
-    }
-
-    .order.PAID {
-      color: green;
-    }
-
-    .order.EXPIRED {
-      color: #cc0000;
-    }
-
-    .message {
-      color: var(--paper-red-800);
-      background-color: var(--paper-red-300);
-      border: 1px solid var(--paper-red-800);
-      padding: 4px;
-      margin-bottom: 10px;
-    }
-
 
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
     }
+
+    paper-dialog div {
+      margin: 0 10px;
+    }
+
+    .ticket-info {
+      min-width: 120px;
+    }
     </style>
-    <paper-card heading="Orders &amp; Tickets" elevation="1" animated-shadow="true">
+
+    <lancie-ajax id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-response="storeOrders"></lancie-ajax>
+    <lancie-ajax id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-response="storeTickets"></lancie-ajax>
+    <lancie-ajax id="ajaxTokens" refurl="tickets/tokens" method="GET" handle-as="json" on-response="storeTokens"></lancie-ajax>
+
+    <paper-card heading="Orders" elevation="1" animated-shadow="true">
       <div class="card-content">
+        <hr>
         <template is="dom-if" if="{{orders.length}}">
-          <div class="message">
-            Ticket transfer will be available soon!
-          </div>
-          <div class="header">
-            <div style="width: 20%" class="order">Order Id</div>
-            <div style="width: 30%" class="order">Date ordered</div>
-            <div style="width: 30%" class="order">Status</div>
-          </div>
           <template is="dom-repeat" items="{{orders}}">
-            <div class="orderRow">
-              <div style="width: 20%" class="order">{{item.id}}</div>
-              <div style="width: 30%" class="order">{{item.creationDateTime}}</div>
-              <div style="width: 30%" class$="{{_orderStatusColor(item.status)}}">{{item.status}}</div>
-            </div>
-            <template is="dom-repeat" items="{{item.tickets}}" status="{{item.status}}" index-as="index">
-              <my-area-order-item ticket="{{item}}"></my-area-order-item>
-            </template>
+            <my-area-order-item order="{{item}}"></my-area-order-item>
           </template>
         </template>
         <template is="dom-if" if="{{!orders.length}}">
           You don't have any orders yet
+        </template>
+      </div>
+
+      <div class="card-content">
+        <div class="header-title">Tickets</div>
+        <template is="dom-if" if="{{tickets.length}}">
+          <template is="dom-repeat" items="{{tickets}}" index-as="index">
+            <my-area-ticket-item username="{{username}}" ticket="{{item}}"></my-area-ticket-item>
+          </template>
+        </template>
+        <template is="dom-if" if="{{!tickets.length}}">
+          You don't have any tickets yet
         </template>
       </div>
       <div class="card-actions">
@@ -85,6 +87,8 @@
         <paper-tooltip for="redeem-ticket" offset="0" animation-delay="1">Redeem a ticket code</paper-tooltip>
       </div>
     </paper-card>
+
+    <paper-toast id="ticketTransferTokensRetrievalError" text="Unable to check for open ticket transfers!" duration="3000"></paper-toast>
   </template>
   <script>
   'use strict';
@@ -96,7 +100,17 @@
         value: function () {
           return [];
         }
-      }
+      },
+      tickets: {
+        type: Array,
+        value: function() {
+          return [];
+        }
+      },
+      orderTickets: {
+        type: Array
+      },
+      username: String
     },
     buyTickets: function() {
       location.href = location.href.replace('my-area', 'tickets');
@@ -105,11 +119,29 @@
     storeOrders: function(event, request) {
       this.orders = request.response.length > 0 ? request.response : false;
     },
-    _orderStatusColor: function(status) {
-      return 'order ' + status;
+    storeTickets: function(event, request) {
+      this.tickets = request.response.length > 0 ? request.response : false;
+      this.$.ajaxTokens.generateRequest();
+    },
+    storeTokens: function(event, request) {
+      if (request.succeeded) {
+        request.response.object.forEach(function(ttt) {
+          this.tickets.forEach(function(ticket) {
+            if (ticket.id === ttt.ticket.id) {
+              ticket.token = ttt.token;
+            }
+          });
+        }.bind(this));
+      } else {
+        this.$.ticketTransferTokensRetrievalError.show();
+      }
+    },
+    getIcon: function(binding) {
+      return binding ? 'icons:check' : 'icons:clear';
     },
     attached: function() {
       this.$.ajaxOrders.generateRequest();
+      this.$.ajaxTickets.generateRequest();
     }
   });
   </script>

@@ -49,86 +49,80 @@
       padding: 0;
     }
 
-    .header.paper-card .title-text.paper-card {
-      padding: 16px;
-      font-size: 24px;
-      font-weight: 400;
+    .header {
+      border-bottom: 1px solid #e8e8e8;
     }
 
     </style>
     <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
     <lancie-ajax id="ajaxUpdatePassword" refurl="users/current/password" method="PUT" on-response="onPasswordUpdate"></lancie-ajax>
-    <paper-card elevation="1" animated-shadow="true">
-      <div class="card-content">
-        <div class="title">Profile</div>
-        <div class="list" role="listbox">
-          <template is="dom-if" if="{{!editingProfile}}">
-            <paper-icon-item>
-              <iron-icon icon="icons:account-circle" item-icon></iron-icon>
-              <paper-item-body two-line>
-                <div>{{user.profile.displayName}}</div>
-                <div>{{user.profile.firstName}} {{user.profile.lastName}}</div>
-              </paper-item-body>
-            </paper-icon-item>
-            <paper-icon-item>
-              <iron-icon icon="communication:phone" item-icon></iron-icon>
-              <paper-item-body>
-                <div>{{_checkEmpty(user.profile.phoneNumber)}}</div>
-              </paper-item-body>
-            </paper-icon-item>
-            <paper-icon-item>
-              <iron-icon icon="communication:location-on" item-icon></iron-icon>
-              <paper-item-body two-line>
-                <div>{{user.profile.address}}</div>
-                <div>{{user.profile.zipcode}} {{user.profile.city}}</div>
-              </paper-item-body>
-            </paper-icon-item>
-          </template>
-          <template is="dom-if" if="{{editingProfile}}">
-            <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
-          </template>
-          <hr>
+    <paper-card heading="Profile" elevation="1" animated-shadow="true">
+      <div class="card-content list" role="listbox">
+        <template is="dom-if" if="{{!editingProfile}}">
           <paper-icon-item>
-            <iron-icon icon="communication:email" item-icon></iron-icon>
-            <paper-item-body>
-              <div>{{user.email}}</div>
+            <iron-icon icon="icons:account-circle" item-icon></iron-icon>
+            <paper-item-body two-line>
+              <div>{{user.profile.displayName}}</div>
+              <div>{{user.profile.firstName}} {{user.profile.lastName}}</div>
             </paper-item-body>
           </paper-icon-item>
-          <hr>
-          <template is="dom-if" if="{{!editingPassword}}">
-            <paper-icon-item>
-              <iron-icon icon="icons:lock" item-icon></iron-icon>
-              <paper-item-body>
-                <div>&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
-              </paper-item-body>
-            </paper-icon-item>
-          </template>
-          <template is="dom-if" if="{{editingPassword}}">
-            <paper-icon-item>
-              <iron-icon icon="icons:lock" item-icon></iron-icon>
-              <paper-item-body>
-                <paper-input label="Current Password" type="password" value="{{currentPassword}}"></paper-input>
-                <paper-input label="New Password" type="password" value="{{newPassword}}"></paper-input>
-                <paper-input id="passwordRepeatInput" error-message="Passwords don't match!" label="Repeat New Password" type="password" value="{{newPasswordRepeat}}"></paper-input>
-              </paper-item-body>
-            </paper-icon-item>
-          </template>
-          <hr>
-        </div>
-        <div class="card-actions">
-          <template is="dom-if" if="{{!isEditing(editingProfile, editingPassword)}}">
-            <paper-icon-button on-tap="switchProfileForm" icon="icons:create" id="edit-profile"></paper-icon-button>
-            <paper-tooltip for="edit-profile" offset="0" animation-delay="1">Edit your profile</paper-tooltip>
-            <paper-icon-button on-tap="switchPasswordForm" icon="icons:lock" id="change-password"></paper-icon-button>
-            <paper-tooltip for="change-password" offset="0" animation-delay="1">Change your password</paper-tooltip>
-          </template>
-          <template is="dom-if" if="{{isEditing(editingProfile, editingPassword)}}">
-            <paper-icon-button on-tap="resetForms" icon="icons:clear" id="closeIcon"></paper-icon-button>
-            <paper-tooltip for="closeIcon" offset="0" animation-delay="1">Cancel</paper-tooltip>
-            <paper-icon-button on-tap="submitEdit" icon="icons:check" id="checkIcon"></paper-icon-button>
-            <paper-tooltip for="checkIcon" offset="0" animation-delay="1">Save changes</paper-tooltip>
-          </template>
-        </div>
+          <paper-icon-item>
+            <iron-icon icon="communication:phone" item-icon></iron-icon>
+            <paper-item-body>
+              <div>{{_checkEmpty(user.profile.phoneNumber)}}</div>
+            </paper-item-body>
+          </paper-icon-item>
+          <paper-icon-item>
+            <iron-icon icon="communication:location-on" item-icon></iron-icon>
+            <paper-item-body two-line>
+              <div>{{user.profile.address}}</div>
+              <div>{{user.profile.zipcode}} {{user.profile.city}}</div>
+            </paper-item-body>
+          </paper-icon-item>
+        </template>
+        <template is="dom-if" if="{{editingProfile}}">
+          <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
+        </template>
+        <hr>
+        <paper-icon-item>
+          <iron-icon icon="communication:email" item-icon></iron-icon>
+          <paper-item-body>
+            <div>{{user.email}}</div>
+          </paper-item-body>
+        </paper-icon-item>
+        <hr>
+        <template is="dom-if" if="{{!editingPassword}}">
+          <paper-icon-item>
+            <iron-icon icon="icons:lock" item-icon></iron-icon>
+            <paper-item-body>
+              <div>&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+            </paper-item-body>
+          </paper-icon-item>
+        </template>
+        <template is="dom-if" if="{{editingPassword}}">
+          <paper-icon-item>
+            <iron-icon icon="icons:lock" item-icon></iron-icon>
+            <paper-item-body>
+              <paper-input label="Current Password" type="password" value="{{currentPassword}}"></paper-input>
+              <paper-input label="New Password" type="password" value="{{newPassword}}"></paper-input>
+              <paper-input id="passwordRepeatInput" error-message="Passwords don't match!" label="Repeat New Password" type="password" value="{{newPasswordRepeat}}"></paper-input>
+            </paper-item-body>
+          </paper-icon-item>
+        </template>
+      </div>
+      <div class="card-actions">
+        <template is="dom-if" if="{{!isEditing(editingProfile, editingPassword)}}">
+          <paper-icon-button on-tap="switchProfileForm" icon="icons:create" id="edit-profile"></paper-icon-button>
+          <paper-tooltip for="edit-profile" offset="0" animation-delay="1">Edit your profile</paper-tooltip>
+          <paper-icon-button on-tap="switchPasswordForm" icon="icons:lock" id="change-password"></paper-icon-button>
+          <paper-tooltip for="change-password" offset="0" animation-delay="1">Change your password</paper-tooltip>
+        </template>
+        <template is="dom-if" if="{{isEditing(editingProfile, editingPassword)}}">
+          <paper-icon-button on-tap="resetForms" icon="icons:clear" id="closeIcon"></paper-icon-button>
+          <paper-tooltip for="closeIcon" offset="0" animation-delay="1">Cancel</paper-tooltip>
+          <paper-icon-button on-tap="submitEdit" icon="icons:check" id="checkIcon"></paper-icon-button>
+          <paper-tooltip for="checkIcon" offset="0" animation-delay="1">Save changes</paper-tooltip>
+        </template>
       </div>
     </paper-card>
     <paper-toast id="profileUpdateSuccessToast" text="Profile succcesfully updated!" duration="3000"></paper-toast>
