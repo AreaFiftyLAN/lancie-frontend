@@ -30,8 +30,19 @@
       width: 40%;
     }
     
-    .captain-info {
-      margin-left: 5%;
+    .team-info {
+      background: #eee;
+      padding: 3px 10px;
+    }
+    
+    .team-header {
+      font-size: 18px;
+      font-weight: 400;
+    }
+    
+    .team-captain {
+      color: #757575;
+      font-size: 14px;
     }
     
     .errormessage {
@@ -46,11 +57,12 @@
     <lancie-ajax id="ajaxGetTeamInvites" refurl="teams/{{team.id}}/invites" method="GET" handle-as="json" on-response="storeTeamInvites"></lancie-ajax>
     <paper-item class="team-info">
       <paper-item-body class="layout horizontal center">
-        <div class="flex-2">
-          <h3>Team: {{team.teamName}}</h3></div>
-        <div class="flex captain-info"><b>Captain: </b>{{team.captain.profile.displayName}}</div>
+        <div class="team-header flex">
+          <div class="team-name">{{team.teamName}}</div>
+          <span class="team-captain"><b>Captain: </b>{{team.captain.profile.displayName}}</span>
+        </div>
         <template is="dom-if" if="{{_isSameUser(team.captain, user)}}">
-          <div>
+          <div class="team-header">
             <paper-icon-button id="addMemberButton" icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
             <paper-tooltip offset="0" for="addMemberButton" animation-delay="1">Invite a member</paper-tooltip>
             <paper-icon-button id="openInvitesButton" icon="icons:markunread-mailbox" on-tap="openTeamInvitesDialog"></paper-icon-button>

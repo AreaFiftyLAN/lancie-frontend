@@ -19,23 +19,21 @@
     }
     
     .member-info {
-      margin-left: 10%;
+      margin-left: 16px;
     }
     </style>
     <lancie-ajax id="ajaxRemoveMember" refurl="teams/{{team.id}}/members" method="DELETE" handle-as="json" body="{{member.username}}" on-response="onRemoveMember"></lancie-ajax>
     <paper-item>
       <paper-item-body class="layout horizontal center member-icon">
-        <div class="flex-3">
-          <iron-icon icon="social:person" item-icon></iron-icon>
-        </div>
-        <div class="flex member-info"><b>Name: </b>{{member.profile.displayName}}</div>
+        <iron-icon icon="social:person" item-icon></iron-icon>
+        <div class="flex member-info">{{member.profile.displayName}}</div>
         <template is="dom-if" if="{{isCaptain}}">
-          <paper-icon-button class="flex-2" id="removeMemberButton" icon="icons:clear" disabled={{isCurrentUser}} on-tap="openRemoveMemberDialog">
+          <paper-icon-button id="removeMemberButton" icon="icons:clear" on-tap="openRemoveMemberDialog" disabled={{isCurrentUser}}>
           </paper-icon-button>
           <paper-tooltip for="removeMemberButton" offset="0" animation-delay="1">Remove from team</paper-tooltip>
         </template>
         <template is="dom-if" if="{{_displaySelfRemove(isCaptain, isCurrentUser)}}">
-          <paper-icon-button class="flex-2" id="removeMemberButton" icon="icons:clear" on-tap="openRemoveMemberDialog">
+          <paper-icon-button id="removeMemberButton" icon="icons:clear" on-tap="openRemoveMemberDialog">
           </paper-icon-button>
           <paper-tooltip for="removeMemberButton" offset="0" animation-delay="1">Remove from team</paper-tooltip>
         </template>

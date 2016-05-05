@@ -40,7 +40,7 @@
       min-width: 30%;
       --paper-dialog-button-color: #1A2B43;
     }
-
+    
     hr {
       display: block;
       height: 1px;
@@ -49,7 +49,7 @@
       margin: 1em 0;
       padding: 0;
     }
-       
+    
     .errormessage {
       padding: 10px 20px 9px;
       margin-bottom: 4px;
@@ -66,7 +66,6 @@
         <template is="dom-if" if="{{teams.length}}">
           <template is="dom-repeat" items="{{teams}}">
             <team-item team="{{item}}" user="{{user}}" on-remove-member="refreshTeams"></team-item>
-            <hr>
           </template>
         </template>
       </div>
@@ -156,7 +155,7 @@
       this.createTeamError = !r.succeeded;
       if (r.succeeded) {
         this.$.ajaxTeams.generateRequest();
-      this.$.createTeamDialog.close();
+        this.$.createTeamDialog.close();
       } else {
         if (r.request.status === 409) {
           this.createTeamMessage = 'Teamname already in use.';
