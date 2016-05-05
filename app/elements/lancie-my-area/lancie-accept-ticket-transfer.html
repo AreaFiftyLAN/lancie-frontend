@@ -44,12 +44,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <a href="/">Head back to the homepage</a>
     </lancie-message-card>
 
-    <lancie-message-card hidden$="{{!tokenTwice}}">
-      Hmm, this token was already claimed. Is this ticket already transferred?
-
-      <a href="/">Head back to the homepage</a>
-    </lancie-message-card>
-
     <paper-dialog id="termsofservice" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Terms and conditions</h2>
       <paper-dialog-scrollable>
@@ -77,7 +71,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.info = true;
         this.transferring = false;
         this.error = false;
-        this.tokenTwice = false;
         this.token = window.location.href.split('token=')[1];
       },
       openDialog: function() {
@@ -94,11 +87,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (r.succeeded) {
           window.location.href = '/#!/transfer-success';
         } else {
-          if (r.request.status === 400) {
-            this.tokenTwice = true;
-          } else {
-            this.error = true;
-          }
+          this.error = true;
         }
       }
     });
