@@ -18,28 +18,28 @@
     :host {
       display: block;
     }
-
+    
     paper-card {
       width: 100%;
     }
-
+    
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
     }
-
+    
     paper-input {
       margin: 0 10px 0 10px;
     }
-
+    
     #checkIcon {
       --iron-icon-fill-color: #4CAF50;
     }
-
+    
     #closeIcon {
       --iron-icon-fill-color: #F44336;
     }
-
+    
     hr {
       display: block;
       height: 1px;
@@ -48,11 +48,10 @@
       margin: 1em 0;
       padding: 0;
     }
-
+    
     .header {
       border-bottom: 1px solid #e8e8e8;
     }
-
     </style>
     <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
     <lancie-ajax id="ajaxUpdatePassword" refurl="users/current/password" method="PUT" on-response="onPasswordUpdate"></lancie-ajax>
