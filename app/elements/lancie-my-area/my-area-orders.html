@@ -23,8 +23,10 @@
       padding: 0;
     }
 
-    .header {
-      font-weight: bold;
+    .header-title {
+      font-size: 24px;
+      font-weight: 400;
+      color: #000;
     }
 
     hr {
@@ -53,9 +55,8 @@
     <lancie-ajax id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-response="storeTickets"></lancie-ajax>
     <lancie-ajax id="ajaxTokens" refurl="tickets/tokens" method="GET" handle-as="json" on-response="storeTokens"></lancie-ajax>
 
-    <paper-card elevation="1" animated-shadow="true">
+    <paper-card heading="Orders" elevation="1" animated-shadow="true">
       <div class="card-content">
-        <h2>Orders</h2>
         <hr>
         <template is="dom-if" if="{{orders.length}}">
           <template is="dom-repeat" items="{{orders}}">
@@ -68,7 +69,7 @@
       </div>
 
       <div class="card-content">
-        <h2>Tickets</h2>
+        <div class="header-title">Tickets</div>
         <template is="dom-if" if="{{tickets.length}}">
           <template is="dom-repeat" items="{{tickets}}" index-as="index">
             <my-area-ticket-item username="{{username}}" ticket="{{item}}"></my-area-ticket-item>
