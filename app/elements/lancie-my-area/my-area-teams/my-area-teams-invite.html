@@ -30,23 +30,33 @@
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
     }
+
+    #acceptInviteButton {
+      --iron-icon-fill-color: #4CAF50;
+    }
+    
+    #cancelInviteButton {
+      --iron-icon-fill-color: #F44336;
+    }
     </style>
     <paper-item>
-      <paper-item-body class="layout horizontal center layout justified">
-        <div class="team">
-          Team: {{invite.teamName}}
-        </div>
-        <template is="dom-if" if="{{team}}">
-          <div>
-            User: {{invite.username}}
+      <paper-item-body class="layout horizontal center layout start-justified">
+        <template is="dom-if" if={{personal}}>
+          <div class="team-header flex">
+            <div class="team-name">{{invite.teamName}}</div>
+          </div>
+        </template>
+        <template is="dom-if" if={{team}}>
+          <div class="team-header flex">
+            <div class="team-name">{{invite.username}}</div>
           </div>
         </template>
         <div>
           <template is="dom-if" if="{{personal}}">
-            <paper-icon-button id="acceptInviteButton" icon="icons:check-circle" on-tap="submitAcceptInvite"></paper-icon-button>
+            <paper-icon-button id="acceptInviteButton" icon="icons:check" on-tap="submitAcceptInvite"></paper-icon-button>
             <paper-tooltip offset="0" for="addMemberButton" animation-delay="1">Accept invite</paper-tooltip>
           </template>
-          <paper-icon-button id="cancelInviteButton" icon="icons:cancel" on-tap="submitCancelInvite"></paper-icon-button>
+          <paper-icon-button id="cancelInviteButton" icon="icons:clear" on-tap="submitCancelInvite"></paper-icon-button>
           <paper-tooltip offset="0" for="openInvitesButton" animation-delay="1">Cancel Invite</paper-tooltip>
         </div>
       </paper-item-body>
@@ -61,6 +71,9 @@
       invite: Object,
       team: Boolean,
       personal: Boolean
+    },
+    ready: function() {
+      console.log(this.invite);
     },
     submitAcceptInvite: function() {
       this.$.ajaxAcceptInvite.generateRequest();
