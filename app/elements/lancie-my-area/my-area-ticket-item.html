@@ -117,14 +117,13 @@
       transferUsername: String
     },
     getIcon: function(token) {
-      console.log(token);
-      return token == undefined ? 'icons:send' : 'icons:clear';
+      return token === undefined ? 'icons:send' : 'icons:clear';
     },
     getText: function(token) {
-      return token == undefined ? 'Setup up' : 'Cancel'
+      return token === undefined ? 'Setup up' : 'Cancel';
     },
     getStatus: function(token) {
-      return token == undefined ? 'Owned' : 'Transfering';
+      return token === undefined ? 'Owned' : 'Transfering';
     },
     openTicketTransferDialog: function() {
       if (this.ticket.token) {
@@ -201,12 +200,12 @@
     _format: function(money) {
       var n = money,
         c = 2,
-        d = ",",
-        t = ".",
-        s = n < 0 ? "-" : "",
-        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+        d = ',',
+        t = '.',
+        s = n < 0 ? '-' : '',
+        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + '',
         j = (j = i.length) > 3 ? j % 3 : 0;
-      return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+      return s + (j ? i.substr(0, j) + t : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : '');
     }
   });
   </script>
