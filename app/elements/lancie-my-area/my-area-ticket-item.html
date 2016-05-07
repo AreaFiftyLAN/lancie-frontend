@@ -30,25 +30,47 @@
       background: #FFCDD2;
       color: #B71C1C;
     }
+    
+    .block {
+      padding: 4px 32px 4px 0;
+    }
+    
+    .options {
+      width: 40%;
+    }
+    
+    .block > *:first-child {
+      color: #737373;
+      font-family: 'Roboto', 'Noto', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+    }
     </style>
     <lancie-ajax id="ajaxSetupTicketTransfer" refurl="tickets/transfer/{{ticket.id}}" method="POST" handle-as="json" on-response="onSetupTicketTransfer"></lancie-ajax>
     <lancie-ajax id="ajaxCancelTicketTransfer" refurl="tickets/transfer" method="DELETE" handle-as="json" on-response="onCancelTicketTransfer"></lancie-ajax>
     <hr>
-    <paper-item>
-      <paper-item-body class="layout horizontal center justified wrap">
-        <div><b>Type: </b>{{ticket.text}}</div>
-        <div><b>Amount: </b>&euro; {{ticket.price}}</div>
-        <div><b>CH member:</b>
-          <iron-icon icon="{{getIcon(ticket.chMember)}}"></iron-icon>
-        </div>
-        <div><b>Pickup service:</b>
-          <iron-icon icon="{{getIcon(ticket.pickupService)}}"></iron-icon>
-        </div>
-        <div>
-          <paper-icon-button icon="icons:send" on-tap="openTicketTransferDialog"></paper-icon-button>
-          <paper-tooltip offset="0" animation-delay="1">Set up or cancel a ticket transfer</paper-tooltip>
-        </div>
-      </paper-item-body>
+    <paper-item class="layout horizontal center justified wrap" role="option" tabindex="0" aria-disabled="false">
+      <div class="layout vertical block">
+        <div>Ticket type:</div>
+        <div>{{ticket.text}}</div>
+      </div>
+      <div class="layout vertical block options">
+        <div>Extra options:</div>
+        <div>{{_showOptions(ticket)}}</div>
+      </div>
+      <div class="layout vertical block">
+        <div>Price:</div>
+        <div>&euro; {{_format(ticket.price)}}</div>
+      </div>
+      <div class="layout vertical block">
+        <div>Status:</div>
+        <div>{{getStatus(ticket.token)}}</div>
+      </div>
+      <div class="layout self-center vertical">
+        <paper-icon-button icon="{{getIcon(ticket.token)}}" on-tap="openTicketTransferDialog"></paper-icon-button>
+        <paper-tooltip offset="0" animation-delay="1">{{getText(ticket.token)}} ticket transfer</paper-tooltip>
+      </div>
     </paper-item>
     <lancie-dialog id="setupTicketTransferDialog" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop>
       <h2>Set up ticket transfer</h2>
@@ -87,12 +109,22 @@
         notify: true
       },
       username: String,
-      transferError: Boolean,
+      transferError: {
+        type: Boolean,
+        value: false
+      },
       transferErrorMessage: String,
       transferUsername: String
     },
-    getIcon: function(binding) {
-      return binding ? 'icons:check' : 'icons:clear';
+    getIcon: function(token) {
+      console.log(token);
+      return token == undefined ? 'icons:send' : 'icons:clear';
+    },
+    getText: function(token) {
+      return token == undefined ? 'Setup up' : 'Cancel'
+    },
+    getStatus: function(token) {
+      return token == undefined ? 'Owned' : 'Transfering';
     },
     openTicketTransferDialog: function() {
       if (this.ticket.token) {
@@ -154,6 +186,27 @@
         this.transferError = true;
         this.transferErrorMessage = 'The server was unable to process your request.';
       }
+    },
+    _showOptions: function(ticket) {
+      if (ticket.pickupService && ticket.chMember) {
+        return 'Christiaan Huygens Member, Pickup Service';
+      } else if (ticket.pickupService) {
+        return 'Pickup Service';
+      } else if (ticket.chMember) {
+        return 'Christiaan Huygens Member';
+      }
+
+      return 'No extra options';
+    },
+    _format: function(money) {
+      var n = money,
+        c = 2,
+        d = ",",
+        t = ".",
+        s = n < 0 ? "-" : "",
+        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+        j = (j = i.length) > 3 ? j % 3 : 0;
+      return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
     }
   });
   </script>
