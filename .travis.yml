@@ -7,6 +7,7 @@ before_script:
 env:
   - COMMAND=jshint
   - COMMAND=default
+  - COMMAND=polylint
 script: "gulp $COMMAND"
 cache:
   directories:

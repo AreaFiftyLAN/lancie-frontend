@@ -28,6 +28,7 @@ var polybuild = require('polybuild');
 var jsonminify = require('gulp-jsonminify');
 var jshint = require('gulp-jshint');
 var htmlmin = require('gulp-htmlmin');
+var polylint = require('gulp-polylint');
 
 var DIST = 'dist';
 
@@ -94,6 +95,13 @@ gulp.task('fonts', function () {
   return gulp.src(['app/fonts/**'])
     .pipe(gulp.dest('dist/fonts'))
     .pipe(load.size({title: 'fonts'}));
+});
+
+// Polylint
+gulp.task('polylint', function() {
+  return gulp.src('app/elements/**/*.html')
+    .pipe(polylint())
+    .pipe(polylint.reporter(polylint.reporter.stylishlike));
 });
 
 gulp.task('build', function() {
