@@ -1,21 +1,5 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 
-<!--
-A comment describing this element
-
-Example:
-
-    <my-elem></my-elem>
-
-Example:
-
-    <my-elem>
-      <h2>Hello my-elem</h2>
-    </my-elem>
-
-@demo demo/index.html
--->
-
 <dom-module id="lancie-ticket-item">
   <template>
     <style>
@@ -59,7 +43,7 @@ Example:
       </div>
       <div class="layout vertical block status">
         <div>Status:</div>
-        <div>{{_getStatus(ticket.token)}}</div>
+        <div>{{status}}</div>
       </div>
       <content></content>
     </paper-item>
@@ -80,8 +64,11 @@ Example:
           notify: true
         }
       },
-      _getStatus: function(token) {
-        return this.status !== '' ? this.status : (token === undefined ? 'Owned' : 'Transfering');
+      ready: function() {
+        this.status = this._getStatus();
+      },
+      _getStatus: function() {
+        return this.status !== '' ? this.status : (this.ticket.token === undefined ? 'Owned' : 'Transfering');
       },
       _showOptions: function(ticket) {
         if (ticket.pickupService && ticket.chMember) {

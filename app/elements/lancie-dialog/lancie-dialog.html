@@ -1,19 +1,5 @@
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
-<!--
-A comment describing this element
 
-Example:
-
-    <my-elem></my-elem>
-
-Example:
-
-    <my-elem>
-      <h2>Hello my-elem</h2>
-    </my-elem>
-
-@demo demo/index.html
--->
 <dom-module id="lancie-dialog">
   <template>
     <style include="paper-dialog-shared-styles"></style>
@@ -50,6 +36,14 @@ Example:
     :host > ::content > .buttons {
       border-top: 1px solid #e8e8e8;
       color: rgba(0, 0, 0, 0.87);
+    }
+
+    :host > ::content .errormessage {
+      padding: 10px 20px 9px;
+      margin-bottom: 4px;
+      border-left: 3px solid #F44336;
+      background: #FFCDD2;
+      color: #B71C1C;
     }
     </style>
     <content></content>

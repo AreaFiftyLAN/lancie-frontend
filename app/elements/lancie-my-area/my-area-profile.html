@@ -10,17 +10,15 @@
 <link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+
 <link rel="import" href="../lancie-login/lancie-ajax.html">
 <link rel="import" href="profile-edit-form.html">
+
 <dom-module id="my-area-profile">
   <template>
     <style>
     :host {
       display: block;
-    }
-    
-    paper-card {
-      width: 100%;
     }
     
     paper-tooltip {
@@ -48,14 +46,10 @@
       margin: 1em 0;
       padding: 0;
     }
-    
-    .header {
-      border-bottom: 1px solid #e8e8e8;
-    }
     </style>
     <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
     <lancie-ajax id="ajaxUpdatePassword" refurl="users/current/password" method="PUT" on-response="onPasswordUpdate"></lancie-ajax>
-    <paper-card heading="Profile" elevation="1" animated-shadow="true">
+    <paper-card class="layout vertical flex" heading="Profile" elevation="1" animated-shadow="true">
       <div class="card-content list" role="listbox">
         <template is="dom-if" if="{{!editingProfile}}">
           <paper-icon-item>

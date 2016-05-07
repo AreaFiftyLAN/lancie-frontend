@@ -27,21 +27,13 @@
       border-top: 1px solid #e8e8e8;
       padding: 0;
     }
-    
-    .errormessage {
-      padding: 10px 20px 9px;
-      margin-bottom: 4px;
-      border-left: 3px solid #F44336;
-      background: #FFCDD2;
-      color: #B71C1C;
-    }
     </style>
 
     <lancie-ajax id="ajaxSetupTicketTransfer" refurl="tickets/transfer/{{ticket.id}}" method="POST" handle-as="json" on-response="onSetupTicketTransfer"></lancie-ajax>
     <lancie-ajax id="ajaxCancelTicketTransfer" refurl="tickets/transfer" method="DELETE" handle-as="json" on-response="onCancelTicketTransfer"></lancie-ajax>
     <hr>
 
-    <lancie-ticket-item ticket="{{ticket}}" class="flex">
+    <lancie-ticket-item id="ticketItem" ticket="{{ticket}}" class="flex">
       <div class="layout self-center vertical">
         <paper-icon-button icon="{{getIcon(ticket)}}" on-tap="openTicketTransferDialog"></paper-icon-button>
         <paper-tooltip offset="0" animation-delay="1">{{getText(ticket)}} ticket transfer</paper-tooltip>

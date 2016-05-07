@@ -2,8 +2,6 @@
 <link rel="import" href="my-area-ticket-item.html">
 
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
@@ -13,20 +11,6 @@
     <style>
     :host {
       display: block;
-    }
-    
-    paper-card {
-      width: 100%;
-    }
-    
-    paper-item {
-      padding: 0;
-    }
-    
-    .header-title {
-      font-size: 24px;
-      font-weight: 400;
-      color: #000;
     }
     
     hr {
@@ -41,21 +25,13 @@
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
     }
-    
-    paper-dialog div {
-      margin: 0 10px;
-    }
-    
-    .ticket-info {
-      min-width: 120px;
-    }
     </style>
 
     <lancie-ajax id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-response="storeOrders"></lancie-ajax>
     <lancie-ajax id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-response="storeTickets"></lancie-ajax>
     <lancie-ajax id="ajaxTokens" refurl="tickets/tokens" method="GET" handle-as="json" on-response="storeTokens"></lancie-ajax>
 
-    <paper-card heading="Orders" elevation="1" animated-shadow="true">
+    <paper-card class="layout vertical flex" heading="Orders" elevation="1" animated-shadow="true">
       <div class="card-content">
         <hr>
         <template is="dom-if" if="{{orders.length}}">

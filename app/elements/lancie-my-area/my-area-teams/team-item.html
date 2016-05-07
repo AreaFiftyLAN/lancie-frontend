@@ -27,15 +27,6 @@
       display: block;
     }
     
-    paper-dialog {
-      min-width: 30%;
-      --paper-dialog-button-color: #1A2B43;
-    }
-    
-    h3.my-area-teams h3 {
-      width: 40%;
-    }
-    
     .team-info {
       background: #eee;
       padding: 3px 10px;
@@ -49,14 +40,6 @@
     .team-captain {
       color: #757575;
       font-size: 14px;
-    }
-    
-    .errormessage {
-      padding: 10px 20px 9px;
-      margin-bottom: 4px;
-      border-left: 3px solid #F44336;
-      background: #FFCDD2;
-      color: #B71C1C;
     }
     </style>
     <lancie-ajax id="ajaxInviteMember" refurl="teams/{{team.id}}/invites" method="POST" handle-as="json" on-response="onInviteMember"></lancie-ajax>
