@@ -6,7 +6,6 @@ before_script:
   - 'npm install -g bower grunt-cli'
   - 'bower install'
 env:
-  - COMMAND=jshint
   - COMMAND=default
   - COMMAND=polylint
 script: "gulp $COMMAND"
