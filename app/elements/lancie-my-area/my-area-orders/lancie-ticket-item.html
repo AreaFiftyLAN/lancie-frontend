@@ -30,6 +30,10 @@ Example:
     .options {
       width: 40%;
     }
+
+    .status {
+      width: 82px;
+    }
     
     .block > *:first-child {
       color: #737373;
@@ -53,7 +57,7 @@ Example:
         <div>Price:</div>
         <div>&euro; {{_format(ticket.price)}}</div>
       </div>
-      <div class="layout vertical block">
+      <div class="layout vertical block status">
         <div>Status:</div>
         <div>{{_getStatus(ticket.token)}}</div>
       </div>

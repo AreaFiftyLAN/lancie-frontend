@@ -14,21 +14,21 @@
     :host {
       display: block;
     }
-
+    
     paper-card {
       width: 100%;
     }
-
+    
     paper-item {
       padding: 0;
     }
-
+    
     .header-title {
       font-size: 24px;
       font-weight: 400;
       color: #000;
     }
-
+    
     hr {
       display: block;
       height: 1px;
@@ -36,16 +36,16 @@
       border-top: 1px solid #e8e8e8;
       padding: 0;
     }
-
+    
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
     }
-
+    
     paper-dialog div {
       margin: 0 10px;
     }
-
+    
     .ticket-info {
       min-width: 120px;
     }
@@ -67,7 +67,7 @@
           You don't have any orders yet
         </template>
       </div>
-      
+
       <div class="header style-scope paper-card">
         <div class="title-text style-scope paper-card">Tickets</div>
       </div>
@@ -96,7 +96,13 @@
     properties: {
       orders: {
         type: Array,
-        value: function () {
+        value: function() {
+          return [];
+        }
+      },
+      tempTickets: {
+        type: Array,
+        value: function() {
           return [];
         }
       },
@@ -119,18 +125,21 @@
       this.orders = request.response.length > 0 ? request.response : false;
     },
     storeTickets: function(event, request) {
-      this.tickets = request.response.length > 0 ? request.response : false;
+      this.tempTickets = request.response.length > 0 ? request.response : false;
       this.$.ajaxTokens.generateRequest();
     },
     storeTokens: function(event, request) {
       if (request.succeeded) {
-        request.response.object.forEach(function(ttt) {
-          this.tickets.forEach(function(ticket) {
-            if (ticket.id === ttt.ticket.id) {
-              ticket.token = ttt.token;
-            }
-          });
-        }.bind(this));
+        request.response.object.forEach((function(_this) {
+          return function(ttt) {
+            return _this.tempTickets.forEach(function(ticket) {
+              if (ticket.id === ttt.ticket.id) {
+                return ticket.token = ttt.token;
+              }
+            });
+          };
+        })(this));
+        this.tickets = this.tempTickets;
       } else {
         this.$.ticketTransferTokensRetrievalError.show();
       }
