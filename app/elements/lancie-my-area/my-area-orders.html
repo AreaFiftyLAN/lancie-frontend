@@ -134,7 +134,7 @@
           return function(ttt) {
             return _this.tempTickets.forEach(function(ticket) {
               if (ticket.id === ttt.ticket.id) {
-                return ticket.token = ttt.token;
+                ticket.token = ttt.token;
               }
             });
           };
