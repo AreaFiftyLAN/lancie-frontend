@@ -2,11 +2,11 @@ language: node_js
 node_js:
   - '4.0'
 before_script:
-  - 'npm install -g gulp'
-  - 'npm install -g bower grunt-cli'
+  - 'npm install -g bower gulp'
   - 'bower install'
 env:
   - COMMAND=default
+  - COMMAND=jshint
   - COMMAND=polylint
 script: "gulp $COMMAND"
 cache:

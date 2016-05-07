@@ -26,6 +26,7 @@ var url = require('url');
 var proxy = require('proxy-middleware');
 var polybuild = require('polybuild');
 var jsonminify = require('gulp-jsonminify');
+var jshint = require('gulp-jshint');
 var htmlmin = require('gulp-htmlmin');
 var polylint = require('gulp-polylint');
 
@@ -46,18 +47,18 @@ var imageOptimizeTask = function(src, dest) {
 };
 
 // Lint JavaScript
-// gulp.task('jshint', function () {
-//   return gulp.src([
-//       'app/scripts/**/*.js',
-//       'app/elements/**/*.js',
-//       'app/elements/**/*.html'
-//     ])
-//     .pipe(reload({stream: true, once: true}))
-//     .pipe(jshint.extract()) // Extract JS from .html files
-//     .pipe(jshint())
-//     .pipe(jshint.reporter('jshint-stylish'))
-//     .pipe(load.if(!browserSync.active, jshint.reporter('fail')));
-// });
+gulp.task('jshint', function () {
+  return gulp.src([
+      'app/scripts/**/*.js',
+      'app/elements/**/*.js',
+      'app/elements/**/*.html'
+    ])
+    .pipe(reload({stream: true, once: true}))
+    .pipe(jshint.extract()) // Extract JS from .html files
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(load.if(!browserSync.active, jshint.reporter('fail')));
+});
 
 // Optimize images
 gulp.task('images', function() {
@@ -200,7 +201,7 @@ gulp.task('serve', ['images'], function () {
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.css'], [reload]);
   gulp.watch(['app/elements/**/*.css'], [reload]);
-  gulp.watch(['app/{scripts,elements}/**/*.js'], [reload]);
+  gulp.watch(['app/{scripts,elements}/**/*.js'], ['jshint', reload]);
   gulp.watch(['app/images/**/*'], reload);
 });
 
