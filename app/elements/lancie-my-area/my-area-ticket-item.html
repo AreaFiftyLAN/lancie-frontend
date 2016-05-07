@@ -39,12 +39,12 @@
 
     <lancie-ajax id="ajaxSetupTicketTransfer" refurl="tickets/transfer/{{ticket.id}}" method="POST" handle-as="json" on-response="onSetupTicketTransfer"></lancie-ajax>
     <lancie-ajax id="ajaxCancelTicketTransfer" refurl="tickets/transfer" method="DELETE" handle-as="json" on-response="onCancelTicketTransfer"></lancie-ajax>
-
     <hr>
+
     <lancie-ticket-item ticket="{{ticket}}" class="flex">
       <div class="layout self-center vertical">
-        <paper-icon-button icon="{{getIcon()}}" on-tap="openTicketTransferDialog"></paper-icon-button>
-        <paper-tooltip offset="0" animation-delay="1">{{getText(ticket.token)}} ticket transfer</paper-tooltip>
+        <paper-icon-button icon="{{getIcon(ticket)}}" on-tap="openTicketTransferDialog"></paper-icon-button>
+        <paper-tooltip offset="0" animation-delay="1">{{getText(ticket)}} ticket transfer</paper-tooltip>
       </div>
     </lancie-ticket-item>
 
@@ -82,6 +82,7 @@
     properties: {
       ticket: {
         type: Object,
+        value: {},
         notify: true
       },
       username: String,
@@ -92,11 +93,12 @@
       transferErrorMessage: String,
       transferUsername: String
     },
-    getIcon: function() {
-      return this.ticket === undefined ? 'icons:send' : 'icons:clear';
+    getIcon: function(ticket) {
+      console.log(ticket);
+      return ticket.token === undefined ? 'icons:send' : 'icons:clear';
     },
-    getText: function(token) {
-      return token === undefined ? 'Setup up' : 'Cancel';
+    getText: function(ticket) {
+      return ticket.token === undefined ? 'Setup up' : 'Cancel';
     },
     openTicketTransferDialog: function() {
       if (this.ticket.token) {
