@@ -1,0 +1,105 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<!--
+A comment describing this element
+
+Example:
+
+    <my-elem></my-elem>
+
+Example:
+
+    <my-elem>
+      <h2>Hello my-elem</h2>
+    </my-elem>
+
+@demo demo/index.html
+-->
+
+<dom-module id="lancie-ticket-item">
+  <template>
+    <style>
+    :host {
+      display: block;
+    }
+    
+    .block {
+      padding: 4px 32px 4px 0;
+    }
+    
+    .options {
+      width: 40%;
+    }
+    
+    .block > *:first-child {
+      color: #737373;
+      font-family: 'Roboto', 'Noto', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+    }
+    </style>
+
+    <paper-item class="layout horizontal center justified wrap" role="option" tabindex="0" aria-disabled="true">
+      <div class="layout vertical block">
+        <div>Ticket type:</div>
+        <div>{{ticket.text}}</div>
+      </div>
+      <div class="layout vertical block options">
+        <div>Extra options:</div>
+        <div>{{_showOptions(ticket)}}</div>
+      </div>
+      <div class="layout vertical block">
+        <div>Price:</div>
+        <div>&euro; {{_format(ticket.price)}}</div>
+      </div>
+      <div class="layout vertical block">
+        <div>Status:</div>
+        <div>{{_getStatus(ticket.token)}}</div>
+      </div>
+      <content></content>
+    </paper-item>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'lancie-ticket-item',
+      properties: {
+        ticket: {
+          type: Object,
+          notify: true
+        },
+        status: {
+          type: String,
+          value: '',
+          notify: true
+        }
+      },
+      _getStatus: function(token) {
+        return this.status !== '' ? this.status : (token === undefined ? 'Owned' : 'Transfering');
+      },
+      _showOptions: function(ticket) {
+        if (ticket.pickupService && ticket.chMember) {
+          return 'Christiaan Huygens Member, Pickup Service';
+        } else if (ticket.pickupService) {
+          return 'Pickup Service';
+        } else if (ticket.chMember) {
+          return 'Christiaan Huygens Member';
+        }
+        return 'No extra options';
+      },
+      _format: function(money) {
+        var n = money,
+          c = 2,
+          d = ',',
+          t = '.',
+          s = n < 0 ? '-' : '',
+          i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + '',
+          j = (j = i.length) > 3 ? j % 3 : 0;
+        return s + (j ? i.substr(0, j) + t : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : '');
+      }
+    });
+  })();
+  </script>
+</dom-module>

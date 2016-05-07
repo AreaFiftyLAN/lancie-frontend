@@ -67,9 +67,11 @@
           You don't have any orders yet
         </template>
       </div>
-
+      
+      <div class="header style-scope paper-card">
+        <div class="title-text style-scope paper-card">Tickets</div>
+      </div>
       <div class="card-content">
-        <div class="header-title">Tickets</div>
         <template is="dom-if" if="{{tickets.length}}">
           <template is="dom-repeat" items="{{tickets}}" index-as="index">
             <my-area-ticket-item username="{{username}}" ticket="{{item}}"></my-area-ticket-item>
