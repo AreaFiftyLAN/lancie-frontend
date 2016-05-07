@@ -28,7 +28,7 @@ var polybuild = require('polybuild');
 var jsonminify = require('gulp-jsonminify');
 var jshint = require('gulp-jshint');
 var htmlmin = require('gulp-htmlmin');
-var polylint = require('gulp-polylint');
+// var polylint = require('gulp-polylint');
 
 var DIST = 'dist';
 
@@ -98,11 +98,11 @@ gulp.task('fonts', function () {
 });
 
 // Polylint
-gulp.task('polylint', function() {
-  return gulp.src('app/elements/**/*.html')
-    .pipe(polylint())
-    .pipe(polylint.reporter(polylint.reporter.stylishlike));
-});
+// gulp.task('polylint', function() {
+//   return gulp.src('app/elements/**/*.html')
+//     .pipe(polylint())
+//     .pipe(polylint.reporter(polylint.reporter.stylishlike));
+// });
 
 gulp.task('build', function() {
   return gulp.src('app/index.html')
