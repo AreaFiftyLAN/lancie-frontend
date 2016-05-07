@@ -1,65 +1,59 @@
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+
 <dom-module id="lancie-header">
   <template>
     <style>
-      :host {
-        display: block;
-        height: 64px;
-        color: #ffe574;
-        padding: 16px 32px 0 0;
+    :host {
+      display: block;
+      height: 64px;
+      color: #ffe574;
+      margin-right: 16px;
+    }
+    
+    @media (max-width: 800px) {
+      paper-tabs {
+        display: none;
       }
-
-      paper-menu {
-        background-color: transparent;
-
-        --paper-menu-selected-item: {
-          font-weight: normal;
-        }
-      }
-
-      @media (max-width: 800px) {
-        paper-menu {
-          display: none;
-        }
-      }
-
-      paper-menu a {
-        color: #ffe574;
-        text-decoration: none;
-        font-family: 'Roboto', 'Noto', sans-serif;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 24px;
-        min-height: 48px;
-        padding: 0 16px;
-      }
-
+    }
+    
+    paper-tab[link] a {
+      /* These mixins (from iron-flex-layout) center the link text. */
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+      color: #ffe574;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      min-height: 48px;
+      padding: 0 16px;
+    }
     </style>
-    <paper-menu attr-for-selected="data-route" selected="{{route}}">
-      <a data-route="home" href="{{baseUrl}}/">
-        <span>Home</span>
-      </a>
 
-      <a data-route="users" href="{{baseUrl}}/my-area">
-        <span>My Area</span>
-      </a>
-
-      <a data-route="contact" href="{{baseUrl}}/tickets">
-        <span>Tickets</span>
-      </a>
-    </paper-menu>
+    <paper-tabs selected="0">
+      <paper-tab link>
+        <a href="{{baseUrl}}/" tabindex="-1">Home</a>
+      </paper-tab>
+      <paper-tab link>
+        <a href="{{baseUrl}}/tickets" tabindex="-1">Tickets</a>
+      </paper-tab>
+      <paper-tab link>
+        <a href="{{baseUrl}}/my-area" tabindex="-1">My Area</a>
+      </paper-tab>
+    </paper-tabs>
   </template>
   <script>
   'use strict';
-    Polymer({
-      is: 'lancie-header',
-      properties: {
-        route: {
-          type: String,
-          notify: true
-        }
+  Polymer({
+    is: 'lancie-header',
+    properties: {
+      route: {
+        type: String,
+        notify: true
       }
-    });
+    }
+  });
   </script>
 </dom-module>
