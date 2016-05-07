@@ -35,15 +35,15 @@
       </div>
       <div class="layout vertical block options">
         <div>Extra options:</div>
-        <div>{{_showOptions(ticket)}}</div>
+        <div>{{options}}</div>
       </div>
       <div class="layout vertical block">
         <div>Price:</div>
-        <div>&euro; {{_format(ticket.price)}}</div>
+        <div>&euro; {{price}}</div>
       </div>
       <div class="layout vertical block status">
         <div>Status:</div>
-        <div>{{status}}</div>
+        <div>{{accStatus}}</div>
       </div>
       <content></content>
     </paper-item>
@@ -56,26 +56,32 @@
       properties: {
         ticket: {
           type: Object,
-          notify: true
+          notify: true,
+          observer: 'updateTicketInfo'
         },
         status: {
           type: String,
           value: '',
           notify: true
-        }
+        },
+        options: String,
+        price: String,
+        accStatus: String
       },
-      ready: function() {
-        this.status = this._getStatus();
+      updateTicketInfo: function() {
+        this.options = this._showOptions();
+        this.accStatus = this._getStatus();
+        this.price = this._format(this.ticket.price);
       },
-      _getStatus: function() {
+      _getStatus: function(ticket) {
         return this.status !== '' ? this.status : (this.ticket.token === undefined ? 'Owned' : 'Transfering');
       },
       _showOptions: function(ticket) {
-        if (ticket.pickupService && ticket.chMember) {
+        if (this.ticket.pickupService && this.ticket.chMember) {
           return 'Christiaan Huygens Member, Pickup Service';
-        } else if (ticket.pickupService) {
+        } else if (this.ticket.pickupService) {
           return 'Pickup Service';
-        } else if (ticket.chMember) {
+        } else if (this.ticket.chMember) {
           return 'Christiaan Huygens Member';
         }
         return 'No extra options';

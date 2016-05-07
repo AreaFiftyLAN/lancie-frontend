@@ -32,11 +32,10 @@
     <lancie-ajax id="ajaxSetupTicketTransfer" refurl="tickets/transfer/{{ticket.id}}" method="POST" handle-as="json" on-response="onSetupTicketTransfer"></lancie-ajax>
     <lancie-ajax id="ajaxCancelTicketTransfer" refurl="tickets/transfer" method="DELETE" handle-as="json" on-response="onCancelTicketTransfer"></lancie-ajax>
     <hr>
-
     <lancie-ticket-item id="ticketItem" ticket="{{ticket}}" class="flex">
       <div class="layout self-center vertical">
-        <paper-icon-button icon="{{getIcon(ticket)}}" on-tap="openTicketTransferDialog"></paper-icon-button>
-        <paper-tooltip offset="0" animation-delay="1">{{getText(ticket)}} ticket transfer</paper-tooltip>
+        <paper-icon-button icon="{{getIcon(ticket.token)}}" on-tap="openTicketTransferDialog"></paper-icon-button>
+        <paper-tooltip offset="0" animation-delay="1">{{getText(ticket.token)}} ticket transfer</paper-tooltip>
       </div>
     </lancie-ticket-item>
 
@@ -85,11 +84,11 @@
       transferErrorMessage: String,
       transferUsername: String
     },
-    getIcon: function(ticket) {
-      return ticket.token === undefined ? 'icons:send' : 'icons:clear';
+    getIcon: function(token) {
+      return token === undefined ? 'icons:send' : 'icons:clear';
     },
-    getText: function(ticket) {
-      return ticket.token === undefined ? 'Setup up' : 'Cancel';
+    getText: function(token) {
+      return token === undefined ? 'Setup up' : 'Cancel';
     },
     openTicketTransferDialog: function() {
       if (this.ticket.token) {
@@ -122,7 +121,9 @@
     },
     onSetupTicketTransfer: function(e, r) {
       if (r.succeeded) {
-        this.ticket.token = r.response.object;
+        this.set('ticket.token', r.response.object);
+        this.$.ticketItem.updateTicketInfo();
+
         this.setupTicketTransferDialog();
         this.$.setupTicketTransferSuccessToast.show();
       } else {
@@ -143,7 +144,9 @@
     },
     onCancelTicketTransfer: function(e, r) {
       if (r.succeeded) {
-        delete this.ticket.token;
+        this.set('ticket.token', undefined);
+        this.$.ticketItem.updateTicketInfo();
+
         this.cancelTicketTransferDialog();
         this.$.cancelTicketTransferSuccessToast.show();
       } else {
