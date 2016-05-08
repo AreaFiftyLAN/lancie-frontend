@@ -1,0 +1,101 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../../../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../../lancie-login/lancie-ajax.html">
+<dom-module id="my-area-teams-invite">
+  <template>
+    <lancie-ajax id="ajaxAcceptInvite" refurl="teams/invites" method="POST" handle-as="json" body="{{invite.token}}" on-response="onAcceptInvite"></lancie-ajax>
+    <lancie-ajax id="ajaxCancelInvite" refurl="teams/invites" method="DELETE" handle-as="json" body="{{invite.token}}" on-response="onCancelInvite"></lancie-ajax>
+    <style include="iron-flex iron-flex-alignment"></style>
+    <style>
+    :host {
+      display: block;
+    }
+
+    .team {
+      margin-right: 20px;
+    }
+    
+    paper-card {
+      width: 100%;
+    }
+    
+    paper-tooltip {
+      --paper-tooltip-background: #1A2B43;
+      --paper-tooltip-text-color: #FEE474;
+    }
+
+    #acceptInviteButton {
+      --iron-icon-fill-color: #4CAF50;
+    }
+    
+    #cancelInviteButton {
+      --iron-icon-fill-color: #F44336;
+    }
+    </style>
+    <paper-item>
+      <paper-item-body class="layout horizontal center layout start-justified">
+        <template is="dom-if" if={{personal}}>
+          <div class="team-header flex">
+            <div class="team-name">{{invite.teamName}}</div>
+          </div>
+        </template>
+        <template is="dom-if" if={{team}}>
+          <div class="team-header flex">
+            <div class="team-name">{{invite.username}}</div>
+          </div>
+        </template>
+        <div>
+          <template is="dom-if" if="{{personal}}">
+            <paper-icon-button id="acceptInviteButton" icon="icons:check" on-tap="submitAcceptInvite"></paper-icon-button>
+            <paper-tooltip offset="0" for="addMemberButton" animation-delay="1">Accept invite</paper-tooltip>
+          </template>
+          <paper-icon-button id="cancelInviteButton" icon="icons:clear" on-tap="submitCancelInvite"></paper-icon-button>
+          <paper-tooltip offset="0" for="openInvitesButton" animation-delay="1">Cancel Invite</paper-tooltip>
+        </div>
+      </paper-item-body>
+    </paper-item>
+    <paper-toast id="acceptInviteSuccess" text="Welcome to Team {{invite.teamName}}!" duration="3000"></paper-toast>
+  </template>
+  <script>
+  'use strict';
+  Polymer({
+    is: 'my-area-teams-invite',
+    properties: {
+      invite: Object,
+      team: Boolean,
+      personal: Boolean
+    },
+    ready: function() {
+      console.log(this.invite);
+    },
+    submitAcceptInvite: function() {
+      this.$.ajaxAcceptInvite.generateRequest();
+    },
+    onAcceptInvite: function(e, r) {
+      if (r.succeeded) {
+        this.fire('invite-change');
+        this.$.acceptInviteSuccess.show();
+      } else {
+        this.inviteMemberMessage = 'Something went wrong';
+      }
+    },
+    submitCancelInvite: function() {
+      this.$.ajaxCancelInvite.generateRequest();
+    },
+    onCancelInvite: function(e, r) {
+      if (r.succeeded) {
+        this.fire('invite-change');
+      } else {
+        this.inviteMemberMessage = 'Something went wrong';
+      }
+    }
+  });
+  </script>
+</dom-module>

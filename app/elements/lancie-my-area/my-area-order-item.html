@@ -3,9 +3,14 @@
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
+
+<link rel="import" href="../lancie-dialog/lancie-dialog.html">
+<link rel="import" href="my-area-orders/lancie-ticket-item.html">
 
 <dom-module id="my-area-order-item">
   <template>
@@ -14,16 +19,7 @@
     :host {
       display: block;
     }
-
-    h3 {
-      margin: 0;
-    }
-
-    .info {
-      margin: 0 0 0 5px;
-      width: 200px;
-    }
-
+    
     hr {
       display: block;
       height: 1px;
@@ -32,82 +28,93 @@
       padding: 0;
     }
 
-    .layout div {
-      flex: 1;
-      text-align: center;
+    #orderInfo {
+      width: 840px;
     }
 
-    .layout div:first-child {
-      text-align: left;
+    .order-stats > div > b{
+      display: inline-block;
+      width: 120px;
     }
 
-    .stats {
-      width: 200px;
+    .block {
+      padding: 4px 32px 4px 0;
     }
 
-    .orderstats {
-      position: absolute;
-      right: 0;
-      top: 0;
-      text-align: left;
+    .block > *:first-child {
+      color: #737373;
+      font-family: 'Roboto', 'Noto', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
     }
     </style>
 
     <paper-item id="{{order.id}}" class="layout horizontal center justified wrap">
-      <div>
-        <h3>Order #{{order.id}}</h3>
+      <div class="layout vertical block">
+        <div>Order:</div>
+        <div>Order #{{order.id}}</div>
       </div>
-      <div class="info"><b>Ordered on: </b>{{order.creationDateTime}}</div>
-      <div class="info"><b>Status: </b>{{order.status}}</div>
+      <div class="layout vertical block">
+        <div>Amount:</div>
+        <div>&euro; {{_format(order.amount)}}</div>
+      </div>
+      <div class="layout vertical block">
+        <div>Status:</div>
+        <div>{{order.status}}</div>
+      </div>
+      <div class="layout vertical block">
+        <div>Ordered on:</div>
+        <div>{{order.creationDateTime}}</div>
+      </div>
       <paper-icon-button icon="icons:info" on-tap="showOrderTickets"></paper-icon-button>
     </paper-item>
     <hr>
 
-    <paper-dialog id="orderInfo" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop >
+    <lancie-dialog id="orderInfo" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop>
       <h2>Order #{{order.id}}</h2>
-      <div class="orderstats">
-        <div><b>Ordered on: </b>{{order.creationDateTime}}</div>
-        <div><b>Price: </b>&euro; {{order.amount}}</div>
-        <div><b>Status: </b>{{order.status}}</div>
-      </div>
-      <paper-dialog-scrollable>
+      <div class="card-content">
+        <div class="order-stats">
+          <div><b>Ordered on: </b>{{order.creationDateTime}}</div>
+          <div><b>Price: </b>&euro; {{_format(order.amount)}}</div>
+          <div><b>Status: </b>{{order.status}}</div>
+        </div>
         <template is="dom-repeat" items="{{order.tickets}}" status="{{order.status}}" index-as="index">
           <hr>
-            <paper-item>
-            <div class="stats flex">Type: {{item.text}}</div>
-            <div class="stats flex">Amount: &euro; {{item.price}}</div>
-            <div class="stats flex">CH member:
-              <iron-icon icon="{{getIcon(item.chMember)}}"></iron-icon>
-            </div>
-            <div class="stats flex">Pickup service:
-              <iron-icon icon="{{getIcon(item.pickupService)}}"></iron-icon>
-            </div>
-          </paper-item>
+          <lancie-ticket-item ticket="{{item}}" status="{{order.status}}"></lancie-ticket-item>
         </template>
-      </paper-dialog-scrollable>
-      <div class="buttons">
-        <paper-button dialog-dismiss>Back</paper-button>
       </div>
-    </paper-dialog>
+      <div class="buttons">
+        <paper-button raised dialog-dismiss>Close</paper-button>
+      </div>
+    </lancie-dialog>
   </template>
   <script>
-    'use strict';
-
-    Polymer({
-      is: 'my-area-order-item',
-
-      properties: {
-        order: {
-          type: Object,
-          notify: true
-        }
-      },
-      getIcon: function(binding) {
-        return binding ? 'icons:check' : 'icons:clear';
-      },
-      showOrderTickets: function() {
-        this.$.orderInfo.toggle();
+  'use strict';
+  Polymer({
+    is: 'my-area-order-item',
+    properties: {
+      order: {
+        type: Object,
+        notify: true
       }
-    });
+    },
+    getIcon: function(binding) {
+      return binding ? 'icons:check' : 'icons:clear';
+    },
+    showOrderTickets: function() {
+      this.$.orderInfo.toggle();
+    },
+    _format: function(money) {
+      var n = money,
+        c = 2,
+        d = ',',
+        t = '.',
+        s = n < 0 ? '-' : '',
+        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + '',
+        j = (j = i.length) > 3 ? j % 3 : 0;
+      return s + (j ? i.substr(0, j) + t : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : '');
+    }
+  });
   </script>
 </dom-module>

@@ -1,0 +1,89 @@
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+
+<dom-module id="lancie-dialog">
+  <template>
+    <style include="paper-dialog-shared-styles"></style>
+    <style>
+    :host {
+      position: relative;
+      top: 160px;
+
+      display: block;
+      min-width: 520px;
+    }
+    :host > ::content > * {
+      margin-top: 0;
+      padding: 0 24px;
+      font-size: 16px;
+    }
+
+    :host > ::content > *:first-child {
+      margin-top: 0;
+    }
+
+    :host > ::content > h2 {
+      background-color: #1A2B43;
+      color: #FEE474;
+      margin: 0;
+      padding: 16px 16px;
+      font-size: 20px;
+    }
+
+    :host > ::content > .card-content {
+      padding: 16px;
+    }
+
+    :host > ::content > .buttons {
+      border-top: 1px solid #e8e8e8;
+      color: rgba(0, 0, 0, 0.87);
+    }
+
+    :host > ::content .errormessage {
+      padding: 10px 20px 9px;
+      margin-bottom: 4px;
+      border-left: 3px solid #F44336;
+      background: #FFCDD2;
+      color: #B71C1C;
+    }
+    </style>
+    <content></content>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'lancie-dialog',
+
+      behaviors: [
+        Polymer.PaperDialogBehavior,
+        Polymer.NeonAnimationRunnerBehavior
+      ],
+      listeners: {
+        'neon-animation-finish': '_onNeonAnimationFinish'
+      },
+      _renderOpened: function() {
+        this.cancelAnimation();
+        if (this.withBackdrop) {
+          this.backdropElement.open();
+        }
+        this.playAnimation('entry');
+      },
+      _renderClosed: function() {
+        this.cancelAnimation();
+        if (this.withBackdrop) {
+          this.backdropElement.close();
+        }
+        this.playAnimation('exit');
+      },
+      _onNeonAnimationFinish: function() {
+        if (this.opened) {
+          this._finishRenderOpened();
+        } else {
+          this._finishRenderClosed();
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>

@@ -1,0 +1,102 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="lancie-ticket-item">
+  <template>
+    <style>
+    :host {
+      display: block;
+    }
+    
+    .block {
+      padding: 4px 32px 4px 0;
+    }
+    
+    .options {
+      width: 40%;
+    }
+
+    .status {
+      width: 82px;
+    }
+    
+    .block > *:first-child {
+      color: #737373;
+      font-family: 'Roboto', 'Noto', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+    }
+    </style>
+
+    <paper-item class="layout horizontal center justified wrap" role="option" tabindex="0" aria-disabled="true">
+      <div class="layout vertical block">
+        <div>Ticket type:</div>
+        <div>{{ticket.text}}</div>
+      </div>
+      <div class="layout vertical block options">
+        <div>Extra options:</div>
+        <div>{{options}}</div>
+      </div>
+      <div class="layout vertical block">
+        <div>Price:</div>
+        <div>&euro; {{price}}</div>
+      </div>
+      <div class="layout vertical block status">
+        <div>Status:</div>
+        <div>{{accStatus}}</div>
+      </div>
+      <content></content>
+    </paper-item>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'lancie-ticket-item',
+      properties: {
+        ticket: {
+          type: Object,
+          notify: true,
+          observer: 'updateTicketInfo'
+        },
+        status: {
+          type: String,
+          value: '',
+          notify: true
+        },
+        options: String,
+        price: String,
+        accStatus: String
+      },
+      updateTicketInfo: function() {
+        this.options = this._showOptions();
+        this.accStatus = this._getStatus();
+        this.price = this._format(this.ticket.price);
+      },
+      _getStatus: function(ticket) {
+        return this.status !== '' ? this.status : (this.ticket.token === undefined ? 'Owned' : 'Transfering');
+      },
+      _showOptions: function(ticket) {
+        if (this.ticket.pickupService && this.ticket.chMember) {
+          return 'Christiaan Huygens Member, Pickup Service';
+        } else if (this.ticket.pickupService) {
+          return 'Pickup Service';
+        } else if (this.ticket.chMember) {
+          return 'Christiaan Huygens Member';
+        }
+        return 'No extra options';
+      },
+      _format: function(money) {
+        var n = money,
+          c = 2,
+          d = ',',
+          t = '.',
+          s = n < 0 ? '-' : '',
+          i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + '',
+          j = (j = i.length) > 3 ? j % 3 : 0;
+        return s + (j ? i.substr(0, j) + t : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : '');
+      }
+    });
+  })();
+  </script>
+</dom-module>

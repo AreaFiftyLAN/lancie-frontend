@@ -1,12 +1,14 @@
 <link rel="import" href="my-area-order-item.html">
 <link rel="import" href="my-area-ticket-item.html">
 
+<link rel="import" href="../lancie-login/lancie-ajax.html">
+
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+
 <dom-module id="my-area-orders">
   <template>
     <style include="iron-flex iron-flex-alignment"></style>
@@ -14,21 +16,7 @@
     :host {
       display: block;
     }
-
-    paper-card {
-      width: 100%;
-    }
-
-    paper-item {
-      padding: 0;
-    }
-
-    .header-title {
-      font-size: 24px;
-      font-weight: 400;
-      color: #000;
-    }
-
+    
     hr {
       display: block;
       height: 1px;
@@ -36,18 +24,10 @@
       border-top: 1px solid #e8e8e8;
       padding: 0;
     }
-
+    
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
-    }
-
-    paper-dialog div {
-      margin: 0 10px;
-    }
-
-    .ticket-info {
-      min-width: 120px;
     }
     </style>
 
@@ -55,7 +35,7 @@
     <lancie-ajax id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-response="storeTickets"></lancie-ajax>
     <lancie-ajax id="ajaxTokens" refurl="tickets/tokens" method="GET" handle-as="json" on-response="storeTokens"></lancie-ajax>
 
-    <paper-card heading="Orders" elevation="1" animated-shadow="true">
+    <paper-card class="layout vertical flex" heading="Orders" elevation="1" animated-shadow="true">
       <div class="card-content">
         <hr>
         <template is="dom-if" if="{{orders.length}}">
@@ -68,8 +48,10 @@
         </template>
       </div>
 
+      <div class="header style-scope paper-card">
+        <div class="title-text style-scope paper-card">Tickets</div>
+      </div>
       <div class="card-content">
-        <div class="header-title">Tickets</div>
         <template is="dom-if" if="{{tickets.length}}">
           <template is="dom-repeat" items="{{tickets}}" index-as="index">
             <my-area-ticket-item username="{{username}}" ticket="{{item}}"></my-area-ticket-item>
@@ -82,9 +64,6 @@
       <div class="card-actions">
         <paper-icon-button on-tap="buyTickets" icon="icons:add-shopping-cart" id="buy-ticket">Buy tickets</paper-icon-button>
         <paper-tooltip for="buy-ticket" offset="0" animation-delay="1">Buy tickets</paper-tooltip>
-
-        <paper-icon-button icon="icons:redeem" id="redeem-ticket" disabled></paper-icon-button>
-        <paper-tooltip for="redeem-ticket" offset="0" animation-delay="1">Redeem a ticket code</paper-tooltip>
       </div>
     </paper-card>
 
@@ -97,7 +76,13 @@
     properties: {
       orders: {
         type: Array,
-        value: function () {
+        value: function() {
+          return [];
+        }
+      },
+      tempTickets: {
+        type: Array,
+        value: function() {
           return [];
         }
       },
@@ -120,18 +105,21 @@
       this.orders = request.response.length > 0 ? request.response : false;
     },
     storeTickets: function(event, request) {
-      this.tickets = request.response.length > 0 ? request.response : false;
+      this.tempTickets = request.response.length > 0 ? request.response : false;
       this.$.ajaxTokens.generateRequest();
     },
     storeTokens: function(event, request) {
       if (request.succeeded) {
-        request.response.object.forEach(function(ttt) {
-          this.tickets.forEach(function(ticket) {
-            if (ticket.id === ttt.ticket.id) {
-              ticket.token = ttt.token;
-            }
-          });
-        }.bind(this));
+        request.response.object.forEach((function(_this) {
+          return function(ttt) {
+            return _this.tempTickets.forEach(function(ticket) {
+              if (ticket.id === ttt.ticket.id) {
+                ticket.token = ttt.token;
+              }
+            });
+          };
+        })(this));
+        this.tickets = this.tempTickets;
       } else {
         this.$.ticketTransferTokensRetrievalError.show();
       }
