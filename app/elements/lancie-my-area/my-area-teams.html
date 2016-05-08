@@ -26,6 +26,7 @@
     <lancie-ajax id="ajaxGetPersonalInvites" auto refurl="users/current/teams/invites" handle-as="json" last-response="{{personalInvites}}"></lancie-ajax>
     <lancie-ajax id="ajaxCreateTeam" refurl="teams" method="POST" handle-as="json" on-response="onCreateTeam"></lancie-ajax>
     <lancie-ajax id="ajaxAcceptInvite" refurl="teams/invites" method="POST" handle-as="json" on-response="onAcceptInvite"></lancie-ajax>
+    <style include="iron-flex iron-flex-alignment"></style>
     <style>
     :host {
       display: block;
