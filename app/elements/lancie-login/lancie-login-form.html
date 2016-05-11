@@ -100,17 +100,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="card-content">
         <div hidden$="{{registering}}">
           <paper-material class="errormessage" hidden$="{{!loginError}}">{{loginErrorMessage}}</paper-material>
-          <paper-input label="Username" type="text" value="{{username}}"></paper-input>
-          <paper-input label="Password" type="password" value="{{password}}" on-keypress="enterAndTryLogIn"></paper-input>
+          <paper-input label="Username" type="text" name="username" value="{{username}}"></paper-input>
+          <paper-input label="Password" type="password" name="password" value="{{password}}" on-keypress="enterAndTryLogIn"></paper-input>
         </div>
         <div hidden$="{{!registering}}">
           <paper-material class="errormessage" hidden$="{{!registerError}}">{{registerErrorMessage}}</paper-material>
           <paper-material class="errormessage" hidden$="{{equalPassword}}">Passwords are not equal.</paper-material>
           <paper-material class="errormessage" hidden$="{{!badEmailFormat}}">Type in a valid email address.</paper-material>
-          <paper-input label="Username" type="text" value="{{username}}"></paper-input>
-          <paper-input label="Password" type="password" value="{{password}}"></paper-input>
+          <paper-input label="Username" name="username" type="text" value="{{username}}"></paper-input>
+          <paper-input label="Password" name="password" type="password" value="{{password}}"></paper-input>
           <paper-input label="Retype password" type="password" value="{{secondPassword}}"></paper-input>
-          <paper-input label="Email" type="email" value="{{email}}"></paper-input>
+          <paper-input label="Email" name="mail" type="email" value="{{email}}"></paper-input>
         </div>
       </div>
       <div class="card-actions">
