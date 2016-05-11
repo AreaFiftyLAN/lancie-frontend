@@ -219,7 +219,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (request.request.status === 401) {
           this.loginErrorMessage = 'Bad credentials.';
         } else {
-          this.loginErrorMessage = 'Server failed processing the request.';
+          this.loginErrorMessage = 'Server failed processing the request, please try refreshing the page.';
         }
       },
 
@@ -243,7 +243,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (request.request.status === 409) {
           this.registerErrorMessage = 'Username and/or email is already in use.';
         } else {
-          this.registerErrorMessage = 'Something went wrong. Please try again later...';
+          this.registerErrorMessage = 'Server failed processing the request, please try refreshing the page.';
         }
       },
 
