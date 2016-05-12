@@ -8,7 +8,7 @@
     :host {
       display: block;
     }
-       
+    
     paper-button {
       width: 90%;
       color: #ffe574;
@@ -58,7 +58,9 @@
       discordWidget: Object
     },
     _openDiscord: function() {
+      /*jshint camelcase: false */
       window.open(this.discordWidget.instant_invite, '_blank');
+      /*jshint camelcase: true */
     }
   });
   </script>
