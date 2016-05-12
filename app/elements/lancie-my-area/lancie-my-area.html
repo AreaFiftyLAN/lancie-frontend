@@ -4,6 +4,7 @@
 <link rel="import" href="my-area-teams.html">
 <link rel="import" href="my-area-orders.html">
 <link rel="import" href="my-area-seat.html">
+<link rel="import" href="my-area-discord.html">
 <link rel="import" href="../lancie-section/lancie-section.html">
 <dom-module id="lancie-my-area">
   <template>
@@ -26,7 +27,8 @@
         </div>
         <div class="layout horizontal start wrap">
           <my-area-orders username="{{user.username}}" class="flex-3 card"></my-area-orders>
-          <my-area-seat class="flex-2 card"></my-area-seat>
+          <my-area-seat class="flex-1 card"></my-area-seat>
+          <my-area-discord class="flex-1 card"></my-area-discord>
         </div>
       </div>
     </lancie-section>

@@ -1,0 +1,39 @@
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="my-area-discord">
+<template>
+  <style include="iron-flex iron-flex-alignment"></style>
+  <style>
+    :host {
+      display: block;
+    }
+    
+    paper-card {
+      width: 100%;
+    }
+
+  </style>
+  <iron-ajax auto url="https://discordapp.com/api/servers/146690066541051904/widget.json" handle-as="json" 
+  last-response="{{discordWidget}}"></iron-ajax>
+
+  <paper-card heading="Discord Chat" elevation="1" animated-shadow="true">
+
+  <div class="card-content">
+  <div> Members online: {{discordWidget.members.length}}</div>
+  <!-- <iframe src="https://discordapp.com/widget?id=146690066541051904&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe> -->
+  </div>
+</paper-card>
+</template>
+<script>
+  Polymer({
+    is: 'my-area-discord',
+    properties: {
+      widgetAPI: String,
+      discordWidget: Object
+    }
+  });
+</script>
+</dom-module>
