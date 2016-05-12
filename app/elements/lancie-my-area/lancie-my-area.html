@@ -22,13 +22,13 @@
     <lancie-section type="primary full" header="My Area - {{user.profile.displayName}}">
       <div>
         <div class="layout horizontal start wrap">
-          <my-area-profile user="{{user}}" class="flex card"></my-area-profile>
-          <my-area-teams user="{{user}}" class="flex card"></my-area-teams>
+          <my-area-profile user="{{user}}" class="flex-2 card"></my-area-profile>
+          <my-area-teams user="{{user}}" class="flex-2 card"></my-area-teams>
+          <my-area-discord class="flex-1 card"></my-area-discord>
         </div>
         <div class="layout horizontal start wrap">
           <my-area-orders username="{{user.username}}" class="flex-3 card"></my-area-orders>
-          <my-area-seat class="flex-1 card"></my-area-seat>
-          <my-area-discord class="flex-1 card"></my-area-discord>
+          <my-area-seat class="flex-2 card"></my-area-seat>
         </div>
       </div>
     </lancie-section>
