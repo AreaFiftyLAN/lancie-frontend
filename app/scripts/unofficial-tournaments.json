@@ -6,12 +6,14 @@
     "description": "Minecraft is a sandbox video game created by Swedish programmer Markus 'Notch' Persson and later developed and published by Mojang. The creative and building aspects of Minecraft enable players to build constructions out of textured cubes in a 3D procedurally generated world. Other activities in the game include exploration, resource gathering, crafting, and combat. Multiple gameplay modes are available, including survival mode where the player must acquire resources to build the world and maintain health, a creative mode where players have unlimited resources to build with and the ability to fly, an adventure mode where players can play custom maps created by other players, and a spectator mode where players can fly around and clip through blocks, but cannot place or destroy any.",
     "backgroundImagePath": "images/unofficial/minecraft.jpg",
     "sponsor": {
-      "name": "",
-      "imagePath": "images/unofficial/minecraft_logo.png",
-      "website": "http://www.minecraft.net/"
+      "name": "Topicus",
+      "imagePath": "/images/logos/Topicus_Logo.svg",
+      "website": "http://www.topicusfinance.nl/"
     },
     "prizes": [
-      "T.B.A."
+      "Fitbit Flex",
+      "Philips Speaker (SBA3011, SoundShooter) + Squid Mini Powerbank",
+      "Monopoly Deventer Editie"
     ],
     "format": "FFA",
     "startingDateTime": {
