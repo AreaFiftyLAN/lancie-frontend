@@ -14,23 +14,45 @@ This code may only be used under the BSD style license found at https://github.c
       display: block;
       padding: 32px;
     }
+
+    .seatmap-row {
+      padding: 16px;
+    }
+
+    .grouplabel {
+      width: 64px;
+      color: #fee474;
+      font-size: 32px;
+      font-weight: bold;
+      background: #1a2b43;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                  0 1px 5px 0 rgba(0, 0, 0, 0.12),
+                  0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+    }
     </style>
 
     <lancie-ajax id="ajaxGetAllSeats" refurl="seats" on-response="onGetAllSeats"></lancie-ajax>
     <lancie-ajax id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-response="onGetTeamTickets"></lancie-ajax>
     
-    <div class="layout horizontal">
+    <div class="layout horizontal" on-reserve-seat="refreshSeats">
       <div>
        <img src="/images/seatmap/stage.png">
       </div>
-      <div class="layout seats flex seatgroup layout vertical">
+      <div class="layout seats flex-3 seatgroup vertical">
         <template is="dom-repeat" items='["A", "B", "C", "D", "E"]'>
-          <lancie-seat-group class="flex" seats="{{_getSeatGroup(item)}}" tickets="{{tickets}}"></lancie-seat-group>
+          <div class="layout flex horizontal seatmap-row">
+            <div class="grouplabel layout center center-justified horizontal">{{item}}</div>
+            <lancie-seat-group class="layout flex vertical" group="{{item}}" seats="{{_getSeatGroup(seats, item)}}" tickets="{{tickets}}" user="{{user}}"></lancie-seat-group>
+          </div>
         </template>
       </div>
-      <div class="layout seats flex seatgroup layout vertical">
+      <div class="layout seats flex-4 seatgroup vertical">
         <template is="dom-repeat" items='["F", "G", "H", "I", "J"]'>
-          <lancie-seat-group class="flex" seats="{{_getSeatGroup(item)}}" tickets="{{tickets}}"></lancie-seat-group>
+          <div class="layout flex horizontal seatmap-row">
+            <lancie-seat-group class="layout flex vertical" group="{{item}}" seats="{{_getSeatGroup(seats, item)}}" tickets="{{tickets}}" user="{{user}}"></lancie-seat-group>
+            <div class="grouplabel layout center center-justified horizontal">{{item}}</div>
+          </div>
         </template>
       </div>
       <div>
@@ -38,12 +60,14 @@ This code may only be used under the BSD style license found at https://github.c
       </div>
     </div>
 
+    <paper-toast id="reserveSeatSuccessToast" text="Seat reservation successfull!" duration="3000"></paper-toast>
   </template>
   <script>
   'use strict';
   Polymer({
     is: 'lancie-seatmap',
     properties: {
+      user: Object,
       seats: {
         type: Array,
         value: function() {
@@ -61,15 +85,20 @@ This code may only be used under the BSD style license found at https://github.c
       this.$.ajaxGetAllSeats.generateRequest();
       this.$.ajaxGetTeamTickets.generateRequest();
     },
+    refreshSeats: function() {
+      this.$.reserveSeatSuccessToast.show();
+      this.$.ajaxGetAllSeats.generateRequest();
+    },
     onGetAllSeats: function(e, request) {
       if (request.succeeded) {
+        var seats = [];
         var groups = 'ABCDEFGHIJ';
         for (var i = 0; i < groups.length; i++) {
-          this.seats[groups.charAt(i)] = request.response.seatmap[groups.charAt(i)].sort(function(a, b) {
+          seats[groups.charAt(i)] = request.response.seatmap[groups.charAt(i)].sort(function(a, b) {
             return a.seatNumber - b.seatNumber;
           });
         }
-        console.log(this.seats);
+        this.seats = seats;
       } else {
         console.log('getAllSeats error');
         // TODO: Error handling
@@ -77,15 +106,14 @@ This code may only be used under the BSD style license found at https://github.c
     },
     onGetTeamTickets: function(e, request) {
       if (request.succeeded) {
-        console.log(request.response);
         this.tickets = request.response;
       } else {
         console.log('getAllTeamTickets error');
         // TODO: Error handling
       }
     },
-    _getSeatGroup: function(group) {
-      return this.seats[group];
+    _getSeatGroup: function(seats, group) {
+      return seats[group];
     }
   });
   </script>
