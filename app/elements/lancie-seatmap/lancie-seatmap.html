@@ -1,0 +1,92 @@
+<!--
+@license
+Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
+This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<dom-module id="lancie-seatmap">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
+    <style>
+    :host {
+      display: block;
+      padding: 32px;
+    }
+    </style>
+
+    <lancie-ajax id="ajaxGetAllSeats" refurl="seats" on-response="onGetAllSeats"></lancie-ajax>
+    <lancie-ajax id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-response="onGetTeamTickets"></lancie-ajax>
+    
+    <div class="layout horizontal">
+      <div>
+       <img src="/images/seatmap/stage.png">
+      </div>
+      <div class="layout seats flex seatgroup layout vertical">
+        <template is="dom-repeat" items='["A", "B", "C", "D", "E"]'>
+          <lancie-seat-group class="flex" seats="{{_getSeatGroup(item)}}" tickets="{{tickets}}"></lancie-seat-group>
+        </template>
+      </div>
+      <div class="layout seats flex seatgroup layout vertical">
+        <template is="dom-repeat" items='["F", "G", "H", "I", "J"]'>
+          <lancie-seat-group class="flex" seats="{{_getSeatGroup(item)}}" tickets="{{tickets}}"></lancie-seat-group>
+        </template>
+      </div>
+      <div>
+       <img src="/images/seatmap/lounge.png">
+      </div>
+    </div>
+
+  </template>
+  <script>
+  'use strict';
+  Polymer({
+    is: 'lancie-seatmap',
+    properties: {
+      seats: {
+        type: Array,
+        value: function() {
+          return [];
+        }
+      },
+      tickets: {
+        type: Array,
+        value: function() {
+          return [];
+        }
+      }
+    },
+    attached: function() {
+      this.$.ajaxGetAllSeats.generateRequest();
+      this.$.ajaxGetTeamTickets.generateRequest();
+    },
+    onGetAllSeats: function(e, request) {
+      if (request.succeeded) {
+        var groups = 'ABCDEFGHIJ';
+        for (var i = 0; i < groups.length; i++) {
+          this.seats[groups.charAt(i)] = request.response.seatmap[groups.charAt(i)].sort(function(a, b) {
+            return a.seatNumber - b.seatNumber;
+          });
+        }
+        console.log(this.seats);
+      } else {
+        console.log('getAllSeats error');
+        // TODO: Error handling
+      }
+    },
+    onGetTeamTickets: function(e, request) {
+      if (request.succeeded) {
+        console.log(request.response);
+        this.tickets = request.response;
+      } else {
+        console.log('getAllTeamTickets error');
+        // TODO: Error handling
+      }
+    },
+    _getSeatGroup: function(group) {
+      return this.seats[group];
+    }
+  });
+  </script>
+</dom-module>
