@@ -21,7 +21,7 @@ This code may only be used under the BSD style license found at https://github.c
       display: block;
       position: relative;
     }
-    
+
     .seat {
       height: 100%;
       margin: 4px;
@@ -53,9 +53,10 @@ This code may only be used under the BSD style license found at https://github.c
       <paper-tooltip for="seat" animationDelay="0">{{seat.ticket.owner.profile.displayName}}</paper-tooltip>
     </div>
 
-    <lancie-dialog id="seatDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="seatDialog" entry-animation="scale-up-animation" with-backdrop>
       <h2>Seat reservation</h2>
       <div class="card-content">
+        <paper-material class="errormessage" hidden$="{{!reservationError}}">{{reservationErrorMessage}}</paper-material>
         Select the user to reserve this seat for: 
         <paper-listbox id="listbox">
           <template is="dom-repeat" items="{{tickets}}">
@@ -73,12 +74,15 @@ This code may only be used under the BSD style license found at https://github.c
   'use strict';
   Polymer({
     is: 'lancie-seat',
-
     behaviors: [
       Polymer.PaperButtonBehavior
     ],
-
     properties: {
+      reservationError: {
+        type: Boolean,
+        value: false
+      },
+      reservationErrorMessage: String,
       user: Object,
       seat: Object,
       tickets: {
@@ -89,20 +93,34 @@ This code may only be used under the BSD style license found at https://github.c
       }
     },
     showSeatDialog: function() {
+      if (this.seat.taken) {
+        return;
+      }
       this.$.seatDialog.open();
     },
     reserveSeat: function() {
+      if (!this.$.listbox.selectedItem) {
+        this.reservationError = true;
+        this.reservationErrorMessage = 'Please select a user!';
+        return;
+      }
       this.$.ajaxReserveSeat.params = {'ticketId': this.$.listbox.selectedItem.ticket};
       this.$.ajaxReserveSeat.refurl = 'seats/' + this.seat.seatGroup + '/' + this.seat.seatNumber;
       this.$.ajaxReserveSeat.generateRequest();
     },
     onReserveSeat: function(e, response) {
       if (response.succeeded) {
+        this.reservationError = false;
+        this.reservationErrorMessage = '';
         this.$.listbox.attrForSelected = null;
         this.fire('reserve-seat');
       } else {
-        console.log('reserve error');
-        // TODO: Error handling
+        this.reservationError = true;
+        if (response.request.status === 409) {
+          this.reservationErrorMessage = 'Seat was already reserved!';
+        } else {
+          this.reservationErrorMessage = 'Something went wrong, please refresh and try again.'
+        }
       }
     },
     _calculateClass: function(user, teamTickets, seat) {

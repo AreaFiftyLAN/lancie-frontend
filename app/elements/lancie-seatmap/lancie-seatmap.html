@@ -25,7 +25,7 @@ This code may only be used under the BSD style license found at https://github.c
       font-size: 32px;
       font-weight: bold;
       background: #1a2b43;
-            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
                   0 1px 5px 0 rgba(0, 0, 0, 0.12),
                   0 3px 1px -2px rgba(0, 0, 0, 0.2);
     }
@@ -61,6 +61,8 @@ This code may only be used under the BSD style license found at https://github.c
     </div>
 
     <paper-toast id="reserveSeatSuccessToast" text="Seat reservation successfull!" duration="3000"></paper-toast>
+    <paper-toast id="getAllSeatsErrorToast" text="Something went wrong, please refresh the page!" duration="3000"></paper-toast>
+    <paper-toast id="getAllTicketsErrorToast" text="Something went wrong, please refresh the page!" duration="3000"></paper-toast>
   </template>
   <script>
   'use strict';
@@ -100,16 +102,14 @@ This code may only be used under the BSD style license found at https://github.c
         }
         this.seats = seats;
       } else {
-        console.log('getAllSeats error');
-        // TODO: Error handling
+        this.$.getAllSeatsErrorToast.show();
       }
     },
     onGetTeamTickets: function(e, request) {
       if (request.succeeded) {
         this.tickets = request.response;
       } else {
-        console.log('getAllTeamTickets error');
-        // TODO: Error handling
+        this.$.getAllTicketsErrorToast.show();
       }
     },
     _getSeatGroup: function(seats, group) {
