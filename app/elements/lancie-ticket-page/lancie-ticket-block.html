@@ -218,14 +218,11 @@
 
         attached: function() {
           if (this.ticket.numberSold === this.ticket.limit && this.ticket.limit != 0) {
-            console.log('Limit: ' + this.ticket.limit)
             this.classList.add('disabled');
             this.disabled = true;
           }
 
           if(Date.parse(this.ticket.deadline) < new Date().valueOf()){
-            // console.log('Deadline: ' + this.ticket.limit)
-
             this.classList.add('disabled');
             this.disabled = true;
           }
