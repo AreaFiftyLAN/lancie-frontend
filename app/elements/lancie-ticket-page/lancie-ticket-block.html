@@ -197,7 +197,7 @@
             computed: '_computeRemainingString(ticket)'
           },
 
-          chMember: {
+          chMember: { 
             type: Boolean
           },
 
@@ -217,7 +217,7 @@
         },
 
         attached: function() {
-          if (this.ticket.numberSold === this.ticket.limit && this.ticket.limit != 0) {
+          if (this.ticket.numberSold === this.ticket.limit && this.ticket.limit !== 0) {
             this.classList.add('disabled');
             this.disabled = true;
           }
@@ -240,7 +240,7 @@
         _computeRemainingString: function(ticket) {
           if (ticket.text !== 'Early Bird') {
             var date = new Date(Date.parse(ticket.deadline));
-            var month = date.getMonth() + 1
+            var month = date.getMonth() + 1;
             return 'Available until ' + date.getDate() + '/' + month + '!';
           }
           if(ticket.limit !== 0){
