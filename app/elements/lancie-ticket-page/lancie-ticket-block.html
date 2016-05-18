@@ -22,7 +22,7 @@
 
     paper-material {
       transition: box-shadow 200ms;
-      width: 230px;
+      width: 260px;
       padding: 16px;
       margin: 8px;
       background-color: #fff;
@@ -217,7 +217,15 @@
         },
 
         attached: function() {
-          if (this.ticket.numberSold === this.ticket.limit) {
+          if (this.ticket.numberSold === this.ticket.limit && this.ticket.limit != 0) {
+            console.log('Limit: ' + this.ticket.limit)
+            this.classList.add('disabled');
+            this.disabled = true;
+          }
+
+          if(Date.parse(this.ticket.deadline) < new Date().valueOf()){
+            // console.log('Deadline: ' + this.ticket.limit)
+
             this.classList.add('disabled');
             this.disabled = true;
           }
@@ -233,14 +241,18 @@
         },
 
         _computeRemainingString: function(ticket) {
-          var remaining = ticket.limit - ticket.numberSold;
-          if (remaining === 0) {
-            return 'SOLD OUT!';
+          if (ticket.text !== 'Early Bird') {
+            var date = new Date(Date.parse(ticket.deadline));
+            var month = date.getMonth() + 1
+            return 'Available until ' + date.getDate() + '/' + month + '!';
           }
-          if (ticket.text === 'Regular') {
-            return 'Available!';
+          if(ticket.limit !== 0){
+            var remaining = ticket.limit - ticket.numberSold;
+            if (remaining === 0) {
+              return 'SOLD OUT!';
+            }
+            return remaining + ' tickets left!';
           }
-          return remaining + ' tickets left!';
         },
 
         _computePrice: function(ticket, chMember, pickup) {
