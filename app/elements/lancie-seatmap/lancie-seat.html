@@ -50,7 +50,7 @@ This code may only be used under the BSD style license found at https://github.c
 
     <div id="seat" class$="seat layout center center-justified horizontal flex {{_calculateClass(user, tickets, seat)}}" on-tap="showSeatDialog">
       <div>{{seat.seatNumber}}</div>
-      <paper-tooltip for="seat" animationDelay="0">{{seat.ticket.owner.profile.displayName}}</paper-tooltip>
+      <paper-tooltip for="seat" animationDelay="0">{{_getTooltipText(seat)}}</paper-tooltip>
     </div>
 
     <lancie-dialog id="seatDialog" entry-animation="scale-up-animation" with-backdrop>
@@ -129,6 +129,10 @@ This code may only be used under the BSD style license found at https://github.c
         return '';
       }
 
+      if (seat.taken && !seat.ticket) {
+        return 'red';
+      }
+
       if (user.reference === seat.ticket.owner.reference) {
         return 'yellow';
       }
@@ -142,6 +146,17 @@ This code may only be used under the BSD style license found at https://github.c
       }
 
       return 'red';
+    },
+    _getTooltipText(seat) {
+      if (!seat.taken) {
+        return 'Free';
+      }
+
+       if (seat.taken && !seat.ticket) {
+        return 'Reserved';
+       }
+
+       return seat.ticket.owner.profile.displayName;
     }
   });
   </script>
