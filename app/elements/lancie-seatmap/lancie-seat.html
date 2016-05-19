@@ -113,7 +113,7 @@ This code may only be used under the BSD style license found at https://github.c
       if (response.succeeded) {
         this.reservationError = false;
         this.reservationErrorMessage = '';
-        this.$.listbox.attrForSelected = undefined;
+        this.$.listbox.selected = undefined;
         this.fire('reserve-seat');
       } else {
         this.reservationError = true;
