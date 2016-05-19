@@ -71,7 +71,6 @@
       },
       onGetAllSeats: function(e, request) {
         if (request.succeeded) {
-          console.log(request.response);
           var seats = [];
           var groups = 'ABCDEFGHIJ';
           for (var i = 0; i < groups.length; i++) {
@@ -84,7 +83,7 @@
           }
           this.seats = seats;
         } else {
-          console.log(request.response);
+          console.log('Error retrieving all seats!');
         }
       },
       onGetTeamTickets: function(e, request) {
@@ -94,9 +93,8 @@
             return ticket.owner.profile.displayName;
           });
           this.teamMembers = tickets;
-          console.log(this.teamMembers);
         } else {
-          console.log(request.response);
+          console.log('Error retrieving team tickets!');
         }
       },
       onGetSeat: function(e, request) {
@@ -104,7 +102,7 @@
           this.seats.push( request.response);
           this.$.ajaxGetTeamTickets.generateRequest();
         } else {
-          console.log(request.response);
+          console.log('Error retrieving your seats!');
         }
       },
       reserveSeat: function() {

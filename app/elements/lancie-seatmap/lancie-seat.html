@@ -66,7 +66,7 @@ This code may only be used under the BSD style license found at https://github.c
       </div>
       <div class="buttons">
         <paper-button raised dialog-dismiss>Close</paper-button>
-        <paper-button on-tap="reserveSeat" raised dialog-confirm>Reserve seat</paper-button>
+        <paper-button on-tap="reserveSeat" raised>Reserve seat</paper-button>
       </div>
     </lancie-dialog>
   </template>
@@ -107,12 +107,13 @@ This code may only be used under the BSD style license found at https://github.c
       this.$.ajaxReserveSeat.params = {'ticketId': this.$.listbox.selectedItem.ticket};
       this.$.ajaxReserveSeat.refurl = 'seats/' + this.seat.seatGroup + '/' + this.seat.seatNumber;
       this.$.ajaxReserveSeat.generateRequest();
+      this.$.seatDialog.close();
     },
     onReserveSeat: function(e, response) {
       if (response.succeeded) {
         this.reservationError = false;
         this.reservationErrorMessage = '';
-        this.$.listbox.attrForSelected = null;
+        this.$.listbox.attrForSelected = undefined;
         this.fire('reserve-seat');
       } else {
         this.reservationError = true;
