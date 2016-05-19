@@ -116,6 +116,7 @@
       transition-timing-function: var(--material-curve-320);
       transform: translate(50px, 0);
       opacity: 0;
+      font-weight: bold;
     }
 
     :host(.active) .version {
@@ -241,7 +242,7 @@
           if (ticket.text !== 'Early Bird') {
             var date = new Date(Date.parse(ticket.deadline));
             var month = date.getMonth() + 1;
-            return 'Available until ' + date.getDate() + '/' + month + '!';
+            return 'Available until ' + date.getDate() + '/' + month + ' ' + date.getUTCHours() + ':' + date.getMinutes() + '!';
           }
           if(ticket.limit !== 0){
             var remaining = ticket.limit - ticket.numberSold;
