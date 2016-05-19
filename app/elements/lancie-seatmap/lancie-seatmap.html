@@ -39,7 +39,7 @@ This code may only be used under the BSD style license found at https://github.c
       <div>
        <img src="/images/seatmap/stage.png">
       </div>
-      <div class="layout seats flex-3 seatgroup vertical">
+      <div class="layout seats flex-2 seatgroup vertical">
         <template is="dom-repeat" items='["A", "B", "C", "D", "E"]'>
           <div class="layout flex horizontal seatmap-row">
             <div class="grouplabel layout center center-justified horizontal">{{item}}</div>
@@ -47,7 +47,7 @@ This code may only be used under the BSD style license found at https://github.c
           </div>
         </template>
       </div>
-      <div class="layout seats flex-4 seatgroup vertical">
+      <div class="layout seats flex-3 seatgroup vertical">
         <template is="dom-repeat" items='["F", "G", "H", "I", "J"]'>
           <div class="layout flex horizontal seatmap-row">
             <lancie-seat-group class="layout flex vertical" group="{{item}}" seats="{{_getSeatGroup(seats, item)}}" tickets="{{tickets}}" user="{{user}}"></lancie-seat-group>
