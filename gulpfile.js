@@ -159,9 +159,15 @@ gulp.task('clean', function() {
   return del(['.tmp', dist()]);
 });
 
-var serve = function(baseDir) {
-  var proxyOptions = url.parse('http://localhost:9000/api/');
-  proxyOptions.route = '/api';
+var serve = function(baseDir, api) {
+  var proxy = [];
+  if (api) {
+    var proxyOptions = url.parse('http://localhost:9000/api/');
+    proxyOptions.route = '/api';
+
+    proxy = [proxy(proxyOptions)];
+  }
+
 
   browserSync({
     port: 5100,
@@ -181,14 +187,25 @@ var serve = function(baseDir) {
     // https: true,
     server: {
       baseDir: baseDir,
-      middleware: [proxy(proxyOptions)]
+      middleware: proxy
     }
   });
 };
 
 // Watch Files For Changes & Reload
 gulp.task('serve', ['images'], function () {
-  serve(['.tmp', 'app']);
+  serve(['.tmp', 'app'], true);
+
+  gulp.watch(['app/**/*.html'], reload);
+  gulp.watch(['app/styles/**/*.css'], [reload]);
+  gulp.watch(['app/elements/**/*.css'], [reload]);
+  gulp.watch(['app/{scripts,elements}/**/*.js'], ['jshint', reload]);
+  gulp.watch(['app/images/**/*'], reload);
+});
+
+// Watch Files For Changes & Reload
+gulp.task('serve:noapi', ['images'], function () {
+  serve(['.tmp', 'app'], false);
 
   gulp.watch(['app/**/*.html'], reload);
   gulp.watch(['app/styles/**/*.css'], [reload]);
@@ -199,7 +216,7 @@ gulp.task('serve', ['images'], function () {
 
 // Build and serve the output from the dist build
 gulp.task('serve:dist', ['default'], function() {
-  serve(['dist']);
+  serve(['dist'], true);
 
   gulp.watch(['app/**/*.html'], ['default', reload]);
   gulp.watch(['app/styles/**/*.css'], ['default', reload]);
