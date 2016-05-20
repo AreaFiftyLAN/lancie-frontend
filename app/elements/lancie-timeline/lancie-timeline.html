@@ -1,0 +1,278 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+
+<dom-module id="lancie-timeline">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
+    <style>
+    :host {
+      display: block;
+      /*color: #fff;*/
+    }
+    
+    paper-tabs {
+      --paper-tabs: {
+        background: #1a2b43;
+        cololr: #ffe574;
+      }
+      ;
+    }
+
+    .card-content {
+      background: #eeeeee;
+    }
+    
+    table {
+      table-layout: fixed;
+      width: 100%;
+    }
+
+    .timeslots {
+      background: #e5e5e5;
+      padding: 8px 16px;
+      text-align: center;
+    }
+    
+    .timeslots .timeslot-friday {
+      width: 150px;
+    }
+    
+    .timeblock {
+      padding: 8px 16px;
+      background: #fff;
+    }
+    
+    .timeblock .time-header {
+      font-size: 11px;
+      font-weight: bold;
+      color: #666;
+      line-height: 16px;
+    }
+    </style>
+
+    <iron-ajax auto url="{{json}}" handle-as="json" last-response="{{activities}}" debounce-duration="300"></iron-ajax>
+
+    <div class="layout vertical">
+      <paper-card image="" elevation="1" animated-shadow="false">
+        <div class="card-header">
+          <paper-tabs selected="{{selected}}">
+            <paper-tab>Friday</paper-tab>
+            <paper-tab>Saturday</paper-tab>
+            <paper-tab>Sunday</paper-tab>
+          </paper-tabs>
+        </div>
+        <div class="card-content">
+          <iron-pages selected="{{selected}}">
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="timeblock">
+                      <div class="time-header">18:00-19:00</div>
+                      <div>Opening</div>
+                    </td>
+                    <td></td>
+                    <td class="timeblock" colspan="5">
+                      <div class="time-header">20:00-00:00</div>
+                      <div>RL Tournament</div>
+                    </td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="timeblock" colspan="2">
+                      <div class="time-header">08:00-10:00</div>
+                      <div>Breakfast</div>
+                    </td>
+                    <td colspan="2"></td>
+                    <td class="timeblock" colspan="2">
+                      <div class="time-header">12:00-14:00</div>
+                      <div>Lunch</div>
+                    </td>
+                    <td colspan="3"></td>
+                    <td class="timeblock" colspan="3">
+                      <div class="time-header">17:00-20:00</div>
+                      <div>Dinner</div>
+                    </td>
+                    <td colspan="6"></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"></td>
+                    <td class="timeblock" colspan="13">
+                      <div class="time-header">10:00-23:00</div>
+                      <div>LOL Tournament</div>
+                    </td>
+                    <td colspan="4"></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"></td>
+                    <td class="timeblock" colspan="13">
+                      <div class="time-header">10:00-23:00</div>
+                      <div>CS:GO Tournament</div>
+                    </td>
+                    <td colspan="4"></td>
+                  </tr>
+                  <tr>
+                    <td colspan="5"></td>
+                    <td class="timeblock" colspan="10">
+                      <div class="time-header">13:00-23:00</div>
+                      <div>HS Tournament</div>
+                    </td>
+                    <td colspan="4"></td>
+                  </tr>
+                  <tr>
+                    <td colspan="13"></td>
+                    <td class="timeblock" colspan="5">
+                      <div class="time-header">21:00-02:00</div>
+                      <div>Poker tournament</div>
+                    </td>
+                    <td colspan="1"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="timeblock" colspan="2">
+                      <div class="time-header">08:00-10:00</div>
+                      <div>Breakfast</div>
+                    </td>
+                    <td colspan="2"></td>
+                    <td class="timeblock" colspan="2">
+                      <div class="time-header">12:00-14:00</div>
+                      <div>Lunch</div>
+                    </td>
+                    <td colspan="1"></td>
+                    <td class="timeblock" colspan="2">
+                      <div class="time-header">15:00-16:00</div>
+                      <div>Award ceremony</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="1"></td>
+                    <td class="timeblock" colspan="4">
+                      <div class="time-header">09:00-13:00</div>
+                      <div>LoL Final</div>
+                    </td>
+                    <td colspan="3"></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"></td>
+                    <td class="timeblock" colspan="4">
+                      <div class="time-header">10:00-14:00</div>
+                      <div>CS:GO Final</div>
+                    </td>
+                    <td colspan="2"></td>
+                  </tr>
+                  <tr>
+                    <td colspan="3"></td>
+                    <td class="timeblock" colspan="4">
+                      <div class="time-header">11:00-15:00</div>
+                      <div>HearthStone Final</div>
+                    </td>
+                    <td colspan="1"></td>
+                  </tr>
+                  <!-- <tr>
+                    <td colspan="5"></td>
+                    <td class="timeblock" colspan="10">
+                      <div class="time-header">13:00-23:00</div>
+                      <div>HS Tournament</div>
+                    </td>
+                    <td colspan="4"></td>
+                  </tr>
+                  <tr>
+                    <td colspan="13"></td>
+                    <td class="timeblock" colspan="5">
+                      <div class="time-header">21:00-02:00</div>
+                      <div>Poker tournament</div>
+                    </td>
+                    <td colspan="1"></td>
+                  </tr> -->
+                </tbody>
+              </table>
+            </div>
+          </iron-pages>
+
+      </paper-card>
+      </div>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'lancie-timeline',
+      properties: {
+        activities: {
+          type: Array,
+          value: [],
+          notify: true
+        },
+        json: {
+          notify: true
+        },
+        selected: {
+          type: Number,
+          value: 2
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>
