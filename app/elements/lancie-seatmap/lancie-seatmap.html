@@ -1,0 +1,120 @@
+<!--
+@license
+Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
+This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+
+<dom-module id="lancie-seatmap">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
+    <style>
+    :host {
+      display: block;
+      padding: 32px;
+    }
+
+    .seatmap-row {
+      padding: 16px;
+    }
+
+    .grouplabel {
+      width: 64px;
+      color: #fee474;
+      font-size: 32px;
+      font-weight: bold;
+      background: #1a2b43;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                  0 1px 5px 0 rgba(0, 0, 0, 0.12),
+                  0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+    }
+    </style>
+
+    <lancie-ajax id="ajaxGetAllSeats" refurl="seats" on-response="onGetAllSeats"></lancie-ajax>
+    <lancie-ajax id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-response="onGetTeamTickets"></lancie-ajax>
+    
+    <div class="layout horizontal" on-reserve-seat="refreshSeats">
+      <div>
+       <img src="/images/seatmap/stage.png">
+      </div>
+      <div class="layout seats flex-2 seatgroup vertical">
+        <template is="dom-repeat" items='["A", "B", "C", "D", "E"]'>
+          <div class="layout flex horizontal seatmap-row">
+            <div class="grouplabel layout center center-justified horizontal">{{item}}</div>
+            <lancie-seat-group class="layout flex vertical" group="{{item}}" seats="{{_getSeatGroup(seats, item)}}" tickets="{{tickets}}" user="{{user}}"></lancie-seat-group>
+          </div>
+        </template>
+      </div>
+      <div class="layout seats flex-3 seatgroup vertical">
+        <template is="dom-repeat" items='["F", "G", "H", "I", "J"]'>
+          <div class="layout flex horizontal seatmap-row">
+            <lancie-seat-group class="layout flex vertical" group="{{item}}" seats="{{_getSeatGroup(seats, item)}}" tickets="{{tickets}}" user="{{user}}"></lancie-seat-group>
+            <div class="grouplabel layout center center-justified horizontal">{{item}}</div>
+          </div>
+        </template>
+      </div>
+      <div>
+       <img src="/images/seatmap/lounge.png">
+      </div>
+    </div>
+
+    <paper-toast id="reserveSeatSuccessToast" text="Seat reservation successfull!" duration="3000"></paper-toast>
+    <paper-toast id="getAllSeatsErrorToast" text="Something went wrong, please refresh the page!" duration="3000"></paper-toast>
+    <paper-toast id="getAllTicketsErrorToast" text="Something went wrong, please refresh the page!" duration="3000"></paper-toast>
+  </template>
+  <script>
+  'use strict';
+  Polymer({
+    is: 'lancie-seatmap',
+    properties: {
+      user: Object,
+      seats: {
+        type: Array,
+        value: function() {
+          return [];
+        }
+      },
+      tickets: {
+        type: Array,
+        value: function() {
+          return [];
+        }
+      }
+    },
+    attached: function() {
+      this.$.ajaxGetAllSeats.generateRequest();
+      this.$.ajaxGetTeamTickets.generateRequest();
+    },
+    refreshSeats: function() {
+      this.$.reserveSeatSuccessToast.show();
+      this.$.ajaxGetAllSeats.generateRequest();
+    },
+    onGetAllSeats: function(e, request) {
+      if (request.succeeded) {
+        var seats = [];
+        var groups = 'ABCDEFGHIJ';
+        for (var i = 0; i < groups.length; i++) {
+          seats[groups.charAt(i)] = request.response.seatmap[groups.charAt(i)].sort(function(a, b) {
+            return a.seatNumber - b.seatNumber;
+          });
+        }
+        this.seats = seats;
+      } else {
+        this.$.getAllSeatsErrorToast.show();
+      }
+    },
+    onGetTeamTickets: function(e, request) {
+      if (request.succeeded) {
+        this.tickets = request.response;
+      } else {
+        this.$.getAllTicketsErrorToast.show();
+      }
+    },
+    _getSeatGroup: function(seats, group) {
+      return seats[group];
+    }
+  });
+  </script>
+</dom-module>

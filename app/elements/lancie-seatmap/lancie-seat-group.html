@@ -1,0 +1,58 @@
+<!--
+@license
+Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
+This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+
+
+<dom-module id="lancie-seat-group">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
+    <style>
+    :host {
+      display: block;
+    }
+    </style>
+    
+    <div class="layout vertical flex">
+      <div class="layout flex horizontal">
+        <template is="dom-repeat" items="{{_getFirstHalf(seats)}}">
+          <lancie-seat class="layout vertical flex" tickets="{{tickets}}" seat="{{item}}" user="{{user}}"></lancie-seat>
+        </template>
+      </div>
+      <div class="layout flex horizontal">
+        <template is="dom-repeat" items="{{_getLastHalf(seats)}}">
+          <lancie-seat class="layout vertical flex" tickets="{{tickets}}" seat="{{item}}" user="{{user}}"></lancie-seat>
+        </template>
+      </div>
+    </div>
+
+  </template>
+  <script>
+  'use strict';
+  Polymer({
+    is: 'lancie-seat-group',
+    properties: {
+      user: Object,
+      group: String,
+      seats: {
+        type: Array
+      },
+      tickets: {
+        type: Array,
+        value: function() {
+          return [];
+        }
+      }
+    },
+    _getFirstHalf: function(seats) {
+      return seats.slice(0, seats.length / 2);
+    },
+    _getLastHalf: function(seats) {
+      return seats.slice(seats.length / 2, seats.length);
+    }
+  });
+  </script>
+</dom-module>

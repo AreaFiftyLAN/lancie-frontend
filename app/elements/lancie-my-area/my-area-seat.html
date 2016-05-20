@@ -1,6 +1,9 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+
+<link rel="import" href="../lancie-login/lancie-ajax.html">
 
 <dom-module id="my-area-seat">
   <template>
@@ -18,24 +21,99 @@
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
     }
-
     </style>
+
+    <lancie-ajax id="ajaxGetAllSeats" refurl="seats" on-response="onGetAllSeats"></lancie-ajax>
+    <lancie-ajax id="ajaxGetSeat" refurl="users/current/seat" on-response="onGetSeat"></lancie-ajax>
+    <lancie-ajax id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-response="onGetTeamTickets"></lancie-ajax>
+
     <paper-card heading="Seat" elevation="1" animated-shadow="true">
         <div class="card-content">
-          Seat reservation will become available soon.
+          <template is="dom-if" if="{{seats.length}}">
+            <template is="dom-repeat" items="{{seats}}" index-as="index">
+              <paper-item class="layout horizontal">
+                <div class="flex">{{item.ticket.owner.profile.displayName}}</div>
+                <div>{{item.seatGroup}}{{item.seatNumber}}</div>
+              </paper-item>
+            </template>
+          </template>
+          <template is="dom-if" if="{{!seats.length}}">
+            Reserve your seat now!
+          </template>
         </div>
         <div class="card-actions">
-          <paper-icon-button icon="icons:event-seat" id="reserve-seat" disabled></paper-icon-button>
+          <paper-icon-button on-tap="reserveSeat" icon="icons:event-seat" id="reserve-seat"></paper-icon-button>
           <paper-tooltip for="reserve-seat" offset="0" animation-delay="1">Reserve a seat</paper-tooltip>
+          <paper-icon-button icon="icons:refresh" on-tap="refreshSeats" id="refresh-seat"></paper-icon-button>
+          <paper-tooltip for="refresh-seat" offset="0" animation-delay="1">Refresh</paper-tooltip>
         </div>
       </paper-card>
   </template>
   <script>
-  Polymer({
-    is: 'my-area-seat',
-    properties: {
-      
-    }
-  });
+  'use strict';
+  (function() {
+    Polymer({
+      is: 'my-area-seat',
+      properties: {
+        teamMembers: {
+          type: Array,
+          value: function() {
+            return [];
+          }
+        },
+        seats: {
+          type: Array,
+          value: function() {
+            return [];
+          }
+        }
+      },
+      attached: function() {
+        this.$.ajaxGetSeat.generateRequest();
+      },
+      onGetAllSeats: function(e, request) {
+        if (request.succeeded) {
+          var seats = [];
+          var groups = 'ABCDEFGHIJ';
+          for (var i = 0; i < groups.length; i++) {
+            var group = request.response.seatmap[groups.charAt(i)];
+            for (var j = 0; j < group.length; j++) {
+              if (group[j].ticket && this.teamMembers.includes(group[j].ticket.owner.profile.displayName)) {
+                seats[seats.length] = group[j];
+              }
+            }
+          }
+          this.seats = seats;
+        } else {
+          console.log('Error retrieving all seats!');
+        }
+      },
+      onGetTeamTickets: function(e, request) {
+        if (request.succeeded) {
+          this.$.ajaxGetAllSeats.generateRequest();
+          var tickets = request.response.map(function(ticket) {
+            return ticket.owner.profile.displayName;
+          });
+          this.teamMembers = tickets;
+        } else {
+          console.log('Error retrieving team tickets!');
+        }
+      },
+      onGetSeat: function(e, request) {
+        if (request.succeeded) {
+          this.seats.push( request.response);
+          this.$.ajaxGetTeamTickets.generateRequest();
+        } else {
+          console.log('Error retrieving your seats!');
+        }
+      },
+      reserveSeat: function() {
+        location.href = location.href.replace('my-area', 'seatmap');
+      },
+      refreshSeats: function() {
+        this.$.ajaxGetSeat.generateRequest();
+      }
+    });
+  })();
   </script>
 </dom-module>
