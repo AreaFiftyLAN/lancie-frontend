@@ -13,6 +13,9 @@
 <link rel="import" href="lancie-ticket-page/lancie-ticket-page.html">
 <link rel="import" href="lancie-ticket-page/lancie-terms-of-service.html">
 <link rel="import" href="lancie-ticket-page/lancie-ticket-profile-intercept.html">
+<link rel="import" href="lancie-seatmap/lancie-seatmap.html">
+<link rel="import" href="lancie-seatmap/lancie-seat-group.html">
+<link rel="import" href="lancie-seatmap/lancie-seat.html">
 <link rel="import" href="lancie-password/lancie-password-reset.html">
 <link rel="import" href="lancie-password/lancie-password-reset-success.html">
 <link rel="import" href="lancie-password/lancie-request-password-reset.html">
@@ -62,6 +65,12 @@
       <div data-route="tickets">
         <lancie-login-check user="{{user}}">
           <lancie-ticket-page route="{{route}}" user="{{user}}"></lancie-ticket-page>
+        </lancie-login-check>
+      </div>
+
+       <div data-route="seatmap">
+        <lancie-login-check user="{{user}}">
+          <lancie-seatmap user="{{user}}"></lancie-seatmap>
         </lancie-login-check>
       </div>
 

@@ -1,0 +1,163 @@
+<!--
+@license
+Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
+This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="../lancie-dialog/lancie-dialog.html">
+
+
+<dom-module id="lancie-seat">
+  <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
+    <style>
+    :host {
+      display: block;
+      position: relative;
+    }
+
+    .seat {
+      height: 100%;
+      margin: 4px;
+      border-radius: 2px;
+      background: #fafafa;
+
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                  0 1px 5px 0 rgba(0, 0, 0, 0.12),
+                  0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+
+    .green {
+      background-color: #4CAF50;
+    }
+
+    .yellow {
+      background-color: #FFEB3B;
+    }
+
+    .red {
+      background-color: #F44336;
+    }
+    </style>
+
+    <lancie-ajax id="ajaxReserveSeat" method="POST" on-response="onReserveSeat"></lancie-ajax>
+
+    <div id="seat" class$="seat layout center center-justified horizontal flex {{_calculateClass(user, tickets, seat)}}" on-tap="showSeatDialog">
+      <div>{{seat.seatNumber}}</div>
+      <paper-tooltip for="seat" animationDelay="0">{{_getTooltipText(seat)}}</paper-tooltip>
+    </div>
+
+    <lancie-dialog id="seatDialog" entry-animation="scale-up-animation" with-backdrop>
+      <h2>Seat reservation</h2>
+      <div class="card-content">
+        <paper-material class="errormessage" hidden$="{{!reservationError}}">{{reservationErrorMessage}}</paper-material>
+        Select the user to reserve this seat for: 
+        <paper-listbox id="listbox">
+          <template is="dom-repeat" items="{{tickets}}">
+             <paper-item ticket="{{item.id}}">{{item.owner.profile.displayName}}</paper-item>
+          </template>
+        </paper-listbox>
+      </div>
+      <div class="buttons">
+        <paper-button raised dialog-dismiss>Close</paper-button>
+        <paper-button on-tap="reserveSeat" raised>Reserve seat</paper-button>
+      </div>
+    </lancie-dialog>
+  </template>
+  <script>
+  'use strict';
+  Polymer({
+    is: 'lancie-seat',
+    behaviors: [
+      Polymer.PaperButtonBehavior
+    ],
+    properties: {
+      reservationError: {
+        type: Boolean,
+        value: false
+      },
+      reservationErrorMessage: String,
+      user: Object,
+      seat: Object,
+      tickets: {
+        type: Array,
+        value: function() {
+          return [];
+        }
+      }
+    },
+    showSeatDialog: function() {
+      if (this.seat.taken) {
+        return;
+      }
+      this.$.seatDialog.open();
+    },
+    reserveSeat: function() {
+      if (!this.$.listbox.selectedItem) {
+        this.reservationError = true;
+        this.reservationErrorMessage = 'Please select a user!';
+        return;
+      }
+      this.$.ajaxReserveSeat.params = {'ticketId': this.$.listbox.selectedItem.ticket};
+      this.$.ajaxReserveSeat.refurl = 'seats/' + this.seat.seatGroup + '/' + this.seat.seatNumber;
+      this.$.ajaxReserveSeat.generateRequest();
+      this.$.seatDialog.close();
+    },
+    onReserveSeat: function(e, response) {
+      if (response.succeeded) {
+        this.reservationError = false;
+        this.reservationErrorMessage = '';
+        this.$.listbox.selected = undefined;
+        this.fire('reserve-seat');
+      } else {
+        this.reservationError = true;
+        if (response.request.status === 409) {
+          this.reservationErrorMessage = 'Seat was already reserved!';
+        } else {
+          this.reservationErrorMessage = 'Something went wrong, please refresh and try again.';
+        }
+      }
+    },
+    _calculateClass: function(user, teamTickets, seat) {
+      if (!seat.taken) {
+        return '';
+      }
+
+      if (seat.taken && !seat.ticket) {
+        return 'red';
+      }
+
+      if (user.reference === seat.ticket.owner.reference) {
+        return 'yellow';
+      }
+
+      var teamMembers = teamTickets.map(function(ticket) {
+        return ticket.owner.reference;
+      });
+
+      if (teamMembers.includes(seat.ticket.owner.reference)) {
+        return 'green';
+      }
+
+      return 'red';
+    },
+    _getTooltipText: function(seat) {
+      if (!seat.taken) {
+        return 'Free';
+      }
+
+       if (seat.taken && !seat.ticket) {
+        return 'Reserved';
+       }
+
+       return seat.ticket.owner.profile.displayName;
+    }
+  });
+  </script>
+</dom-module>
