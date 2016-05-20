@@ -17,6 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../lancie-activity/lancie-activities.html">
 <link rel="import" href="../lancie-commission/lancie-commission.html">
 <link rel="import" href="../lancie-sponsors/lancie-sponsors.html">
+<link rel="import" href="../lancie-timeline/lancie-timeline.html">
 <link rel="import" href="lancie-image-slider.html">
 
 <dom-module id="lancie-home-page">
@@ -28,10 +29,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     iron-image {
       width: calc(100vw);
       height: 600px;
-    }
-
-    lancie-timetable {
-      height: 300px;
     }
 
     a {
@@ -89,7 +86,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <lancie-section type="primary" header="What do you get?">
       <div>
         <p>
-          Early bird tickets are currently available and cost €37.50*, regular tickets will cost €40*.
+          Early bird tickets are currently available and cost € 37,50*, regular tickets will cost € 40,-*.
           This includes admission to the entire event + breakfast, lunch and dinner on saturday and breakfast and lunch on sunday.
           You will have your own desk of 1.10m x 0.60m for the weekend, and a comfy chair to sit on. For an additional €2.50,
           we will pick up your PC thursday evening and deliver it to the event. The maximum distance for the pickup service is 7.5Km from the Cornelis Drebbelweg 5. Your PC will be returned to you on sunday evening.
@@ -101,7 +98,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           Below you can find a global overview. Please note this is subject to change and of course this is not all!
           A final schedule will be provided during the event.
         </p>
-        <!-- <lancie-timetable></lancie-timetable> -->
+        <lancie-timeline></lancie-timeline>
       </div>
     </lancie-section>
 
