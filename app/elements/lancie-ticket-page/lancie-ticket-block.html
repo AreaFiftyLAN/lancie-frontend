@@ -22,7 +22,7 @@
 
     paper-material {
       transition: box-shadow 200ms;
-      width: 230px;
+      width: 260px;
       padding: 16px;
       margin: 8px;
       background-color: #fff;
@@ -116,6 +116,7 @@
       transition-timing-function: var(--material-curve-320);
       transform: translate(50px, 0);
       opacity: 0;
+      font-weight: bold;
     }
 
     :host(.active) .version {
@@ -197,7 +198,7 @@
             computed: '_computeRemainingString(ticket)'
           },
 
-          chMember: {
+          chMember: { 
             type: Boolean
           },
 
@@ -217,7 +218,11 @@
         },
 
         attached: function() {
-          if (this.ticket.numberSold === this.ticket.limit) {
+          if (this.ticket.numberSold === this.ticket.limit && this.ticket.limit !== 0) {
+            this.classList.add('disabled');
+            this.disabled = true;
+          }
+          if(Date.parse(this.ticket.deadline)-7200000 < Date.now()){
             this.classList.add('disabled');
             this.disabled = true;
           }
@@ -233,14 +238,18 @@
         },
 
         _computeRemainingString: function(ticket) {
-          var remaining = ticket.limit - ticket.numberSold;
-          if (remaining === 0) {
-            return 'SOLD OUT!';
+          if (ticket.text !== 'Early Bird') {
+            var date = new Date(Date.parse(ticket.deadline));
+            var month = date.getUTCMonth() + 1;
+            return 'Available until ' + date.getUTCDate() + '/' + month + ' ' + date.getUTCHours() + ':' + date.getMinutes() + '!';
           }
-          if (ticket.text === 'Regular') {
-            return 'Available!';
+          if(ticket.limit !== 0){
+            var remaining = ticket.limit - ticket.numberSold;
+            if (remaining === 0) {
+              return 'SOLD OUT!';
+            }
+            return remaining + ' tickets left!';
           }
-          return remaining + ' tickets left!';
         },
 
         _computePrice: function(ticket, chMember, pickup) {
@@ -253,6 +262,10 @@
         },
 
         _formatPrice: function(price) {
+          // Hack last minute price
+          if(price === 45.00){
+            return '??';
+          }
           if (price % 1 === 0) {
             return Math.abs(price) + ',-';
           } else {
