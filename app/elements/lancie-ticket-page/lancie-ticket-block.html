@@ -222,8 +222,7 @@
             this.classList.add('disabled');
             this.disabled = true;
           }
-
-          if(Date.parse(this.ticket.deadline) < new Date().valueOf()){
+          if(Date.parse(this.ticket.deadline)-7200000 < Date.now()){
             this.classList.add('disabled');
             this.disabled = true;
           }
@@ -263,6 +262,10 @@
         },
 
         _formatPrice: function(price) {
+          // Hack last minute price
+          if(price === 45.00){
+            return '??';
+          }
           if (price % 1 === 0) {
             return Math.abs(price) + ',-';
           } else {
