@@ -160,12 +160,12 @@ gulp.task('clean', function() {
 });
 
 var serve = function(baseDir, api) {
-  var proxy = [];
+  var proxyArr = [];
   if (api) {
     var proxyOptions = url.parse('http://localhost:9000/api/');
     proxyOptions.route = '/api';
 
-    proxy = [proxy(proxyOptions)];
+    proxyArr = [proxy(proxyOptions)];
   }
 
 
@@ -187,7 +187,7 @@ var serve = function(baseDir, api) {
     // https: true,
     server: {
       baseDir: baseDir,
-      middleware: proxy
+      middleware: proxyArr
     }
   });
 };
