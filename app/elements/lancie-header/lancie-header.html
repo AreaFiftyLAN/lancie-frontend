@@ -32,7 +32,7 @@
     }
     </style>
 
-    <paper-tabs selected="0">
+    <paper-tabs selected="{{_selected()}}">
       <paper-tab link>
         <a href="{{baseUrl}}/" tabindex="-1">Home</a>
       </paper-tab>
@@ -56,6 +56,18 @@
         type: String,
         notify: true
       }
+    },
+    _selected: function() {
+      var route = window.location.href.split('#!/')[1];
+
+      if (route.startsWith('tickets')) {
+        return 1;
+      } else if (route.startsWith('my-area')) {
+        return 2;
+      } else if (route.startswith('seatmap')) {
+        return 3;
+      }
+      return 0;
     }
   });
   </script>
