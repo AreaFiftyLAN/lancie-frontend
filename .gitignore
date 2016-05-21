@@ -3,3 +3,5 @@ dist
 bower_components
 .tmp
 npm-debug.log
+*.sublime-project
+*.sublime-workspace
