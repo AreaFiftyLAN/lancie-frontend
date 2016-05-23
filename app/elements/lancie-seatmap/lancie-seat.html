@@ -57,15 +57,19 @@ This code may only be used under the BSD style license found at https://github.c
       <h2>Seat reservation</h2>
       <div class="card-content">
         <paper-material class="errormessage" hidden$="{{!reservationError}}">{{reservationErrorMessage}}</paper-material>
-        <template is="dom-if" if="{{tickets.length}}">
+        <template hidden$="{{!tickets.length}}">
           Select the user to reserve this seat for: 
         </template>
+<<<<<<< Updated upstream
         <paper-listbox id="listbox">
           <template is="dom-repeat" items="{{tickets}}">
              <paper-item ticket="{{item.id}}">{{item.owner.profile.displayName}}</paper-item>
           </template>
         </paper-listbox>
         <template is="dom-if" if="{{!tickets.length}}"> 
+=======
+        <template hidden$="{{tickets.length}}"> 
+>>>>>>> Stashed changes
           You need at least one ticket to reserve a seat!
         </template> 
       </div>
