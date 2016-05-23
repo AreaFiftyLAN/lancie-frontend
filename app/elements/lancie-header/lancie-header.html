@@ -45,9 +45,9 @@
       <paper-tab link>
         <a href="{{baseUrl}}/seatmap" tabindex="-1">Seatmap</a>
       </paper-tab>
-      <paper-tab link>
+      <!-- <paper-tab link>
         <a href="https://areafiftylan.nl/shop" tabindex="-1">Shop</a>
-      </paper-tab>
+      </paper-tab> -->
     </paper-tabs>
   </template>
   <script>
@@ -64,7 +64,7 @@
         return 1;
       } else if (route.startsWith('my-area')) {
         return 2;
-      } else if (route.startswith('seatmap')) {
+      } else if (route.startsWith('seatmap')) {
         return 3;
       }
       return 0;
