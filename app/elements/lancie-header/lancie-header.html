@@ -1,5 +1,4 @@
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
-
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 
 <dom-module id="lancie-header">
@@ -45,9 +44,9 @@
       <paper-tab link>
         <a href="{{baseUrl}}/seatmap" tabindex="-1">Seatmap</a>
       </paper-tab>
-      <!-- <paper-tab link>
-        <a href="https://areafiftylan.nl/shop" tabindex="-1">Shop</a>
-      </paper-tab> -->
+      <paper-tab link>
+        <a tabindex="-1" on-click="toShop">Shop</a>
+      </paper-tab>
     </paper-tabs>
   </template>
   <script>
@@ -68,6 +67,9 @@
         return 3;
       }
       return 0;
+    },
+    toShop: function() {
+      window.location.href = 'shop';
     }
   });
   </script>
