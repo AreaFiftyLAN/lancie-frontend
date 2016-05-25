@@ -2,12 +2,15 @@
 <link rel="import" href="my-area-ticket-item.html">
 
 <link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="../lancie-ticket-page/lancie-terms-of-service.html">
 
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
+
 
 <dom-module id="my-area-orders">
   <template>
@@ -64,8 +67,20 @@
       <div class="card-actions">
         <paper-icon-button on-tap="buyTickets" icon="icons:add-shopping-cart" id="buy-ticket">Buy tickets</paper-icon-button>
         <paper-tooltip for="buy-ticket" offset="0" animation-delay="1">Buy tickets</paper-tooltip>
+        <paper-icon-button on-tap="showTermsAndConditions" icon="icons:description" id="terms-and-conditions">Terms and Conditions</paper-icon-button>
+        <paper-tooltip for="terms-and-conditions" offset="0" animation-delay="1">Terms and conditions</paper-tooltip>
       </div>
     </paper-card>
+
+    <paper-dialog id="termsAndConditions" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+      <h2>Terms and conditions</h2>
+      <paper-dialog-scrollable>
+        <lancie-terms-of-service></lancie-terms-of-service>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Close</paper-button>
+      </div>
+    </paper-dialog>
 
     <paper-toast id="ticketTransferTokensRetrievalError" text="Unable to check for open ticket transfers!" duration="3000"></paper-toast>
   </template>
@@ -100,6 +115,9 @@
     buyTickets: function() {
       location.href = location.href.replace('my-area', 'tickets');
       location.reload();
+    },
+    showTermsAndConditions: function() {
+      this.$.termsAndConditions.open();
     },
     storeOrders: function(event, request) {
       this.orders = request.response.length > 0 ? request.response : false;
