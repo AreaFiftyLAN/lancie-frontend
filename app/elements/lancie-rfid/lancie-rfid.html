@@ -52,7 +52,7 @@ This code may only be used under the BSD style license found at https://github.c
               <input id="selectUser" value="{{searchString::input}}">
               <template is="dom-repeat" items="{{tickets}}" as="ticket"
                         filter="{{computeFilter(searchString)}}">
-                <div>{{ticket.owner.profile.firstName}} {{ticket.owner.profile.lastName}}</div>
+                <div>{{ticket.owner.profile.firstName}} {{ticket.owner.profile.lastName}} {{_isChMember(ticket.chMember)}}</div>
               </template>
             </div>
             <div>Diner</div>
@@ -105,6 +105,12 @@ This code may only be used under the BSD style license found at https://github.c
         } else {
           console.log("Unable to connect.");
         }
+      },
+      _isChMember: function(chMember) {
+        if (chMember) {
+          return "- CH";
+        }
+        return "";
       }
     });
   </script>
