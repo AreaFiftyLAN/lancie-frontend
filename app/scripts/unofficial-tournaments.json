@@ -179,6 +179,42 @@
       "Mac"
     ],
     "footer": false
+  },
+  {
+    "title": "TF2",
+    "subtitle": "6 v 6",
+    "headerTitle": "Team Fortress 2",
+    "description": "Team Fortress 2 is a team-based first-person shooter multiplayer video game. In Team Fortress 2, players join one of two teams comprising nine character classes, battling in a variety of game modes including capture the flag and king of the hill. Nine distinct classes provide a broad range of tactical abilities and personalities. Hats are welcome.\n\n## Rules\nT.B.D.",
+    "backgroundImagePath": "images/unofficial/TF2.jpg",
+    "sponsor": {
+      "name": "",
+      "imagePath": "images/unofficial/TF2.jpg",
+      "website": "#"
+    },
+    "prizes": [
+      "T.B.A."
+    ],
+    "format": "6 vs 6",
+    "startingDateTime": {
+      "monthValue": 6,
+      "month": "June",
+      "year": 2016,
+      "dayOfMonth": 4,
+      "dayOfWeek": "Saturday",
+      "dayOfYear": 237,
+      "nano": 876000000,
+      "second": 36,
+      "chronology": {
+        "id": "ISO",
+        "calendarType": "iso8601"
+      }
+    },
+    "rulePath": "T.B.A.",
+    "platform": [
+      "PC",
+      "Mac"
+    ],
+    "footer": false
   }
 ]
 
