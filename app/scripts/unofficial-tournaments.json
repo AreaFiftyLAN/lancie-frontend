@@ -143,6 +143,42 @@
       "Mac"
     ],
     "footer": false
+  },
+  {
+    "title": "JD",
+    "subtitle": "1 v 1",
+    "headerTitle": "Just Dance",
+    "description": "Just Dance is THE game to show your awesome moves to all of Area FiftyLAN. Some heroes took the initiative to set up a tournament just for this, so make sure to get your wristbands and yogapants ready to bust some moves!\n\n### Start time\nSaturday 22:00\n\n### Team Size\nIndividual\n\n### Setup\nElimination. Every game has a four participant. Every round two will continue to the next!",
+    "backgroundImagePath": "images/unofficial/justdance.jpg",
+    "sponsor": {
+      "name": "",
+      "imagePath": "images/unofficial/justdance.jpg",
+      "website": "#"
+    },
+    "prizes": [
+      "T.B.A."
+    ],
+    "format": "1 vs 1",
+    "startingDateTime": {
+      "monthValue": 6,
+      "month": "June",
+      "year": 2016,
+      "dayOfMonth": 4,
+      "dayOfWeek": "Saturday",
+      "dayOfYear": 237,
+      "nano": 876000000,
+      "second": 36,
+      "chronology": {
+        "id": "ISO",
+        "calendarType": "iso8601"
+      }
+    },
+    "rulePath": "T.B.A.",
+    "platform": [
+      "PC",
+      "Mac"
+    ],
+    "footer": false
   }
 ]
 
