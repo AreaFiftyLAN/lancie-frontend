@@ -21,7 +21,7 @@
       "month": "June",
       "year": 2016,
       "dayOfMonth": 4,
-      "dayOfWeek": "Saterday",
+      "dayOfWeek": "Saturday",
       "dayOfYear": 237,
       "nano": 876000000,
       "second": 36,
@@ -57,7 +57,7 @@
       "month": "June",
       "year": 2016,
       "dayOfMonth": 4,
-      "dayOfWeek": "Saterday",
+      "dayOfWeek": "Saturday",
       "dayOfYear": 237,
       "nano": 876000000,
       "second": 36,
@@ -92,7 +92,43 @@
       "month": "June",
       "year": 2016,
       "dayOfMonth": 4,
-      "dayOfWeek": "Saterday",
+      "dayOfWeek": "Saturday",
+      "dayOfYear": 237,
+      "nano": 876000000,
+      "second": 36,
+      "chronology": {
+        "id": "ISO",
+        "calendarType": "iso8601"
+      }
+    },
+    "rulePath": "T.B.A.",
+    "platform": [
+      "PC",
+      "Mac"
+    ],
+    "footer": false
+  },
+  {
+    "title": "Achtung",
+    "subtitle": "1 v 1",
+    "headerTitle": "Achtung die Curve",
+    "description": "Achtung, die Kurve!, also known as Zatacka or simply Achtung, is a freeware, multiplayer DOS computer game that supports from two-player up to eight-player gaming simultaneously. The game is similar to the game Tron, where players leave a trail and try to make the opponent hit a wall or a trail first. The game is controlled by only two buttons, to turn left or right. A key difference is that in Achtung, die Kurve!, players can turn and travel in any direction, not limited to the 4 cardinal directions.\n\n#### Start time\nSaturday 23:30\n\n#### Game format\nFree-for-all, 4 players per game, knockout\n\n#### Tournament structure\nDepends on number of participants\n\n#### Winner criteria\nBeat everyone, shout Achtung! the loudest of everyone everytime\n\n#### Additional info\nThe game has bugs... I mean features. Losing because of a 'feature' is just having bad luck, sorry, can't do anything about it. Hate the game, not the tournament director! (Somebody lost a point last year due to a bug.)",
+    "backgroundImagePath": "images/unofficial/achtung.jpg",
+    "sponsor": {
+      "name": "",
+      "imagePath": "images/unofficial/achtung_logo.jpg",
+      "website": "http://curvefever.com/"
+    },
+    "prizes": [
+      "T.B.A."
+    ],
+    "format": "1 vs 1",
+    "startingDateTime": {
+      "monthValue": 6,
+      "month": "June",
+      "year": 2016,
+      "dayOfMonth": 4,
+      "dayOfWeek": "Saturday",
       "dayOfYear": 237,
       "nano": 876000000,
       "second": 36,
