@@ -251,6 +251,42 @@
       "Mac"
     ],
     "footer": false
+  },
+  {
+    "title": "MK",
+    "subtitle": "1 v 1",
+    "headerTitle": "Mario Kart: Double Dash!!",
+    "description": "Double Dash!! challenges Mario series player characters to race against each other on Mario-themed tracks. One player drives the kart, and the other uses items. Players can switch at any time. There are 20 characters to select from in total, each of which with a special item, and with eleven characters being new to the series.",
+    "backgroundImagePath": "images/unofficial/mkdd.jpg",
+    "sponsor": {
+      "name": "",
+      "imagePath": "images/unofficial/mkdd.jpg",
+      "website": "#"
+    },
+    "prizes": [
+      "T.B.A."
+    ],
+    "format": "1 vs 1",
+    "startingDateTime": {
+      "monthValue": 8,
+      "month": "June",
+      "year": 2016,
+      "dayOfMonth": 3,
+      "dayOfWeek": "Friday",
+      "dayOfYear": 236,
+      "nano": 876000000,
+      "second": 36,
+      "chronology": {
+        "id": "ISO",
+        "calendarType": "iso8601"
+      }
+    },
+    "rulePath": "T.B.A.",
+    "platform": [
+      "PC",
+      "Mac"
+    ],
+    "footer": false
   }
 ]
 
