@@ -32,6 +32,7 @@ This code may only be used under the BSD style license found at https://github.c
         margin-left: auto;
         margin-right: auto;
         margin-top: 16px;
+        margin-bottom: 16px;
         display: block;
         --paper-card-header-color: #1a2b43;
         min-width: 800px;
@@ -50,6 +51,22 @@ This code may only be used under the BSD style license found at https://github.c
           color: #ffe574;
         }
       }
+
+      .errormessage {
+        padding: 10px 20px 9px;
+        margin-bottom: 4px;
+        border-left: 3px solid #F44336;
+        background: #FFCDD2;
+        color: #B71C1C;
+      }
+
+      .successmessage {
+        padding: 10px 20px 9px;
+        margin-bottom: 4px;
+        border-left: 3px solid #1B5E20;
+        background: #C8E6C9;
+        color: #1B5E20;
+      }
     </style>
 
     <lancie-ajax auto refurl="tickets" on-response="onLoadTickets"></lancie-ajax>
@@ -66,8 +83,10 @@ This code may only be used under the BSD style license found at https://github.c
         <div class="card-content">
           <iron-pages selected="{{selected}}">
             <div>
+              <paper-material class="errormessage" hidden$="{{!error}}">{{errorMessage}}</paper-material>
+              <paper-material class="successmessage" hidden$="{{!success}}">{{successMessage}}</paper-material>
               <paper-input id="selectUser" label="Naam" value="{{searchString}}"></paper-input>
-              <paper-listbox id="userListbox">
+              <paper-listbox id="userListbox" class="dropdown-content">
                 <template is="dom-repeat" items="{{tickets}}" filter="{{computeFilter(searchString)}}">
                   <paper-item ticket="{{item.id}}">{{item.owner.profile.firstName}} {{item.owner.profile.lastName}} {{_isChMember(item.chMember)}}</paper-item>
                 </template>
@@ -97,7 +116,18 @@ This code may only be used under the BSD style license found at https://github.c
             return [];
           }
         },
-        rfid: String
+        rfid: String,
+        error: {
+          type: Boolean,
+          value: false
+        },
+        success: {
+          type: Boolean,
+          value: false
+        },
+        errorMessage: String,
+        successMessage: String
+
       },
       submitRfid: function(e) {
         if (e.keyCode === 13) {
@@ -106,17 +136,33 @@ This code may only be used under the BSD style license found at https://github.c
             rfid: this.$.rfid.value
           };
           this.$.ajaxBindRfid.generateRequest();
-          console.log(this.rfid);
-          console.log(this.$.userListbox.selectedItem.ticket);
         }
       },
-      onBindRfid: function(e, request) {
-        if (request.succeeded) {
-          console.log(request.response);
+      onBindRfid: function(e, response) {
+        if (response.succeeded) {
+          this.error = false;
+          this.success = true;
+          this.errorMessage = '';
+          this.successMessage = 'RFID successfuly linked';
           this.$.userListbox.selectedAttribute = undefined;
           this.rfid = '';
+          // Hides the successmessage
+          this.async(function() {
+            this.success = false;
+          }, 5000);
         } else {
-          console.log('error');
+          this.error = true;
+          this.success = false;
+          this.successMessage = '';
+          if (response.request.status === 409) {
+            this.errorMessage = 'RFID-tag or ticket already registered!'
+          } else {
+            this.errorMessage = 'Unable to register RFID-tag.';
+          }
+          // Hides the errormessage
+          this.async(function() {
+            this.error = false;
+          }, 5000);
         }
       },
       computeFilter: function(user) {
