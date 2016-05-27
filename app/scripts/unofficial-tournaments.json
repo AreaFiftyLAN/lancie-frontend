@@ -287,6 +287,42 @@
       "Mac"
     ],
     "footer": false
+  },
+  {
+    "title": "OW",
+    "subtitle": "5 v 5",
+    "headerTitle": "Overwatch",
+    "description": "Overwatch is a multiplayer first-person shooter video game developed and published by Blizzard Entertainment. The game emphasizes cooperative gameplay using a cast of various \"heroes\", each with their own abilities and roles within a team.\n\nOverwatch features squad-based combat with two opposing teams of six players each. Players choose one of several hero characters, each with their own unique abilities and role classes. The four character roles include: offense characters with high speed and attack but low defense, defense characters meant to form choke points for enemies, support characters that provide buffs and debuffs for their allies and enemies respectively (such as healing or speed alterations), and tank characters that have a large amount of armor and hit points to withstand enemy attacks and draw fire away from teammates. Players can switch between characters in-game following deaths or by returning to their home base, which is encouraged by the game's overall design. The game's maps are inspired by real-world locations; the first three maps unveiled (\"King's Row\", \"Hanamura\", \"Temple of Anubis\") are inspired by London, Japan, and the ruins of Ancient Egypt, respectively.",
+    "backgroundImagePath": "images/unofficial/overwatch.jpg",
+    "sponsor": {
+      "name": "",
+      "imagePath": "images/unofficial/overwatch_logo.png",
+      "website": "https://eu.battle.net/shop/en/product/overwatch-origins"
+    },
+    "prizes": [
+      "T.B.A."
+    ],
+    "format": "1 vs 1",
+    "startingDateTime": {
+      "monthValue": 8,
+      "month": "June",
+      "year": 2016,
+      "dayOfMonth": 3,
+      "dayOfWeek": "Friday",
+      "dayOfYear": 236,
+      "nano": 876000000,
+      "second": 36,
+      "chronology": {
+        "id": "ISO",
+        "calendarType": "iso8601"
+      }
+    },
+    "rulePath": "T.B.A.",
+    "platform": [
+      "PC",
+      "Mac"
+    ],
+    "footer": false
   }
 ]
 
