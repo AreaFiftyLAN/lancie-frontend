@@ -187,12 +187,12 @@
     "description": "Team Fortress 2 is a team-based first-person shooter multiplayer video game. In Team Fortress 2, players join one of two teams comprising nine character classes, battling in a variety of game modes including capture the flag and king of the hill. Nine distinct classes provide a broad range of tactical abilities and personalities. Hats are welcome.\n\n## Rules\nT.B.A.",
     "backgroundImagePath": "images/unofficial/TF2.jpg",
     "sponsor": {
-      "name": "",
-      "imagePath": "images/unofficial/TF2.jpg",
-      "website": "#"
+      "name": "TransIP",
+      "imagePath": "images/logos/transip_logo.png",
+      "website": "https://www.transip.nl/"
     },
     "prizes": [
-      "T.B.A."
+      "Discovery RC Quadcopter with HD Camera"
     ],
     "format": "6 vs 6",
     "startingDateTime": {
