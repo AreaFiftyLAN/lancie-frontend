@@ -218,7 +218,7 @@
         },
 
         attached: function() {
-          if (this.ticket.numberSold === this.ticket.limit && this.ticket.limit !== 0) {
+          if (this.ticket.numberSold === this.ticket.limit && this.ticket.limit !== 0 && this.ticket.text === 'Early Bird') {
             this.classList.add('disabled');
             this.disabled = true;
           }
@@ -262,10 +262,6 @@
         },
 
         _formatPrice: function(price) {
-          // Hack last minute price
-          if(price === 45.00){
-            return '??';
-          }
           if (price % 1 === 0) {
             return Math.abs(price) + ',-';
           } else {
