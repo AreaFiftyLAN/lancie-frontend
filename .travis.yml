@@ -11,3 +11,5 @@ script: "gulp $COMMAND"
 cache:
   directories:
     - node_modules
+notifications:
+  email: false
