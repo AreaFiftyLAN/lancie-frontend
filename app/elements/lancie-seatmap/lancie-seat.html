@@ -57,7 +57,7 @@ This code may only be used under the BSD style license found at https://github.c
       <h2>Seat reservation</h2>
       <div class="card-content">
         <paper-material class="errormessage" hidden$="{{!reservationError}}">{{reservationErrorMessage}}</paper-material>
-        <div hidden$="{{!tickets.length}}">
+        <div hidden$="{{!_checkExists(tickets)}}">
           Select the user to reserve this seat for: 
           <paper-listbox id="listbox">
             <template is="dom-repeat" items="{{tickets}}">
@@ -65,13 +65,13 @@ This code may only be used under the BSD style license found at https://github.c
             </template>
           </paper-listbox>
         </div>
-        <div hidden$="{{tickets.length}}"> 
+        <div hidden$="{{_checkExists(tickets)}}"> 
           You need at least one ticket to reserve a seat!
         </div>
       </div>
       <div class="buttons">
         <paper-button raised dialog-dismiss>Close</paper-button>
-        <paper-button on-tap="reserveSeat" raised>Reserve seat</paper-button>
+        <paper-button on-tap="reserveSeat" hidden$="{{!_checkExists(tickets)}}" raised>Reserve seat</paper-button>
       </div>
     </lancie-dialog>
   </template>
@@ -96,6 +96,9 @@ This code may only be used under the BSD style license found at https://github.c
           return [];
         }
       }
+    },
+    _checkExists: function(tickets) {
+      return tickets.length > 0;
     },
     showSeatDialog: function() {
       if (this.seat.taken) {
