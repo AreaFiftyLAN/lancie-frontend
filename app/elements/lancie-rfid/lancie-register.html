@@ -3,78 +3,55 @@
 Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
 This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
 -->
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="lancie-consumption.html">
-<link rel="import" href="lancie-register.html">
-
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
 
 <link rel="import" href="../lancie-login/lancie-ajax.html">
 
-<dom-module id="lancie-rfid">
+
+<dom-module id="lancie-register">
   <template>
     <style include="iron-flex iron-flex-alignment"></style>
     <style>
-      :host {
-        display: block;
+      .errormessage {
+        padding: 10px 20px 9px;
+        margin-bottom: 4px;
+        border-left: 3px solid #F44336;
+        background: #FFCDD2;
+        color: #B71C1C;
       }
 
-      .header {
-        background-color: #1a2b43;
-      }
-
-      paper-card {
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 16px;
-        margin-bottom: 16px;
-        display: block;
-        --paper-card-header-color: #1a2b43;
-        min-width: 800px;
-
-        --paper-card-header-text: {
-          width: 100%;
-          text-align: center;
-          padding-left: 0;
-          margin: 0;
-        }
-      }
-
-      paper-tabs {
-        --paper-tabs: {
-          background: #1a2b43;
-          color: #ffe574;
-        }
+      .successmessage {
+        padding: 10px 20px 9px;
+        margin-bottom: 4px;
+        border-left: 3px solid #1B5E20;
+        background: #C8E6C9;
+        color: #1B5E20;
       }
     </style>
 
     <lancie-ajax auto refurl="tickets" on-response="onLoadTickets"></lancie-ajax>
     <lancie-ajax id="ajaxBindRfid" refurl="rfid" method="POST" on-response="onBindRfid"></lancie-ajax>
 
-    <div class="layout vertical">
-      <paper-card image="" elevation="1" animated-shadow="false">
-        <div class="card-header">
-          <paper-tabs class="layout horizontal" selected="{{selected}}">
-            <paper-tab class="flex">Registration</paper-tab>
-            <paper-tab class="flex">Consumptions</paper-tab>
-          </paper-tabs>
-        </div>
-        <div class="card-content">
-          <iron-pages selected="{{selected}}">
-            <lancie-register></lancie-register>
-            <lancie-consumption></lancie-consumption>
-          </iron-pages>
-        </div>
-      </paper-card>
+    <div>
+      <paper-material class="errormessage" hidden$="{{!error}}">{{errorMessage}}</paper-material>
+      <paper-material class="successmessage" hidden$="{{!success}}">{{successMessage}}</paper-material>
+      <paper-input id="selectUser" label="Naam" value="{{searchString}}"></paper-input>
+      <paper-listbox id="userListbox" class="dropdown-content">
+        <template is="dom-repeat" items="{{tickets}}" filter="{{computeFilter(searchString)}}">
+          <paper-item ticket="{{item.id}}">{{item.owner.profile.firstName}} {{item.owner.profile.lastName}} {{_isChMember(item.chMember)}}</paper-item>
+        </template>
+      </paper-listbox>
+      <paper-input id="rfid" label="RFID-tag" value="{{rfid}}" on-keydown="submitRfid"></paper-input>
     </div>
   </template>
   <script>
     'use strict';
     Polymer({
-      is: 'lancie-rfid',
+      is: 'lancie-register',
       properties: {
         selectedUser: Object,
         selected: {
