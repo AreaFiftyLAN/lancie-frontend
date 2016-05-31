@@ -39,13 +39,13 @@ This code may only be used under the BSD style license found at https://github.c
     <div>
       <paper-material class="errormessage" hidden$="{{!error}}">{{errorMessage}}</paper-material>
       <paper-material class="successmessage" hidden$="{{!success}}">{{successMessage}}</paper-material>
-      <paper-input id="selectUser" label="Naam" value="{{searchString}}"></paper-input>
-      <paper-listbox id="userListbox" class="dropdown-content">
+      <paper-input id="selectUser" label="Naam" value="{{searchString}}" on-keydown="_selectItem"></paper-input>
+      <paper-listbox id="userListbox" class="dropdown-content" on-keydown="_selectItem" selected="{{_userTicket}}">
         <template is="dom-repeat" items="{{tickets}}" filter="{{computeFilter(searchString)}}">
           <paper-item ticket="{{item.id}}">{{item.owner.profile.firstName}} {{item.owner.profile.lastName}} {{_isChMember(item.chMember)}}</paper-item>
         </template>
       </paper-listbox>
-      <paper-input id="rfid" label="RFID-tag" value="{{rfid}}" on-keydown="submitRfid"></paper-input>
+      <paper-input id="rfid" label="RFID-tag" value="{{rfid}}" on-keydown="_submitRfid"></paper-input>
     </div>
   </template>
   <script>
@@ -53,11 +53,6 @@ This code may only be used under the BSD style license found at https://github.c
     Polymer({
       is: 'lancie-register',
       properties: {
-        selectedUser: Object,
-        selected: {
-          type: Number,
-          value: 0
-        },
         tickets: {
           type: Object,
           value: function() {
@@ -75,12 +70,22 @@ This code may only be used under the BSD style license found at https://github.c
         },
         errorMessage: String,
         successMessage: String
-
       },
-      submitRfid: function(e) {
+      _selectItem: function(e) {
         if (e.keyCode === 13) {
+          this.$.rfid.focus();
+        }
+      },
+      _submitRfid: function(e) {
+        if (e.keyCode === 13) {
+          var ticket;
+          if (this.$.userListbox.children.length === 2) {
+            ticket = this.$.userListbox.children[0].ticket;
+          } else {
+            ticket = this._userTicket;
+          }
           this.$.ajaxBindRfid.body = {
-            ticketId: this.$.userListbox.selectedItem.ticket,
+            ticketId: ticket,
             rfid: this.$.rfid.value
           };
           this.$.ajaxBindRfid.generateRequest();
