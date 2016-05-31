@@ -16,6 +16,10 @@ This code may only be used under the BSD style license found at https://github.c
   <template>
     <style include="iron-flex iron-flex-alignment"></style>
     <style>
+      paper-listbox {
+        cursor: pointer;
+      }
+
       .errormessage {
         padding: 10px 20px 9px;
         margin-bottom: 4px;
@@ -77,45 +81,46 @@ This code may only be used under the BSD style license found at https://github.c
         }
       },
       _submitRfid: function(e) {
-        if (e.keyCode === 13) {
+        if (e.keyCode !== 13) {
+          return;
+        } else {
           var ticket;
           if (this.$.userListbox.children.length === 2) {
             ticket = this.$.userListbox.children[0].ticket;
           } else {
             ticket = this._userTicket;
+          } 
+          if (!ticket) {
+            this._showErrorMessage('Please select a user!');
+          } else {
+            this.$.ajaxBindRfid.body = {
+              ticketId: ticket,
+              rfid: this.$.rfid.value
+            };
+            this.$.ajaxBindRfid.generateRequest();
           }
-          this.$.ajaxBindRfid.body = {
-            ticketId: ticket,
-            rfid: this.$.rfid.value
-          };
-          this.$.ajaxBindRfid.generateRequest();
         }
       },
       onBindRfid: function(e, response) {
         if (response.succeeded) {
-          this.error = false;
           this.success = true;
-          this.errorMessage = '';
           this.successMessage = 'RFID successfuly linked';
           this.$.userListbox.selectedAttribute = undefined;
           this.rfid = '';
+          this.$.selectUser.value = '';
+          this.$.selectUser.focus();
           // Hides the successmessage
           this.async(function() {
             this.success = false;
           }, 5000);
         } else {
-          this.error = true;
           this.success = false;
           this.successMessage = '';
           if (response.request.status === 409) {
-            this.errorMessage = 'RFID-tag or ticket already registered!'
+            this._showErrorMessage('RFID-tag or ticket already registered!');
           } else {
-            this.errorMessage = 'Unable to register RFID-tag.';
+            this._showErrorMessage('Unable to register RFID-tag.');
           }
-          // Hides the errormessage
-          this.async(function() {
-            this.error = false;
-          }, 5000);
         }
       },
       computeFilter: function(user) {
@@ -138,6 +143,13 @@ This code may only be used under the BSD style license found at https://github.c
           return '- CH';
         }
         return '';
+      },
+      _showErrorMessage: function(message) {
+        this.error = true;
+        this.errorMessage = message;
+        this.async(function() {
+          this.error = false;
+        }, 5000);
       }
     });
   </script>
