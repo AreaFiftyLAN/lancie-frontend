@@ -8,6 +8,7 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
 
 <link rel="import" href="../lancie-login/lancie-ajax.html">
 
@@ -35,9 +36,33 @@ This code may only be used under the BSD style license found at https://github.c
         background: #C8E6C9;
         color: #1B5E20;
       }
+
+      paper-checkbox.red {
+        display: block;
+        align-self: center;
+        border: 1px solid var(--paper-red-200);
+        padding: 8px 16px;
+
+        --paper-checkbox-checked-color: var(--paper-red-500);
+        --paper-checkbox-checked-ink-color: var(--paper-red-500);
+        --paper-checkbox-unchecked-color: var(--paper-red-900);
+        --paper-checkbox-unchecked-ink-color: var(--paper-red-900);
+        --paper-checkbox-label-color: var(--paper-red-500);
+        --paper-checkbox-label-spacing: 0;
+        --paper-checkbox-margin: 8px 16px 8px 0;
+        --paper-checkbox-vertical-align: top;
+      }
+
+      paper-checkbox .subtitle {
+        display: block;
+        font-size: 0.8em;
+        margin-top: 2px;
+      }
     </style>
 
     <lancie-ajax auto refurl="tickets" on-response="onLoadTickets"></lancie-ajax>
+    <lancie-ajax auto refurl="consumptions" on-response="onGetConsumptions"></lancie-ajax>
+    <lancie-ajax id="ajaxConsumeAlcohol" refurl="consumptions/{{ticketId}}/consume" method="POST" on-response="onConsumeAlcohol"></lancie-ajax>
     <lancie-ajax id="ajaxBindRfid" refurl="rfid" method="POST" on-response="onBindRfid"></lancie-ajax>
 
     <div>
@@ -49,6 +74,12 @@ This code may only be used under the BSD style license found at https://github.c
           <paper-item ticket="{{item.id}}">{{item.owner.profile.firstName}} {{item.owner.profile.lastName}} {{_isChMember(item.chMember)}}</paper-item>
         </template>
       </paper-listbox>
+      <paper-checkbox id="alcohol" class="red">
+        18+
+        <span class="subtitle">
+          Only check after you checked that the person is indeed older than 18 years old!
+        </span>
+      </paper-checkbox>
       <paper-input id="rfid" label="RFID-tag" value="{{rfid}}" on-keydown="_submitRfid"></paper-input>
     </div>
   </template>
@@ -73,7 +104,9 @@ This code may only be used under the BSD style license found at https://github.c
           value: false
         },
         errorMessage: String,
-        successMessage: String
+        successMessage: String,
+        alcoholId: Number,
+        ticketId: Number
       },
       _selectItem: function(e) {
         if (e.keyCode === 13) {
@@ -84,17 +117,16 @@ This code may only be used under the BSD style license found at https://github.c
         if (e.keyCode !== 13) {
           return;
         } else {
-          var ticket;
           if (this.$.userListbox.children.length === 2) {
-            ticket = this.$.userListbox.children[0].ticket;
+            this.ticketId = this.$.userListbox.children[0].ticket;
           } else {
-            ticket = this._userTicket;
+            this.ticketId = this._userTicket;
           } 
-          if (!ticket) {
+          if (!this.ticketId) {
             this._showErrorMessage('Please select a user!');
           } else {
             this.$.ajaxBindRfid.body = {
-              ticketId: ticket,
+              ticketId: this.ticketId,
               rfid: this.$.rfid.value
             };
             this.$.ajaxBindRfid.generateRequest();
@@ -104,15 +136,14 @@ This code may only be used under the BSD style license found at https://github.c
       onBindRfid: function(e, response) {
         this.rfid = '';
         if (response.succeeded) {
-          this.success = true;
-          this.successMessage = 'RFID successfuly linked';
           this.$.userListbox.selectedAttribute = undefined;
           this.$.selectUser.value = '';
           this.$.selectUser.focus();
-          // Hides the successmessage
-          this.async(function() {
-            this.success = false;
-          }, 5000);
+          if (this.$.alcohol.checked) {
+            this.$.ajaxConsumeAlcohol.body = this.alcoholId;
+            this.$.ajaxConsumeAlcohol.generateRequest();
+          }
+          this._showSuccessMessage('RFID successfully linked.');
         } else {
           this.success = false;
           this.successMessage = '';
@@ -138,6 +169,22 @@ This code may only be used under the BSD style license found at https://github.c
           console.log('Unable to connect.');
         }
       },
+      onGetConsumptions: function(e, request) {
+        if (request.succeeded) {
+          console.log(request.response);
+          this.alcoholId = request.response.find(function(consumption) {
+            return consumption.name === '18+';
+          }).id;
+          console.log(this.alcoholId);
+        }
+      },
+      onConsumeAlcohol: function(e, request) {
+        if (!request.succeeded) {
+          this._showErrorMessage('RFID linked, not able to verify 18+.');
+        } else {
+          this.$.alcohol.checked = false;
+        }
+      },
       _isChMember: function(chMember) {
         if (chMember) {
           return '- CH';
@@ -149,6 +196,13 @@ This code may only be used under the BSD style license found at https://github.c
         this.errorMessage = message;
         this.async(function() {
           this.error = false;
+        }, 5000);
+      },
+      _showSuccessMessage: function(message) {
+        this.success = true;
+        this.successMessage = message;
+        this.async(function() {
+          this.success = false;
         }, 5000);
       }
     });
