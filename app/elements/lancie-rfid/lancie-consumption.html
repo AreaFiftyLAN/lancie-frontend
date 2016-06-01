@@ -90,7 +90,7 @@ This code may only be used under the BSD style license found at https://github.c
           return;
         }
         this.$.getTicketIdByRfid.refurl = 'rfid/' + this.$.rfid.value + '/ticketId';
-        var ticket = this.$.getTicketIdByRfid.generateRequest();
+        this.$.getTicketIdByRfid.generateRequest();
       },
       onLoadTicketId: function(event, request) {
         var consumption = this.$.consumptionListBox.selectedItem.consumption;
