@@ -323,6 +323,41 @@
       "Mac"
     ],
     "footer": false
+  },
+  {
+    "title": "SMBM",
+    "subtitle": "1 v 1",
+    "headerTitle": "Super Smash Bros. Melee",
+    "description": "Super Smash Bros. Melee is the nostalgic fighting game for the Nintendo Gamecube. Pick your favourite character and fight against your opponent!\n\n# Schedule\n## Sunday:\nStart 09:30\n\n# Rules\n## 1 Format:\nSingle elimination in a 1v1. Each game is a stock match with each player having 3 lives. All rounds will be bo1 except for the final which will be bo3.",
+    "backgroundImagePath": "images/unofficial/smash.jpg",
+    "sponsor": {
+      "name": "",
+      "imagePath": "images/unofficial/smash_logo.png",
+      "website": "http://www.smashbros.com/en-uk/"
+    },
+    "prizes": [
+      "None"
+    ],
+    "format": "1 vs 1",
+    "startingDateTime": {
+      "monthValue": 8,
+      "month": "June",
+      "year": 2016,
+      "dayOfMonth": 5,
+      "dayOfWeek": "Sunday",
+      "dayOfYear": 238,
+      "nano": 876000000,
+      "second": 36,
+      "chronology": {
+        "id": "ISO",
+        "calendarType": "iso8601"
+      }
+    },
+    "rulePath": "T.B.A.",
+    "platform": [
+      "Gamecube"
+    ],
+    "footer": false
   }
 ]
 
