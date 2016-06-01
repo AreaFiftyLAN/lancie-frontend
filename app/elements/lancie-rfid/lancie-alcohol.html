@@ -82,7 +82,9 @@ This code may only be used under the BSD style license found at https://github.c
       },
       onGetConsumptionsByTicketId: function(e, request) {
         if (request.succeeded) {
-          var alcohol = request.response.find(consumption => consumption.name === '18+');
+          var alcohol = request.response.find(function(consumption) {
+            return consumption.name === '18+';
+          });
           this.rfid = '';
           if (alcohol) {
             this.success = false;

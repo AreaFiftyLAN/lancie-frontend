@@ -80,7 +80,9 @@ This code may only be used under the BSD style license found at https://github.c
       },
       onLoadConsumptions: function(event, request) {
         if (request.succeeded) {
-          this.consumptions = request.response.filter(consumption => consumption.name !== '18+');
+          this.consumptions = request.response.filter(function(consumption) {
+            return consumption.name !== '18+';
+          });
         } else {
           console.log('Unable to connect.');
         }
