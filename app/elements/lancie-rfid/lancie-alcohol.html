@@ -1,0 +1,108 @@
+<!--
+@license
+Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
+This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
+-->
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+<dom-module id="lancie-alcohol">
+  <template>
+    <style include="iron-flex iron-flex-alignment"></style>
+    <style>
+      :host {
+        display: block;
+      }
+
+      paper-input {
+        margin: -59px 0 0;
+        --paper-input-container-color: transparent;
+        --paper-input-container-focus-color: transparent;
+        --paper-input-container-input-color: transparent;
+      }
+
+      .result {
+        min-height: 500px;
+        display: block;
+      }
+
+      .red {
+        background-color: var(--paper-red-500);
+      }
+
+      .green {
+        background-color: var(--paper-green-500);
+      }
+    </style>
+
+    <lancie-ajax id="getTicketIdByRfid" refurl="rfid/{{rfid}}/ticketId" on-response="onLoadTicketId"></lancie-ajax>
+    <lancie-ajax id="getConsumptionsByTicketId" refurl="consumptions/{{ticket}}" on-response="onGetConsumptionsByTicketId"></lancie-ajax>
+
+    <paper-input id="rfid" value="{{rfid}}" on-keyDown="_requestTicket"></paper-input>
+    <div>
+      <div class="result red" hidden$="{{error}}">
+      </div>
+      <div class="result" hidden$="{{_checkWaiting(success, error)}}">
+      </div>
+      <div class="result green" hidden$="{{success}}">
+      </div>
+    </div>
+  </template>
+  <script>
+    'use strict';
+    Polymer({
+      is: 'lancie-alcohol',
+      properties: {
+        error: {
+          type: Boolean,
+          value: true
+        },
+        success: {
+          type: Boolean,
+          value: true
+        },
+        rfid: Number,
+        ticket: Number
+      },
+      attach: function() {
+        this.$.rfid.focus();
+      },
+      _requestTicket: function(e) {
+        if (e.keyCode !== 13) {
+          return;
+        }
+        this.$.getTicketIdByRfid.generateRequest();
+      },
+      onLoadTicketId: function(event, request) {
+        if (request.succeeded) {
+          this.ticket = request.response;
+          this.$.getConsumptionsByTicketId.generateRequest();
+        } else {
+          console.log('Error while retrieving the ticketId!');
+        }
+      },
+      onGetConsumptionsByTicketId: function(e, request) {
+        if (request.succeeded) {
+          var alcohol = request.response.find(consumption => consumption.name === '18+');
+          this.rfid = '';
+          if (alcohol) {
+            this.success = false;
+            this.error = true;
+          } else {
+            this.error = false;
+            this.success = true;
+          }
+          this.$.rfid.focus();
+          this.async(function() {
+            this.error = true;
+            this.success = true;
+          }, 5000);
+        } else {
+          console.log('Error while retrieving consumed consumptions!');
+        }
+      },
+      _checkWaiting: function(success, error) {
+        return (!success || !error);
+      }
+    });
+  </script>
+</dom-module>

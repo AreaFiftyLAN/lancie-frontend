@@ -116,21 +116,21 @@ This code may only be used under the BSD style license found at https://github.c
       _submitRfid: function(e) {
         if (e.keyCode !== 13) {
           return;
+        }
+        
+        if (this.$.userListbox.children.length === 2) {
+          this.ticketId = this.$.userListbox.children[0].ticket;
         } else {
-          if (this.$.userListbox.children.length === 2) {
-            this.ticketId = this.$.userListbox.children[0].ticket;
-          } else {
-            this.ticketId = this._userTicket;
-          } 
-          if (!this.ticketId) {
-            this._showErrorMessage('Please select a user!');
-          } else {
-            this.$.ajaxBindRfid.body = {
-              ticketId: this.ticketId,
-              rfid: this.$.rfid.value
-            };
-            this.$.ajaxBindRfid.generateRequest();
-          }
+          this.ticketId = this._userTicket;
+        } 
+        if (!this.ticketId) {
+          this._showErrorMessage('Please select a user!');
+        } else {
+          this.$.ajaxBindRfid.body = {
+            ticketId: this.ticketId,
+            rfid: this.$.rfid.value
+          };
+          this.$.ajaxBindRfid.generateRequest();
         }
       },
       onBindRfid: function(e, response) {
@@ -171,11 +171,9 @@ This code may only be used under the BSD style license found at https://github.c
       },
       onGetConsumptions: function(e, request) {
         if (request.succeeded) {
-          console.log(request.response);
           this.alcoholId = request.response.find(function(consumption) {
             return consumption.name === '18+';
           }).id;
-          console.log(this.alcoholId);
         }
       },
       onConsumeAlcohol: function(e, request) {
