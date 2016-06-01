@@ -102,11 +102,11 @@ This code may only be used under the BSD style license found at https://github.c
         }
       },
       onBindRfid: function(e, response) {
+        this.rfid = '';
         if (response.succeeded) {
           this.success = true;
           this.successMessage = 'RFID successfuly linked';
           this.$.userListbox.selectedAttribute = undefined;
-          this.rfid = '';
           this.$.selectUser.value = '';
           this.$.selectUser.focus();
           // Hides the successmessage
