@@ -48,7 +48,7 @@ This code may only be used under the BSD style license found at https://github.c
       <paper-material class="successmessage" hidden$="{{!success}}">{{successMessage}}</paper-material>
       <paper-listbox id="consumptionListBox" class="dropdown-content layout horizontal">
         <template is="dom-repeat" items="{{consumptions}}">
-          <paper-item consumption="{{item.id}}" class="flex">{{item.name}}</paper-item>
+          <paper-item consumption="{{item.id}}" class="layout flex center-justified">{{item.name}}</paper-item>
         </template>
       </paper-listbox>
 
@@ -80,7 +80,7 @@ This code may only be used under the BSD style license found at https://github.c
       },
       onLoadConsumptions: function(event, request) {
         if (request.succeeded) {
-          this.consumptions = request.response;
+          this.consumptions = request.response.filter(consumption => consumption.name !== '18+');
         } else {
           console.log('Unable to connect.');
         }
