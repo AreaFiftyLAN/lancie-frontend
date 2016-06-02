@@ -217,42 +217,6 @@
     "footer": false
   },
   {
-    "title": "ORCT2",
-    "subtitle": "T.B.A.",
-    "headerTitle": "Open Roller Coaster Tycoon 2",
-    "description": "The OpenRCT2 project recreates the classic hit RollerCoaster Tycoon 2 into open-source code, expanding the game with new features, fixing original bugs and raising game limits. Several notable improvements over RCT2 are: Multiplayer co-op, a handy cheat menu and language support.\n\nDevelopment started on April 2nd 2014 by Ted 'IntelOrca' John. Thanks to numerous contributions from others the OpenRCT2 project is making great progress.\nAn installation of RollerCoaster Tycoon 2 is required in order to play. RCT2, with expansions, is cheap nowadays and can be bought from G2A, GOG and Steam.\n\n### Setup\nT.B.A.",
-    "backgroundImagePath": "images/unofficial/rct2.png",
-    "sponsor": {
-      "name": "",
-      "imagePath": "images/unofficial/rct2_logo.png",
-      "website": "https://openrct2.org/"
-    },
-    "prizes": [
-      "None"
-    ],
-    "format": "1 vs 1",
-    "startingDateTime": {
-      "monthValue": 8,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
-    ],
-    "footer": false
-  },
-  {
     "title": "MK",
     "subtitle": "1 v 1",
     "headerTitle": "Mario Kart: Double Dash!!",
