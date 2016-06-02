@@ -184,7 +184,7 @@
     "title": "TF2",
     "subtitle": "6 v 6",
     "headerTitle": "Team Fortress 2",
-    "description": "Team Fortress 2 is a team-based first-person shooter multiplayer video game. In Team Fortress 2, players join one of two teams comprising nine character classes, battling in a variety of game modes including capture the flag and king of the hill. Nine distinct classes provide a broad range of tactical abilities and personalities. Hats are welcome.\n\n# 1. Schedule\nThe tournament will start on 21:00 on Saturday. The duration of the tournament can vary depending on the amount of teams. Games will take a maximum of 1 hour and semi-finals and finals can take up to 2 hours.\n\n# 2. Rules\n## 2.1 Gamemode and Class Limits\nThe competition will play 6 versus 6. The limit on Medic, Heavy, Engineer, Sniper, Pyro and Demoman is 1, as for Soldier, Scout and Spy the limit is 2. Each round uses a time limit of 10 minutes.\nTeams will play on 5-control-points maps.\n\n## 2.2 Win Condition\n### 2.2.1 Standard Games\nIn order to win a game a team must win 3 rounds on a single map. (best-out-of 5)\n\n### 2.2.2 Semi-finals and Final\nIn order to win a game a team must win 2 rounds on 2 different maps. If a team wins 2 rounds on the first map the map will be changed, when the same team wins another 2 rounds they will win the game.\nWhen they don't, a third map will be played to determine the winner. If this leads to a tie, teams play an extra round to determine a winner.\n\n## 2.3 Maps\nThe following 5 maps will be played:\n* cp_badlands\n* cp_snakewater_final1\n* cp_gullywash_final1\n* cp_process_final\n* cp_granary_pro_b10\n\nThe first map a team plays is random. If multiple maps are played the loser of the first map gets to pick the second map, and the loser of the second map gets to pick the third if necessary.\n\n## 2.4 Weapons and Reskins\nAn overview of allowed and banned weapons can be found on [whitelist.tf](http://whitelist.tf/etf2l_6v6_s23)\nPlease take in consideration that prohibited weapons, taunts and other items are automatically banned on the server. Weapons released during the season are also banned until explicitly stated otherwise. Reskins are allowed.\n\n## 2.5 Taunts\nOnly default weapon taunts and taunts with fixed durations are allowed. For details, check the [whitelist.tf](http://whitelist.tf/etf2l_6v6_s23) link above.\n\n## 2.6 Cosmetics\nCosmetic items are allowed, including unusual items. The Bombinomicon is banned.\n\n## 2.7 Pausing\nIf you need to pause, you must clearly request a pause and give a reason for it (for example: “Pause please, player drop”). The other team is then required to pause at the first appropriate time (e.g. not in the middle of a push). \nTeams must pause within 15 seconds of being asked and teams are required to contact an administrator providing the reason of the pause.\nNot responding to a pause request will lead to the forfeit of the round in question, or, in extreme cases with repeated offense, a disqualification. \nThe game can be paused by typing "pause" in console. You can also bind this command to a key. You may not resume the game under any circumstances without giving proper warning to the other team or contacting an administrator.\n\n# 3. Custom Game Files\n## 3.1 Configs and Scripts\nThe use of FPS configs is allowed. Scripts that allow a player to perform an action in-game that he would not be able to execute without the script, or scripts that purposefully disrupt the player hitbox are banned. \nScripts that freeze or glitch the player model (e.g. in mid-air to be less predictable) to make it harder to hit are also banned. If you are unsure about using a specific scripts please contact the admins before your game starts.\n\n## 3.2 HUDs\nPlayers are allowed to use custom game HUDs.\n\n# 4. Communication\n\n## 4.1 Score Submission\nOutcomes of games are submitted using Area50LAN's tournament software, more information will be available during the event.\n\n## 4.2 Problems and Question\nIf any issues occur or if you have questions, please contact an administrator. Contact TwinkleSpark (http://steamcommunity.com/id/TwinkleSpark) at seat G4 or FlyingMacaroni at seat G5.\n",
+    "description": "Team Fortress 2 is a team-based first-person shooter multiplayer video game. In Team Fortress 2, players join one of two teams comprising nine character classes, battling in a variety of game modes including capture the flag and king of the hill. Nine distinct classes provide a broad range of tactical abilities and personalities. Hats are welcome.\n\n# 1. Schedule\nThe tournament will start on 21:00 on Saturday. The duration of the tournament can vary depending on the amount of teams. Games will take a maximum of 1 hour and semi-finals and finals can take up to 2 hours.\n\n# 2. Rules\n## 2.1 Gamemode and Class Limits\nThe competition will play 6 versus 6. The limit on Medic, Heavy, Engineer, Sniper, Pyro and Demoman is 1, as for Soldier, Scout and Spy the limit is 2. Each round uses a time limit of 10 minutes.\nTeams will play on 5-control-points maps.\n\n## 2.2 Win Condition\n### 2.2.1 Standard Games\nIn order to win a game a team must win 3 rounds on a single map. (best-out-of 5)\n\n### 2.2.2 Semi-finals and Final\nIn order to win a game a team must win 2 rounds on 2 different maps. If a team wins 2 rounds on the first map the map will be changed, when the same team wins another 2 rounds they will win the game.\nWhen they don't, a third map will be played to determine the winner. If this leads to a tie, teams play an extra round to determine a winner.\n\n## 2.3 Maps\nThe following 5 maps will be played:\n* cp_badlands\n* cp_snakewater_final1\n* cp_gullywash_final1\n* cp_process_final\n* cp_granary_pro_b10\n\nThe first map a team plays is random. If multiple maps are played the loser of the first map gets to pick the second map, and the loser of the second map gets to pick the third if necessary.\n\n## 2.4 Weapons and Reskins\nAn overview of allowed and banned weapons can be found on [whitelist.tf](http://whitelist.tf/etf2l_6v6_s23)\nPlease take in consideration that prohibited weapons, taunts and other items are automatically banned on the server. Weapons released during the season are also banned until explicitly stated otherwise. Reskins are allowed.\n\n## 2.5 Taunts\nOnly default weapon taunts and taunts with fixed durations are allowed. For details, check the [whitelist.tf](http://whitelist.tf/etf2l_6v6_s23) link above.\n\n## 2.6 Cosmetics\nCosmetic items are allowed, including unusual items. The Bombinomicon is banned.\n\n## 2.7 Pausing\nIf you need to pause, you must clearly request a pause and give a reason for it (for example: “Pause please, player drop”). The other team is then required to pause at the first appropriate time (e.g. not in the middle of a push). \nTeams must pause within 15 seconds of being asked and teams are required to contact an administrator providing the reason of the pause.\nNot responding to a pause request will lead to the forfeit of the round in question, or, in extreme cases with repeated offense, a disqualification. \nThe game can be paused by typing \"pause\" in console. You can also bind this command to a key. You may not resume the game under any circumstances without giving proper warning to the other team or contacting an administrator.\n\n# 3. Custom Game Files\n## 3.1 Configs and Scripts\nThe use of FPS configs is allowed. Scripts that allow a player to perform an action in-game that he would not be able to execute without the script, or scripts that purposefully disrupt the player hitbox are banned. \nScripts that freeze or glitch the player model (e.g. in mid-air to be less predictable) to make it harder to hit are also banned. If you are unsure about using a specific scripts please contact the admins before your game starts.\n\n## 3.2 HUDs\nPlayers are allowed to use custom game HUDs.\n\n# 4. Communication\n\n## 4.1 Score Submission\nOutcomes of games are submitted using Area50LAN's tournament software, more information will be available during the event.\n\n## 4.2 Problems and Question\nIf any issues occur or if you have questions, please contact an administrator. Contact TwinkleSpark (http://steamcommunity.com/id/TwinkleSpark) at seat G4 or FlyingMacaroni at seat G5.\n",
     "backgroundImagePath": "images/unofficial/TF2.jpg",
     "sponsor": {
       "name": "TransIP",
@@ -197,42 +197,6 @@
     "format": "6 vs 6",
     "startingDateTime": {
       "monthValue": 6,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
-    ],
-    "footer": false
-  },
-  {
-    "title": "ORCT2",
-    "subtitle": "T.B.A.",
-    "headerTitle": "Open Roller Coaster Tycoon 2",
-    "description": "The OpenRCT2 project recreates the classic hit RollerCoaster Tycoon 2 into open-source code, expanding the game with new features, fixing original bugs and raising game limits. Several notable improvements over RCT2 are: Multiplayer co-op, a handy cheat menu and language support.\n\nDevelopment started on April 2nd 2014 by Ted 'IntelOrca' John. Thanks to numerous contributions from others the OpenRCT2 project is making great progress.\nAn installation of RollerCoaster Tycoon 2 is required in order to play. RCT2, with expansions, is cheap nowadays and can be bought from G2A, GOG and Steam.\n\n### Setup\nT.B.A.",
-    "backgroundImagePath": "images/unofficial/rct2.png",
-    "sponsor": {
-      "name": "",
-      "imagePath": "images/unofficial/rct2_logo.png",
-      "website": "https://openrct2.org/"
-    },
-    "prizes": [
-      "None"
-    ],
-    "format": "1 vs 1",
-    "startingDateTime": {
-      "monthValue": 8,
       "month": "June",
       "year": 2016,
       "dayOfMonth": 4,
