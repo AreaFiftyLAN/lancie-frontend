@@ -13,13 +13,6 @@ This code may only be used under the BSD style license found at https://github.c
         display: block;
       }
 
-      paper-input {
-        margin: -59px 0 0;
-        --paper-input-container-color: transparent;
-        --paper-input-container-focus-color: transparent;
-        --paper-input-container-input-color: transparent;
-      }
-
       .result {
         min-height: 500px;
         display: block;
@@ -37,7 +30,7 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-ajax id="getTicketIdByRfid" refurl="rfid/{{rfid}}/ticketId" on-response="onLoadTicketId"></lancie-ajax>
     <lancie-ajax id="getConsumptionsByTicketId" refurl="consumptions/{{ticket}}" on-response="onGetConsumptionsByTicketId"></lancie-ajax>
 
-    <paper-input id="rfid" value="{{rfid}}" on-keyDown="_requestTicket"></paper-input>
+    <paper-input id="rfid" label="RFID" value="{{rfid}}" on-keyDown="_requestTicket"></paper-input>
     <div>
       <div class="result red" hidden$="{{error}}">
       </div>

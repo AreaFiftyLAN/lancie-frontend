@@ -118,7 +118,7 @@ This code may only be used under the BSD style license found at https://github.c
           return;
         }
         
-        if (!this.$.userListbox.focusedItem && this.$.userListbox.children.length == 2) {
+        if (!this.$.userListbox.focusedItem && this.$.userListbox.children.length === 2) {
           this.ticketId = this.$.userListbox.children[0].ticket;
         } else if (this.$.userListbox.focusedItem) {
           this.ticketId = this.$.userListbox.focusedItem.ticket;
