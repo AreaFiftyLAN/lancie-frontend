@@ -69,7 +69,7 @@ This code may only be used under the BSD style license found at https://github.c
       <paper-material class="errormessage" hidden$="{{!error}}">{{errorMessage}}</paper-material>
       <paper-material class="successmessage" hidden$="{{!success}}">{{successMessage}}</paper-material>
       <paper-input id="selectUser" label="Naam" value="{{searchString}}" on-keydown="_selectItem"></paper-input>
-      <paper-listbox id="userListbox" class="dropdown-content" on-keydown="_selectItem" selected="{{_userTicket}}">
+      <paper-listbox id="userListbox" class="dropdown-content" on-keydown="_selectItem">
         <template is="dom-repeat" items="{{tickets}}" filter="{{computeFilter(searchString)}}">
           <paper-item ticket="{{item.id}}">{{item.owner.profile.firstName}} {{item.owner.profile.lastName}} {{_isChMember(item.chMember)}}</paper-item>
         </template>
@@ -118,10 +118,12 @@ This code may only be used under the BSD style license found at https://github.c
           return;
         }
         
-        if (this.$.userListbox.children.length === 2) {
+        if (!this.$.userListbox.focusedItem && this.$.userListbox.children.length == 2) {
           this.ticketId = this.$.userListbox.children[0].ticket;
+        } else if (this.$.userListbox.focusedItem) {
+          this.ticketId = this.$.userListbox.focusedItem.ticket;
         } else {
-          this.ticketId = this._userTicket;
+          this.ticketId = undefined;
         } 
         if (!this.ticketId) {
           this._showErrorMessage('Please select a user!');
