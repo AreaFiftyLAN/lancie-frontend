@@ -20,6 +20,7 @@
 <link rel="import" href="lancie-password/lancie-password-reset-success.html">
 <link rel="import" href="lancie-password/lancie-request-password-reset.html">
 <link rel="import" href="lancie-password/lancie-request-password-reset-success.html">
+<link rel="import" href="lancie-rfid/lancie-rfid.html">
 
 <dom-module id="lancie-content">
   <template>
@@ -71,6 +72,12 @@
        <div data-route="seatmap">
         <lancie-login-check user="{{user}}">
           <lancie-seatmap user="{{user}}"></lancie-seatmap>
+        </lancie-login-check>
+      </div>
+
+      <div data-route="rfid">
+        <lancie-login-check user="{{user}}">
+          <lancie-rfid route="{{route}}" user="{{user}}"></lancie-rfid>
         </lancie-login-check>
       </div>
 

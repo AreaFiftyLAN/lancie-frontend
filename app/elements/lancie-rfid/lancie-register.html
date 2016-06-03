@@ -1,0 +1,210 @@
+<!--
+@license
+Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
+This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
+-->
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+
+<link rel="import" href="../lancie-login/lancie-ajax.html">
+
+
+<dom-module id="lancie-register">
+  <template>
+    <style include="iron-flex iron-flex-alignment"></style>
+    <style>
+      paper-listbox {
+        cursor: pointer;
+      }
+
+      .errormessage {
+        padding: 10px 20px 9px;
+        margin-bottom: 4px;
+        border-left: 3px solid #F44336;
+        background: #FFCDD2;
+        color: #B71C1C;
+      }
+
+      .successmessage {
+        padding: 10px 20px 9px;
+        margin-bottom: 4px;
+        border-left: 3px solid #1B5E20;
+        background: #C8E6C9;
+        color: #1B5E20;
+      }
+
+      paper-checkbox.red {
+        display: block;
+        align-self: center;
+        border: 1px solid var(--paper-red-200);
+        padding: 8px 16px;
+
+        --paper-checkbox-checked-color: var(--paper-red-500);
+        --paper-checkbox-checked-ink-color: var(--paper-red-500);
+        --paper-checkbox-unchecked-color: var(--paper-red-900);
+        --paper-checkbox-unchecked-ink-color: var(--paper-red-900);
+        --paper-checkbox-label-color: var(--paper-red-500);
+        --paper-checkbox-label-spacing: 0;
+        --paper-checkbox-margin: 8px 16px 8px 0;
+        --paper-checkbox-vertical-align: top;
+      }
+
+      paper-checkbox .subtitle {
+        display: block;
+        font-size: 0.8em;
+        margin-top: 2px;
+      }
+    </style>
+
+    <lancie-ajax auto refurl="tickets" on-response="onLoadTickets"></lancie-ajax>
+    <lancie-ajax auto refurl="consumptions" on-response="onGetConsumptions"></lancie-ajax>
+    <lancie-ajax id="ajaxConsumeAlcohol" refurl="consumptions/{{ticketId}}/consume" method="POST" on-response="onConsumeAlcohol"></lancie-ajax>
+    <lancie-ajax id="ajaxBindRfid" refurl="rfid" method="POST" on-response="onBindRfid"></lancie-ajax>
+
+    <div>
+      <paper-material class="errormessage" hidden$="{{!error}}">{{errorMessage}}</paper-material>
+      <paper-material class="successmessage" hidden$="{{!success}}">{{successMessage}}</paper-material>
+      <paper-input id="selectUser" label="Naam" value="{{searchString}}" on-keydown="_selectItem"></paper-input>
+      <paper-listbox id="userListbox" class="dropdown-content" on-keydown="_selectItem">
+        <template is="dom-repeat" items="{{tickets}}" filter="{{computeFilter(searchString)}}">
+          <paper-item ticket="{{item.id}}">{{item.owner.profile.firstName}} {{item.owner.profile.lastName}} {{_isChMember(item.chMember)}}</paper-item>
+        </template>
+      </paper-listbox>
+      <paper-checkbox id="alcohol" class="red">
+        18+
+        <span class="subtitle">
+          Only check after you checked that the person is indeed older than 18 years old!
+        </span>
+      </paper-checkbox>
+      <paper-input id="rfid" label="RFID-tag" value="{{rfid}}" on-keydown="_submitRfid"></paper-input>
+    </div>
+  </template>
+  <script>
+    'use strict';
+    Polymer({
+      is: 'lancie-register',
+      properties: {
+        tickets: {
+          type: Object,
+          value: function() {
+            return [];
+          }
+        },
+        rfid: String,
+        error: {
+          type: Boolean,
+          value: false
+        },
+        success: {
+          type: Boolean,
+          value: false
+        },
+        errorMessage: String,
+        successMessage: String,
+        alcoholId: Number,
+        ticketId: Number
+      },
+      _selectItem: function(e) {
+        if (e.keyCode === 13) {
+          this.$.rfid.focus();
+        }
+      },
+      _submitRfid: function(e) {
+        if (e.keyCode !== 13) {
+          return;
+        }
+        
+        if (!this.$.userListbox.focusedItem && this.$.userListbox.children.length === 2) {
+          this.ticketId = this.$.userListbox.children[0].ticket;
+        } else if (this.$.userListbox.focusedItem) {
+          this.ticketId = this.$.userListbox.focusedItem.ticket;
+        } else {
+          this.ticketId = undefined;
+        } 
+        if (!this.ticketId) {
+          this._showErrorMessage('Please select a user!');
+        } else {
+          this.$.ajaxBindRfid.body = {
+            ticketId: this.ticketId,
+            rfid: this.$.rfid.value
+          };
+          this.$.ajaxBindRfid.generateRequest();
+        }
+      },
+      onBindRfid: function(e, response) {
+        this.rfid = '';
+        if (response.succeeded) {
+          this.$.userListbox.selectedAttribute = undefined;
+          this.$.selectUser.value = '';
+          this.$.selectUser.focus();
+          if (this.$.alcohol.checked) {
+            this.$.ajaxConsumeAlcohol.body = this.alcoholId;
+            this.$.ajaxConsumeAlcohol.generateRequest();
+          }
+          this._showSuccessMessage('RFID successfully linked.');
+        } else {
+          this.success = false;
+          this.successMessage = '';
+          if (response.request.status === 409) {
+            this._showErrorMessage('RFID-tag or ticket already registered!');
+          } else {
+            this._showErrorMessage('Unable to register RFID-tag.');
+          }
+        }
+      },
+      computeFilter: function(user) {
+        user = user.toLowerCase();
+        return function(item) {
+          var name = item.owner.profile.firstName + ' ' + item.owner.profile.lastName;
+          name = name.toLowerCase();
+          return (name.indexOf(user) > -1 || name.indexOf(user) > -1);
+        };
+      },
+      onLoadTickets: function(event, request) {
+        if (request.succeeded) {
+          this.tickets = request.response;
+        } else {
+          console.log('Unable to connect.');
+        }
+      },
+      onGetConsumptions: function(e, request) {
+        if (request.succeeded) {
+          this.alcoholId = request.response.find(function(consumption) {
+            return consumption.name === '18+';
+          }).id;
+        }
+      },
+      onConsumeAlcohol: function(e, request) {
+        if (!request.succeeded) {
+          this._showErrorMessage('RFID linked, not able to verify 18+.');
+        } else {
+          this.$.alcohol.checked = false;
+        }
+      },
+      _isChMember: function(chMember) {
+        if (chMember) {
+          return '- CH';
+        }
+        return '';
+      },
+      _showErrorMessage: function(message) {
+        this.error = true;
+        this.errorMessage = message;
+        this.async(function() {
+          this.error = false;
+        }, 5000);
+      },
+      _showSuccessMessage: function(message) {
+        this.success = true;
+        this.successMessage = message;
+        this.async(function() {
+          this.success = false;
+        }, 5000);
+      }
+    });
+  </script>
+</dom-module>
