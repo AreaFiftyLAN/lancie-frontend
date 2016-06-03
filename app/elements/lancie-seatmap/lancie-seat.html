@@ -21,34 +21,35 @@ This code may only be used under the BSD style license found at https://github.c
       position: relative;
       min-width: 0;
     }
-
+    
     .seat {
       height: 100%;
       margin: 4px;
       border-radius: 2px;
       background: #fafafa;
-
-      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-                  0 1px 5px 0 rgba(0, 0, 0, 0.12),
-                  0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
     }
-
+    
     .green {
       background-color: #4CAF50;
     }
-
+    
     .yellow {
       background-color: #FFEB3B;
     }
-
+    
     .red {
       background-color: #F44336;
+    }
+
+    .blue {
+      background-color: #9FA8DA;
     }
     </style>
 
     <lancie-ajax id="ajaxReserveSeat" method="POST" on-response="onReserveSeat"></lancie-ajax>
 
-    <div id="seat" class$="seat layout center center-justified horizontal flex {{_calculateClass(user, tickets, seat)}}" on-tap="showSeatDialog">
+    <div id="seat" class$="seat layout center center-justified horizontal flex {{_calculateClass(user, tickets, seat, filter)}}" on-tap="showSeatDialog">
       <div>{{seat.seatNumber}}</div>
       <paper-tooltip for="seat" animationDelay="0">{{_getTooltipText(seat)}}</paper-tooltip>
     </div>
@@ -58,14 +59,14 @@ This code may only be used under the BSD style license found at https://github.c
       <div class="card-content">
         <paper-material class="errormessage" hidden$="{{!reservationError}}">{{reservationErrorMessage}}</paper-material>
         <div hidden$="{{!_checkExists(tickets)}}">
-          Select the user to reserve this seat for: 
+          Select the user to reserve this seat for:
           <paper-listbox id="listbox">
             <template is="dom-repeat" items="{{tickets}}">
-               <paper-item ticket="{{item.id}}">{{item.owner.profile.displayName}}</paper-item>
+              <paper-item ticket="{{item.id}}">{{item.owner.profile.displayName}}</paper-item>
             </template>
           </paper-listbox>
         </div>
-        <div hidden$="{{_checkExists(tickets)}}"> 
+        <div hidden$="{{_checkExists(tickets)}}">
           You need at least one ticket to reserve a seat!
         </div>
       </div>
@@ -88,13 +89,20 @@ This code may only be used under the BSD style license found at https://github.c
         value: false
       },
       reservationErrorMessage: String,
-      user: Object,
+      user: {
+        type: Object,
+        value: {}
+      },
       seat: Object,
       tickets: {
         type: Array,
         value: function() {
           return [];
         }
+      },
+      filter: {
+        type: String,
+        value: ""
       }
     },
     _checkExists: function(tickets) {
@@ -112,7 +120,9 @@ This code may only be used under the BSD style license found at https://github.c
         this.reservationErrorMessage = 'Please select a user!';
         return;
       }
-      this.$.ajaxReserveSeat.params = {'ticketId': this.$.listbox.selectedItem.ticket};
+      this.$.ajaxReserveSeat.params = {
+        'ticketId': this.$.listbox.selectedItem.ticket
+      };
       this.$.ajaxReserveSeat.refurl = 'seats/' + this.seat.seatGroup + '/' + this.seat.seatNumber;
       this.$.ajaxReserveSeat.generateRequest();
       this.$.seatDialog.close();
@@ -132,39 +142,36 @@ This code may only be used under the BSD style license found at https://github.c
         }
       }
     },
-    _calculateClass: function(user, teamTickets, seat) {
+    _calculateClass: function(user, teamTickets, seat, filter) {
+      console.log(seat);
       if (!seat.taken) {
         return '';
       }
-
-      if (seat.taken && !seat.ticket) {
+      if (seat.taken && filter != "" && seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
+        return 'blue';
+      }
+      if ((seat.taken && this.fixed) || (seat.taken && !seat.ticket)) {
         return 'red';
       }
-
-      if (user.reference === seat.ticket.owner.reference) {
+      if (!this.fixed && user.reference === seat.ticket.owner.reference) {
         return 'yellow';
       }
-
       var teamMembers = teamTickets.map(function(ticket) {
         return ticket.owner.reference;
       });
-
-      if (teamMembers.includes(seat.ticket.owner.reference)) {
+      if (!this.fixed && teamMembers.includes(seat.ticket.owner.reference)) {
         return 'green';
       }
-
       return 'red';
     },
     _getTooltipText: function(seat) {
       if (!seat.taken) {
         return 'Free';
       }
-
-       if (seat.taken && !seat.ticket) {
+      if (seat.taken && !seat.ticket) {
         return 'Reserved';
-       }
-
-       return seat.ticket.owner.profile.displayName;
+      }
+      return seat.ticket.owner.profile.displayName;
     }
   });
   </script>
