@@ -102,7 +102,7 @@ This code may only be used under the BSD style license found at https://github.c
       },
       filter: {
         type: String,
-        value: ""
+        value: ''
       }
     },
     _checkExists: function(tickets) {
@@ -147,7 +147,7 @@ This code may only be used under the BSD style license found at https://github.c
       if (!seat.taken) {
         return '';
       }
-      if (seat.taken && filter != "" && seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
+      if (seat.taken && filter !== '' && seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
         return 'blue';
       }
       if ((seat.taken && this.fixed) || (seat.taken && !seat.ticket)) {
