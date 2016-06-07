@@ -21,20 +21,17 @@
 <link rel="import" href="lancie-password/lancie-request-password-reset.html">
 <link rel="import" href="lancie-password/lancie-request-password-reset-success.html">
 <link rel="import" href="lancie-rfid/lancie-rfid.html">
+<link rel="import" href="lancie-photo-album/lancie-photo-page.html">
 
 <dom-module id="lancie-content">
   <template>
     <style>
-      :host {
-        display: block;
-      }
+    :host {
+      display: block;
+    }
     </style>
 
-    <iron-ajax
-      auto
-      url="/api/v1/users/current"
-      handle-as="json"
-      on-response="storeUser"></iron-ajax>
+    <iron-ajax auto url="/api/v1/users/current" handle-as="json" on-response="storeUser"></iron-ajax>
 
     <lancie-ajax id="ajax"></lancie-ajax>
 
@@ -59,8 +56,8 @@
       </div>
 
       <div data-route="success-ticket-transfer">
-          <!-- This is done to prevent firing this request when it is not supposed to fire. -->
-            <lancie-success-ticket-transfer></lancie-success-ticket-transfer>
+        <!-- This is done to prevent firing this request when it is not supposed to fire. -->
+        <lancie-success-ticket-transfer></lancie-success-ticket-transfer>
       </div>
 
       <div data-route="tickets">
@@ -69,10 +66,15 @@
         </lancie-login-check>
       </div>
 
-       <div data-route="seatmap">
+      <div data-route="seatmap">
         <lancie-login-check user="{{user}}">
           <lancie-seatmap user="{{user}}"></lancie-seatmap>
         </lancie-login-check>
+      </div>
+
+      <div data-route="photos">
+        <lancie-photo-page></lancie-photo-page>
+        <!-- <lancie-photo-album id="photoAlbum" json="scripts/photo-album.json"></lancie-photo-album> -->
       </div>
 
       <div data-route="rfid">
@@ -126,25 +128,24 @@
   </template>
   <script>
   'use strict';
-    Polymer({
-      is: 'lancie-content',
-      properties: {
-        route: {
-          type: String,
-          notify: true
-        },
-        user: {
-          type: Object
-        }
+  Polymer({
+    is: 'lancie-content',
+    properties: {
+      route: {
+        type: String,
+        notify: true
       },
-      storeUser: function(event, request) {
-        this.user = (request.response.message === 'Not logged in') ? '' : request.response;
-        this.$.ajax.injectToken(request.xhr.getResponseHeader('X-CSRF-TOKEN'));
-      },
-
-      _matches: function(path, route) {
-        return path === route;
+      user: {
+        type: Object
       }
-    });
+    },
+    storeUser: function(event, request) {
+      this.user = (request.response.message === 'Not logged in') ? '' : request.response;
+      this.$.ajax.injectToken(request.xhr.getResponseHeader('X-CSRF-TOKEN'));
+    },
+    _matches: function(path, route) {
+      return path === route;
+    }
+  });
   </script>
 </dom-module>
