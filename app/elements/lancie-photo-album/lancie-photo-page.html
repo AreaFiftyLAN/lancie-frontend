@@ -18,15 +18,13 @@
 
   </template>
   <script>
-  (function() {
-    'use strict';
-    Polymer({
-      is: 'lancie-photo-page',
-      
-      loadImages: function() {
-        this.$.photoAlbum.show();
-      },
-    });
-  })();
+  'use strict';
+
+  Polymer({
+    is: 'lancie-photo-page',
+    loadImages: function() {
+      this.$.photoAlbum.show();
+    },
+  });
   </script>
 </dom-module>

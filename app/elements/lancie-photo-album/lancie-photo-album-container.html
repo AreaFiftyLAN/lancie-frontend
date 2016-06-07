@@ -60,6 +60,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </dom-module>
 
 <script>
+'use strict';
+
 Polymer({
   is: 'lancie-photo-album-container',
   behaviors: [
@@ -100,7 +102,7 @@ Polymer({
     return 'height: ' + Math.ceil(this.$.photoAlbum.config.length / 6) * (window.innerWidth / 6) + 'px';
   },
   _onTileClick: function(event) {
-    this.$.fullsizeCard.src = event.detail.data.src
+    this.$.fullsizeCard.src = event.detail.data.src;
     this.selected = event.detail.index;
     this.$.pages.selected = 1;
   },

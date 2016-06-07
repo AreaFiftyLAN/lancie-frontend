@@ -61,6 +61,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </dom-module>
 
 <script>
+'use strict';
+
 Polymer({
   is: 'lancie-photo-album',
   behaviors: [
@@ -71,60 +73,60 @@ Polymer({
       type: Array,
       value: function() {
         return [{
-          thumbnail: "http://lorempixel.com/400/400/",
-          src: "http://lorempixel.com/1000/1000/",
+          thumbnail: 'http://lorempixel.com/400/400/',
+          src: 'http://lorempixel.com/1000/1000/',
         }, {
-          thumbnail: "http://lorempixel.com/500/500/",
-          src: "http://lorempixel.com/500/500/",
+          thumbnail: 'http://lorempixel.com/500/500/',
+          src: 'http://lorempixel.com/500/500/',
         }, {
-          thumbnail: "http://lorempixel.com/300/300/",
-          src: "http://lorempixel.com/300/300/",
+          thumbnail: 'http://lorempixel.com/300/300/',
+          src: 'http://lorempixel.com/300/300/',
         }, {
-          thumbnail: "http://lorempixel.com/301/301/",
-          src: "http://lorempixel.com/301/301/",
+          thumbnail: 'http://lorempixel.com/301/301/',
+          src: 'http://lorempixel.com/301/301/',
         }, {
-          thumbnail: "http://lorempixel.com/301/302/",
-          src: "http://lorempixel.com/301/302/",
+          thumbnail: 'http://lorempixel.com/301/302/',
+          src: 'http://lorempixel.com/301/302/',
         }, {
-          thumbnail: "http://lorempixel.com/302/302/",
-          src: "http://lorempixel.com/302/302/",
+          thumbnail: 'http://lorempixel.com/302/302/',
+          src: 'http://lorempixel.com/302/302/',
         },{
-          thumbnail: "http://lorempixel.com/400/400/",
-          src: "http://lorempixel.com/1000/1000/",
+          thumbnail: 'http://lorempixel.com/400/400/',
+          src: 'http://lorempixel.com/1000/1000/',
         }, {
-          thumbnail: "http://lorempixel.com/500/500/",
-          src: "http://lorempixel.com/500/500/",
+          thumbnail: 'http://lorempixel.com/500/500/',
+          src: 'http://lorempixel.com/500/500/',
         }, {
-          thumbnail: "http://lorempixel.com/300/300/",
-          src: "http://lorempixel.com/300/300/",
+          thumbnail: 'http://lorempixel.com/300/300/',
+          src: 'http://lorempixel.com/300/300/',
         }, {
-          thumbnail: "http://lorempixel.com/301/301/",
-          src: "http://lorempixel.com/301/301/",
+          thumbnail: 'http://lorempixel.com/301/301/',
+          src: 'http://lorempixel.com/301/301/',
         }, {
-          thumbnail: "http://lorempixel.com/301/302/",
-          src: "http://lorempixel.com/301/302/",
+          thumbnail: 'http://lorempixel.com/301/302/',
+          src: 'http://lorempixel.com/301/302/',
         }, {
-          thumbnail: "http://lorempixel.com/302/302/",
-          src: "http://lorempixel.com/302/302/",
+          thumbnail: 'http://lorempixel.com/302/302/',
+          src: 'http://lorempixel.com/302/302/',
         },{
-          thumbnail: "http://lorempixel.com/400/400/",
-          src: "http://lorempixel.com/1000/1000/",
+          thumbnail: 'http://lorempixel.com/400/400/',
+          src: 'http://lorempixel.com/1000/1000/',
         }, {
-          thumbnail: "http://lorempixel.com/500/500/",
-          src: "http://lorempixel.com/500/500/",
+          thumbnail: 'http://lorempixel.com/500/500/',
+          src: 'http://lorempixel.com/500/500/',
         }, {
-          thumbnail: "http://lorempixel.com/300/300/",
-          src: "http://lorempixel.com/300/300/",
+          thumbnail: 'http://lorempixel.com/300/300/',
+          src: 'http://lorempixel.com/300/300/',
         }, {
-          thumbnail: "http://lorempixel.com/301/301/",
-          src: "http://lorempixel.com/301/301/",
+          thumbnail: 'http://lorempixel.com/301/301/',
+          src: 'http://lorempixel.com/301/301/',
         }, {
-          thumbnail: "http://lorempixel.com/301/302/",
-          src: "http://lorempixel.com/301/302/",
+          thumbnail: 'http://lorempixel.com/301/302/',
+          src: 'http://lorempixel.com/301/302/',
         }, {
-          thumbnail: "http://lorempixel.com/302/302/",
-          src: "http://lorempixel.com/302/302/",
-        }]
+          thumbnail: 'http://lorempixel.com/302/302/',
+          src: 'http://lorempixel.com/302/302/',
+        }];
       }
     },
     animationConfig: {
@@ -147,7 +149,7 @@ Polymer({
             id: 'hero',
             fromPage: this
           }]
-        }
+        };
       }
     }
   },
