@@ -1,0 +1,123 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animatable-behavior.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../../bower_components/paper-styles/shadow.html">
+
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
+
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animatable.html">
+
+<link rel="import" href="lancie-photo-album.html">
+<link rel="import" href="lancie-fullsize-image.html">
+
+<dom-module id="lancie-photo-album-container">
+  <template>
+    <style>
+    :host {
+      visibility: hidden;
+    }
+    
+    lancie-photo-album {
+      height: calc(100% - 72px);
+      @apply(--layout-flex);
+    }
+    
+    neon-animated-pages {
+      height: 100%;
+    }
+
+    lancie-fullsize-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+    }
+    </style>
+
+    <neon-animated-pages id="pages" selected="0" style$="[[_calculateHeight()]]">
+      <lancie-photo-album id="photoAlbum" on-tile-click="_onTileClick"></lancie-photo-album>
+      <lancie-fullsize-image id="fullsizeCard" 
+        on-exit="_onFullsizeClick"
+        on-select-next="_onSelectNext"
+        on-select-prev="_onSelectPrev"></lancie-fullsize-image>
+    </neon-animated-pages>
+
+  </template>
+</dom-module>
+
+<script>
+Polymer({
+  is: 'lancie-photo-album-container',
+  behaviors: [
+    Polymer.NeonAnimatableBehavior,
+    Polymer.NeonAnimationRunnerBehavior
+  ],
+  properties: {
+    animationConfig: {
+      type: Object,
+      value: function() {
+        return {
+          'loading': [{
+            animatable: this.$.photoAlbum,
+            type: 'loading'
+          }],
+          'exit': [{
+            name: 'ripple-animation',
+            id: 'ripple',
+            fromPage: this
+          }, {
+            name: 'hero-animation',
+            id: 'hero',
+            fromPage: this
+          }]
+        };
+      }
+    },
+    selected: {
+      type: Number,
+      value: 0
+    }
+  },
+  show: function() {
+    this.style.visibility = 'visible';
+    this.playAnimation('loading');
+  },
+  _calculateHeight: function() {
+    return 'height: ' + Math.ceil(this.$.photoAlbum.config.length / 6) * (window.innerWidth / 6) + 'px';
+  },
+  _onTileClick: function(event) {
+    this.$.fullsizeCard.src = event.detail.data.src
+    this.selected = event.detail.index;
+    this.$.pages.selected = 1;
+  },
+  _onFullsizeClick: function(event) {
+    this.$.pages.selected = 0;
+  },
+  _onSelectNext: function(event) {
+    if (this.selected === this.$.photoAlbum.config.length - 1) {
+      this.selected = -1;
+    }
+    this.$.fullsizeCard.src = this.$.photoAlbum.config[++this.selected].src;
+  },
+  _onSelectPrev: function(event) {
+    if (this.selected === 0) {
+      this.selected = this.$.photoAlbum.config.length;
+    }
+    this.$.fullsizeCard.src = this.$.photoAlbum.config[--this.selected].src;
+  }
+});
+</script>

@@ -1,0 +1,162 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+
+<link rel="import" href="../../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+
+<dom-module id="lancie-fullsize-image">
+  <template>
+    <style>
+    :host {
+      display: block;
+    }
+    
+    .fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background: rgba(0, 0, 0, 1);
+    }
+    
+    .card {
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+      /*visibility: hidden;*/
+    }
+    
+    iron-image {
+      width: 100%;
+      height: 100%;
+    }
+
+    paper-fab {
+      position: absolute;
+      z-index: 1000;
+    }
+
+    paper-fab.exit {
+      top: 16px;
+      right: 32px;
+      --paper-fab-background: rgb(0, 0, 0, 1);
+    }
+
+    paper-fab.left {
+      top: 50%;
+      left: 32px;
+      --paper-fab-background: rgba(66,66,66,0.54);
+    }
+
+    paper-fab.right {
+      top: 50%;
+      right: 32px;
+      --paper-fab-background: rgba(66,66,66,0.54);
+    }
+    </style>
+
+    <iron-a11y-keys target="{{target}}" keys="esc" on-keys-pressed="{{arrowHandler}}"></iron-a11y-keys>
+
+    <div id="fixed" class="fixed"></div>
+    <div id="card" class="card">
+      <paper-fab class="exit" mini elevation="1" icon="close" on-tap="_exitFullsizePage"></paper-fab>
+
+      <paper-fab class="left" elevation="1" icon="arrow-back" on-tap="_selectPrev"></paper-fab>
+      <paper-fab class="right" elevation="1" icon="arrow-forward" on-tap="_selectNext"></paper-fab>
+
+      <iron-image src="{{src}}" preload sizing="contain"></iron-image>
+    </div>
+  </template>
+
+</dom-module>
+<script>
+Polymer({
+  is: 'lancie-fullsize-image',
+  behaviors: [
+    Polymer.IronA11yKeysBehavior,
+    Polymer.NeonSharedElementAnimatableBehavior
+  ],
+  properties: {
+    src: {
+      type: String,
+      notify: true,
+    },
+    boundKeys: {
+      type: Array,
+      value: function() {
+        return Object.keys(this.keyBindings).join(' ').split(' ');
+      }
+    },
+    keyEventTarget: {
+      type: Object,
+      value: function() {
+        return document.body;
+      }
+    },
+    sharedElements: {
+      type: Object,
+      value: function() {
+        return {
+          'hero': this.$.card,
+          'ripple': this.$.fixed
+        }
+      }
+    },
+    animationConfig: {
+      type: Object,
+      value: function() {
+        return {
+          'entry': [{
+            name: 'ripple-animation',
+            id: 'ripple',
+            toPage: this,
+          }, {
+            name: 'hero-animation',
+            id: 'hero',
+            toPage: this,
+            timing: {
+              delay: 150
+            }
+          }],
+          'exit': [{
+            name: 'fade-out-animation',
+            node: this.$.fixed
+          }, {
+            name: 'transform-animation',
+            transformFrom: 'none',
+            transformTo: 'translate(0px,-200vh) scale(0.9,1)',
+            node: this.$.card
+          }]
+        }
+      }
+    }
+  },
+  keyBindings: {
+    'esc': '_exitFullsizePage',
+    'left': '_selectPrev',
+    'right': '_selectNext'
+  },
+  _exitFullsizePage: function(event) {
+    this.fire('exit');
+  },
+  _selectPrev: function(event) {
+    this.fire('select-prev');
+  },
+  _selectNext: function(event) {
+    this.fire('select-next');
+  }
+});
+</script>
+</script>

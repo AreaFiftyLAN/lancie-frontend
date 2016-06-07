@@ -1,0 +1,34 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+
+<link rel="import" href="lancie-photo-album-container.html">
+
+<dom-module id="lancie-photo-album-photo">
+  <template>
+    <style>
+      :host {
+        display: block;
+        margin: 2px;
+      }
+      iron-image {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <iron-image src="{{photo.thumbnail}}" preload sizing="cover"></iron-image>
+  </template>
+  <script>
+    'use strict';
+
+    Polymer({
+      is: 'lancie-photo-album-photo',
+      properties: {
+        photo: {
+          type: Object,
+          notify: true
+        }
+      }
+    });
+  </script>
+</dom-module>

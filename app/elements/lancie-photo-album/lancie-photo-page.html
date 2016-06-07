@@ -1,0 +1,32 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="lancie-photo-album-container.html">
+
+<dom-module id="lancie-photo-page">
+  <template>
+    <style>
+    :host {
+      display: block;
+    }
+    </style>
+
+    <paper-button raised on-tap="loadImages">Load images</paper-button>
+    <lancie-section type="primary full" header="Photos AreaFiftyLAN">
+      <lancie-photo-album-container id="photoAlbum"></lancie-photo-album-container>
+    </lancie-section>
+
+  </template>
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'lancie-photo-page',
+      
+      loadImages: function() {
+        this.$.photoAlbum.show();
+      },
+    });
+  })();
+  </script>
+</dom-module>
