@@ -11,7 +11,6 @@
     }
     </style>
 
-    <paper-button raised on-tap="loadImages">Load images</paper-button>
     <lancie-section type="primary full" header="Photos AreaFiftyLAN">
       <lancie-photo-album-container id="photoAlbum"></lancie-photo-album-container>
     </lancie-section>
@@ -19,14 +18,12 @@
   </template>
   <script>
   'use strict';
-
   Polymer({
     is: 'lancie-photo-page',
-    loadImages: function() {
-      this.$.photoAlbum.show();
-    },
-    loaded: function() {
-      console.log("test");
+    attached: function() {
+      setTimeout(function() {
+        this.$.photoAlbum.show();
+      }.bind(this), 500);
     }
   });
   </script>
