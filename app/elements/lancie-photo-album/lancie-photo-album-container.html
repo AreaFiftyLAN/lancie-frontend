@@ -16,6 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
 
 <link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animatable.html">
@@ -38,7 +39,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     neon-animated-pages {
       height: 100%;
     }
-
+    
     lancie-fullsize-image {
       position: fixed;
       top: 0;
@@ -48,12 +49,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     </style>
 
-    <neon-animated-pages id="pages" selected="0" style$="[[_calculateHeight()]]">
-      <lancie-photo-album id="photoAlbum" on-tile-click="_onTileClick"></lancie-photo-album>
-      <lancie-fullsize-image id="fullsizeCard" 
-        on-exit="_onFullsizeClick"
-        on-select-next="_onSelectNext"
-        on-select-prev="_onSelectPrev"></lancie-fullsize-image>
+    <neon-animated-pages id="pages" selected="0" style="{{height}}">
+      <lancie-photo-album id="photoAlbum" on-tile-click="_onTileClick" on-update-config="_calculateHeight"></lancie-photo-album>
+      <lancie-fullsize-image id="fullsizeCard" on-exit="_onFullsizeClick" on-select-next="_onSelectNext" on-select-prev="_onSelectPrev"></lancie-fullsize-image>
     </neon-animated-pages>
 
   </template>
@@ -61,14 +59,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <script>
 'use strict';
-
 Polymer({
   is: 'lancie-photo-album-container',
   behaviors: [
+    Polymer.IronResizableBehavior,
     Polymer.NeonAnimatableBehavior,
     Polymer.NeonAnimationRunnerBehavior
   ],
   properties: {
+    selected: {
+      type: Number,
+      value: 0
+    },
+    height: {
+      type: String,
+      value: ''
+    },
     animationConfig: {
       type: Object,
       value: function() {
@@ -89,17 +95,16 @@ Polymer({
         };
       }
     },
-    selected: {
-      type: Number,
-      value: 0
-    }
+  },
+  listeners: {
+    'iron-resize': '_calculateHeight'
   },
   show: function() {
     this.style.visibility = 'visible';
     this.playAnimation('loading');
   },
   _calculateHeight: function() {
-    return 'height: ' + Math.ceil(this.$.photoAlbum.config.length / 6) * (window.innerWidth / 6) + 'px';
+    this.height = 'height: ' + Math.ceil(this.$.photoAlbum.config.length / 6) * (window.innerWidth / 6) + 'px';
   },
   _onTileClick: function(event) {
     this.$.fullsizeCard.src = event.detail.data.src;

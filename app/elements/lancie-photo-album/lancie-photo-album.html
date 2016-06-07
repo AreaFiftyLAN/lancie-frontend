@@ -18,6 +18,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="lancie-photo-album">
   <template>
+    <iron-ajax
+       auto
+       url="/scripts/photo-album-2016.json"
+       handle-as="json"
+       last-response="{{config}}"></iron-ajax>
     <style>
     :host {
       display: block;
@@ -60,7 +65,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <script>
 'use strict';
-
 Polymer({
   is: 'lancie-photo-album',
   behaviors: [
@@ -70,62 +74,9 @@ Polymer({
     config: {
       type: Array,
       value: function() {
-        return [{
-          thumbnail: 'http://lorempixel.com/400/400/',
-          src: 'http://lorempixel.com/1000/1000/',
-        }, {
-          thumbnail: 'http://lorempixel.com/500/500/',
-          src: 'http://lorempixel.com/500/500/',
-        }, {
-          thumbnail: 'http://lorempixel.com/300/300/',
-          src: 'http://lorempixel.com/300/300/',
-        }, {
-          thumbnail: 'http://lorempixel.com/301/301/',
-          src: 'http://lorempixel.com/301/301/',
-        }, {
-          thumbnail: 'http://lorempixel.com/301/302/',
-          src: 'http://lorempixel.com/301/302/',
-        }, {
-          thumbnail: 'http://lorempixel.com/302/302/',
-          src: 'http://lorempixel.com/302/302/',
-        },{
-          thumbnail: 'http://lorempixel.com/400/400/',
-          src: 'http://lorempixel.com/1000/1000/',
-        }, {
-          thumbnail: 'http://lorempixel.com/500/500/',
-          src: 'http://lorempixel.com/500/500/',
-        }, {
-          thumbnail: 'http://lorempixel.com/300/300/',
-          src: 'http://lorempixel.com/300/300/',
-        }, {
-          thumbnail: 'http://lorempixel.com/301/301/',
-          src: 'http://lorempixel.com/301/301/',
-        }, {
-          thumbnail: 'http://lorempixel.com/301/302/',
-          src: 'http://lorempixel.com/301/302/',
-        }, {
-          thumbnail: 'http://lorempixel.com/302/302/',
-          src: 'http://lorempixel.com/302/302/',
-        },{
-          thumbnail: 'http://lorempixel.com/400/400/',
-          src: 'http://lorempixel.com/1000/1000/',
-        }, {
-          thumbnail: 'http://lorempixel.com/500/500/',
-          src: 'http://lorempixel.com/500/500/',
-        }, {
-          thumbnail: 'http://lorempixel.com/300/300/',
-          src: 'http://lorempixel.com/300/300/',
-        }, {
-          thumbnail: 'http://lorempixel.com/301/301/',
-          src: 'http://lorempixel.com/301/301/',
-        }, {
-          thumbnail: 'http://lorempixel.com/301/302/',
-          src: 'http://lorempixel.com/301/302/',
-        }, {
-          thumbnail: 'http://lorempixel.com/302/302/',
-          src: 'http://lorempixel.com/302/302/',
-        }];
-      }
+        return [];
+      },
+      observer: "attachImages"
     },
     animationConfig: {
       type: Object,
@@ -154,11 +105,12 @@ Polymer({
   listeners: {
     click: '_onClick'
   },
-  attached: function() {
+  attachImages: function() {
     this.async(function() {
       var nodeList = Polymer.dom(this.root).querySelectorAll('iron-image');
       this.animationConfig.loading[0].nodes = Array.prototype.slice.call(nodeList);
     });
+    this.fire("update-config");
   },
   _onClick: function(event) {
     var target = event.target;
