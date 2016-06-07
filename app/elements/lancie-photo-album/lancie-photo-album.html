@@ -14,8 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-styles/color.html">
 
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
-
-<link rel="import" href="lancie-photo-album-photo.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 
 <dom-module id="lancie-photo-album">
   <template>
@@ -28,6 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     
     .photo-box {
+      margin: 2px;
       position: relative;
       width: calc((100% / 6) - 4px);
       @apply(--layout-vertical);
@@ -40,7 +40,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       padding-top: 100%
     }
     
-    lancie-photo-album-photo {
+    iron-image {
       position: absolute;
       top: 0;
       left: 0;
@@ -52,7 +52,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="layout horizontal wrap">
       <template is="dom-repeat" items="[[config]]">
         <div class="photo-box">
-          <lancie-photo-album-photo photo="[[item]]" alt=""></lancie-photo-album-photo>
+          <iron-image src="{{item.thumbnail}}" preload sizing="cover"></iron-image>
         </div>
       </template>
     </div>
@@ -158,7 +158,7 @@ Polymer({
   },
   attached: function() {
     this.async(function() {
-      var nodeList = Polymer.dom(this.root).querySelectorAll('lancie-photo-album-photo');
+      var nodeList = Polymer.dom(this.root).querySelectorAll('iron-image');
       this.animationConfig['loading'][0].nodes = Array.prototype.slice.call(nodeList);
     });
   },
