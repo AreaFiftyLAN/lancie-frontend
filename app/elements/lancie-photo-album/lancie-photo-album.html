@@ -159,7 +159,7 @@ Polymer({
   attached: function() {
     this.async(function() {
       var nodeList = Polymer.dom(this.root).querySelectorAll('iron-image');
-      this.animationConfig['loading'][0].nodes = Array.prototype.slice.call(nodeList);
+      this.animationConfig.loading[0].nodes = Array.prototype.slice.call(nodeList);
     });
   },
   _onClick: function(event) {
@@ -172,7 +172,7 @@ Polymer({
       'hero': target,
       'ripple': target
     };
-    this.animationConfig['exit'][0].gesture = {
+    this.animationConfig.exit[0].gesture = {
       x: event.x || event.pageX,
       y: event.y || event.pageY
     };
