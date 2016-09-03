@@ -10,7 +10,8 @@
     "google-map": "GoogleWebComponents/google-map#~1.1.7",
     "google-youtube": "GoogleWebComponents/google-youtube#~1.1.2",
     "moment": "momentjs#~2.10.6",
-    "polymer": "polymer/polymer#^1.4.0"
+    "polymer": "polymer/polymer#^1.4.0",
+    "wisvch-footer": "wisvch/wisvch-footer#^1.0.1"
   },
   "devDependencies": {
     "web-component-tester": "*",
