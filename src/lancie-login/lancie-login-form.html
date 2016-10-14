@@ -14,6 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <dom-module id="lancie-login-form">
@@ -89,7 +90,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       url="/api/v1/users"
       method="POST"
       handle-as="json"
-      body="{{bodyFrom(username, password, email)}}"
+      body="{{bodyFrom(username, password)}}"
       headers="{{headerFrom('application/json', csrfToken)}}"
       on-response="onRegister"
       on-error="onRegisterError"></iron-ajax>
@@ -103,12 +104,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
         <div hidden$="{{!registering}}">
           <paper-material class="errormessage" hidden$="{{!registerError}}">{{registerErrorMessage}}</paper-material>
-          <paper-material class="errormessage" hidden$="{{equalPassword}}">Passwords are not equal.</paper-material>
-          <paper-material class="errormessage" hidden$="{{!badEmailFormat}}">Type in a valid email address.</paper-material>
-          <paper-input label="Username" name="username" type="text" value="{{username}}"></paper-input>
+          <paper-material class="errormessage" hidden$="{{!passwordError}}">{{passwordErrorMessage}}</paper-material>
+          <gold-email-input id="username" label="Username" name="Username" value="{{username}}" error-message="Username should be a valid email address." on-blur="validateUsername" required></gold-email-input>
           <paper-input label="Password" name="password" type="password" value="{{password}}"></paper-input>
           <paper-input label="Retype password" type="password" value="{{secondPassword}}"></paper-input>
-          <paper-input label="Email" name="mail" type="email" value="{{email}}"></paper-input>
         </div>
       </div>
       <div class="card-actions">
@@ -160,18 +159,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         secondPassword: {
           type: String,
         },
-        email: {
-          type: String
-        },
         equalPassword: {
           type: Boolean,
           value: true
         },
-        badEmailFormat: {
+        registerError: {
           type: Boolean,
           value: false
         },
-        registerError: {
+        passwordError: {
           type: Boolean,
           value: false
         }
@@ -199,7 +195,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       tryRegister: function() {
-        if (this.validForm()) {
+        if (this.validateForm()) {
           this.$.ajaxRegister.generateRequest();
         }
       },
@@ -239,22 +235,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.registerError = true;
 
         if (request.request.status === 409) {
-          this.registerErrorMessage = 'Username and/or email is already in use.';
+          this.registerErrorMessage = 'Email is already in use.';
         } else {
           this.registerErrorMessage = 'Server failed processing the request, please try refreshing the page.';
         }
       },
 
-      bodyFrom: function(username, password, email) {
+      bodyFrom: function(username, password) {
         var body = {
           _csrf: csrfToken,
           username: username,
           password: password
         };
-
-        if (email) {
-          body.email = email;
-        }
 
         return body;
       },
@@ -279,40 +271,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      validForm: function() {
-        var valid = true;
-        valid = this.validPassword();
-        valid = this.validEmail();
-        return valid;
+      validateForm: function() {
+        if (!this.validateUsername()) {
+          this.validatePassword();
+          return false;
+        }
+        return this.validatePassword();
       },
 
-      validPassword: function() {
+      validatePassword: function() {
         if (!this.password || this.password === '') {
-          this.equalPassword = false;
+          this.passwordError = true;
+          this.passwordErrorMessage = 'Please fill in a password.';
           return false;
         }
         if (this.password !== this.secondPassword) {
-          this.equalPassword = false;
+          this.passwordError = true;
+          this.passwordErrorMessage = 'Passwords have to be equal.';
           return false;
         }
-        this.equalPassword = true;
+        this.passwordError = false;
+        this.passwordErrorMessage = '';
         return true;
       },
 
-      validEmail: function() {
-        if (!this.email || this.email === '') {
-          this.badEmailFormat = true;
-          return false;
-        }
-        var emailSplit = this.email.split('@');
-        var startPart = emailSplit[0];
-        var endPart = emailSplit[1];
-        if (!startPart || startPart.length === 0 || !endPart || endPart.length === 0) {
-          this.badEmailFormat = true;
-          return false;
-        }
-        this.badEmailFormat = false;
-        return true;
+      validateUsername: function() {
+        return this.$.username.validate();
       }
     });
   })();
