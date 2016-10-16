@@ -21,28 +21,23 @@
       app-toolbar {
         background-color: #1a2b43;
       }
-      
-      a {
-        :visited :link; {
-          text-decoration: none;
-          color: black;
-        }
+
+      paper-menu a {
+        text-decoration: none;
+        color: black;
       }
 
       paper-tab[link] a {
         /* These mixins (from iron-flex-layout) center the link text. */
         @apply(--layout-horizontal);
         @apply(--layout-center-center);
+        text-decoration: none;
         color: #ffe574;
         font-size: 16px;
         font-weight: 400;
         line-height: 24px;
         min-height: 48px;
         padding: 0 16px;
-      }
-
-      paper-menu paper-item {
-        border-bottom: solid 1px rgb(0, 0, 0, 0.3);
       }
 
       iron-image {
@@ -129,7 +124,7 @@
   Polymer({
     is: 'lancie-layout',
 
-    _closeDrawer() {
+    _closeDrawer: function() {
       this.$.drawer.close();
     },
 
