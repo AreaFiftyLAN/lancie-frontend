@@ -1,79 +1,70 @@
 <link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
-<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
-<linr rel="import" href="../../bower_components/app-toolbar/app-toolbar.html">
-<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
-<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
-<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 
-
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 <dom-module id="lancie-layout">
   <template>
     <style include="iron-flex iron-flex-alignment"></style>
     <style>
-    :host {
-      /*display: block;*/
-      /*height: 64px;*/
-      /*color: #ffe574;*/
-      /*margin-right: 16px;*/
-    }
+      app-toolbar {
+        background-color: #1a2b43;
+      }
+      
+      a {
+        :visited :link; {
+          text-decoration: none;
+          color: black;
+        }
+      }
 
-    app-toolbar {
-      background-color: #1a2b43;
-    }
-    
-    a {
-      :visited :link; {
-        text-decoration: none;
+      paper-tab[link] a {
+        /* These mixins (from iron-flex-layout) center the link text. */
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        color: #ffe574;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        min-height: 48px;
+        padding: 0 16px;
+      }
+
+      paper-menu paper-item {
+        border-bottom: solid 1px rgb(0, 0, 0, 0.3);
+      }
+
+      iron-image {
+        height: 40px;
+        width: 200px;
+        margin-left: 16px;
+      }
+
+      paper-icon-button {
+        color: #ffe574;
+        height: 48px;
+        width: 48px;
+      }
+
+      paper-tabs {
+        font-weight: 200;
+        height: 64px;
+      }
+
+      content {
         color: black;
       }
-    }
-
-    paper-tab[link] a {
-      /* These mixins (from iron-flex-layout) center the link text. */
-      @apply(--layout-horizontal);
-      @apply(--layout-center-center);
-      color: #ffe574;
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 24px;
-      min-height: 48px;
-      padding: 0 16px;
-    }
-
-    paper-menu paper-item {
-      border-bottom: solid 1px rgb(0, 0, 0, 0.3);
-    }
-
-    iron-image {
-      height: 40px;
-      width: 200px;
-      margin-left: 16px;
-    }
-
-    paper-icon-button {
-      color: #ffe574;
-      height: 48px;
-      width: 48px;
-    }
-
-    paper-tabs {
-      font-weight: 200;
-      height: 64px;
-    }
-
-    content {
-      color: black;
-    }
     </style>
 
     <!-- force-narrow prevents the drawer from ever being displayed in persistent mode -->
