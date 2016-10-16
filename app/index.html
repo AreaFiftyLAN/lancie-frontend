@@ -79,26 +79,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <span id="browser-sync-binding"></span>
 <template is="dom-bind" id="app">
 
-<!--
-    <paper-header-panel class="flex" id="paperDrawerPanel">
-      <paper-toolbar class="layout horizontal center-center">
-        <a href="/">
-          <iron-image class="logo-frontpage" preload fade sizing="contain" id="toolbar-header"
-        i              position="left" src="https://areafiftylan.nl/images/logos/lancie/logo_without_date.png"></iron-image>
-        </a>
-        <span class="flex"></span>
-
-        <lancie-header class="layout end horizontal" route="{{route}}"></lancie-header>
-      </paper-toolbar>
-
-      <div id="content">
-        <lancie-content route="{{route}}"></lancie-content>
-
-        <lancie-footer></lancie-footer>
-      </div>
-    </paper-header-panel>
-    -->
-
     <lancie-layout>
       <div id="content">
         <lancie-content route="{{route}}"></lancie-content>
@@ -106,8 +86,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <lancie-footer></lancie-footer>
       </div>
     </lancie-layout>
-
-
 
   <!-- <platinum-sw-register auto-register
                         clients-claim
