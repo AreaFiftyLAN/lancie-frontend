@@ -1,0 +1,166 @@
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<linr rel="import" href="../../bower_components/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+
+
+
+<dom-module id="lancie-layout">
+  <template>
+    <style include="iron-flex iron-flex-alignment"></style>
+    <style>
+    :host {
+      /*display: block;*/
+      /*height: 64px;*/
+      /*color: #ffe574;*/
+      /*margin-right: 16px;*/
+    }
+
+    app-toolbar {
+      background-color: #1a2b43;
+    }
+    
+    a {
+      :visited :link; {
+        text-decoration: none;
+        color: black;
+      }
+    }
+
+    paper-tab[link] a {
+      /* These mixins (from iron-flex-layout) center the link text. */
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+      color: #ffe574;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      min-height: 48px;
+      padding: 0 16px;
+    }
+
+    paper-menu paper-item {
+      border-bottom: solid 1px rgb(0, 0, 0, 0.3);
+    }
+
+    iron-image {
+      height: 40px;
+      width: 200px;
+      margin-left: 16px;
+    }
+
+    paper-icon-button {
+      color: #ffe574;
+      height: 48px;
+      width: 48px;
+    }
+
+    paper-tabs {
+      font-weight: 200;
+      height: 64px;
+    }
+
+    content {
+      color: black;
+    }
+    </style>
+
+    <!-- force-narrow prevents the drawer from ever being displayed in persistent mode -->
+    <app-drawer-layout force-narrow>
+      <app-drawer id="drawer">
+        <app-toolbar></app-toolbar>
+
+        <!-- Nav on mobile: side nav menu -->
+        <paper-menu selected="_selected">
+            <div><a href="{{baseUrl}}/"><paper-item on-tap="_closeDrawer">Home</paper-item></a></div>
+            <div><a href="{{baseUrl}}/tickets"><paper-item on-tap="_closeDrawer">Tickets</paper-item></a></div>
+            <div><a href="{{baseUrl}}/my-area"><paper-item on-tap="_closeDrawer">My Area</paper-item></a></div>
+            <div><a href="{{baseUrl}}/seatmap"><paper-item on-tap="_closeDrawer">Seatmap</paper-item></a></div>
+            <paper-item on-tap="toShop">Shop</paper-item>
+        </paper-menu>
+      </app-drawer>
+
+      <app-header-layout>
+        <app-header fixed effects="waterfall">
+
+          <!-- Nav on mobile: side nav menu -->
+          <app-toolbar class="layout horizontal center-center">
+            <paper-icon-button class="menu-button" icon="menu" hidden$="{{wideLayout}}" drawer-toggle></paper-icon-button>
+            <span class="flex" hidden$="{{wideLayout}}"></span>
+              
+            <a href="/">
+            <iron-image class="logo-frontpage" preload fade sizing="contain" id="toolbar-header"
+  position="left" src="https://areafiftylan.nl/images/logos/lancie/logo_without_date.png"></iron-image></a>
+            <span class="flex" hidden$="{{!wideLayout}}"></span>
+              
+            <paper-tabs selected="{{_selected()}}" hidden$="{{!wideLayout}}">
+              <paper-tab link>
+                <a href="{{baseUrl}}/" tabindex="-1">Home</a>
+              </paper-tab>
+              <paper-tab link>
+                <a href="{{baseUrl}}/tickets" tabindex="-1">Tickets</a>
+              </paper-tab>
+              <paper-tab link>
+                <a href="{{baseUrl}}/my-area" tabindex="-1">My Area</a>
+              </paper-tab>
+              <paper-tab link>
+                <a href="{{baseUrl}}/seatmap" tabindex="-1">Seatmap</a>
+              </paper-tab>
+              <paper-tab link>
+                <a tabindex="-1" on-click="toShop">Shop</a>
+              </paper-tab>
+            </paper-tabs>
+
+          </app-toolbar>
+        </app-header>
+
+        <content></content>
+
+      </app-header-layout>
+    </app-drawer-layout>
+
+    <iron-media-query query="min-width: 800px" query-matches="{{wideLayout}}"></iron-media-query>
+
+  </template>
+  <script>
+  'use strict';
+  Polymer({
+    is: 'lancie-layout',
+
+    _closeDrawer() {
+      this.$.drawer.close();
+    },
+
+    _selected: function() {
+      if (window.location.href.indexOf('#!/') === -1) {
+        return 0;
+      }
+
+      var route = window.location.href.split('#!/')[1];
+      if (route.startsWith('tickets')) {
+        return 1;
+      } else if (route.startsWith('my-area')) {
+        return 2;
+      } else if (route.startsWith('seatmap')) {
+        return 3;
+      }
+      return 0;
+    },
+
+    toShop: function() {
+      window.location.href = 'shop';
+    }
+  });
+  </script>
+</dom-module>

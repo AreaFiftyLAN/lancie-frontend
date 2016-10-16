@@ -15,30 +15,7 @@ body {
   margin: 0;
 }
 
-paper-header-panel {
-  display: block;
-  width: 100%;
-}
-
-paper-toolbar {
-  display: block;
-  width: 100%;
-  background-color: #1a2b43;
-  height: 64px;
-}
-
-paper-tabs {
-  color: #ffe574;
-  font-weight: 200;
-}
-
 lancie-content {
   min-height: calc(100vh - /*Height of footer*/ 272px - /*Height of top bar*/ 64px);
   display: block;
-}
-
-#toolbar-header {
-  height: 40px;
-  width: 200px;
-  margin-left: 16px;
 }
