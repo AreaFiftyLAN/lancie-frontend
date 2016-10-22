@@ -45,6 +45,9 @@
         <a href="{{baseUrl}}/seatmap" tabindex="-1">Seatmap</a>
       </paper-tab>
       <paper-tab link>
+        <a href="{{baseUrl}}/photos" tabindex="-1">Photos</a>
+      </paper-tab>
+      <paper-tab link>
         <a tabindex="-1" on-click="toShop">Shop</a>
       </paper-tab>
     </paper-tabs>
@@ -65,6 +68,8 @@
         return 2;
       } else if (route.startsWith('seatmap')) {
         return 3;
+      } else if (route.startsWith('photos')) {
+        return 4;
       }
       return 0;
     },
