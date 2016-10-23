@@ -99,15 +99,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <paper-card heading="{{getHeading(registering)}}" image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png" class="white">
       <div class="card-content">
-        <div hidden$="{{registering}}">
+        <div hidden$="{{registering}}" on-keypress="tryLoginOnEnter">
           <paper-material class="errormessage" hidden$="{{!loginError}}">{{loginErrorMessage}}</paper-material>
-          <paper-input label="Username" type="text" name="username" value="{{username}}"></paper-input>
-          <paper-input label="Password" type="password" name="password" value="{{password}}" on-keypress="enterAndTryLogIn"></paper-input>
+          <gold-email-input id="username" label="Username" name="Username" value="{{username}}" error-message="Username should be a valid email address." on-blur="validateUsername" required></gold-email-input>
+          <paper-input label="Password" type="password" name="password" value="{{password}}"></paper-input>
         </div>
         <div hidden$="{{!registering}}">
           <paper-material class="errormessage" hidden$="{{!registerError}}">{{registerErrorMessage}}</paper-material>
           <paper-material class="errormessage" hidden$="{{!passwordError}}">{{passwordErrorMessage}}</paper-material>
-          <gold-email-input id="username" label="Username" name="Username" value="{{username}}" error-message="Username should be a valid email address." on-blur="validateUsername" required></gold-email-input>
+          <gold-email-input id="registerUsername" label="Username" name="Username" value="{{username}}" error-message="Username should be a valid email address." on-blur="validateUsername" required></gold-email-input>
           <paper-input label="Password" name="password" type="password" value="{{password}}"></paper-input>
           <paper-input label="Retype password" type="password" value="{{secondPassword}}"></paper-input>
         </div>
@@ -190,7 +190,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.registering = !this.registering;
       },
 
-      enterAndTryLogIn: function(event) {
+      tryLoginOnEnter: function(event) {
         if (event.keyCode === 13) {
           this.tryLogIn();
         }
@@ -203,7 +203,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       tryLogIn: function() {
-        this.$.ajaxLogin.generateRequest();
+        if (this.$.username.validate()) {
+          this.$.ajaxLogin.generateRequest();
+        } else {
+          this.loginError = false;
+          this.loginErrorMessage = '';
+        }
       },
 
       onLoggedIn: function(event, newUser) {
@@ -281,6 +286,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return this.validatePassword();
       },
 
+      validateUsername: function() {
+        return this.$.registerUsername.validate();
+      },
+
       validatePassword: function() {
         if (!this.password || this.password === '') {
           this.passwordError = true;
@@ -295,10 +304,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.passwordError = false;
         this.passwordErrorMessage = '';
         return true;
-      },
-
-      validateUsername: function() {
-        return this.$.username.validate();
       }
     });
   })();
