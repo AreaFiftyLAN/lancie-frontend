@@ -11,7 +11,8 @@
     "google-youtube": "GoogleWebComponents/google-youtube#~1.1.2",
     "moment": "momentjs#~2.10.6",
     "polymer": "polymer/polymer#^1.4.0",
-    "wisvch-footer": "wisvch/wisvch-footer#^1.0.1"
+    "wisvch-footer": "wisvch/wisvch-footer#^1.0.1",
+    "app-layout": "PolymerElements/app-layout#^0.10.4"
   },
   "devDependencies": {
     "web-component-tester": "*",
