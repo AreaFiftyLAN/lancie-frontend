@@ -33,7 +33,7 @@ paper-tabs {
 }
 
 lancie-content {
-  min-height: calc(100vh - /*Height of footer*/ 268px - /*Height of top bar*/ 64px);
+  min-height: calc(100vh - /*Height of footer*/ 272px - /*Height of top bar*/ 64px);
   display: block;
 }
 
