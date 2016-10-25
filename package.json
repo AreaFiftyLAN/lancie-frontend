@@ -1,30 +1,27 @@
 {
   "private": true,
   "devDependencies": {
-    "browser-sync": "^2.7.7",
-    "del": "^2.0.2",
-    "glob-all": "^3.0.1",
-    "gulp": "^3.8.5",
-    "gulp-htmlmin": "^1.3.0",
-    "gulp-if": "^2.0.0",
-    "gulp-imagemin": "^2.2.1",
-    "gulp-jshint": "^2.0.0",
-    "gulp-jsonminify": "^1.0.0",
-    "gulp-load-plugins": "^1.1.0",
-    "gulp-rev": "^7.0.0",
-    "gulp-rev-replace": "^0.4.3",
-    "gulp-size": "^2.0.0",
-    "gulp-useref": "^3.0.0",
+    "css-slam": "^1.1.0",
+    "del": "^2.2.1",
+    "gulp": "gulpjs/gulp#4.0",
+    "gulp-html-minifier": "^0.1.8",
+    "gulp-if": "^2.0.1",
+    "gulp-imagemin": "^3.0.1",
+    "gulp-jshint": "^2.0.2",
+    "gulp-style-modules": "^0.1.0",
+    "gulp-uglify": "^2.0.0",
     "jshint": "^2.9.1",
     "jshint-stylish": "^2.0.0",
     "merge-stream": "^1.0.0",
-    "polybuild": "^1.1.0",
-    "proxy-middleware": "^0.15.0",
-    "require-dir": "^0.3.0",
-    "run-sequence": "^1.0.2",
-    "through2": "^2.0.0",
-    "url": "^0.11.0",
-    "vulcanize": ">= 1.4.2"
+    "plylog": "^0.4.0",
+    "polymer-build": "^0.4.0",
+    "polyserve": "git+https://github.com/timvdLippe/polyserve.git#proxy"
+  },
+  "scripts": {
+    "postinstall": "cd ./node_modules/polyserve && npm install && npm run build -s || true",
+    "build": "node ./node_modules/gulp/bin/gulp.js",
+    "serve": "node ./node_modules/polyserve/bin/polyserve -p 5100 -P h2 --proxy-root api --proxy-target http://localhost:5100/api/",
+    "serve-build": "node ./node_modules/polyserve/bin/polyserve -p 5100 --root build/bundled/ -P h2 --proxy-root api --proxy-target http://localhost:5100/api/"
   },
   "engines": {
     "node": ">=5.0.0"
