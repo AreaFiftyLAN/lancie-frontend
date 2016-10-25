@@ -2,12 +2,9 @@ language: node_js
 node_js:
   - '4.0'
 before_script:
-  - 'npm install -g bower grunt-cli'
+  - 'npm install -g bower'
   - 'bower install'
-env:
-  - COMMAND=jshint
-  - COMMAND=default
-script: "gulp $COMMAND"
+script: "npm run build"
 cache:
   directories:
     - node_modules
