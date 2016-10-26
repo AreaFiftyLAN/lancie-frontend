@@ -1,8 +1,10 @@
 node_modules
 dist
+build
 bower_components
 .tmp
 npm-debug.log
 *.sublime-project
 *.sublime-workspace
 .idea
+*.pem

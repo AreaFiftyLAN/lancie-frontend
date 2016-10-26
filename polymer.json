@@ -1,0 +1,19 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/lancie-app.html",
+  "sourceGlobs": [
+   "src/**/*",
+   "images/**/*",
+   "styles/*",
+   "scripts/*",
+   "bower.json"
+  ],
+  "includeDependencies": [
+    "manifest.json",
+    "favicon.ico",
+    "bower_components/page/page.js",
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js",
+    "bower_components/moment/min/moment.min.js",
+    "bower_components/moment-timezone/builds/moment-timezone-with-data.min.js"
+  ]
+}

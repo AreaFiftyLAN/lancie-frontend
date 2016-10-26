@@ -1,0 +1,26 @@
+<link rel="import" href="lancie-layout/lancie-layout.html">
+<link rel="import" href="lancie-content.html">
+
+<link rel="import" href="lancie-footer/lancie-footer.html">
+
+<dom-module id="lancie-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <lancie-layout>
+      <div id="content">
+        <lancie-content route="{{route}}"></lancie-content>
+
+        <lancie-footer></lancie-footer>
+      </div>
+    </lancie-layout>
+  </template>
+  <script>
+    Polymer({
+      is: 'lancie-app'
+    });
+  </script>
+</dom-module>
