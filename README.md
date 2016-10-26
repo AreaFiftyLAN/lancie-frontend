@@ -47,5 +47,5 @@ git clone git@github.com:AreaFiftyLAN/lancie-frontend.git
 cd lancie-frontend
 npm install
 bower install
-gulp serve
+npm run serve
 ```
