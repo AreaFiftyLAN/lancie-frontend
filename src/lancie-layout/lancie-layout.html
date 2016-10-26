@@ -69,11 +69,11 @@
 
         <!-- Nav on mobile: side nav menu -->
         <paper-menu selected="_selected">
-            <div><a href="{{baseUrl}}/"><paper-item on-tap="_closeDrawer">Home</paper-item></a></div>
-            <div><a href="{{baseUrl}}/tickets"><paper-item on-tap="_closeDrawer">Tickets</paper-item></a></div>
-            <div><a href="{{baseUrl}}/my-area"><paper-item on-tap="_closeDrawer">My Area</paper-item></a></div>
-            <div><a href="{{baseUrl}}/seatmap"><paper-item on-tap="_closeDrawer">Seatmap</paper-item></a></div>
-            <paper-item on-tap="toShop">Shop</paper-item>
+          <div><a href$="{{route.prefix}}/../"><paper-item on-tap="_closeDrawer">Home</paper-item></a></div>
+          <div><a href$="{{route.prefix}}/tickets"><paper-item on-tap="_closeDrawer">Tickets</paper-item></a></div>
+          <div><a href$="{{route.prefix}}/my-area"><paper-item on-tap="_closeDrawer">My Area</paper-item></a></div>
+          <div><a href$="{{route.prefix}}/seatmap"><paper-item on-tap="_closeDrawer">Seatmap</paper-item></a></div>
+          <paper-item on-tap="toShop">Shop</paper-item>
         </paper-menu>
       </app-drawer>
 
@@ -84,24 +84,24 @@
           <app-toolbar class="layout horizontal center-center">
             <paper-icon-button class="menu-button" icon="menu" hidden$="{{wideLayout}}" drawer-toggle></paper-icon-button>
             <span class="flex" hidden$="{{wideLayout}}"></span>
-              
+
             <a href="/">
             <iron-image class="logo-frontpage" preload fade sizing="contain" id="toolbar-header"
   position="left" src="https://areafiftylan.nl/images/logos/lancie/logo_without_date.png"></iron-image></a>
             <span class="flex" hidden$="{{!wideLayout}}"></span>
-              
+
             <paper-tabs selected="{{_selected()}}" hidden$="{{!wideLayout}}">
               <paper-tab link>
-                <a href="{{baseUrl}}/" tabindex="-1">Home</a>
+                <a href$="{{route.prefix}}/../" tabindex="-1">Home</a>
               </paper-tab>
               <paper-tab link>
-                <a href="{{baseUrl}}/tickets" tabindex="-1">Tickets</a>
+                <a href$="{{route.prefix}}/tickets" tabindex="-1">Tickets</a>
               </paper-tab>
               <paper-tab link>
-                <a href="{{baseUrl}}/my-area" tabindex="-1">My Area</a>
+                <a href$="{{route.prefix}}/my-area" tabindex="-1">My Area</a>
               </paper-tab>
               <paper-tab link>
-                <a href="{{baseUrl}}/seatmap" tabindex="-1">Seatmap</a>
+                <a href$="{{route.prefix}}/seatmap" tabindex="-1">Seatmap</a>
               </paper-tab>
               <paper-tab link>
                 <a tabindex="-1" on-click="toShop">Shop</a>
@@ -123,6 +123,10 @@
   'use strict';
   Polymer({
     is: 'lancie-layout',
+
+    properties: {
+      route: Object
+    },
 
     _closeDrawer: function() {
       this.$.drawer.close();

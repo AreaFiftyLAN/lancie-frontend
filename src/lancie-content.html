@@ -1,5 +1,7 @@
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="lancie-login/lancie-ajax.html">
 <link rel="import" href="lancie-login/lancie-login-check.html">
 <link rel="import" href="lancie-login/lancie-register-confirmation.html">
@@ -38,8 +40,12 @@
 
     <lancie-ajax id="ajax"></lancie-ajax>
 
-    <iron-pages attr-for-selected="data-route" selected="{{route}}">
-      <div data-route="home">
+    <app-location route="{{route}}"></app-location>
+    <app-route route="{{route}}" pattern="/:page" data="{{page}}"></app-route>
+
+    <iron-pages attr-for-selected="data-route" selected="{{page.page}}"
+      fallback-selection="404">
+      <div data-route="">
         <lancie-home-page></lancie-home-page>
       </div>
 
@@ -49,7 +55,7 @@
         </lancie-login-check>
       </div>
 
-      <div data-route="accept-ticket-transfer">
+      <div data-route="accept-transfer">
         <lancie-login-check user="{{user}}">
           <!-- This is done to prevent firing this request when it is not supposed to fire. -->
           <template is="dom-if" if="{{_matches('accept-ticket-transfer', route)}}" restamp="true">
@@ -58,9 +64,9 @@
         </lancie-login-check>
       </div>
 
-      <div data-route="success-ticket-transfer">
-          <!-- This is done to prevent firing this request when it is not supposed to fire. -->
-            <lancie-success-ticket-transfer></lancie-success-ticket-transfer>
+      <div data-route="transfer-success">
+        <!-- This is done to prevent firing this request when it is not supposed to fire. -->
+        <lancie-success-ticket-transfer></lancie-success-ticket-transfer>
       </div>
 
       <div data-route="tickets">
@@ -81,7 +87,7 @@
         </lancie-login-check>
       </div>
 
-      <div data-route="tickets-profile-intercept">
+      <div data-route="tickets-intercept">
         <lancie-ticket-profile-intercept route="{{route}}" user="{{user}}"></lancie-ticket-profile-intercept>
       </div>
 
@@ -99,7 +105,7 @@
         <lancie-request-password-reset-success></lancie-request-password-reset-success>
       </div>
 
-      <div data-route="order-check">
+      <div data-route="ordersuccess">
         <lancie-order-check></lancie-order-check>
       </div>
 
