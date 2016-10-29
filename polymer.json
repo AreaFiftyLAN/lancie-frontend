@@ -2,11 +2,9 @@
   "entrypoint": "index.html",
   "shell": "src/lancie-app.html",
   "sourceGlobs": [
-   "src/**/*",
    "images/**/*",
    "styles/*",
-   "scripts/*",
-   "bower.json"
+   "scripts/*"
   ],
   "includeDependencies": [
     "manifest.json",
