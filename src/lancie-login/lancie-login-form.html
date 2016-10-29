@@ -195,7 +195,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       tryRegister: function() {
-        if (this.validateForm()) {
+        if (this.validateRegisterForm()) {
           this.$.ajaxRegister.generateRequest();
         }
       },
@@ -276,19 +276,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      validateForm: function() {
-        if (!this.validateUsername()) {
-          this.validatePassword();
+      validateRegisterForm: function() {
+        if (!this.validateRegisterUsername()) {
+          this.validateRegisterPassword();
           return false;
         }
-        return this.validatePassword();
+        return this.validateRegisterPassword();
       },
 
-      validateUsername: function() {
+      validateRegisterUsername: function() {
         return this.$.registerUsername.validate();
       },
 
-      validatePassword: function() {
+      validateRegisterPassword: function() {
         if (!this.password || this.password === '') {
           this.passwordError = true;
           this.passwordErrorMessage = 'Please fill in a password.';
