@@ -10,15 +10,16 @@
         display: block;
       }
     </style>
-    <lancie-layout route="{{route}}">
+    <lancie-layout page="{{page}}">
       <div id="content">
-        <lancie-content route="{{route}}"></lancie-content>
+        <lancie-content page="{{page}}"></lancie-content>
 
         <lancie-footer></lancie-footer>
       </div>
     </lancie-layout>
   </template>
   <script>
+    'use scrict';
     Polymer({
       is: 'lancie-app'
     });
