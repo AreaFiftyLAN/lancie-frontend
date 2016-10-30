@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
 
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
@@ -22,20 +23,17 @@
         background-color: #1a2b43;
       }
 
-      paper-tab {
+      paper-tab[link] a {
+        /* These mixins (from iron-flex-layout) center the link text. */
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        text-decoration: none;
         color: #ffe574;
         font-size: 16px;
         font-weight: 400;
         line-height: 24px;
         min-height: 48px;
         padding: 0 16px;
-        text-decoration: none;
-      }
-
-      paper-tab[link] a {
-        /* These mixins (from iron-flex-layout) center the link text. */
-        @apply(--layout-horizontal);
-        @apply(--layout-center-center);
       }
 
       iron-image {
@@ -69,12 +67,12 @@
         <app-toolbar></app-toolbar>
 
         <!-- Nav on mobile: side nav menu -->
-        <paper-menu selected="{{page.page}}" attr-for-selected="data-route">
-          <paper-item data-route="" on-tap="_closeDrawer">Home</paper-item></a>
-          <paper-item data-route="tickets" on-tap="_closeDrawer">Tickets</paper-item></a></div>
+        <paper-menu selected="{{route.page}}" attr-for-selected="data-route">
+          <paper-item data-route="" on-tap="_closeDrawer">Home</paper-item>
+          <paper-item data-route="tickets" on-tap="_closeDrawer">Tickets</paper-item>
           <paper-item data-route="my-area" on-tap="_closeDrawer">My Area</paper-item>
           <paper-item data-route="seatmap" on-tap="_closeDrawer">Seatmap</paper-item>
-          <paper-item on-tap="toShop">Shop</paper-item>
+          <paper-item data-route="shop" on-tap="_closeDrawer">Shop</paper-item>
         </paper-menu>
       </app-drawer>
 
@@ -91,21 +89,21 @@
   position="left" src="https://areafiftylan.nl/images/logos/lancie/logo_without_date.png"></iron-image></a>
             <span class="flex" hidden$="{{!wideLayout}}"></span>
 
-            <paper-tabs selected="{{page.page}}" attr-for-selected="data-route" hidden$="{{!wideLayout}}">
-              <paper-tab data-route="">
-                Home
+            <paper-tabs selected="{{route.page}}" attr-for-selected="data-route" hidden$="{{!wideLayout}}">
+              <paper-tab data-route="" link>
+                <a href="/">Home</a>
               </paper-tab>
-              <paper-tab data-route="tickets">
-                Tickets
+              <paper-tab data-route="tickets" link>
+                <a href="/tickets">Tickets</a>
               </paper-tab>
-              <paper-tab data-route="my-area">
-                My Area
+              <paper-tab data-route="my-area" link>
+                <a href="/my-area">My Area</a>
               </paper-tab>
-              <paper-tab data-route="seatmap">
-                Seatmap
+              <paper-tab data-route="seatmap" link>
+                <a href="/seatmap">Seatmap</a>
               </paper-tab>
-              <paper-tab link>
-                <a on-click="toShop">Shop</a>
+              <paper-tab data-route="shop" link>
+                <a href="/shop">Shop</a>
               </paper-tab>
             </paper-tabs>
 
@@ -127,10 +125,6 @@
 
     _closeDrawer: function() {
       this.$.drawer.close();
-    },
-
-    toShop: function() {
-      window.location.href = 'shop';
     }
   });
   </script>
