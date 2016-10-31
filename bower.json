@@ -6,13 +6,13 @@
     "paper-elements": "PolymerElements/paper-elements#^1.0.0",
     "platinum-elements": "PolymerElements/platinum-elements#^1.0.0",
     "neon-elements": "PolymerElements/neon-elements#^1.0.0",
-    "page": "git://github.com/TimvdLippe/page.js.git#master",
     "google-map": "GoogleWebComponents/google-map#~1.1.7",
     "google-youtube": "GoogleWebComponents/google-youtube#~1.1.2",
     "moment": "momentjs#~2.10.6",
     "polymer": "polymer/polymer#^1.4.0",
     "wisvch-footer": "wisvch/wisvch-footer#^1.0.1",
-    "app-layout": "PolymerElements/app-layout#^0.10.4"
+    "app-layout": "PolymerElements/app-layout#^0.10.4",
+    "app-route": "polymerelements/app-route#^0.9.2"
   },
   "devDependencies": {
     "web-component-tester": "*",
