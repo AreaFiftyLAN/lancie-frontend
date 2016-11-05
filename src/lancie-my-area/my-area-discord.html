@@ -9,13 +9,21 @@
       display: block;
     }
     
+    paper-card {
+      --paper-card-header-image: {
+        height: 100%;
+      }
+    }
+    
     paper-button {
+      display: block;
+      margin: auto;
       width: 90%;
       color: #ffe574;
       background: #1a2b43;
-      margin: 0px 5% 20px 5%;
+      text-align: center;
     }
-    
+
     .block > *:first-child {
       color: #737373;
       font-family: 'Roboto', 'Noto', sans-serif;
@@ -46,7 +54,9 @@
           </div>
         </div>
       </div>
-      <paper-button raised on-tap="_openDiscord">Join!</paper-button>
+      <div class="card-actions">
+        <paper-button raised on-tap="_openDiscord">Join!</paper-button>
+      </div>
     </paper-card>
   </template>
   <script>
