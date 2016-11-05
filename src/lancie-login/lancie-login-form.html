@@ -97,7 +97,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <paper-card heading="{{getHeading(registering)}}" image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png" class="white">
       <div class="card-content">
-        <div hidden$="{{registering}}" on-keypress="tryLoginOnEnter">
+        <div hidden$="{{registering}}" on-keydown="tryLoginOnEnter">
           <paper-material class="errormessage" hidden$="{{!loginError}}">{{loginErrorMessage}}</paper-material>
           <gold-email-input id="username" label="Username" name="Username" value="{{username}}" error-message="Username should be a valid email address." on-blur="validateUsername" required></gold-email-input>
           <paper-input label="Password" type="password" name="password" value="{{password}}"></paper-input>
