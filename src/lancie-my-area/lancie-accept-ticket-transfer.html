@@ -11,6 +11,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../lancie-card.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
+
 
 <dom-module id="lancie-accept-ticket-transfer">
   <template>
@@ -25,23 +30,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <lancie-ajax id="ajaxConfirmTicketTransfer" refurl="tickets/transfer" method="PUT" on-response="onAcceptTicketTransfer"></lancie-ajax>
 
-    <lancie-card hidden$="{{!info}}">
-      A ticket has been sent to you. Click below to claim your ticket!
-      <br><br>
-      <paper-button raised on-tap="openDialog">Claim ticket</paper-button>
-    </lancie-card>
+    <lancie-card>
+      <div class="card-content" hidden$="{{!info}}">
+        <p>A ticket has been sent to you. Click below to claim your ticket!</p>
+      </div>
+      <div class="card-actions" hidden$="{{!info}}">
+        <paper-button raised on-tap="openDialog">Claim ticket</paper-button>
+      </div>
 
-    <lancie-card hidden$="{{!transferring}}">
-      Transferring ticket...
-    </lancie-card>
+      <div class="card-content" hidden$="{{!transferring}}">
+        <p>Transferring ticket...</p>
+      </div>
 
-    <lancie-card hidden$="{{!error}}">
-      Hmm, something went wrong while transferring your ticket. You can try to transfer the ticket again.
-      <br><br>
-      If this does not work please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your username.
-      We will then check what went wrong.
-
-      <a href="/">Head back to the homepage</a>
+      <div class="card-content" hidden$="{{!error}}">
+        <p>Hmm, something went wrong while transferring your ticket. You can try to transfer the ticket again.</p>
+        <p>If this does not work please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your username. We will then check what went wrong.</p>
+        <a href="/">Head back to the homepage</a>
+      </div>
     </lancie-card>
 
     <paper-dialog id="termsofservice" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
@@ -50,7 +55,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <lancie-terms-of-service></lancie-terms-of-service>
       </paper-dialog-scrollable>
       <div class="buttons">
-        <paper-button dialog-dismiss on-tap="closeDialog">Cancel</paper-button>
+        <paper-button dialog-dismiss>Cancel</paper-button>
         <paper-button dialog-confirm on-tap="tryAcceptTicketTransfer">I agree to the terms of service</paper-button>
       </div>
     </paper-dialog>
@@ -85,7 +90,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       onAcceptTicketTransfer: function(event, r) {
         this.transferring = false;
         if (r.succeeded) {
-          window.location.href = '/#!/transfer-success';
+          window.location.href = '/transfer-success';
         } else {
           this.error = true;
         }

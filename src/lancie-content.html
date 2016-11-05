@@ -56,10 +56,7 @@
 
       <template is="iron-lazy-page" data-route="accept-transfer">
         <lancie-login-check user="{{user}}">
-          <!-- This is done to prevent firing this request when it is not supposed to fire. -->
-          <!-- <template is="dom-if" if="{{_matches('accept-ticket-transfer', route)}}" restamp="true"> -->
             <lancie-accept-ticket-transfer></lancie-accept-ticket-transfer>
-          <!-- </template> -->
         </lancie-login-check>
       </template>
 
