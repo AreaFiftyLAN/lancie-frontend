@@ -44,6 +44,7 @@
     <app-route route="{{route}}" pattern="/:page" data="{{page}}"></app-route>
 
     <iron-lazy-pages attr-for-selected="data-route" selected="{{page.page}}" fallback-selection="404">
+
       <template is="iron-lazy-page" data-route="">
         <lancie-home-page></lancie-home-page>
       </template>
@@ -56,12 +57,12 @@
 
       <template is="iron-lazy-page" data-route="accept-transfer">
         <lancie-login-check user="{{user}}">
-            <lancie-accept-ticket-transfer></lancie-accept-ticket-transfer>
+          <lancie-accept-ticket-transfer></lancie-accept-ticket-transfer>
         </lancie-login-check>
       </template>
 
       <template is="iron-lazy-page" data-route="transfer-success">
-            <lancie-success-ticket-transfer></lancie-success-ticket-transfer>
+        <lancie-success-ticket-transfer></lancie-success-ticket-transfer>
       </template>
 
       <template is="iron-lazy-page" data-route="tickets">
@@ -119,6 +120,7 @@
       <template is="iron-lazy-page" data-route="request-password-reset-success">
         <lancie-request-password-reset-success></lancie-request-password-reset-success>
       </template>
+
     </iron-lazy-pages>
   </template>
   <script>
