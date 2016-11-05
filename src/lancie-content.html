@@ -1,7 +1,7 @@
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-lazy-pages/iron-lazy-pages.html">
 <link rel="import" href="lancie-login/lancie-ajax.html">
 <link rel="import" href="lancie-login/lancie-login-check.html">
 <link rel="import" href="lancie-login/lancie-register-confirmation.html">
@@ -44,92 +44,86 @@
     <app-location route="{{route}}"></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{page}}"></app-route>
 
-    <iron-pages attr-for-selected="data-route" selected="{{page.page}}"
-      fallback-selection="404">
-      <div data-route="">
+    <iron-lazy-pages attr-for-selected="data-route" selected="{{page.page}}" fallback-selection="404">
+      <template is="iron-lazy-page" data-route="">
         <lancie-home-page></lancie-home-page>
-      </div>
+      </template>
 
-      <div data-route="my-area">
+      <template is="iron-lazy-page" data-route="my-area">
         <lancie-login-check user="{{user}}">
           <lancie-my-area user="{{user}}"></lancie-my-area>
         </lancie-login-check>
-      </div>
+      </template>
 
-      <div data-route="accept-transfer">
+      <template is="iron-lazy-page" data-route="accept-transfer">
         <lancie-login-check user="{{user}}">
           <!-- This is done to prevent firing this request when it is not supposed to fire. -->
-          <template is="dom-if" if="{{_matches('accept-ticket-transfer', route)}}" restamp="true">
+          <!-- <template is="dom-if" if="{{_matches('accept-ticket-transfer', route)}}" restamp="true"> -->
             <lancie-accept-ticket-transfer></lancie-accept-ticket-transfer>
-          </template>
+          <!-- </template> -->
         </lancie-login-check>
-      </div>
+      </template>
 
-      <div data-route="transfer-success">
-        <!-- This is done to prevent firing this request when it is not supposed to fire. -->
-        <lancie-success-ticket-transfer></lancie-success-ticket-transfer>
-      </div>
+      <template is="iron-lazy-page" data-route="transfer-success">
+            <lancie-success-ticket-transfer></lancie-success-ticket-transfer>
+      </template>
 
-      <div data-route="tickets">
+      <template is="iron-lazy-page" data-route="tickets">
         <lancie-login-check user="{{user}}">
           <lancie-ticket-page route="{{route}}" user="{{user}}"></lancie-ticket-page>
         </lancie-login-check>
-      </div>
+      </template>
 
-       <div data-route="seatmap">
+       <template is="iron-lazy-page" data-route="seatmap">
         <lancie-login-check user="{{user}}">
           <lancie-seatmap user="{{user}}"></lancie-seatmap>
         </lancie-login-check>
-      </div>
+      </template>
 
-      <div data-route="rfid">
+      <template is="iron-lazy-page" data-route="rfid">
         <lancie-login-check user="{{user}}">
           <lancie-rfid route="{{route}}" user="{{user}}"></lancie-rfid>
         </lancie-login-check>
-      </div>
+      </template>
 
-      <div data-route="tickets-intercept">
+      <template is="iron-lazy-page" data-route="tickets-intercept">
         <lancie-ticket-profile-intercept route="{{route}}" user="{{user}}"></lancie-ticket-profile-intercept>
-      </div>
+      </template>
 
-      <div data-route="confirmRegistration">
+      <template is="iron-lazy-page" data-route="confirmRegistration">
         <template is="dom-if" if="{{_matches('confirmRegistration', route)}}" restamp="true">
           <lancie-register-confirmation></lancie-register-confirmation>
         </template>
-      </div>
+      </template>
 
-      <div data-route="check-email">
+      <template is="iron-lazy-page" data-route="check-email">
         <lancie-check-email></lancie-check-email>
-      </div>
+      </template>
 
-      <div data-route="request-password-reset-success">
-        <lancie-request-password-reset-success></lancie-request-password-reset-success>
-      </div>
-
-      <div data-route="ordersuccess">
+      <template is="iron-lazy-page" data-route="ordersuccess">
         <lancie-order-check></lancie-order-check>
-      </div>
+      </template>
 
-      <div data-route="404">
+      <template is="iron-lazy-page" data-route="404">
         <lancie-404></lancie-404>
-      </div>
+      </template>
 
-      <div data-route="resetPassword">
+      <template is="iron-lazy-page" data-route="resetPassword">
         <lancie-password-reset></lancie-password-reset>
-      </div>
+      </template>
 
-      <div data-route="password-reset-success">
+      <template is="iron-lazy-page" data-route="password-reset-success">
         <lancie-password-reset-success></lancie-password-reset-success>
-      </div>
+      </template>
 
-      <div data-route="request-password-reset">
+      <template is="iron-lazy-page" data-route="request-password-reset">
         <lancie-request-password-reset></lancie-request-password-reset>
-      </div>
+      </template>
 
-      <div data-route="request-password-reset-success">
+      <template is="iron-lazy-page" data-route="request-password-reset-success">
         <lancie-request-password-reset-success></lancie-request-password-reset-success>
-      </div>
-    </iron-pages>
+      </template>
+    </iron-lazy-pages>
   </template>
   <script>
   'use strict';
