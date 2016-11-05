@@ -11,8 +11,9 @@
     "moment": "momentjs#~2.10.6",
     "polymer": "polymer/polymer#^1.7.0",
     "wisvch-footer": "wisvch/wisvch-footer#^1.0.1",
-    "app-layout": "PolymerElements/app-layout#^0.10.5",
-    "app-route": "polymerelements/app-route#^0.9.2"
+    "app-layout": "PolymerElements/app-layout#^0.10.4",
+    "app-route": "polymerelements/app-route#^0.9.2",
+    "iron-lazy-pages": "TimvdLippe/iron-lazy-pages"
   },
   "devDependencies": {
     "web-component-tester": "*",

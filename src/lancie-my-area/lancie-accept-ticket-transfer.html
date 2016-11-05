@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../lancie-message-card.html">
+<link rel="import" href="../lancie-card.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
@@ -25,24 +25,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <lancie-ajax id="ajaxConfirmTicketTransfer" refurl="tickets/transfer" method="PUT" on-response="onAcceptTicketTransfer"></lancie-ajax>
 
-    <lancie-message-card hidden$="{{!info}}">
+    <lancie-card hidden$="{{!info}}">
       A ticket has been sent to you. Click below to claim your ticket!
       <br><br>
       <paper-button raised on-tap="openDialog">Claim ticket</paper-button>
-    </lancie-message-card>
+    </lancie-card>
 
-    <lancie-message-card hidden$="{{!transferring}}">
+    <lancie-card hidden$="{{!transferring}}">
       Transferring ticket...
-    </lancie-message-card>
+    </lancie-card>
 
-    <lancie-message-card hidden$="{{!error}}">
+    <lancie-card hidden$="{{!error}}">
       Hmm, something went wrong while transferring your ticket. You can try to transfer the ticket again.
       <br><br>
       If this does not work please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your username.
       We will then check what went wrong.
 
       <a href="/">Head back to the homepage</a>
-    </lancie-message-card>
+    </lancie-card>
 
     <paper-dialog id="termsofservice" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Terms and conditions</h2>
