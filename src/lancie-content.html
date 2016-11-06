@@ -5,6 +5,9 @@
 <link rel="import" href="lancie-login/lancie-ajax.html">
 <link rel="import" href="lancie-login/lancie-login-check.html">
 
+<link rel="import" href="lancie-contact/lancie-contact.html">
+<link rel="import" href="lancie-contact/lancie-contact-success.html">
+
 <dom-module id="lancie-content">
   <template>
     <style>
@@ -99,6 +102,14 @@
 
       <template is="iron-lazy-page" data-route="request-password-reset-success" path="src/lancie-password/lancie-request-password-reset-success.html">
         <lancie-request-password-reset-success></lancie-request-password-reset-success>
+      </template>
+
+      <template is="iron-lazy-page" data-route="contact" path="src/lancie-contact/lancie-contact.html">
+        <lancie-contact></lancie-contact>
+      </template>
+
+      <template is="iron-lazy-page" data-route="contact-success" path="src/lancie-contact/lancie-contact-success.html">
+        <lancie-contact-success></lancie-contact-success>
       </template>
 
     </iron-lazy-pages>
