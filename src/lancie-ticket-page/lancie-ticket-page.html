@@ -95,7 +95,9 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-ajax id="ajax" refurl="orders/{{order.id}}/checkout" on-response="goToPayment"></lancie-ajax>
     <lancie-ajax auto refurl="tickets/available" on-response="loadTickets"></lancie-ajax>
     <lancie-ajax auto refurl="users/current/orders/open" method="GET" on-response="getOpenOrder"></lancie-ajax>
+
     <template is="dom-if" if="{{canOrderTickets}}" restamp="true">
+    test
       <iron-media-query query="(min-width: 1018px)" query-matches="{{medium}}"></iron-media-query>
       <lancie-section type="primary full" header="Ticket sale - AreaFiftyLAN 2016, 03 - 04 - 05 June">
         <div id="list" class="lancie-tickets">
@@ -194,6 +196,7 @@ This code may only be used under the BSD style license found at https://github.c
           this.route = 'tickets-profile-intercept';
         });
       }
+      
 
       this.canOrderTickets = !missing;
     },
