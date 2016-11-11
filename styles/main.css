@@ -14,8 +14,3 @@ body {
   background-color: #eeecec;
   margin: 0;
 }
-
-lancie-content {
-  min-height: calc(100vh - /*Height of footer*/ 272px - /*Height of top bar*/ 64px);
-  display: block;
-}
