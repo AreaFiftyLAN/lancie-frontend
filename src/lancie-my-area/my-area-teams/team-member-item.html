@@ -71,6 +71,7 @@
         this.removeMemberMessage = 'You are about to remove yourself from Team ' + this.team.teamName + '. Are you sure?';
       }
       this.$.removeMemberDialog.open();
+      window.document.body.appendChild(this.$.removeMemberDialog);
     },
     submitDeleteUser: function() {
       this.$.ajaxRemoveMember.generateRequest();

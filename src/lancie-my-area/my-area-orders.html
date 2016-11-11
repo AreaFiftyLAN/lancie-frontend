@@ -118,6 +118,7 @@
     },
     showTermsAndConditions: function() {
       this.$.termsAndConditions.open();
+      window.document.body.appendChild(this.$.termsAndConditions);
     },
     storeOrders: function(event, request) {
       this.orders = request.response.length > 0 ? request.response : false;

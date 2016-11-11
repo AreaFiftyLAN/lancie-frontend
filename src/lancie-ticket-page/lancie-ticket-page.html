@@ -5,11 +5,13 @@ This code may only be used under the BSD style license found at https://github.c
 -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
-<link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
+<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
 <link rel="import" href="lancie-ticket-list.html">
 <link rel="import" href="lancie-ticket-iron-block.html">
 <link rel="import" href="lancie-ticket-block.html">
@@ -97,7 +99,6 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-ajax auto refurl="users/current/orders/open" method="GET" on-response="getOpenOrder"></lancie-ajax>
 
     <template is="dom-if" if="{{canOrderTickets}}" restamp="true">
-    test
       <iron-media-query query="(min-width: 1018px)" query-matches="{{medium}}"></iron-media-query>
       <lancie-section type="primary full" header="Ticket sale - AreaFiftyLAN 2016, 03 - 04 - 05 June">
         <div id="list" class="lancie-tickets">
@@ -128,7 +129,7 @@ This code may only be used under the BSD style license found at https://github.c
                     </ul>
                 </div>
                 <div class="card-actions">
-                  <paper-button raised on-tap="openDialog" disabled="{{hasNoTickets}}">Check out</paper-button>
+                  <paper-button raised on-tap="openDialog" disabled="{{ihasNoTickets}}">Check out</paper-button>
                   <br />
                   <br />
                   <small>Note: Every ticket added to this order will be reserved and you will have 30 minutes to pay. Tickets will be released after this period if not paid.</small>
@@ -139,7 +140,7 @@ This code may only be used under the BSD style license found at https://github.c
         </div>
       </lancie-section>
     </template>
-    <paper-dialog id="termsofservice" on-iron-overlay-opened="patchOverlay" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <paper-dialog id="termsofservice" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Terms and conditions</h2>
       <paper-dialog-scrollable>
         <lancie-terms-of-service></lancie-terms-of-service>
@@ -196,7 +197,6 @@ This code may only be used under the BSD style license found at https://github.c
           this.route = 'tickets-profile-intercept';
         });
       }
-      
 
       this.canOrderTickets = !missing;
     },
@@ -214,14 +214,11 @@ This code may only be used under the BSD style license found at https://github.c
 
     openDialog: function() {
       this.$.termsofservice.open();
+      window.document.body.appendChild(this.$.termsofservice);
     },
 
     closeDialog: function() {
       this.$.termsofservice.close();
-    },
-
-    patchOverlay: function(e) {
-      this.insertBefore(e.target.backdropElement, e.target);
     },
 
     _setLayout: function(medium) {
