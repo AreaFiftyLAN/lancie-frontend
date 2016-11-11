@@ -91,7 +91,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div hidden$="{{!registering}}">
           <paper-material class="errormessage" hidden$="{{!registerError}}">{{registerErrorMessage}}</paper-material>
           <paper-material class="errormessage" hidden$="{{!passwordError}}">{{passwordErrorMessage}}</paper-material>
-          <gold-email-input id="registerUsername" label="Username" name="Username" value="{{username}}" error-message="Username should be a valid email address." on-blur="validateUsername" required></gold-email-input>
+          <gold-email-input id="registerUsername" label="Username" name="Username" value="{{username}}" error-message="Username should be a valid email address." on-blur="validateRegisterUsername" required></gold-email-input>
           <paper-input label="Password" name="password" type="password" value="{{password}}"></paper-input>
           <paper-input label="Retype password" type="password" value="{{secondPassword}}"></paper-input>
         </div>
@@ -272,6 +272,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       validateRegisterUsername: function() {
         return this.$.registerUsername.validate();
+      },
+
+      validateUsername: function() {
+        return this.$.username.validate();
       },
 
       validateRegisterPassword: function() {
