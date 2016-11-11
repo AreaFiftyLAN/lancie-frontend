@@ -274,6 +274,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return this.$.registerUsername.validate();
       },
 
+      validateUsername: function() {
+        return this.$.username.validate();
+      },
+
       validateRegisterPassword: function() {
         if (!this.password || this.password === '') {
           this.passwordError = true;
