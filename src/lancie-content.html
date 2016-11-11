@@ -60,12 +60,12 @@
 
       <template is="iron-lazy-page" data-route="rfid" path="src/lancie-rfid/lancie-rfid.html">
         <lancie-login-check user="{{user}}">
-          <lancie-rfid route="{{route}}" user="{{user}}"></lancie-rfid>
+          <lancie-rfid route="{{page.page}}" user="{{user}}"></lancie-rfid>
         </lancie-login-check>
       </template>
 
       <template is="iron-lazy-page" data-route="tickets-intercept" path="src/lancie-ticket-page/lancie-ticket-profile-intercept.html">
-        <lancie-ticket-profile-intercept route="{{route}}" user="{{user}}"></lancie-ticket-profile-intercept>
+        <lancie-ticket-profile-intercept route="{{page.page}}" user="{{user}}"></lancie-ticket-profile-intercept>
       </template>
 
       <template is="iron-lazy-page" data-route="confirmRegistration" path="src/lancie-login/lancie-register-confirmation.html">
