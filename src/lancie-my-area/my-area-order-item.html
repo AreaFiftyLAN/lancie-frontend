@@ -103,7 +103,8 @@
       return binding ? 'icons:check' : 'icons:clear';
     },
     showOrderTickets: function() {
-      this.$.orderInfo.toggle();
+      this.$.orderInfo.open();
+      window.document.body.appendChild(this.$.termsofservice);
     },
     _format: function(money) {
       var n = money,

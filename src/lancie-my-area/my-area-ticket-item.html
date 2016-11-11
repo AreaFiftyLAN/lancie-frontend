@@ -101,7 +101,8 @@
       this.transferUsername = '';
       this.transferError = false;
       this.transferErrorMessage = '';
-      this.$.setupTicketTransferDialog.toggle();
+      this.$.setupTicketTransferDialog.open();
+      window.document.body.appendChild(this.$.setupTicketTransferDialog);
     },
     setupTicketTransfer: function() {
       if (!this.transferUsername || this.transferUsername.length === 0) {
@@ -136,7 +137,8 @@
       }
     },
     cancelTicketTransferDialog: function() {
-      this.$.cancelTicketTransferDialog.toggle();
+      this.$.cancelTicketTransferDialog.open();
+      window.document.body.appendChild(this.$.cancelTicketTransferDialog);
     },
     cancelTicketTransfer: function() {
       this.$.ajaxCancelTicketTransfer.body = this.ticket.token;
