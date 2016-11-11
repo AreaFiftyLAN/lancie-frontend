@@ -1,28 +1,31 @@
 <link rel="import" href="lancie-section/lancie-section.html">
-<link rel="import" href="lancie-message-card.html">
+<link rel="import" href="lancie-card.html">
+
 <dom-module id="lancie-order-check">
   <template>
     <lancie-ajax id="ajaxConfirmOrder" refurl="orders/{{orderId}}/status" method="GET" handle-as="json" on-response="onResponse"></lancie-ajax>
-    <lancie-message-card hidden$="{{!confirming}}">
-      Hold on while we check the status of your order.
-    </lancie-message-card>
-    <lancie-message-card hidden$="{{!error}}">
-      <p>Hmm, there seemed to have gone something wrong. If you have paid for the tickets please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your username. We will then check what went wrong.</p>
-      <a href="/">Head back to the homepage</a>
-    </lancie-message-card>
-    <lancie-message-card hidden$="{{!success}}">
-      <p>Congratulations, your ticket(s) were successfully ordered and are now available in your area. Click my area below or in header to go to your area to manage your tickets and profile.</p>
-      <a href="/my-area">My Area</a>
-    </lancie-message-card>
-    <lancie-message-card hidden$="{{!cancelled}}">
-      <p>Your order was cancelled. Please place a new order if you still want to buy tickets. Your previous order will be automatically removed. If you have questions, please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your username.</p>
-      <a href="/">Head back to the homepage</a>
-    </lancie-message-card>
-    <lancie-message-card hidden$="{{!waiting}}">
-      <p>
-        You didn't finish your payment yet, or your order is still being processed. Please try again later. If this problem persists, please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your username. We will then check what went wrong.</p>
-      <a href="/">Head back to the homepage</a>
-    </lancie-message-card>
+
+    <lancie-card>
+      <div class="card-content" hidden$="{{!confirming}}">
+        <p>Hold on while we check the status of your order.</p>
+      </div>
+      <div class="card-content" hidden$="{{!error}}">
+        <p>Hmm, there seemed to have gone something wrong. If you have paid for the tickets please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your username. We will then check what went wrong.</p>
+        <a href="/">Head back to the homepage</a>
+      </div>
+      <div class="card-content" hidden$="{{!success}}">
+        <p>Congratulations, your ticket(s) were successfully ordered and are now available in your area. Click my area below or in header to go to your area to manage your tickets and profile.</p>
+        <a href="/my-area">My Area</a>
+      </div>
+      <div class="card-content" hidden$="{{!cancelled}}">
+        <p>Your order was cancelled. Please place a new order if you still want to buy tickets. Your previous order will be automatically removed. If you have questions, please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your username.</p>
+        <a href="/">Head back to the homepage</a>
+      </div>
+      <div hidden$="{{!waiting}}">
+        <p>You didn't finish your payment yet, or your order is still being processed. Please try again later. If this problem persists, please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your username. We will then check what went wrong.</p>
+        <a href="/">Head back to the homepage</a>
+      </div>
+    </lancie-card>
   </template>
   <script>
   'use strict';

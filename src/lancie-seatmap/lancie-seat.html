@@ -113,6 +113,7 @@ This code may only be used under the BSD style license found at https://github.c
         return;
       }
       this.$.seatDialog.open();
+      window.document.body.appendChild(this.$.seatDialog);
     },
     reserveSeat: function() {
       if (!this.$.listbox.selectedItem) {

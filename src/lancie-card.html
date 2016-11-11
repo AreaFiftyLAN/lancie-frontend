@@ -1,7 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 
-<dom-module id="lancie-message-card">
+<dom-module id="lancie-card">
   <template>
     <style>
       :host {
@@ -23,14 +23,11 @@
           text-align: center;
           padding-left: 0;
         }
-
       }
     </style>
 
     <paper-card heading="{{heading}}" image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png">
-      <div class="card-content">
-        <content></content>
-      </div>
+      <content></content>
     </paper-card>
   </template>
   <script>
@@ -38,7 +35,7 @@
 
   (function() {
     Polymer({
-      is: 'lancie-message-card',
+      is: 'lancie-card',
       properties: {
         heading: String
       }

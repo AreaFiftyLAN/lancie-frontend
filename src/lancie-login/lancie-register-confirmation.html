@@ -8,36 +8,34 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../lancie-message-card.html">
+<link rel="import" href="../lancie-card.html">
 <link rel="import" href="lancie-ajax.html">
 
 <dom-module id="lancie-register-confirmation">
   <template>
     <lancie-ajax id="ajaxConfirmRegistration" refurl="confirmRegistration?token={{token}}" method="GET" handle-as="json" on-response="onResponse"></lancie-ajax>
 
-    <lancie-message-card hidden$="{{!confirming}}">
-      Confirming.
-    </lancie-message-card>
+    <lancie-card>
+      <div class="card-content" hidden$="{{!confirming}}">
+        <p>Confirming.</p>
+      </div>
 
-    <lancie-message-card hidden$="{{!error}}">
-      Hmm, something went wrong with the verification of your account.
-      Please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your username.
-      We will then check what went wrong.
+      <div class="card-content" hidden$="{{!error}}">
+        <p>Hmm, something went wrong with the verification of your account. Please <a href="mailto:lancie@ch.tudelft.nl">send us an email</a> containing your username. We will then check what went wrong.</p>
+        <a href="/">Head back to the homepage</a>
+      </div>
 
-      <a href="/">Head back to the homepage</a>
-    </lancie-message-card>
+      <div class="card-content" hidden$="{{!tokenTwice}}">
+        <p>Hmm, this token was already claimed. Did you already confirm your account?</p>
+        <a href="/">Head back to the homepage</a>
+      </div>
 
-    <lancie-message-card hidden$="{{!tokenTwice}}">
-      Hmm, this token was already claimed. Did you already confirm your account?
+      <div class="card-content" hidden$="{{!success}}">
+        <p>You have successfully verified your email and account!</p>
+        <a href="/my-area">Fill in your profile</a>
+      </div>
+    </lancie-card>
 
-      <a href="/">Head back to the homepage</a>
-    </lancie-message-card>
-
-    <lancie-message-card hidden$="{{!success}}">
-      You have successfully verified your account!
-
-      <a href="/my-area">Fill in your profile</a>
-    </lancie-message-card>
   </template>
   <script>
   'use strict';

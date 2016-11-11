@@ -8,13 +8,15 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../lancie-message-card.html">
+<link rel="import" href="../lancie-card.html">
 
 <dom-module id="lancie-check-email">
   <template>
-    <lancie-message-card>
-      Please check your email to verify your registration. After this you can complete your profile data and order tickets!
-    </lancie-message-card>
+    <lancie-card>
+      <div class="card-content">
+        <p>Please check your email to verify your registration. After this you can complete your profile data and order tickets!</p>
+      </div>
+    </lancie-card>
   </template>
   <script>
   'use strict';

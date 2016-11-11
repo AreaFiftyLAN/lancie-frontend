@@ -135,10 +135,12 @@
       this.createTeamMessage = '';
       this.teamName = '';
       this.$.createTeamDialog.open();
+      window.document.body.appendChild(this.$.createTeamDialog);
     },
 
     openPersonalInvitesDialog: function() {
       this.$.personalInvitesDialog.open();
+      window.document.body.appendChild(this.$.personalInvitesDialog);
     },
 
     submitCreateTeam: function() {

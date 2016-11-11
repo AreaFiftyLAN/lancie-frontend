@@ -125,6 +125,7 @@
       this.addMemberError = false;
       this.memberUsername = '';
       this.$.addMemberDialog.open();
+      window.document.body.appendChild(this.$.addMemberDialog);
     },
     submitInviteMember: function() {
       this.$.ajaxInviteMember.body = this.memberUsername;
@@ -152,6 +153,7 @@
     openTeamInvitesDialog: function() {
       this.$.ajaxGetTeamInvites.generateRequest();
       this.$.teamInvitesDialog.open();
+      window.document.body.appendChild(this.$.teamInvitesDialog);
     },
     _isSameUser: function(other, user) {
       return other.reference === user.reference;

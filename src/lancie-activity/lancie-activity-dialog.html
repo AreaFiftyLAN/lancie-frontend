@@ -121,6 +121,7 @@ This code may only be used under the BSD style license found at https://github.c
      */
     openDialog: function() {
       this.$.lancieDialog.open();
+      window.document.body.appendChild(this.$.lancieDialog);
     },
 
     /**
