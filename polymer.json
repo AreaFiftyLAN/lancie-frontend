@@ -6,10 +6,28 @@
    "styles/*",
    "scripts/*"
   ],
+  "fragments": [
+    "src/lancie-home-page/lancie-home-page.html",
+    "src/lancie-my-area/lancie-my-area.html",
+    "src/lancie-my-area/lancie-accept-ticket-transfer.html",
+    "src/lancie-my-area/lancie-success-ticket-transfer.html",
+    "src/lancie-ticket-page/lancie-ticket-page.html",
+    "src/lancie-seatmap/lancie-seatmap.html",
+    "src/lancie-rfid/lancie-rfid.html",
+    "src/lancie-ticket-page/lancie-ticket-profile-intercept.html",
+    "src/lancie-login/lancie-register-confirmation.html",
+    "src/lancie-login/lancie-check-email.html",
+    "src/lancie-order-check.html",
+    "src/lancie-404.html",
+    "src/lancie-password/lancie-password-reset.html",
+    "src/lancie-password/lancie-password-reset-success.html",
+    "src/lancie-password/lancie-request-password-reset.html",
+    "src/lancie-password/lancie-request-password-reset-success.html"
+  ],
   "includeDependencies": [
     "manifest.json",
     "favicon.ico",
-    "bower_components/page/page.js",
+    "robots.txt",
     "bower_components/webcomponentsjs/webcomponents-lite.min.js",
     "bower_components/moment/min/moment.min.js",
     "bower_components/moment-timezone/builds/moment-timezone-with-data.min.js"
