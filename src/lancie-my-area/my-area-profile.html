@@ -6,6 +6,7 @@
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
@@ -62,6 +63,13 @@
             </paper-item-body>
           </paper-icon-item>
           <paper-icon-item>
+            <iron-icon icon="social:cake" item-icon></iron-icon>
+              <paper-item-body>
+                <div>{{user.profile.birthday}}</div>
+              </paper-item-body>
+            </iron-icon>
+          </paper-icon-item>
+          <paper-icon-item>
             <iron-icon icon="communication:phone" item-icon></iron-icon>
             <paper-item-body>
               <div>{{_checkEmpty(user.profile.phoneNumber)}}</div>
@@ -82,7 +90,7 @@
         <paper-icon-item>
           <iron-icon icon="communication:email" item-icon></iron-icon>
           <paper-item-body>
-            <div>{{user.email}}</div>
+            <div>{{user.username}}</div>
           </paper-item-body>
         </paper-icon-item>
         <hr>
@@ -171,8 +179,10 @@
             address: this.editingUser.profile.address,
             zipcode: this.editingUser.profile.zipcode,
             city: this.editingUser.profile.city,
-            gender: this.editingUser.profile.gender
+            gender: this.editingUser.profile.gender,
+            birthday: this.editingUser.profile.birthday
           };
+          console.log(this.$.ajaxUpdateProfile.body);
           this.$.ajaxUpdateProfile.generateRequest();
           this.switchProfileForm();
         }
@@ -196,7 +206,6 @@
           // load toast
           this.$.profileUpdateSuccessToast.show();
         } else {
-          console.log('Update profile failed');
           this.editingUser = this.user;
           // load failed toast
           this.$.profileUpdateFailedToast.show();
@@ -223,7 +232,7 @@
         for (var a in newValue.profile) {
           user.profile[a] = newValue.profile[a];
         }
-        user.email = newValue.email;
+        user.username = newValue.username;
         this.editingUser = user;
       },
       _checkEmpty: function(value) {

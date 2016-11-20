@@ -8,21 +8,20 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+
+<link rel="import" href="../lancie-card.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
 <link rel="import" href="../lancie-my-area/profile-edit-form.html">
 
@@ -32,55 +31,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       :host {
         display: block;
-        padding: 10px;
       }
 
-      paper-card {
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 10px;
-        display: block;
-        --paper-card-header-color: #ffffff;
-        max-width: 800px;
-
-        --paper-card-header-text: {
-          width: 100%;
-          text-align: center;
-          padding-left: 0;
-        }
-      }
-
-      paper-tooltip {
-        --paper-tooltip-background: #1A2B43;
-        --paper-tooltip-text-color: #FEE474;
-      }
-
-      paper-input {
-        margin: 0 10px 0 10px;
-      }
-
-      .btn {
+      paper-button {
         width: calc(100% - 15px);
-      }
-
-      .btn-primary {
         color: #ffe574;
         background: #1a2b43;
-      }
-
-      hr {
-        display: block;
-        height: 1px;
-        border: 0;
-        border-top: 1px solid #e8e8e8;
-        margin: 1em 0;
-        padding: 0;
-      }
-
-      .header.paper-card .title-text.paper-card {
-        padding: 16px;
-        font-size: 24px;
-        font-weight: 400;
       }
 
       .errormessage {
@@ -92,15 +48,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
-    <paper-card heading="Fill in profile" image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png" class="white">
+
+    <lancie-card heading="Fill in your profile">
       <div class="card-content">
-        <paper-material class="errormessage" hidden$="{{complete}}">Please fill in all fields.</paper-material>
+        <paper-material class="errormessage" hidden$="{{complete}}">Please fill in all fields</paper-material>
         <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
       </div>
       <div class="card-actions">
         <paper-button class="btn btn-primary" raised on-tap="onSubmit">Submit</paper-button>
       </div>
-    </paper-card>
+    </lancie-card>
+
     <paper-toast id="profileUpdateFailedToast" text="Something went wrong updating your profile" duration="3000"></paper-toast>
   </template>
   <script>
@@ -130,6 +88,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       onSubmit: function() {
         if (this.allFilledIn()) {
+          this.complete = true;
           this.$.ajaxUpdateProfile.body = {
             displayName: this.editingUser.profile.displayName,
             firstName: this.editingUser.profile.firstName,
@@ -138,20 +97,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             address: this.editingUser.profile.address,
             zipcode: this.editingUser.profile.zipcode,
             city: this.editingUser.profile.city,
-            gender: this.editingUser.profile.gender
+            gender: this.editingUser.profile.gender,
+            birthday: this.editingUser.profile.birthday
           };
           this.$.ajaxUpdateProfile.generateRequest();
+        } else {
+          this.complete = false;
         }
       },
 
       allFilledIn: function() {
-        if (!this.editingUser.profile.displayName || !this.editingUser.profile.firstName || !this.editingUser.profile.lastName || !this.editingUser.profile.phoneNumber || !this.editingUser.profile.address || !this.editingUser.profile.zipcode || !this.editingUser.profile.city || !this.editingUser.profile.gender) {
-          this.complete = false;
-          return false;
-        }
-        if (this.editingUser.profile.displayName === '' || this.editingUser.profile.firstName === '' || this.editingUser.profile.lastName === '' || this.editingUser.profile.phoneNumber === '' || this.editingUser.profile.address === '' || this.editingUser.profile.zipcode === '' || this.editingUser.profile.city === '' || this.editingUser.profile.gender === '') {
-          this.complete = false;
-          return false;
+        for (var a in this.editingUser.profile) {
+          if (a === 'notes') {
+            continue;
+          }
+
+          if (!this.editingUser.profile[a] || this.editingUser.profile[a] === '') {
+            return false;
+          }
         }
         return true;
       },
