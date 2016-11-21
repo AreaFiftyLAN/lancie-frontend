@@ -68,10 +68,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <iron-media-query query="max-width: 950px" query-matches="{{small}}"></iron-media-query>
       <iron-media-query query="max-width: 600px" query-matches="{{smalldevice}}"></iron-media-query>
 
-      <iron-ajax auto url="{{json}}"
-                 last-response="{{commission}}"
-                 handle-as="json"
-                 debounce-duration="300"></iron-ajax>
+      <lancie-ajax id="ajaxCommission" refUrl="/web/committee" handle-as="json" last-response="{{commission}}"></lancie-ajax>
 
       <div class$="{{_computeSmall('textual', small)}}">
         <p>The LANcie is the newest and coolest committee of W.I.S.V ‘Christiaan Huygens’. This
@@ -100,16 +97,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         commission: {
           type: Array,
           value: []
-        },
-        json: {
-          notify: true
         }
       },
-
       _computeSmall: function(clazz, isSmall) {
         return clazz + (isSmall ? ' small' : '');
       },
-
       _computeSmallDevice: function(isSmall) {
         return isSmall ? 'small-device' : '';
       }
