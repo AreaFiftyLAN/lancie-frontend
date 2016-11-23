@@ -51,15 +51,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <lancie-image-slider></lancie-image-slider>
     </lancie-section>
 
+    <!--
     <lancie-section type="primary" header="Partners &amp; Sponsors">
       <lancie-sponsors></lancie-sponsors>
     </lancie-section>
+    -->
 
     <lancie-section type="secondary" header="Area FiftyLAN">
       <div>
         <p>
           Area FiftyLAN is the hottest gaming event of the TU Delft.
-          This spectacular all-weekend event, from 3 till 5 June 2016,
+          This spectacular all-weekend event, from 3 till 5 March 2017,
           will be organized by the study association of mathematics
           and computer science 'Christiaan Huygens' in cooperation
           with Unit Sports &amp; Culture, TU Delft.
@@ -86,19 +88,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <lancie-section type="primary" header="What do you get?">
       <div>
         <p>
-          Early bird tickets are currently available and cost € 37,50*, regular tickets will cost € 40,-*.
-          This includes admission to the entire event + breakfast, lunch and dinner on saturday and breakfast and lunch on sunday.
+          Ticket prices are to be announced.
+          Tickets include admission to the entire event + breakfast, lunch and dinner on saturday and breakfast and lunch on sunday.
           You will have your own desk of 1.10m x 0.60m for the weekend, and a comfy chair to sit on. For an additional €2.50,
-          we will pick up your PC thursday evening and deliver it to the event. The maximum distance for the pickup service is 7.5Km from the Cornelis Drebbelweg 5. Your PC will be returned to you on sunday evening.
+          we will pick up your PC thursday evening and deliver it to the event. The maximum distance for the pickup service is 7.5Km from Mekelweg 8. Your PC will be returned to you on sunday evening.
           Area FiftyLAN will be an unforgettable event you do not want to miss! Are you ready for the launch?
           <br /><sub>*CH members/alumni will get a small discount</sub>
         </p>
+        <!--
         <p>
           Besides that you can play any game you like, there are organized activities during the weekend.
           Below you can find a global overview. Please note this is subject to change and of course this is not all!
           A final schedule will be provided during the event.
         </p>
         <lancie-timeline></lancie-timeline>
+        -->
       </div>
     </lancie-section>
 
@@ -126,8 +130,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <lancie-activities json="scripts/unofficial-tournaments.json?ver=1.4"></lancie-activities>
       </div>
     </lancie-section>
-    
-    <lancie-section header="2nd LANcie of W.I.S.V. 'Christiaan Huygens'">
+
+    <lancie-section header="3rd LANcie of W.I.S.V. 'Christiaan Huygens'">
       <lancie-commission json="/scripts/commission.json"></lancie-commission>
     </lancie-section>
     <lancie-section type="google-maps-section primary full no-padding">
@@ -137,8 +141,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         handle-as="json"
         last-response="{{googleMapsToken}}"></iron-ajax>
       <template is="dom-if" if="{{googleMapsToken}}" restamp="true">
-        <google-map latitude="51.999020" longitude="4.371175" zoom="14" disable-zoom fit-to-markers draggable="false" api-key="{{googleMapsToken.message}}">
-          <google-map-marker latitude="51.999020" longitude="4.371175"
+        <google-map latitude="51.995694" longitude="4.373950" zoom="14" disable-zoom fit-to-markers draggable="false" api-key="{{googleMapsToken.message}}">
+          <google-map-marker latitude="51.995694" longitude="4.373950"
               draggable="true" title="Area FiftyLAN"></google-map-marker>
         </google-map>
       </template>
