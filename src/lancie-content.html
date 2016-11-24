@@ -23,6 +23,11 @@
       handle-as="json"
       on-response="storeUser"></iron-ajax>
 
+    <iron-ajax
+      url="/api/v1/token"
+      handle-as="json"
+      ></iron-ajax>
+
     <lancie-ajax id="ajax"></lancie-ajax>
 
     <app-location route="{{route}}"></app-location>
@@ -128,8 +133,9 @@
         }
       },
       storeUser: function(event, request) {
-        this.user = (request.response.message === 'Not logged in') ? '' : request.response;
-        this.$.ajax.injectToken(request.xhr.getResponseHeader('X-CSRF-TOKEN'));
+        if (request.response.message !== 'Not logged in') {
+          this.user = request.response;
+        }
       },
 
       _matches: function(path, route) {

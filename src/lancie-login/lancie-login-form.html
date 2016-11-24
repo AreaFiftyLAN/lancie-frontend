@@ -29,17 +29,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <iron-ajax
-      id="getLoginCSRF"
-      url="/api/v1/login"
-      on-response="getLoginCSRF"></iron-ajax>
-
-    <iron-ajax
       id="ajaxLogin"
-      url="/api/v1/login"
+      url="/api/v1/token"
       body="{{bodyFrom(username, password)}}"
       method="POST"
+      content-type="application/json"
       handle-as="json"
-      headers="{{headerFrom('application/x-www-form-urlencoded', csrfToken)}}"
       on-response="onLoggedIn"
       on-error="onFailedLogin"></iron-ajax>
 
@@ -56,7 +51,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       method="POST"
       handle-as="json"
       body="{{bodyFrom(username, password)}}"
-      headers="{{headerFrom('application/json', csrfToken)}}"
       on-response="onRegister"
       on-error="onRegisterError"></iron-ajax>
 
@@ -79,8 +73,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   var csrfToken;
 
   (function() {
-
-    var forms = [];
 
     Polymer({
       is: 'lancie-login-form',
@@ -119,14 +111,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      ready: function() {
-        if (!csrfToken) {
-          csrfToken = 'CSRF-TOKEN';
-          this.$.getLoginCSRF.generateRequest();
-        } else {
-          forms.push(function(newToken) {
-            this.csrfToken = newToken;
-          }.bind(this));
+      switchForm: function() {
+        this.registering = !this.registering;
+      },
+
+      tryLoginOnEnter: function(event) {
+        if (event.keyCode === 13) {
+          this.tryLogIn();
         }
       },
 
@@ -152,6 +143,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       onLoggedIn: function(event, newUser) {
+        this._token = newUser.response.object;
         this.$.getCurrentUser.generateRequest();
       },
 
@@ -165,9 +157,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       onCurrentUser: function(event, newUser) {
+        console.log(newUser.response);
+        this.user = newUser.response.user;
+        this.$.getToken.generateRequest();
+      },
+
+      onToken: function(event, newToken) {
         this.fire('logged-in', {
-          token: newUser.xhr.getResponseHeader('X-CSRF-TOKEN'),
-          user: newUser.response
+          user: this.user,
+          token: this._token
         });
       },
 
@@ -189,33 +187,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       bodyFrom: function(username, password) {
-        var body = {
-          _csrf: csrfToken,
+        return {
           username: username,
           password: password
-        };
-
-        return body;
-      },
-
-      headerFrom: function(contentType, token) {
-        return {
-          'X-CSRF-TOKEN': token,
-          'Content-type': contentType
         };
       },
 
       getHeading: function(registering) {
         return registering ? 'Register' : 'Log In';
-      },
-
-      getLoginCSRF: function(e, request) {
-        csrfToken = request.xhr.getResponseHeader('X-CSRF-TOKEN');
-        this.csrfToken = csrfToken;
-
-        for (var i = 0; i < forms.length; i++) {
-          forms[i](csrfToken);
-        }
       },
 
       validateRegisterForm: function() {
