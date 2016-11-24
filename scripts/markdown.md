@@ -9,7 +9,8 @@ following information.
 - Expected duration (4 hours for the entire tournament, or does it span multiple days?)
 - Required resources (Do you need our server, or host your own?)
 - Contact information
-- Mail this to [lancie@ch.tudelft.nl](mailto:lancie@ch.tudelft.nl)
+
+[Send us an email](/contact) with all these details and we will get back to you!
 
 Official tournaments have priority, which means your tournament should be flexible enough be held at any
 point during the weekend. We prefer short compact tournaments, but don't let that stop you from proposing an 

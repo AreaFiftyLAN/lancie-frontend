@@ -1,0 +1,115 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../lancie-card.html">
+<link rel="import" href="../lancie-login/lancie-ajax.html">
+
+<dom-module id="lancie-contact">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      paper-button {
+        display: block;
+        margin: auto;
+        width: 90%;
+        color: #FFE574;
+        background-color: #1A2B43;
+        text-align: center;
+      }
+
+      paper-material {
+        padding: 10px 20px;
+        border-left: 4px solid #F44336;
+        background: #FFCDD2;
+        color: #B71C1C;
+      }
+    </style>
+
+    <lancie-ajax id="ajaxContact" refurl="mail/contact" method="POST" on-response="onContact"></lancie-ajax>
+
+    <lancie-card heading="Send us an email!">
+      <div class="card-content">
+        <paper-material hidden$="{{!error}}">{{errorMessage}}</paper-material>
+
+        <gold-email-input id="email" label="Your email address" value="{{email}}" error-message="Email should be a valid email address." auto-validate></gold-email-input>
+        <paper-input id="subject" label="Subject" value="{{subject}}" minlength="5" maxlength="100" error-message="Subject too short" auto-validate></paper-input>
+        <paper-textarea id="message" label="Message" value="{{message}}" placeholder="Please enter your message to us" rows="4" minlength="100" error-message="Message is too short" auto-validate></paper-textarea>
+      </div>
+      <div class="card-actions">
+        <paper-button on-tap="tryContact" raised>Send email</paper-button>
+      </div>
+    </lancie-card>
+  </template>
+  <script>
+  'use strict';
+
+  (function() {
+    Polymer({
+      is: 'lancie-contact',
+      properties: {
+        error: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      tryContact: function() {
+        if (this.validateContact()) {
+          this.$.ajaxContact.body = {
+            sender: this.email,
+            subject: this.subject,
+            message: this.message
+          };
+
+          this.$.ajaxContact.generateRequest();
+        }
+      },
+
+      onContact: function(e, response) {
+        if (response.succeeded) {
+          this.email = '';
+          this.subject = '';
+          this.message = '';
+          this.error = false;
+          this.errorMessage = '';
+          window.location.href = 'contact-success';
+        } else {
+          this.error = true;
+          this.errorMessage = 'Server failed processing the request, please try refreshing the page.';
+        }
+      },
+
+      validateContact: function() {
+        if (!this.email || !this.subject || !this.message) {
+          this.$.email.validate();
+          this.$.subject.validate();
+          this.$.message.validate();
+          return false;
+        }
+
+        if (this.$.email.invalid || this.$.subject.invalid || this.$.message.invalid) {
+          return false;
+        }
+
+        return true;
+      }
+
+    });
+  })();
+  </script>
+</dom-module>
