@@ -4,29 +4,25 @@
 <dom-module id="lancie-card">
   <template>
     <style>
-      :host {
-        display: block;
-        min-height: calc(100vh - 348px);
-        padding: 10px;
-      }
-
       paper-card {
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 10px;
         display: block;
-        --paper-card-header-color: #ffffff;
+        margin: 16px auto;
         max-width: 500px;
 
+        --paper-card-header-color: #ffffff;
         --paper-card-header-text: {
           width: 100%;
           text-align: center;
-          padding-left: 0;
+          padding: 0 0 8px;
+        }
+        --paper-card-header-image: {
+          min-height: 120px;
+          background-color: #1a2b43;
         }
       }
     </style>
 
-    <paper-card heading="{{heading}}" image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png">
+    <paper-card heading="[[heading]]" image="images/logos/lancie/logo_without_date_with_background.png">
       <content></content>
     </paper-card>
   </template>
