@@ -8,14 +8,13 @@
     <style>
       :host {
         display: block;
+        height: 100%;
       }
     </style>
     <lancie-layout route="{{page}}">
-      <div id="content">
-        <lancie-content page="{{page}}"></lancie-content>
+      <lancie-content page="{{page}}"></lancie-content>
 
-        <lancie-footer></lancie-footer>
-      </div>
+      <lancie-footer></lancie-footer>
     </lancie-layout>
   </template>
   <script>
