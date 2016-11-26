@@ -1,0 +1,89 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="lancie-ticket-basket-item.html">
+
+<dom-module id="lancie-ticket-basket">
+  <template>
+	<style>
+	</style>
+
+    <lancie-ajax id="removeTicket" refurl="/orders/[[basket.id]]" method="DELETE" on-response="onRemoveTicket"></lancie-ajax>
+    <lancie-ajax id="checkout" refurl="orders/[[basket.id]]/checkout" on-response="onCheckout"></lancie-ajax>
+
+   <paper-card heading="Basket" on-remove-ticket="removeTicket">
+
+		<template is="dom-if" if="{{!basket.tickets}}">
+      <div class="card-content">
+  			You have no tickets
+      </div>
+		</template>
+
+		<template is="dom-if" if="{{basket.tickets}}">
+      <div class="card-content">
+        <template is="dom-repeat" items="[[basket.tickets]]">
+          <lancie-ticket-basket-item ticket="{{item}}"></lancie-ticket-basket-item>
+        </template>
+      <div>
+      <div class="card-actions">
+        <paper-button on-tap="checkout">
+          Checkout
+        </paper-button>
+      </div>
+    </template>
+
+	</paper-card>
+
+  </template>
+  <script>
+  'use strict';
+
+  (function() {
+	Polymer({
+	  is: 'lancie-ticket-basket',
+	  properties: {
+		  basket: {
+			  type: Object,
+			  notify: true,
+		  },
+	  },
+
+    checkout: function() {
+      console.log(this.basket);
+      if (!this.basket.user) {
+        this.fire("login-dialog");
+        return;
+      }
+      this.$.checkout.generateRequest();
+    },
+
+    onCheckout: function(e, request) {
+      if (request.succeeded) {
+        console.log("Checking out");
+        console.log(request.response);
+      } else {
+        // TODO: Catch error
+        console.log("Error while checking out");
+      }
+    },
+
+    removeTicket: function(e, ticket) {
+      this.$.removeTicket.body = ticket;
+      this.$.removeTicket.generateRequest();
+    },
+
+    onRemoveTicket: function(e, request) {
+      if (request.succeeded) {
+        this.fire("set-basket", {basket: request.response.object});
+      } else {
+        // TODO: Error toast not able to remove ticket, probably due to order being cleaned up
+        console.log("Error while removing ticket, order has probably expired;");
+      }
+    },
+
+	});
+  })();
+  </script>
+</dom-module>
