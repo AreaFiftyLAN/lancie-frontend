@@ -4,263 +4,78 @@ Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All ri
 This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
 -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
-<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
-<link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
-<link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
 
-<link rel="import" href="lancie-ticket-list.html">
-<link rel="import" href="lancie-ticket-iron-block.html">
-<link rel="import" href="lancie-ticket-block.html">
-<link rel="import" href="lancie-terms-of-service.html">
+<link rel="import" href="lancie-ticket.html">
+<link rel="import" href="lancie-ticket-basket.html">
+<link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="../lancie-login/lancie-login-form.html">
 
 <dom-module id="lancie-ticket-page">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
     <style>
-    :host {
-      display: block;
-      transition: var(--material-curve-320);
-      transform: translate(0, 60px);
-      opacity: 0;
-    }
-
-    :host(.active) {
-      transform: translate(0, 0);
-      opacity: 1;
-    }
-
-    #tickets {
-      min-height: calc(100vh - 348px);
-      width: 100%;
-    }
-
-    hr {
-      border: 0;
-      background: #606060;
-      width: 100%;
-      height: 1px;
-      margin: 0;
-      transition: width 400ms 320ms;
-      transition-timing-function: var(--material-curve-320);
-    }
-
-    lancie-ticket-list {
-      margin: 6px 0;
-    }
-
-    ul {
-      list-style-type: circle;
-    }
-
-    paper-button {
-      width: 100%
-    }
-
-    paper-card {
-      width: 100%;
-      margin: 8px;
-
-      --paper-card-header-color: #ffe574;
-      --paper-card-header: {
-        background-color: #1a2b43;
-      };
-    }
-
-
-    .ticket-container, .cart {
-      margin-right: 10px;
-    }
-
-    @media(max-width: 1017px) {
-      .ticket-container {
-        display: block;
-      }
-
-      paper-card {
-        margin: 0 0 20px;
-      }
-
-      :host:last-child {
-        margin: 0;
-      }
-
-      .ticket-container, .cart {
-        margin-right: 0;
-      }
-    }
     </style>
 
-    <lancie-ajax id="ajax" refurl="orders/{{order.id}}/checkout" on-response="goToPayment"></lancie-ajax>
-    <lancie-ajax auto refurl="tickets/available" on-response="loadTickets"></lancie-ajax>
-    <lancie-ajax auto refurl="users/current/orders/open" method="GET" on-response="getOpenOrder"></lancie-ajax>
+    <lancie-ajax auto refurl="tickets/available" on-response="onAvailableTickets"></lancie-ajax>
+    <!--<lancie-ajax auto="{{user}}" refurl="users/current/orders/open" method="GET" on-response="getOpenOrder"></lancie-ajax>-->
 
-    <template is="dom-if" if="{{canOrderTickets}}" restamp="true">
-      <iron-media-query query="(min-width: 1018px)" query-matches="{{medium}}"></iron-media-query>
-      <lancie-section type="primary full" header="Ticket sale - AreaFiftyLAN 2016, 03 - 04 - 05 June">
-        <div id="list" class="lancie-tickets">
-          <div class$="{{_setLayout(medium)}}">
-            <div class="ticket-container flex-2">
-              <paper-card heading="Tickets">
-                <div class="card-content layout horizontal wrap">
-                  <template is="dom-repeat" items="{{availableTickets}}">
-                    <lancie-ticket-iron-block order="{{order}}" ticket="{{item}}" color="{{_color(index)}}"></lancie-ticket-iron-block>
-                  </template>
-                </div>
-              </paper-card>
-            </div>
-            <div class="cart flex-1">
-              <paper-card heading="Cart">
-                <div class="card-content" style="padding: 0;">
-                  <lancie-ticket-list order="{{order}}"></lancie-ticket-list>
-                </div>
-                <template is="dom-if" if="{{order.amount}}">
-                  <div class="card-actions">
-                    <strong>Total amount:</strong> <span>&euro; [[_formatPrice(order.amount)]]</span>
-                  </div>
-                </template>
-                <div class="card-actions">
-                    <ul>
-                        <li>Pickup radius is 7.5Km</li>
-                        <li>Under 18 years, you must be able to provide parental approval</li>
-                    </ul>
-                </div>
-                <div class="card-actions">
-                  <paper-button raised on-tap="openDialog" disabled="{{ihasNoTickets}}">Check out</paper-button>
-                  <br />
-                  <br />
-                  <small>Note: Every ticket added to this order will be reserved and you will have 30 minutes to pay. Tickets will be released after this period if not paid.</small>
-                </div>
-              </paper-card>
-            </div>
-          </div>
+    <div class="layout horizontal" on-set-basket="setBasket" on-login-dialog="openLoginDialog">
+
+      <paper-card heading="Tickets">
+        <div class="card-content">
+          <template is="dom-repeat" items="{{availableTickets}}">
+            <lancie-ticket-item ticket="{{item}}" basket="{{basket}}"></lancie-ticket-item>
+          </template>
         </div>
-      </lancie-section>
-    </template>
-    <paper-dialog id="termsofservice" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
-      <h2>Terms and conditions</h2>
-      <paper-dialog-scrollable>
-        <lancie-terms-of-service></lancie-terms-of-service>
-      </paper-dialog-scrollable>
-      <div class="buttons">
-        <paper-button dialog-dismiss on-tap="closeDialog">Cancel</paper-button>
-        <paper-button dialog-confirm on-tap="payOrder">I agree to the terms of service</paper-button>
-      </div>
-    </paper-dialog>
+      </paper-card>
+
+      <lancie-ticket-basket basket="{{basket}}"></lancie-ticket-basket>
+
+    </div>
+
   </template>
   <script>
   'use strict';
-  Polymer({
-    is: 'lancie-ticket-page',
-    properties: {
-      user: Object,
-      order: {
-        type: Object,
-        observer: 'checkTickets'
-      },
-      hasNoTickets: {
-        type: Boolean,
-        value: true
-      },
-      availableTickets: {
-        type: Object,
-        value: []
-      },
-      route: {
-        type: String,
-        notify: true,
-        observer: '_changedRoute'
-      }
-    },
 
-    _changedRoute: function() {
-      if (this.route !== 'tickets') {
-        return;
-      }
+  (function() {
+    Polymer({
+      is: 'lancie-ticket-page',
+      properties: {
+        user: Object,
+        basket: {
+          type: Object,
+          value: {},
+          notify: true,
+        },
+        availableTickets: {
+          type: Object,
+          value: []
+        },
+      },
 
-      if (!this.user) {
-        return;
-      }
-
-      var missing = false;
-      for (var a in this.user.profile) {
-        if (a !== 'notes' && !this.user.profile[a]) {
-          missing = true;
+      onAvailableTickets: function(e, request) {
+        if (request.succeeded) {
+          this.availableTickets = request.response;
+        } else {
+          // TODO: Handle error
+          console.log("Server unavailable error;");;
         }
-      }
+      },
 
-      if (missing) {
-        this.async(function() {
-          this.route = 'tickets-intercept';
-        });
-      }
+      setBasket: function(e) {
+        var basket = e.detail.basket;
+        basket.tickets = basket.tickets.sort((a, b) => a.id - b.id);
+        this.basket = basket;
+      },
 
-      this.canOrderTickets = !missing;
-    },
+      openLoginDialog: function() {
+        console.log("Open login dialog;");
+      },
 
-    attached: function() {
-      this._changedRoute();
-      setTimeout(function() {
-        this.classList.add('active');
-      }.bind(this), 50);
-    },
-
-    payOrder: function() {
-      this.$.ajax.generateRequest();
-    },
-
-    openDialog: function() {
-      this.$.termsofservice.open();
-      window.document.body.appendChild(this.$.termsofservice);
-    },
-
-    closeDialog: function() {
-      this.$.termsofservice.close();
-    },
-
-    _setLayout: function(medium) {
-      return 'layout flex justified ' + (medium ? 'horizontal' : 'vertical');
-    },
-
-    checkTickets: function(order) {
-      if (order && order.tickets && order.tickets.length !== 0) {
-        this.hasNoTickets = false;
-      } else {
-        this.hasNoTickets = true;
-      }
-    },
-
-    goToPayment: function(event, request) {
-      window.location.href = request.xhr.getResponseHeader('Location');
-    },
-
-    getOpenOrder: function(event, request) {
-      this.order = request.response;
-    },
-
-    loadTickets: function(event, request) {
-      this.availableTickets = request.response;
-    },
-
-    _color: function(index) {
-      var options = [
-        '#81C784',
-        '#E57373',
-        '#E0E0E0'
-      ];
-      return options[index];
-    },
-
-    _formatPrice: function(price) {
-      if (price % 1 === 0) {
-        return price + ',-';
-      } else {
-        return price.toFixed(2);
-      }
-    }
-  });
+    })
+  })();
   </script>
 </dom-module>

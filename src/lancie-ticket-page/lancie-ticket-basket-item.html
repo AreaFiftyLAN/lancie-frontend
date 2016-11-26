@@ -1,0 +1,38 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lancie-ticket-basket-item">
+  <template>
+    <style>
+      :host {
+        display: block;
+        margin: 8px;
+        background-color: lightgray;
+      }
+    </style>
+
+    <div id="ticket" on-tap="removeTicket">
+      [[ticket.id]] [[ticket.price]] [[ticket.text]] - [[ticket.chMember]] [[ticket.pickupService]]
+    </div>
+
+  </template>
+  <script>
+  'use strict';
+
+  (function() {
+    Polymer({
+      is: 'lancie-ticket-basket-item',
+      properties: {
+        ticket: {
+          type: Object,
+          notify: true,
+        },
+        orderId: Number,
+      },
+
+      removeTicket: function() {
+        this.fire("remove-ticket", this.ticket);
+      },
+    });
+  })();
+  </script>
+</dom-module>
