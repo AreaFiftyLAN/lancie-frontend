@@ -4,29 +4,28 @@
 <dom-module id="lancie-card">
   <template>
     <style>
-      :host {
-        display: block;
-        min-height: calc(100vh - 348px);
-        padding: 10px;
-      }
-
       paper-card {
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 10px;
         display: block;
-        --paper-card-header-color: #ffffff;
+        margin: 16px auto;
         max-width: 500px;
 
+        --paper-card-header-color: #ffffff;
+        --paper-card-header: {
+          background-color: #1a2b43;
+          display: flex;
+        }
+        --paper-card-header-image: {
+          margin: 16px 16px 64px;
+        }
         --paper-card-header-text: {
           width: 100%;
+          padding: 16px 0;
           text-align: center;
-          padding-left: 0;
         }
       }
     </style>
 
-    <paper-card heading="{{heading}}" image="https://areafiftylan.nl/images/logos/lancie/logo_without_date_with_background.png">
+    <paper-card heading="[[heading]]" image="[[image]]">
       <content></content>
     </paper-card>
   </template>
@@ -37,7 +36,11 @@
     Polymer({
       is: 'lancie-card',
       properties: {
-        heading: String
+        heading: String,
+        image: {
+          type: String,
+          value: '../images/logos/lancie/logo_without_date.png'
+        }
       }
     });
   })();
