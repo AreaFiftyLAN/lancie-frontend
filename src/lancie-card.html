@@ -10,19 +10,22 @@
         max-width: 500px;
 
         --paper-card-header-color: #ffffff;
-        --paper-card-header-text: {
-          width: 100%;
-          text-align: center;
-          padding: 0 0 8px;
+        --paper-card-header: {
+          background-color: #1a2b43;
+          display: flex;
         }
         --paper-card-header-image: {
-          min-height: 120px;
-          background-color: #1a2b43;
+          margin: 16px 16px 64px;
+        }
+        --paper-card-header-text: {
+          width: 100%;
+          padding: 16px 0;
+          text-align: center;
         }
       }
     </style>
 
-    <paper-card heading="[[heading]]" image="images/logos/lancie/logo_without_date_with_background.png">
+    <paper-card heading="[[heading]]" image="[[image]]">
       <content></content>
     </paper-card>
   </template>
@@ -33,7 +36,11 @@
     Polymer({
       is: 'lancie-card',
       properties: {
-        heading: String
+        heading: String,
+        image: {
+          type: String,
+          value: '../images/logos/lancie/logo_without_date.png'
+        }
       }
     });
   })();
