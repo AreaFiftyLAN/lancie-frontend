@@ -1,13 +1,13 @@
-<link rel="import" href="lancie-login-form.html">
+<link rel="import" href="lancie-login-card.html">
 
 <dom-module id="lancie-login-check">
   <template>
-    <template is="dom-if" if="{{exists(user)}}" restamp="true">
+    <template is="dom-if" if="{{canAccess(user, nologin)}}" restamp=true>
       <content></content>
     </template>
 
-    <template is="dom-if" if="{{!exists(user)}}">
-      <lancie-login-form on-logged-in="storeUser"></lancie-login-form>
+    <template is="dom-if" if="{{!canAccess(user, nologin)}}">
+      <lancie-login-card on-logged-in="storeUser"></lancie-login-card>
     </template>
 
     <lancie-ajax id="ajax"></lancie-ajax>
@@ -29,16 +29,21 @@
           value: function() {
             return user;
           }
+        },
+        nologin: {
+          type: Boolean,
+          value: false
         }
       },
+
       ready: function() {
         checks.push(function(newUser) {
           this.user = newUser;
         }.bind(this));
       },
 
-      exists: function(value) {
-        return value !== '';
+      canAccess: function(user, nologin) {
+        return nologin || user !== '';
       },
 
       storeUser: function(e, response) {

@@ -14,32 +14,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../lancie-card.html">
 
 <dom-module id="lancie-login-form">
   <template>
     <style include="iron-flex iron-flex-alignment"></style>
     <style>
-      :host {
-        display: block;
-        padding: 24px;
-      }
-
-      .btn {
-        width: calc(50% - 15px);
-      }
-
-      .btn-primary {
-        color: #ffe574;
-        background: #1a2b43;
-      }
-
-      .request-password-reset {
-        margin: 8px auto;
-        text-align: center;
-      }
-
       .errormessage {
         padding: 10px 20px 9px;
         margin-bottom: 4px;
@@ -81,35 +60,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       on-response="onRegister"
       on-error="onRegisterError"></iron-ajax>
 
-    <lancie-card heading="{{getHeading(registering)}}">
-      <div class="card-content">
-        <div hidden$="{{registering}}" on-keydown="tryLoginOnEnter">
-          <paper-material class="errormessage" hidden$="{{!loginError}}">{{loginErrorMessage}}</paper-material>
-          <gold-email-input id="username" label="Username" name="Username" value="{{username}}" error-message="Username should be a valid email address." on-blur="validateUsername" required></gold-email-input>
-          <paper-input label="Password" type="password" name="password" value="{{password}}"></paper-input>
-        </div>
-        <div hidden$="{{!registering}}">
-          <paper-material class="errormessage" hidden$="{{!registerError}}">{{registerErrorMessage}}</paper-material>
-          <paper-material class="errormessage" hidden$="{{!passwordError}}">{{passwordErrorMessage}}</paper-material>
-          <gold-email-input id="registerUsername" label="Username" name="Username" value="{{username}}" error-message="Username should be a valid email address." on-blur="validateRegisterUsername" required></gold-email-input>
-          <paper-input label="Password" name="password" type="password" value="{{password}}"></paper-input>
-          <paper-input label="Retype password" type="password" value="{{secondPassword}}"></paper-input>
-        </div>
+      <div hidden$="{{registering}}" on-keydown="tryLoginOnEnter">
+        <paper-material class="errormessage" hidden$="{{!loginError}}">{{loginErrorMessage}}</paper-material>
+        <gold-email-input id="username" label="Username" name="Username" value="{{username}}" error-message="Username should be a valid email address." on-blur="validateUsername" required></gold-email-input>
+        <paper-input label="Password" type="password" name="password" value="{{password}}"></paper-input>
       </div>
-      <div class="card-actions">
-        <div hidden$="{{registering}}">
-          <paper-button class="btn btn-primary" raised on-tap="tryLogIn">Log in!</paper-button>
-          <paper-button class="btn" raised on-tap="switchForm">Register</paper-button>
-          <div class="request-password-reset">
-            <a href="/request-password-reset">Reset password</a>
-          </div>
-        </div>
-        <div hidden$="{{!registering}}">
-          <paper-button class="btn btn-primary" raised on-tap="tryRegister">Register!</paper-button>
-          <paper-button class="btn" raised on-tap="switchForm">Back to log in</paper-button>
-        </div>
+      <div hidden$="{{!registering}}">
+        <paper-material class="errormessage" hidden$="{{!registerError}}">{{registerErrorMessage}}</paper-material>
+        <paper-material class="errormessage" hidden$="{{!passwordError}}">{{passwordErrorMessage}}</paper-material>
+        <gold-email-input id="registerUsername" label="Username" name="Username" value="{{username}}" error-message="Username should be a valid email address." on-blur="validateRegisterUsername" required></gold-email-input>
+        <paper-input label="Password" name="password" type="password" value="{{password}}"></paper-input>
+        <paper-input label="Retype password" type="password" value="{{secondPassword}}"></paper-input>
       </div>
-    </paper-card>
+
   </template>
   <script>
   'use strict';
@@ -122,10 +85,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'lancie-login-form',
       properties: {
-        registering: {
-          type: Boolean,
-          value: false
-        },
+        registering: Boolean,
         csrfToken: {
           type: String,
           value: function() {
@@ -170,16 +130,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      switchForm: function() {
-        this.registering = !this.registering;
-      },
-
-      tryLoginOnEnter: function(event) {
-        if (event.keyCode === 13) {
-          this.tryLogIn();
-        }
-      },
-
       tryRegister: function() {
         if (this.validateRegisterForm()) {
           this.$.ajaxRegister.generateRequest();
@@ -192,6 +142,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         } else {
           this.loginError = false;
           this.loginErrorMessage = '';
+        }
+      },
+
+      tryLoginOnEnter: function(event) {
+        if (event.keyCode === 13) {
+          this.tryLogIn();
         }
       },
 
