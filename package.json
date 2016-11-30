@@ -15,13 +15,13 @@
     "merge-stream": "^1.0.0",
     "plylog": "^0.4.0",
     "polymer-build": "^0.4.0",
-    "polyserve": "git+https://github.com/timvdLippe/polyserve.git#proxy"
+    "polyserve": "github:timvdlippe/polyserve#proxy"
   },
   "scripts": {
     "postinstall": "cd ./node_modules/polyserve && npm install && npm run build -s || true",
     "build": "node ./node_modules/gulp/bin/gulp.js",
-    "serve": "node ./node_modules/polyserve/bin/polyserve -p 5100 -P h2 --proxy-root api --proxy-target http://localhost:9000/api/",
-    "serve-build": "node ./node_modules/polyserve/bin/polyserve -p 5100 --root build/bundled/ -P h2 --proxy-root api --proxy-target http://localhost:9000/api/"
+    "serve": "node ./node_modules/polyserve/bin/polyserve -p 5100 -P h2 --proxy-path api --proxy-target http://localhost:9000/api/",
+    "serve-build": "node ./node_modules/polyserve/bin/polyserve build/bundled/ -p 5100 -P h2 --proxy-path api --proxy-target http://localhost:9000/api/"
   },
   "engines": {
     "node": ">=5.0.0"
