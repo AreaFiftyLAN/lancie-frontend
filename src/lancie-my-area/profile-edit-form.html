@@ -1,8 +1,16 @@
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
 <dom-module id="profile-edit-form">
   <template>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
     <style>
       :host {
         display: block;
+      }
+
+      iron-icon {
+        padding: 8px;
+        margin-right: 8px;
       }
 
       paper-input, paper-dropdown-menu {
@@ -19,44 +27,41 @@
       }
     </style>
 
-    <paper-icon-item>
+    <div class="layout horizontal center">
       <iron-icon icon="icons:account-circle" item-icon></iron-icon>
-      <paper-item-body>
-        <div class="layout horizontal wrap">
-          <paper-input label="Display Name" type="text" value="{{profile.displayName}}"></paper-input>
-          <paper-input label="First Name" type="text" value="{{profile.firstName}}" class="flex"></paper-input>
-          <paper-input label="Last Name" type="text" value="{{profile.lastName}}" class="flex"></paper-input>
-          <paper-dropdown-menu class="flex" label="Gender">
-            <paper-menu class="dropdown-content" selected="{{profile.gender}}" attr-for-selected="data-value">
-              <paper-item data-value="MALE">MALE</paper-item>
-              <paper-item data-value="FEMALE">FEMALE</paper-item>
-            </paper-menu>
-          </paper-dropdown-menu>
-        </div>
-      </paper-item-body>
-    </paper-icon-item>
-    <paper-icon-item>
+      <div class="item layout horizontal wrap flex">
+        <paper-input label="Display Name" type="text" value="{{profile.displayName}}"></paper-input>
+        <paper-input label="First Name" type="text" value="{{profile.firstName}}" class="flex"></paper-input>
+        <paper-input label="Last Name" type="text" value="{{profile.lastName}}" class="flex"></paper-input>
+        <paper-dropdown-menu class="flex" label="Gender">
+          <paper-menu class="dropdown-content" selected="{{profile.gender}}" attr-for-selected="data-value">
+            <paper-item data-value="MALE">MALE</paper-item>
+            <paper-item data-value="FEMALE">FEMALE</paper-item>
+          </paper-menu>
+        </paper-dropdown-menu>
+      </div>
+    </div>
+    <div class="layout horizontal center">
       <iron-icon icon="social:cake" item-icon></iron-icon>
-      <paper-item-body>
+      <div class="item flex">
         <paper-input label="Birthday" type="date" value="{{profile.birthday}}"></paper-input>
-      </paper-item-body>
-    </paper-icon-item>
-    <paper-icon-item>
+      </div>
+    </div>
+    <div class="layout horizontal center">
       <iron-icon icon="communication:phone" item-icon></iron-icon>
-      <paper-item-body>
+      <div class="item flex">
         <paper-input label="Phone Number" type="text" value="{{profile.phoneNumber}}"></paper-input>
-      </paper-item-body>
-    </paper-icon-item>
+      </div>
+    </div>
     <paper-icon-item>
+    <div class="layout horizontal center">
       <iron-icon icon="communication:location-on" item-icon></iron-icon>
-      <paper-item-body two-line>
-        <div class="layout horizontal wrap">
-          <paper-input label="Address" type="text" value="{{profile.address}}" class="flex-3"></paper-input>
-          <paper-input label="Zipcode" type="text" value="{{profile.zipcode}}" class="flex"></paper-input>
-          <paper-input label="City" type="text" value="{{profile.city}}" class="flex-3"></paper-input>
-        </div>
-      </paper-item-body>
-    </paper-icon-item>
+      <div class="item layout horizontal wrap flex">
+        <paper-input label="Address" type="text" value="{{profile.address}}" class="flex-3"></paper-input>
+        <paper-input label="Zipcode" type="text" value="{{profile.zipcode}}" class="flex"></paper-input>
+        <paper-input label="City" type="text" value="{{profile.city}}" class="flex-3"></paper-input>
+      </div>
+    </div>
   </template>
   <script>
     Polymer({
