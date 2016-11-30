@@ -11,9 +11,9 @@
       "website": "https://www.asml.com"
     },
     "prizes": [
-      "2x Steelseries Siberia 350 Headset",
-      "2x Razer Kraken Pro eSports Stereo Gaming Headet",
-      "2x Turtle Beach Ear Force Recon 50P"
+      "TBA",
+      "TBA",
+      "TBA"
     ],
     "format": "2 vs 2",
     "startingDateTime": {
@@ -49,14 +49,9 @@
       "website": "http://www.corsair.com/"
     },
     "prizes": [
-      "2x Corsair Gaming STRAFE Cherry MX Keyboard and 3x VOID Wireless Dolby 7.1 Gaming Headset. Plus for each teammember: 1200 RP, Ryze, Triumphant Ryze, 4-Win IP Boost",
-      "600 RP, 4-Win IP Boost for each teammember",
-      "400 RP, 4-Win IP Boost for each teammember",
-      "200 RP, 4-Win IP Boost for each teammember",
-      "4-Win IP Boost for each teammember",
-      "4-Win IP Boost for each teammember",
-      "4-Win IP Boost for each teammember",
-      "4-Win IP Boost for each teammember"
+      "TBA",
+      "TBA",
+      "TBA"
     ],
     "format": "5 vs 5",
     "startingDateTime": {
@@ -92,7 +87,9 @@
       "website": "https://startselect.com/nl-nl"
     },
     "prizes": [
-      "5x AAA Game Coupon (€63,-) at Startselect"
+      "TBA",
+      "TBA",
+      "TBA"
     ],
     "format": "5 vs 5",
     "startingDateTime": {
@@ -128,11 +125,87 @@
       "website": "http://eu.battle.net/hearthstone/en/"
     },
     "prizes": [
-      "Samsung 850 EVO 500GB",
-      "Samsung 850 EVO 250GB",
-      "Samsung 850 EVO 120GB"
+      "TBA",
+      "TBA",
+      "TBA"
     ],
     "format": "1 vs 1",
+    "startingDateTime": {
+      "monthValue": 8,
+      "month": "June",
+      "year": 2016,
+      "dayOfMonth": 4,
+      "dayOfWeek": "Saturday",
+      "dayOfYear": 237,
+      "nano": 876000000,
+      "second": 36,
+      "chronology": {
+        "id": "ISO",
+        "calendarType": "iso8601"
+      }
+    },
+    "rulePath": "T.B.A.",
+    "platform": [
+      "PC",
+      "Mac"
+    ],
+    "footer": false
+  },
+  {
+    "title": "OW",
+    "subtitle": "6 v 6",
+    "headerTitle": "Overwatch",
+    "description": "Rules are to be announced",
+    "backgroundImagePath": "images/activities/overwatch.jpg",
+    "sponsor": {
+      "name": "",
+      "imagePath": "images/activities/overwatch.png",
+      "website": "https://playoverwatch.com/en-us/"
+    },
+    "prizes": [
+      "TBA",
+      "TBA",
+      "TBA"
+    ],
+    "format": "6 vs 6",
+    "startingDateTime": {
+      "monthValue": 8,
+      "month": "June",
+      "year": 2016,
+      "dayOfMonth": 4,
+      "dayOfWeek": "Saturday",
+      "dayOfYear": 237,
+      "nano": 876000000,
+      "second": 36,
+      "chronology": {
+        "id": "ISO",
+        "calendarType": "iso8601"
+      }
+    },
+    "rulePath": "T.B.A.",
+    "platform": [
+      "PC",
+      "Mac"
+    ],
+    "footer": false
+  },
+  {
+    "title": "TM",
+    "subtitle": "FFA",
+    "headerTitle": "TrackMania Nations Fovever",
+    "description": "Rules are to be announced",
+    "backgroundImagePath": "images/activities/trackmania.jpg",
+    "sponsor": {
+      "name": "",
+      "imagePath": "images/activities/trackmania.png",
+      "website": "http://trackmaniaforever.com/"
+    },
+    "prizes": [
+      "TBA",
+      "TBA",
+      "TBA"
+    ],
+    "format": "FFA",
     "startingDateTime": {
       "monthValue": 8,
       "month": "June",
