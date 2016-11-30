@@ -23,24 +23,24 @@
     :host {
       display: block;
     }
-    
+
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
     }
-    
+
     paper-input {
       margin: 0 10px 0 10px;
     }
-    
+
     #checkIcon {
       --iron-icon-fill-color: #4CAF50;
     }
-    
+
     #closeIcon {
       --iron-icon-fill-color: #F44336;
     }
-    
+
     hr {
       display: block;
       height: 1px;
@@ -52,8 +52,10 @@
     </style>
     <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
     <lancie-ajax id="ajaxUpdatePassword" refurl="users/current/password" method="PUT" on-response="onPasswordUpdate"></lancie-ajax>
+
     <paper-card class="layout vertical flex" heading="Profile" elevation="1" animated-shadow="true">
-      <div class="card-content list" role="listbox">
+      <div class="card-content" role="listbox">
+
         <template is="dom-if" if="{{!editingProfile}}">
           <paper-icon-item>
             <iron-icon icon="icons:account-circle" item-icon></iron-icon>
@@ -83,9 +85,11 @@
             </paper-item-body>
           </paper-icon-item>
         </template>
+
         <template is="dom-if" if="{{editingProfile}}">
           <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
         </template>
+
         <hr>
         <paper-icon-item>
           <iron-icon icon="communication:email" item-icon></iron-icon>
@@ -93,6 +97,7 @@
             <div>{{user.username}}</div>
           </paper-item-body>
         </paper-icon-item>
+
         <hr>
         <template is="dom-if" if="{{!editingPassword}}">
           <paper-icon-item>
@@ -102,10 +107,11 @@
             </paper-item-body>
           </paper-icon-item>
         </template>
+
         <template is="dom-if" if="{{editingPassword}}">
           <paper-icon-item>
             <iron-icon icon="icons:lock" item-icon></iron-icon>
-            <paper-item-body>
+            <paper-item-body two-line>
               <paper-input label="Current Password" type="password" value="{{currentPassword}}"></paper-input>
               <paper-input label="New Password" type="password" value="{{newPassword}}"></paper-input>
               <paper-input id="passwordRepeatInput" error-message="Passwords don't match!" label="Repeat New Password" type="password" value="{{newPasswordRepeat}}"></paper-input>
@@ -182,7 +188,6 @@
             gender: this.editingUser.profile.gender,
             birthday: this.editingUser.profile.birthday
           };
-          console.log(this.$.ajaxUpdateProfile.body);
           this.$.ajaxUpdateProfile.generateRequest();
           this.switchProfileForm();
         }
@@ -212,7 +217,7 @@
         }
       },
       onPasswordUpdate: function(e, response) {
-        this.$$('#passwordRepeatInput').invalid = false;
+        this.$.passwordRepeatInput.invalid = false;
 
         if (response.succeeded) {
           // load toast
