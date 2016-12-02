@@ -8,14 +8,13 @@
 
     <template is="dom-if" if="{{canAccess(user, nologin)}}" restamp=true>
       <content></content>
-
-      <lancie-login-dialog id="stuff"></lancie-login-dialog>
-
     </template>
 
     <template is="dom-if" if="{{!canAccess(user, nologin)}}">
       <lancie-login-card></lancie-login-card>
     </template>
+
+    <lancie-login-dialog id="stuff"></lancie-login-dialog>
 
     <lancie-ajax id="ajax"></lancie-ajax>
   </template>
