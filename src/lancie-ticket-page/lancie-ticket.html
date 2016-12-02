@@ -43,13 +43,13 @@
 
       addToBasket: function() {
         if (!this.basket.tickets) {
-          this.$.addTicket.refurl = "orders"
+          this.$.addTicket.refurl = 'orders';
         } else if (this.basket.tickets.length === 5) {
           // TODO: Toast of max ticket amount
-          console.log("Max of 5 tickets;");
+          console.log('Max of 5 tickets;');
           return;
         } else {
-          this.$.addTicket.refurl = "orders/" + this.basket.id;
+          this.$.addTicket.refurl = 'orders/' + this.basket.id;
         }
         this.$.addTicket.body = {
           type: this.ticket.ticketType,
@@ -62,10 +62,10 @@
 
       onAddTicket: function(e, request) {
         if (request.succeeded) {
-          this.fire("set-basket", {basket: request.response.object});
+          this.fire('set-basket', {basket: request.response.object});
         } else {
           // todo: implement error handling
-          console.log("Error");
+          console.log('Error');
         }
       }
 

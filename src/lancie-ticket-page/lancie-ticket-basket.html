@@ -53,7 +53,7 @@
     checkout: function() {
       console.log(this.basket);
       if (!this.basket.user) {
-        this.fire("login-dialog");
+        this.fire('login-dialog');
         return;
       }
       this.$.checkout.generateRequest();
@@ -61,11 +61,11 @@
 
     onCheckout: function(e, request) {
       if (request.succeeded) {
-        console.log("Checking out");
+        console.log('Checking out');
         console.log(request.response);
       } else {
         // TODO: Catch error
-        console.log("Error while checking out");
+        console.log('Error while checking out');
       }
     },
 
@@ -76,10 +76,10 @@
 
     onRemoveTicket: function(e, request) {
       if (request.succeeded) {
-        this.fire("set-basket", {basket: request.response.object});
+        this.fire('set-basket', {basket: request.response.object});
       } else {
         // TODO: Error toast not able to remove ticket, probably due to order being cleaned up
-        console.log("Error while removing ticket, order has probably expired;");
+        console.log('Error while removing ticket, order has probably expired;');
       }
     },
 

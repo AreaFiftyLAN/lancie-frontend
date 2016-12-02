@@ -64,17 +64,17 @@ This code may only be used under the BSD style license found at https://github.c
           this.availableTickets = request.response;
         } else {
           // TODO: Handle error
-          console.log("Server unavailable error;");
+          console.log('Server unavailable error;');
         }
       },
 
       onOpenOrder: function(e, request) {
         if (request.succeeded) {
-          console.log("Got open order");
+          console.log('Got open order');
           console.log(request.response);
         } else {
           // TODO: Handle error
-          console.log("Error retrieving open order;");
+          console.log('Error retrieving open order;');
         }
       },
 
@@ -90,7 +90,7 @@ This code may only be used under the BSD style license found at https://github.c
         }
       },
 
-    })
+    });
   })();
   </script>
 </dom-module>
