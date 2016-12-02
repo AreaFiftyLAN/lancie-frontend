@@ -51,7 +51,8 @@ This code may only be used under the BSD style license found at https://github.c
         basket: {
           type: Object,
           value: {},
-          notify: true,
+          // notify: true,
+          observer: '_basketChanged',
         },
         availableTickets: {
           type: Object,
@@ -84,7 +85,21 @@ This code may only be used under the BSD style license found at https://github.c
         this.basket = basket;
       },
 
+      /*
+        If there is an order and the user logs in later, couple
+        the order to the user.
+       */
       _userChanged: function(user, oldUser) {
+        if (this.basket.status === 'ANONYMOUS' && !!user) {
+          console.log(user);
+        }
+      },
+
+      /*
+        If the user is logged in and the order is retrieved at
+        a later point in time, couple the order.
+      */
+      _basketChanged: function(basket, oldBasket) {
         if (this.basket.status === 'ANONYMOUS' && !!user) {
           console.log(user);
         }

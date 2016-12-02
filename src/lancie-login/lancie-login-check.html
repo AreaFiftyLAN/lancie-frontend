@@ -14,7 +14,7 @@
       <lancie-login-card></lancie-login-card>
     </template>
 
-    <lancie-login-dialog id="stuff"></lancie-login-dialog>
+    <lancie-login-dialog id="loginDialog"></lancie-login-dialog>
 
     <lancie-ajax id="ajax"></lancie-ajax>
   </template>
@@ -49,14 +49,12 @@
 
         // Add eventlistener to catch logged-in event in entire element
         this.addEventListener('logged-in', (e) => {
-          console.log('Login succeeded, cought event');
           this.storeUser(e, e.detail);
         });
 
-        console.log(this.$.stuff);
         // Add eventlistener to catch login dialog open request
         this.addEventListener('login-dialog', function() {
-          console.log(this.$.stuff);
+          this.$.loginDialog.open();
         });
       },
 
