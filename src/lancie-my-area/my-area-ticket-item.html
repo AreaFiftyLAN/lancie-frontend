@@ -10,7 +10,7 @@
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 
 <link rel="import" href="../lancie-dialog/lancie-dialog.html">
-<link rel="import" href="my-area-orders/lancie-ticket-item.html">
+<link rel="import" href="my-area-orders/lancie-order-item.html">
 
 <dom-module id="my-area-ticket-item">
   <template>
@@ -33,12 +33,12 @@
     <lancie-ajax id="ajaxCancelTicketTransfer" refurl="tickets/transfer" method="DELETE" handle-as="json" on-response="onCancelTicketTransfer"></lancie-ajax>
 
     <hr>
-    <lancie-ticket-item id="ticketItem" ticket="{{ticket}}" class="flex">
+    <lancie-order-item id="ticketItem" ticket="{{ticket}}" class="flex">
       <div class="layout self-center vertical">
         <paper-icon-button icon="{{getIcon(ticket.token)}}" on-tap="openTicketTransferDialog"></paper-icon-button>
         <paper-tooltip offset="0" animation-delay="1">{{getText(ticket.token)}} ticket transfer</paper-tooltip>
       </div>
-    </lancie-ticket-item>
+    </lancie-order-item>
 
     <lancie-dialog id="setupTicketTransferDialog" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop>
       <h2>Set up ticket transfer</h2>
