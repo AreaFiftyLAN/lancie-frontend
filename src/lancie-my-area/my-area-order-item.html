@@ -10,7 +10,7 @@
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 
 <link rel="import" href="../lancie-dialog/lancie-dialog.html">
-<link rel="import" href="my-area-orders/lancie-ticket-item.html">
+<link rel="import" href="my-area-orders/lancie-order-item.html">
 
 <dom-module id="my-area-order-item">
   <template>
@@ -81,7 +81,7 @@
         </div>
         <template is="dom-repeat" items="[[order.tickets]]" status="[[order.status]]" index-as="index">
           <hr>
-          <lancie-ticket-item ticket="[[item]]" status="[[order.status]]"></lancie-ticket-item>
+          <lancie-order-item ticket="[[item]]" status="[[order.status]]"></lancie-order-item>
         </template>
       </div>
       <div class="buttons">
