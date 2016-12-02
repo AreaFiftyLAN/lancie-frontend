@@ -7,11 +7,11 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 
 <link rel="import" href="lancie-ticket.html">
 <link rel="import" href="lancie-ticket-basket.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
-<link rel="import" href="../lancie-login/lancie-login-form.html">
 
 <dom-module id="lancie-ticket-page">
   <template>
@@ -20,9 +20,9 @@ This code may only be used under the BSD style license found at https://github.c
     </style>
 
     <lancie-ajax auto refurl="tickets/available" on-response="onAvailableTickets"></lancie-ajax>
-    <!--<lancie-ajax auto="{{user}}" refurl="users/current/orders/open" method="GET" on-response="getOpenOrder"></lancie-ajax>-->
+    <!--<lancie-ajax auto="{{user}}" refurl="users/current/orders/open" method="GET" on-response="onOpenOrder"></lancie-ajax>-->
 
-    <div class="layout horizontal" on-set-basket="setBasket" on-login-dialog="openLoginDialog">
+    <div class="layout horizontal" on-set-basket="setBasket">
 
       <paper-card heading="Tickets">
         <div class="card-content">
@@ -44,7 +44,10 @@ This code may only be used under the BSD style license found at https://github.c
     Polymer({
       is: 'lancie-ticket-page',
       properties: {
-        user: Object,
+        user: {
+          type: Object,
+          observer: '_userChanged',
+        },
         basket: {
           type: Object,
           value: {},
@@ -52,7 +55,7 @@ This code may only be used under the BSD style license found at https://github.c
         },
         availableTickets: {
           type: Object,
-          value: []
+          value: [],
         },
       },
 
@@ -61,7 +64,17 @@ This code may only be used under the BSD style license found at https://github.c
           this.availableTickets = request.response;
         } else {
           // TODO: Handle error
-          console.log("Server unavailable error;");;
+          console.log("Server unavailable error;");
+        }
+      },
+
+      onOpenOrder: function(e, request) {
+        if (request.succeeded) {
+          console.log("Got open order");
+          console.log(request.response);
+        } else {
+          // TODO: Handle error
+          console.log("Error retrieving open order;");
         }
       },
 
@@ -71,8 +84,10 @@ This code may only be used under the BSD style license found at https://github.c
         this.basket = basket;
       },
 
-      openLoginDialog: function() {
-        console.log("Open login dialog;");
+      _userChanged: function(user, oldUser) {
+        if (this.basket.status === 'ANONYMOUS' && !!user) {
+          console.log(user);
+        }
       },
 
     })
