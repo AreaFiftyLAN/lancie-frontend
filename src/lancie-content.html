@@ -29,88 +29,53 @@
     <app-route route="{{route}}" pattern="/:page" data="{{page}}"></app-route>
 
     <iron-lazy-pages attr-for-selected="data-route" selected="{{page.page}}" fallback-selection="404">
+      <lancie-home-page data-route="" data-path="src/lancie-home-page/lancie-home-page.html"></lancie-home-page>
 
-      <template is="iron-lazy-page" data-route="" path="src/lancie-home-page/lancie-home-page.html">
-        <lancie-home-page></lancie-home-page>
-      </template>
+      <lancie-login-check user="{{user}}" data-route="my-area" data-path="src/lancie-my-area/lancie-my-area.html">
+        <lancie-my-area user="{{user}}"></lancie-my-area>
+      </lancie-login-check>
 
-      <template is="iron-lazy-page" data-route="my-area" path="src/lancie-my-area/lancie-my-area.html">
-        <lancie-login-check user="{{user}}">
-          <lancie-my-area user="{{user}}"></lancie-my-area>
-        </lancie-login-check>
-      </template>
+      <lancie-login-check user="{{user}}" data-route="accept-transfer" data-path="src/lancie-my-area/lancie-accept-ticket-transfer.html">
+        <lancie-accept-ticket-transfer></lancie-accept-ticket-transfer>
+      </lancie-login-check>
 
-      <template is="iron-lazy-page" data-route="accept-transfer" path="src/lancie-my-area/lancie-accept-ticket-transfer.html">
-        <lancie-login-check user="{{user}}">
-          <lancie-accept-ticket-transfer></lancie-accept-ticket-transfer>
-        </lancie-login-check>
-      </template>
+      <lancie-success-ticket-transfer data-route="transfer-success" data-path="src/lancie-my-area/lancie-success-ticket-transfer.html"></lancie-success-ticket-transfer>
 
-      <template is="iron-lazy-page" data-route="transfer-success" path="src/lancie-my-area/lancie-success-ticket-transfer.html">
-        <lancie-success-ticket-transfer></lancie-success-ticket-transfer>
-      </template>
+      <lancie-login-check user="{{user}}" data-route="tickets" data-path="src/lancie-ticket-page/lancie-ticket-page.html">
+        <lancie-ticket-page route="{{page.page}}" user="{{user}}"></lancie-ticket-page>
+      </lancie-login-check>
 
-      <template is="iron-lazy-page" data-route="tickets" path="src/lancie-ticket-page/lancie-ticket-page.html">
-        <lancie-login-check user="{{user}}">
-          <lancie-ticket-page route="{{page.page}}" user="{{user}}"></lancie-ticket-page>
-        </lancie-login-check>
-      </template>
+      <lancie-login-check user="{{user}}" data-route="seatmap" data-path="src/lancie-seatmap/lancie-seatmap.html">
+        <lancie-seatmap user="{{user}}"></lancie-seatmap>
+      </lancie-login-check>
 
-       <template is="iron-lazy-page" data-route="seatmap" path="src/lancie-seatmap/lancie-seatmap.html">
-        <lancie-login-check user="{{user}}">
-          <lancie-seatmap user="{{user}}"></lancie-seatmap>
-        </lancie-login-check>
-      </template>
+      <lancie-login-check user="{{user}}" data-route="rfid" data-path="src/lancie-rfid/lancie-rfid.html">
+        <lancie-rfid route="{{page.page}}" user="{{user}}"></lancie-rfid>
+      </lancie-login-check>
 
-      <template is="iron-lazy-page" data-route="rfid" path="src/lancie-rfid/lancie-rfid.html">
-        <lancie-login-check user="{{user}}">
-          <lancie-rfid route="{{page.page}}" user="{{user}}"></lancie-rfid>
-        </lancie-login-check>
-      </template>
+      <lancie-ticket-profile-intercept
+          data-route="tickets-intercept" data-path="src/lancie-ticket-page/lancie-ticket-profile-intercept.html"
+          route="{{page.page}}" user="{{user}}"></lancie-ticket-profile-intercept>
 
-      <template is="iron-lazy-page" data-route="tickets-intercept" path="src/lancie-ticket-page/lancie-ticket-profile-intercept.html">
-        <lancie-ticket-profile-intercept route="{{page.page}}" user="{{user}}"></lancie-ticket-profile-intercept>
-      </template>
+      <lancie-register-confirmation data-route="confirmRegistration" data-path="src/lancie-login/lancie-register-confirmation.html"></lancie-register-confirmation>
 
-      <template is="iron-lazy-page" data-route="confirmRegistration" path="src/lancie-login/lancie-register-confirmation.html">
-        <lancie-register-confirmation></lancie-register-confirmation>
-      </template>
+      <lancie-check-email data-route="check-email" data-path="src/lancie-login/lancie-check-email.html"></lancie-check-email>
 
-      <template is="iron-lazy-page" data-route="check-email" path="src/lancie-login/lancie-check-email.html">
-        <lancie-check-email></lancie-check-email>
-      </template>
+      <lancie-order-check data-route="ordersuccess" data-path="src/lancie-order-check.html"></lancie-order-check>
 
-      <template is="iron-lazy-page" data-route="ordersuccess" path="src/lancie-order-check.html">
-        <lancie-order-check></lancie-order-check>
-      </template>
+      <lancie-404 data-route="404" data-path="src/lancie-404.html"></lancie-404>
 
-      <template is="iron-lazy-page" data-route="404" path="src/lancie-404.html">
-        <lancie-404></lancie-404>
-      </template>
+      <lancie-password-reset data-route="resetPassword" data-path="src/lancie-password/lancie-password-reset.html"></lancie-password-reset>
 
-      <template is="iron-lazy-page" data-route="resetPassword" path="src/lancie-password/lancie-password-reset.html">
-        <lancie-password-reset></lancie-password-reset>
-      </template>
+      <lancie-password-reset-success data-route="password-reset-success" data-path="src/lancie-password/lancie-password-reset-success.html"></lancie-password-reset-success>
 
-      <template is="iron-lazy-page" data-route="password-reset-success" path="src/lancie-password/lancie-password-reset-success.html">
-        <lancie-password-reset-success></lancie-password-reset-success>
-      </template>
+      <lancie-request-password-reset data-route="request-password-reset" data-path="src/lancie-password/lancie-request-password-reset.html"></lancie-request-password-reset>
 
-      <template is="iron-lazy-page" data-route="request-password-reset" path="src/lancie-password/lancie-request-password-reset.html">
-        <lancie-request-password-reset></lancie-request-password-reset>
-      </template>
+      <lancie-request-password-reset-success data-route="request-password-reset-success" data-path="src/lancie-password/lancie-request-password-reset-success.html"></lancie-request-password-reset-success>
 
-      <template is="iron-lazy-page" data-route="request-password-reset-success" path="src/lancie-password/lancie-request-password-reset-success.html">
-        <lancie-request-password-reset-success></lancie-request-password-reset-success>
-      </template>
+      <lancie-contact data-route="contact" data-path="src/lancie-contact/lancie-contact.html"></lancie-contact>
 
-      <template is="iron-lazy-page" data-route="contact" path="src/lancie-contact/lancie-contact.html">
-        <lancie-contact></lancie-contact>
-      </template>
-
-      <template is="iron-lazy-page" data-route="contact-success" path="src/lancie-contact/lancie-contact-success.html">
-        <lancie-contact-success></lancie-contact-success>
-      </template>
+      <lancie-contact-success data-route="contact-success" data-path="src/lancie-contact/lancie-contact-success.html"></lancie-contact-success>
 
     </iron-lazy-pages>
   </template>
