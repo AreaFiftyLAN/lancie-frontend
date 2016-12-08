@@ -48,6 +48,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       method="GET"
       headers="{{headersFrom(_token)}}"
       handle-as="json"
+      headers="{{headerFrom('application/x-www-form-urlencoded', csrfToken)}}"
       on-response="onCurrentUser"></iron-ajax>
 
     <iron-ajax

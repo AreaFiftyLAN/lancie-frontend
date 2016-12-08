@@ -17,7 +17,7 @@
       </paper-dialog-scrollable>
       <div class="buttons">
         <paper-button dialog-dismiss on-tap="closeDialog">Cancel</paper-button>
-        <paper-button dialog-confirm on-tap="payOrder">I agree to the terms of service</paper-button>
+        <paper-button dialog-confirm on-tap="confirm">I agree to the terms of service</paper-button>
       </div>
     </paper-dialog>
 
@@ -28,6 +28,9 @@
   (function() {
     Polymer({
       is: 'lancie-terms-of-service',
+      properties: {
+        confirm: Object,
+      },
 
       open: function() {
         this.$.termsOfService.open();

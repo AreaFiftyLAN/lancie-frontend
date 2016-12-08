@@ -27,8 +27,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       paper-dialog {
         min-width: 500px;
       }
-
       /* Remove margins added by paper-dialog */
+
       paper-dialog > * {
         margin: 0;
       }
@@ -91,15 +91,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       ready: function() {
         /*
-           Add eventlistener to the dialog here, and make it refire
-           the event from this (lancie-login-dialog). If this is not
-           done, the event will be fired from window.document.body and
-           cannot be cought by the lancie-login-check
+           Add eventlistener to the dialog here, and make it refire the event from this (lancie-login-dialog). If this is not done, the event will be fired from window.document.body and cannot be cought by the lancie-login-check
         */
-        this.$.dialog.addEventListener('logged-in', (e) => {
+        this.$.dialog.addEventListener('logged-in', function(e) {
           this.fire('logged-in', e.detail);
           this.$.dialog.close();
-        });
+        }.bind(this));
         window.document.body.appendChild(this.$.dialog);
       },
 

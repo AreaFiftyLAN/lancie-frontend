@@ -4,6 +4,7 @@
 
 <link rel="import" href="../lancie-login/lancie-ajax.html">
 <link rel="import" href="lancie-ticket-basket-item.html">
+<link rel="import" href="lancie-terms-of-service.html">
 
 <dom-module id="lancie-ticket-basket">
   <template>
@@ -13,7 +14,7 @@
     <lancie-ajax id="removeTicket" refurl="/orders/[[basket.id]]" method="DELETE" on-response="onRemoveTicket"></lancie-ajax>
     <lancie-ajax id="checkout" refurl="orders/[[basket.id]]/checkout" on-response="onCheckout"></lancie-ajax>
 
-   <paper-card heading="Basket" on-remove-ticket="removeTicket">
+    <paper-card heading="Basket" on-remove-ticket="removeTicket">
 
 		<template is="dom-if" if="{{!basket.tickets}}">
       <div class="card-content">
@@ -28,13 +29,15 @@
         </template>
       <div>
       <div class="card-actions">
-        <paper-button on-tap="checkout">
+        <paper-button on-tap="tryCheckout">
           Checkout
         </paper-button>
       </div>
     </template>
 
-	</paper-card>
+    </paper-card>
+
+    <lancie-terms-of-service id="termsOfService" confirm="checkout"></lancie-terms-of-service>
 
   </template>
   <script>
@@ -50,12 +53,16 @@
 		  },
 	  },
 
-    checkout: function() {
+    tryCheckout: function() {
       console.log(this.basket);
       if (!this.basket.user) {
         this.fire('login-dialog');
         return;
       }
+      this.$.termsOfService.open();
+    },
+
+    checkout: function() {
       this.$.checkout.generateRequest();
     },
 

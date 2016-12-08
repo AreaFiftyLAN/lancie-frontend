@@ -20,6 +20,7 @@ This code may only be used under the BSD style license found at https://github.c
     </style>
 
     <lancie-ajax auto refurl="tickets/available" on-response="onAvailableTickets"></lancie-ajax>
+    <lancie-ajax id="coupleOrder" refurl="orders/{{basket.id}}/assign" method="POST" on-response="onCoupleOrder"></lancie-ajax>
     <!--<lancie-ajax auto="{{user}}" refurl="users/current/orders/open" method="GET" on-response="onOpenOrder"></lancie-ajax>-->
 
     <div class="layout horizontal" on-set-basket="setBasket">
@@ -85,23 +86,30 @@ This code may only be used under the BSD style license found at https://github.c
         this.basket = basket;
       },
 
-      /*
-        If there is an order and the user logs in later, couple
-        the order to the user.
-       */
-      _userChanged: function(user, oldUser) {
-        if (this.basket.status === 'ANONYMOUS' && !!user) {
-          console.log(user);
+      onCoupleOrder: function(e, request) {
+        if (request.succeeded) {
+          this.basket = request.response.object;
+          console.log(this.basket);
+        } else {
+          console.log('Error coupling user to order;');
         }
       },
 
       /*
-        If the user is logged in and the order is retrieved at
-        a later point in time, couple the order.
+        If there is an order and the user logs in later, couple the order to the user.
+       */
+      _userChanged: function(user, oldUser) {
+        if (this.basket.status === 'ANONYMOUS' && !!user) {
+            this.$.coupleOrder.generateRequest();
+        }
+      },
+
+      /*
+        If the user is logged in and the order changes at a later point in time, couple the order.
       */
       _basketChanged: function(basket, oldBasket) {
-        if (this.basket.status === 'ANONYMOUS' && !!user) {
-          console.log(user);
+        if (basket.status === 'ANONYMOUS' && !!this.user) {
+          this.$.coupleOrder.generateRequest();
         }
       },
 
