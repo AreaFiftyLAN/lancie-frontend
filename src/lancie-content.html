@@ -17,7 +17,7 @@
       }
     </style>
 
-    <lancie-auth-storage id="auth" user={{user}}></lancie-auth-storage>
+    <lancie-auth-storage id="auth" user="{{user}}"></lancie-auth-storage>
 
     <app-location route="{{route}}"></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{page}}"></app-route>
@@ -126,7 +126,7 @@
 
       ready: function() {
         this.addEventListener('store-token', function(e) {
-          this.$.auth.storeToken(e.detail.token);
+          this.$.auth.token = e.detail.token;
         });
       },
 

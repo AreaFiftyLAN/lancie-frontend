@@ -16,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="lancie-auth-storage">
   <template>
 
-    <app-localstorage-document id="storage" key="auth" data="{{auth}}" session-only></app-localstorage-document>
+    <app-localstorage-document id="storage" key="token" data="{{token}}" session-only></app-localstorage-document>
 
     <lancie-ajax
       id="currentUser"
@@ -36,8 +36,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Object,
           notify: true,
         },
-        auth: {
-          type: Object,
+        token: {
+          type: String,
           observer: '_changed',
         },
         initial: {
@@ -47,26 +47,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       getToken: function() {
-        // Check if token has expired
-        if (!this.auth || this.auth.created + 5 * 24 * 60 * 60 * 1000 < Date.now()) {
+        if (!this.token) {
           return;
         }
-        return this.auth.token;
+        return this.token;
       },
 
       storeToken: function(token) {
-        this.set('auth', {
-          created: Date.now(),
-          token: token,
-        });
+        this.set('token', token);
       },
 
       storeUser: function(e, request) {
+        // If the request fails, no further action is required. The token has expired and is no longer valid. The user is required to log in as usual.
         if (request.succeeded) {
           if (request.response.message === 'Not logged in') {
             return;
           }
           this.user = request.response;
+        } else {
+          // Old token can be cleared when the token is no longer valid
+          this.token = undefined;
         }
       },
 
