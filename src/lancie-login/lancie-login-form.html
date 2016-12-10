@@ -42,6 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       id="getCurrentUser"
       url="/api/v1/users/current"
       method="GET"
+      headers="{{headersFrom(_token)}}"
       handle-as="json"
       on-response="onCurrentUser"></iron-ajax>
 
@@ -70,7 +71,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
   <script>
   'use strict';
-  var csrfToken;
+  var _token;
 
   (function() {
 
@@ -78,10 +79,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'lancie-login-form',
       properties: {
         registering: Boolean,
-        csrfToken: {
+        _token: {
           type: String,
           value: function() {
-            return csrfToken;
+            return _token;
           }
         },
         loginError: {
@@ -142,8 +143,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      onLoggedIn: function(event, newUser) {
-        this._token = newUser.response.object;
+      onLoggedIn: function(event, request) {
+        this._token = request.response.object;
         this.$.getCurrentUser.generateRequest();
       },
 
@@ -156,18 +157,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      onCurrentUser: function(event, newUser) {
-        console.log(newUser.response);
-        this.user = newUser.response.user;
-        this.$.getToken.generateRequest();
-      },
+      onCurrentUser: function(event, request) {
+        this.user = request.response;
 
-      onToken: function(event, newToken) {
         this.fire('logged-in', {
           user: this.user,
           token: this._token
         });
-      },
+     },
 
       onRegister: function(e, response) {
         if (response.succeeded) {
@@ -190,6 +187,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return {
           username: username,
           password: password
+        };
+      },
+
+      headersFrom: function(token) {
+        return {
+          "X-Auth-Token": token,
         };
       },
 
