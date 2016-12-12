@@ -1,10 +1,10 @@
-<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/iron-lazy-pages/iron-lazy-pages.html">
+
+<link rel="import" href="lancie-storage/lancie-auth-storage.html">
 <link rel="import" href="lancie-login/lancie-ajax.html">
 <link rel="import" href="lancie-login/lancie-login-check.html">
-
 <link rel="import" href="lancie-contact/lancie-contact.html">
 <link rel="import" href="lancie-contact/lancie-contact-success.html">
 
@@ -17,13 +17,7 @@
       }
     </style>
 
-    <iron-ajax
-      auto
-      url="/api/v1/users/current"
-      handle-as="json"
-      on-response="storeUser"></iron-ajax>
-
-    <lancie-ajax id="ajax"></lancie-ajax>
+    <lancie-auth-storage id="auth" user="{{user}}"></lancie-auth-storage>
 
     <app-location route="{{route}}"></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{page}}"></app-route>
@@ -115,7 +109,9 @@
     </iron-lazy-pages>
   </template>
   <script>
+  (function() {
   'use strict';
+
     Polymer({
       is: 'lancie-content',
       properties: {
@@ -125,16 +121,19 @@
         },
         user: {
           type: Object
-        }
+        },
       },
-      storeUser: function(event, request) {
-        this.user = (request.response.message === 'Not logged in') ? '' : request.response;
-        this.$.ajax.injectToken(request.xhr.getResponseHeader('X-CSRF-TOKEN'));
+
+      ready: function() {
+        this.addEventListener('store-token', function(e) {
+          this.$.auth.storeToken(e.detail.token);
+        }.bind(this));
       },
 
       _matches: function(path, route) {
         return path === route;
-      }
+      },
     });
+  })();
   </script>
 </dom-module>

@@ -1,7 +1,9 @@
 <link rel="import" href="lancie-login-card.html">
+<link rel="import" href="lancie-ajax.html">
 
 <dom-module id="lancie-login-check">
   <template>
+
     <template is="dom-if" if="{{canAccess(user, nologin)}}" restamp=true>
       <content></content>
     </template>
@@ -33,7 +35,7 @@
         nologin: {
           type: Boolean,
           value: false
-        }
+        },
       },
 
       ready: function() {
@@ -46,10 +48,12 @@
         return nologin || user !== '';
       },
 
-      storeUser: function(e, response) {
-        this.user = response.user;
+      storeUser: function(e, detail) {
+        this.user = detail.user;
         user = this.user;
-        this.$.ajax.injectToken(response.token);
+        this.$.ajax.injectToken(detail.token);
+
+        this.fire('store-token', {token: detail.token});
 
         for (var i = 0; i < checks.length; i++) {
           checks[i](user);

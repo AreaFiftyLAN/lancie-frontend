@@ -12,7 +12,8 @@
     "wisvch-footer": "wisvch/wisvch-footer#^1.0.1",
     "app-layout": "PolymerElements/app-layout#^0.10.4",
     "app-route": "polymerelements/app-route#^0.9.2",
-    "iron-lazy-pages": "TimvdLippe/iron-lazy-pages#^1.0.0"
+    "iron-lazy-pages": "TimvdLippe/iron-lazy-pages#^1.0.0",
+    "app-storage": "PolymerElements/app-storage#^0.9.8"
   },
   "devDependencies": {
     "web-component-tester": "*",

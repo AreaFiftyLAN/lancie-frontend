@@ -1,0 +1,87 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-storage/app-localstorage/app-localstorage-document.html">
+
+<link rel="import" href="../lancie-login/lancie-ajax.html">
+
+<dom-module id="lancie-auth-storage">
+  <template>
+
+    <app-localstorage-document id="storage" key="auth" data="{{auth}}" session-only></app-localstorage-document>
+
+    <lancie-ajax
+      id="currentUser"
+      refurl="users/current"
+      on-response="storeUser"></lancie-ajax>
+
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'lancie-auth-storage',
+
+      properties: {
+        user: {
+          type: Object,
+          notify: true,
+        },
+        auth: {
+          type: Object,
+          observer: '_changed',
+          value: function() {
+            return {};
+          }
+        },
+        initial: {
+          type: Boolean,
+          value: true
+        },
+      },
+
+      getToken: function() {
+        return this.auth && this.auth.token;
+      },
+
+      storeToken: function(token) {
+        this.auth = {
+          token: token
+        };
+      },
+
+      storeUser: function(e, request) {
+        // If the request fails, no further action is required. The token has expired and is no longer valid. The user is required to log in as usual.
+        if (request.succeeded) {
+          if (request.response.message === 'Not logged in') {
+            return;
+          }
+          this.user = request.response;
+        } else {
+          // Old token can be cleared when the token is no longer valid
+          this.auth = {};
+        }
+      },
+
+      _changed: function(auth) {
+        var token = this.getToken();
+        if (this.initial && token) {
+          this.$.currentUser.injectToken(token);
+          this.$.currentUser.generateRequest();
+          this.initial = false;
+        }
+      },
+
+    });
+  })();
+  </script>
+</dom-module>

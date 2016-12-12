@@ -121,7 +121,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       createHeader: function(token, contenttype) {
         return {
-          'X-CSRF-TOKEN': token,
+          'X-Auth-Token': token,
           'Content-type': contenttype
         };
       },

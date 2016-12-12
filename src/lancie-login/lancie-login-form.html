@@ -29,17 +29,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <iron-ajax
-      id="getLoginCSRF"
-      url="/api/v1/login"
-      on-response="getLoginCSRF"></iron-ajax>
-
-    <iron-ajax
       id="ajaxLogin"
-      url="/api/v1/login"
+      url="/api/v1/token"
       body="{{bodyFrom(username, password)}}"
       method="POST"
+      content-type="application/json"
       handle-as="json"
-      headers="{{headerFrom('application/x-www-form-urlencoded', csrfToken)}}"
       on-response="onLoggedIn"
       on-error="onFailedLogin"></iron-ajax>
 
@@ -47,6 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       id="getCurrentUser"
       url="/api/v1/users/current"
       method="GET"
+      headers="{{headersFrom(_token)}}"
       handle-as="json"
       on-response="onCurrentUser"></iron-ajax>
 
@@ -56,7 +52,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       method="POST"
       handle-as="json"
       body="{{bodyFrom(username, password)}}"
-      headers="{{headerFrom('application/json', csrfToken)}}"
       on-response="onRegister"
       on-error="onRegisterError"></iron-ajax>
 
@@ -76,20 +71,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
   <script>
   'use strict';
-  var csrfToken;
+  var _token;
 
   (function() {
-
-    var forms = [];
 
     Polymer({
       is: 'lancie-login-form',
       properties: {
         registering: Boolean,
-        csrfToken: {
+        _token: {
           type: String,
           value: function() {
-            return csrfToken;
+            return _token;
           }
         },
         loginError: {
@@ -119,14 +112,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      ready: function() {
-        if (!csrfToken) {
-          csrfToken = 'CSRF-TOKEN';
-          this.$.getLoginCSRF.generateRequest();
-        } else {
-          forms.push(function(newToken) {
-            this.csrfToken = newToken;
-          }.bind(this));
+      switchForm: function() {
+        this.registering = !this.registering;
+      },
+
+      tryLoginOnEnter: function(event) {
+        if (event.keyCode === 13) {
+          this.tryLogIn();
         }
       },
 
@@ -151,7 +143,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      onLoggedIn: function(event, newUser) {
+      onLoggedIn: function(event, request) {
+        this._token = request.response.object;
         this.$.getCurrentUser.generateRequest();
       },
 
@@ -164,12 +157,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      onCurrentUser: function(event, newUser) {
+      onCurrentUser: function(event, request) {
+        this.user = request.response;
+
         this.fire('logged-in', {
-          token: newUser.xhr.getResponseHeader('X-CSRF-TOKEN'),
-          user: newUser.response
+          user: this.user,
+          token: this._token
         });
-      },
+     },
 
       onRegister: function(e, response) {
         if (response.succeeded) {
@@ -189,33 +184,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       bodyFrom: function(username, password) {
-        var body = {
-          _csrf: csrfToken,
+        return {
           username: username,
           password: password
         };
-
-        return body;
       },
 
-      headerFrom: function(contentType, token) {
+      headersFrom: function(token) {
         return {
-          'X-CSRF-TOKEN': token,
-          'Content-type': contentType
+          "X-Auth-Token": token,
         };
       },
 
       getHeading: function(registering) {
         return registering ? 'Register' : 'Log In';
-      },
-
-      getLoginCSRF: function(e, request) {
-        csrfToken = request.xhr.getResponseHeader('X-CSRF-TOKEN');
-        this.csrfToken = csrfToken;
-
-        for (var i = 0; i < forms.length; i++) {
-          forms[i](csrfToken);
-        }
       },
 
       validateRegisterForm: function() {
