@@ -16,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="lancie-auth-storage">
   <template>
 
-    <app-localstorage-document id="storage" key="token" data="{{token}}" session-only></app-localstorage-document>
+    <app-localstorage-document id="storage" key="auth" data="{{auth}}" session-only></app-localstorage-document>
 
     <lancie-ajax
       id="currentUser"
@@ -36,9 +36,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Object,
           notify: true,
         },
-        token: {
-          type: String,
+        auth: {
+          type: Object,
           observer: '_changed',
+          value: function() {
+            return {};
+          }
         },
         initial: {
           type: Boolean,
@@ -47,14 +50,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       getToken: function() {
-        if (!this.token) {
-          return;
-        }
-        return this.token;
+        return this.auth && this.auth.token;
       },
 
       storeToken: function(token) {
-        this.set('token', token);
+        this.auth = {
+          token: token
+        };
       },
 
       storeUser: function(e, request) {
@@ -66,7 +68,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.user = request.response;
         } else {
           // Old token can be cleared when the token is no longer valid
-          this.token = undefined;
+          this.auth = {};
         }
       },
 
