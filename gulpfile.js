@@ -130,15 +130,15 @@ gulp.task('optimize-images', () =>
   })
 );
 
-function ensureImagesOptimized() {
-  return new Promise((resolve, reject) => {
+gulp.task('ensure-images-optimized', () =>
+  new Promise((resolve, reject) => {
     if (!fs.existsSync(optimizedImagesRoot)) {
       reject('`images-optimized` does not exist. Make sure to run `npm run build optimize-images`');
     } else {
       resolve();
     }
-  });
-}
+  })
+);
 
 function linter() {
   return gulp.src([ 'scripts/**/*.js',
@@ -152,7 +152,6 @@ function linter() {
 // and process them, and output bundled and unbundled versions of the project
 // with their own service workers
 gulp.task('default', gulp.series([
-  ensureImagesOptimized,
   clean([ global.config.build.rootDirectory ]), linter,
   project.merge(source, dependencies), project.serviceWorker
 ]));
