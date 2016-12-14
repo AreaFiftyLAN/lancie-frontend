@@ -8,8 +8,6 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 
-<link rel="import" href="lancie-activity-footer.html">
-
 <dom-module id="lancie-activity-button">
   <template>
     <style include="iron-flex iron-flex-alignment"></style>
@@ -62,9 +60,6 @@ This code may only be used under the BSD style license found at https://github.c
         font-weight: 100;
         font-size: 60%;
       }
-      lancie-activity-footer {
-        height: 25%;
-      }
     </style>
     <paper-material elevation="1" class$="{{_computeClass(data.footer)}}">
       <div class="container">
@@ -75,9 +70,6 @@ This code may only be used under the BSD style license found at https://github.c
           <h1>{{data.title}}</h1>
           <h2>{{data.subtitle}}</h2>
         </div>
-        <template is="dom-if" if="{{data.footer}}">
-          <lancie-activity-footer data="{{data}}"></lancie-activity-footer>
-        </template>
       </div>
     </paper-material>
   </template>

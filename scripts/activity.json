@@ -34,8 +34,7 @@
     "platform": [
       "PC",
       "Mac"
-    ],
-    "footer": false
+    ]
   },
   {
     "title": "LoL",
@@ -77,8 +76,7 @@
     "platform": [
       "PC",
       "Mac"
-    ],
-    "footer": false
+    ]
   },
   {
     "title": "CS:GO",
@@ -113,8 +111,7 @@
     "platform": [
       "PC",
       "Mac"
-    ],
-    "footer": false
+    ]
   },
   {
     "title": "HS",
@@ -151,7 +148,6 @@
     "platform": [
       "PC",
       "Mac"
-    ],
-    "footer": false
+    ]
   }
 ]

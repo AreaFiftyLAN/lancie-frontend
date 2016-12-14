@@ -7,7 +7,6 @@
     "gold-elements": "PolymerElements/gold-elements#^1.0.1",
     "neon-elements": "PolymerElements/neon-elements#^1.0.0",
     "google-map": "GoogleWebComponents/google-map#~1.1.14",
-    "moment": "momentjs#~2.10.6",
     "polymer": "polymer/polymer#^1.7.0",
     "wisvch-footer": "wisvch/wisvch-footer#^1.0.1",
     "app-layout": "PolymerElements/app-layout#^0.10.4",

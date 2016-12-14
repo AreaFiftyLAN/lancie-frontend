@@ -4,9 +4,7 @@
    "/manifest.json",
    "/images/**",
    "/src/**",
-   "/bower_components/webcomponentsjs/webcomponents-lite.min.js",
-   "/bower_components/moment/min/moment.min.js",
-   "/bower_components/moment-timezone/builds/moment-timezone-with-data.min.js"
+   "/bower_components/webcomponentsjs/webcomponents-lite.min.js"
  ],
  "navigateFallback": "/index.html",
  "runtimeCaching": [{
