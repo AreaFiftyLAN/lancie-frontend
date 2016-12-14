@@ -3,10 +3,11 @@
   "devDependencies": {
     "css-slam": "^1.1.0",
     "del": "^2.2.1",
+    "fs-extra": "^1.0.0",
+    "glob": "^7.1.1",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-html-minifier": "^0.1.8",
     "gulp-if": "^2.0.1",
-    "gulp-imagemin": "^3.0.1",
     "gulp-jshint": "^2.0.2",
     "gulp-style-modules": "^0.1.0",
     "gulp-uglify": "^2.0.0",
@@ -15,13 +16,15 @@
     "merge-stream": "^1.0.0",
     "plylog": "^0.4.0",
     "polymer-build": "^0.4.0",
-    "polyserve": "github:timvdlippe/polyserve#proxy"
+    "polyserve": "github:timvdlippe/polyserve#proxy",
+    "superagent": "^3.2.1"
   },
   "scripts": {
     "postinstall": "cd ./node_modules/polyserve && npm install && npm run build -s || true",
     "build": "node ./node_modules/gulp/bin/gulp.js",
-    "serve": "node ./node_modules/polyserve/bin/polyserve -p 5100 -P h2 --proxy-path api --proxy-target http://localhost:9000/api/",
-    "serve-build": "node ./node_modules/polyserve/bin/polyserve build/bundled/ -p 5100 -P h2 --proxy-path api --proxy-target http://localhost:9000/api/"
+    "ensure-images": "node ./node_modules/gulp/bin/gulp.js ensure-images-optimized",
+    "serve": "npm run ensure-images && node ./node_modules/polyserve/bin/polyserve -p 5100 -P h2 --proxy-path api --proxy-target http://localhost:9000/api/",
+    "serve-build": "npm run ensure-images && node ./node_modules/polyserve/bin/polyserve build/bundled/ -p 5100 -P h2 --proxy-path api --proxy-target http://localhost:9000/api/"
   },
   "engines": {
     "node": ">=5.0.0"

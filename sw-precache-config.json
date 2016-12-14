@@ -2,7 +2,7 @@
  "staticFileGlobs": [
    "/index.html",
    "/manifest.json",
-   "/images/**",
+   "/images-optimized/**",
    "/src/**",
    "/bower_components/webcomponentsjs/webcomponents-lite.min.js"
  ],

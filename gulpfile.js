@@ -9,7 +9,6 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at
 http://polymer.github.io/PATENTS.txt
 */
-
 'use strict';
 
 const path = require('path');
@@ -19,6 +18,9 @@ const uglify = require('gulp-uglify');
 const cssSlam = require('css-slam').gulp;
 const htmlMinifier = require('gulp-html-minifier');
 const jshint = require('gulp-jshint');
+const superagent = require('superagent');
+const fs = require('fs-extra');
+const glob = require('glob');
 
 // Got problems? Try logging 'em
 // const logging = require('plylog');
@@ -50,7 +52,6 @@ global.config = {
 // A few sample tasks are provided for you
 // A task should return either a WriteableStream or a Promise
 const clean = require('./gulp-tasks/clean.js');
-const images = require('./gulp-tasks/images.js');
 const project = require('./gulp-tasks/project.js');
 
 function minify() {
@@ -75,10 +76,8 @@ function minify() {
 // out of the stream and run them through specific tasks. An example is provided
 // which filters all images and runs them through imagemin
 function source() {
-  return project
-      .splitSource()
+  return project.splitSource()
       // Add your own build tasks here!
-      .pipe(gulpif('**/*.{png,gif,jpg,svg}', images.minify()))
       .pipe(gulpif(/\.js$/, uglify()))
       .pipe(gulpif(/\.css$/, cssSlam()))
       .pipe(gulpif(/\.html$/, cssSlam()))
@@ -98,6 +97,48 @@ function dependencies() {
       .pipe(gulpif(/\.html$/, minify()))
       .pipe(project.rejoin());
 }
+
+const root = path.resolve(process.cwd(), 'images');
+const optimizedImagesRoot = path.resolve(process.cwd(), 'images-optimized');
+const imageOptions = {
+  activities: '340x340',
+  logos: '250,scale-down',
+  unofficial: '340x340',
+  slider: '2000x500,scale-down'
+};
+
+// Optimize images with ImageOptim
+// Run with `npm run build optimize-images`
+gulp.task('optimize-images', () =>
+  glob('images/**/*.{jpg,png,svg}', (err, files) => {
+    for (const file of files) {
+      const relativeFile = file.substring(file.indexOf('/') + 1);
+      fs.ensureDirSync(path.resolve(optimizedImagesRoot, path.dirname(relativeFile)));
+      if (path.extname(file) === '.svg') {
+        fs.copySync(file, path.resolve(optimizedImagesRoot, relativeFile));
+      } else {
+        const imageCategory = path.relative(root, file).split('/')[0];
+        const options = imageOptions[imageCategory] || 'full';
+        superagent.post(`https://im2.io/nddfzrzzpk/${options}`)
+        .attach('file', file)
+        .end((err, res) =>  {
+          console.log(`Finished optimizing ${file}`);
+          fs.writeFileSync(path.resolve(optimizedImagesRoot, relativeFile), res.body);
+        });
+      }
+    }
+  })
+);
+
+gulp.task('ensure-images-optimized', () =>
+  new Promise((resolve, reject) => {
+    if (!fs.existsSync(optimizedImagesRoot)) {
+      reject('`images-optimized` does not exist. Make sure to run `npm run build optimize-images`');
+    } else {
+      resolve();
+    }
+  })
+);
 
 function linter() {
   return gulp.src([ 'scripts/**/*.js',

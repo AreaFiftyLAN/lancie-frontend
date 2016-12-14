@@ -8,3 +8,4 @@ npm-debug.log
 *.sublime-workspace
 .idea
 *.pem
+images-optimized
