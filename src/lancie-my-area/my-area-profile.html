@@ -1,13 +1,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
@@ -22,24 +21,30 @@
     :host {
       display: block;
     }
-    
+
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
     }
-    
-    paper-input {
-      margin: 0 10px 0 10px;
+
+    .item {
+      margin: 8px 0;
+      font-weight: 400;
     }
-    
+
+    iron-icon {
+      padding: 8px;
+      margin-right: 8px;
+    }
+
     #checkIcon {
       --iron-icon-fill-color: #4CAF50;
     }
-    
+
     #closeIcon {
       --iron-icon-fill-color: #F44336;
     }
-    
+
     hr {
       display: block;
       height: 1px;
@@ -51,60 +56,73 @@
     </style>
     <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
     <lancie-ajax id="ajaxUpdatePassword" refurl="users/current/password" method="PUT" on-response="onPasswordUpdate"></lancie-ajax>
+
     <paper-card class="layout vertical flex" heading="Profile" elevation="1" animated-shadow="true">
-      <div class="card-content list" role="listbox">
+      <div class="card-content" role="listbox">
+
         <template is="dom-if" if="{{!editingProfile}}">
-          <paper-icon-item>
+          <div class="layout horizontal center">
             <iron-icon icon="icons:account-circle" item-icon></iron-icon>
-            <paper-item-body two-line>
+            <div class="item flex">
               <div>{{user.profile.displayName}}</div>
               <div>{{user.profile.firstName}} {{user.profile.lastName}}</div>
-            </paper-item-body>
-          </paper-icon-item>
-          <paper-icon-item>
+            </div>
+          </div>
+          <div class="layout horizontal center">
+            <iron-icon icon="social:cake" item-icon></iron-icon>
+            <div class="item flex">
+              <div>{{user.profile.birthday}}</div>
+            </div>
+          </div>
+          <div class="layout horizontal center">
             <iron-icon icon="communication:phone" item-icon></iron-icon>
-            <paper-item-body>
+            <div class="item flex">
               <div>{{_checkEmpty(user.profile.phoneNumber)}}</div>
-            </paper-item-body>
-          </paper-icon-item>
-          <paper-icon-item>
+            </div>
+          </div>
+          <div class="layout horizontal center">
             <iron-icon icon="communication:location-on" item-icon></iron-icon>
-            <paper-item-body two-line>
+            <div class="item flex">
               <div>{{user.profile.address}}</div>
               <div>{{user.profile.zipcode}} {{user.profile.city}}</div>
-            </paper-item-body>
-          </paper-icon-item>
+            </div>
+          </div>
         </template>
+
         <template is="dom-if" if="{{editingProfile}}">
           <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
         </template>
+
         <hr>
-        <paper-icon-item>
+        <div class="layout horizontal center">
           <iron-icon icon="communication:email" item-icon></iron-icon>
-          <paper-item-body>
-            <div>{{user.email}}</div>
-          </paper-item-body>
-        </paper-icon-item>
+          <div class="item flex">
+            <div>{{user.username}}</div>
+          </div>
+        </div>
+
         <hr>
         <template is="dom-if" if="{{!editingPassword}}">
-          <paper-icon-item>
+          <div class="layout horizontal center">
             <iron-icon icon="icons:lock" item-icon></iron-icon>
-            <paper-item-body>
+            <div class="item flex">
               <div>&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
-            </paper-item-body>
-          </paper-icon-item>
+            </div>
+          </div>
         </template>
+
         <template is="dom-if" if="{{editingPassword}}">
-          <paper-icon-item>
+          <div class="layout horizontal center">
             <iron-icon icon="icons:lock" item-icon></iron-icon>
-            <paper-item-body>
+            <div class="flex">
               <paper-input label="Current Password" type="password" value="{{currentPassword}}"></paper-input>
               <paper-input label="New Password" type="password" value="{{newPassword}}"></paper-input>
               <paper-input id="passwordRepeatInput" error-message="Passwords don't match!" label="Repeat New Password" type="password" value="{{newPasswordRepeat}}"></paper-input>
-            </paper-item-body>
-          </paper-icon-item>
+            </div>
+          </div>
         </template>
       </div>
+
       <div class="card-actions">
         <template is="dom-if" if="{{!isEditing(editingProfile, editingPassword)}}">
           <paper-icon-button on-tap="switchProfileForm" icon="icons:create" id="edit-profile"></paper-icon-button>
@@ -171,7 +189,8 @@
             address: this.editingUser.profile.address,
             zipcode: this.editingUser.profile.zipcode,
             city: this.editingUser.profile.city,
-            gender: this.editingUser.profile.gender
+            gender: this.editingUser.profile.gender,
+            birthday: this.editingUser.profile.birthday
           };
           this.$.ajaxUpdateProfile.generateRequest();
           this.switchProfileForm();
@@ -196,14 +215,13 @@
           // load toast
           this.$.profileUpdateSuccessToast.show();
         } else {
-          console.log('Update profile failed');
           this.editingUser = this.user;
           // load failed toast
           this.$.profileUpdateFailedToast.show();
         }
       },
       onPasswordUpdate: function(e, response) {
-        this.$$('#passwordRepeatInput').invalid = false;
+        this.$.passwordRepeatInput.invalid = false;
 
         if (response.succeeded) {
           // load toast
@@ -223,7 +241,7 @@
         for (var a in newValue.profile) {
           user.profile[a] = newValue.profile[a];
         }
-        user.email = newValue.email;
+        user.username = newValue.username;
         this.editingUser = user;
       },
       _checkEmpty: function(value) {

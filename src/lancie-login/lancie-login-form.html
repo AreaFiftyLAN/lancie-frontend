@@ -50,6 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       id="ajaxRegister"
       url="/api/v1/users"
       method="POST"
+      content-type="application/json"
       handle-as="json"
       body="{{bodyFrom(username, password)}}"
       on-response="onRegister"
@@ -168,8 +169,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       onRegister: function(e, response) {
         if (response.succeeded) {
-          var app = document.querySelector('#app');
-          app.route = 'check-email';
+          window.location.href = 'check-email';
         }
       },
 
