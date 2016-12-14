@@ -15,7 +15,6 @@
   "unused": "vars",
   "strict": true,
   "globals": {
-    "Polymer": false,
-    "moment": false
+    "Polymer": false
   }
 }
