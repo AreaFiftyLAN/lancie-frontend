@@ -3,7 +3,6 @@
   "shell": "src/lancie-app.html",
   "sourceGlobs": [
    "images/**/*",
-   "styles/*",
    "scripts/*"
   ],
   "fragments": [
