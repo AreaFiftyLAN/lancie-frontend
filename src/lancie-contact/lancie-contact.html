@@ -87,7 +87,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.message = '';
           this.error = false;
           this.errorMessage = '';
-          window.location.href = 'contact-success';
+          this.fire('navigate', {page: 'contact-success'});
         } else {
           this.error = true;
           this.errorMessage = 'Server failed processing the request, please try refreshing the page.';

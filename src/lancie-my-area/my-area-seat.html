@@ -12,7 +12,7 @@
     :host {
       display: block;
     }
-    
+
     paper-card {
       width: 100%;
     }
@@ -108,7 +108,7 @@
         }
       },
       reserveSeat: function() {
-        location.href = location.href.replace('my-area', 'seatmap');
+        this.fire('navigate', {page: 'seatmap'});
       },
       refreshSeats: function() {
         this.$.ajaxGetSeat.generateRequest();

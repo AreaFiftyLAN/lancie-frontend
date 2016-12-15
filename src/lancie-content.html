@@ -128,6 +128,9 @@
         this.addEventListener('store-token', function(e) {
           this.$.auth.storeToken(e.detail.token);
         }.bind(this));
+        this.addEventListener('navigate', function(e) {
+          this.set('page.page', e.detail.page);
+        });
       },
 
       _matches: function(path, route) {

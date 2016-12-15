@@ -94,7 +94,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       onAcceptTicketTransfer: function(event, r) {
         this.transferring = false;
         if (r.succeeded) {
-          window.location.href = '/transfer-success';
+          this.fire('navigate', {page: 'transfer-success'});
         } else {
           this.error = true;
         }

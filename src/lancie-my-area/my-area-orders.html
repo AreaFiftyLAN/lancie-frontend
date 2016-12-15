@@ -19,7 +19,7 @@
     :host {
       display: block;
     }
-    
+
     hr {
       display: block;
       height: 1px;
@@ -27,7 +27,7 @@
       border-top: 1px solid #e8e8e8;
       padding: 0;
     }
-    
+
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
@@ -113,8 +113,7 @@
       username: String
     },
     buyTickets: function() {
-      location.href = location.href.replace('my-area', 'tickets');
-      location.reload();
+      this.fire('navigate', {page: 'tickets'});
     },
     showTermsAndConditions: function() {
       this.$.termsAndConditions.open();
