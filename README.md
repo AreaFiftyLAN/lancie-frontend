@@ -1,47 +1,32 @@
-# Area FiftyLAN Website
-Welcome to the pretty part of the Area FiftyLAN system! This repo contains all the code that you will see served at https://areafiftylan.nl, including the ticketsale, my-area and soon the seatmap.
+# LANcie frontend
+Welcome to the pretty part of the Area FiftyLAN system! This repo contains all the code that you will see served at https://areafiftylan.nl, including the ticketsale, my-area and seatmap. The front-end is built with [Polymer](https://www.polymer-project.org/1.0/), Google's Web Components framework. There are a couple of things you need to do before you can enjoy all that lovely material design goodness.
 
-The front-end is built with [Polymer](https://www.polymer-project.org/1.0/), Google's Web Components framework. There are a couple of things you need to do before you can enjoy all that lovely material design goodness.
-## Getting started
-Getting our website to run locally on your own machine is easy. Just follow these steps and all should be good to go in a few minutes.
-First of all, clone this repo!
+The application works without a back-end, but to enjoy the full functionality, you need to have the back-end running aswell. You can find our back-end also on GitHub, the [LANcie-API](https://github.com/AreaFiftyLAN/lancie-api).
 
-```git clone git@github.com:AreaFiftyLAN/lancie-frontend.git```
+## lancie-frontend
+Handles front end user interaction, couples with lancie-api. Built with Polymer, all the polymer documentation about the internal functions can be found [here](https://www.polymer-project.org/1.0/docs/about_10). It would be helpful to glance over the internal polymer functions, this will avoid small mistakes and issues early on. All documentation about the Polymer elements is located [here](https://elements.polymer-project.org).
 
-After that, make sure you got everything you need to install the dependencies (dependencies of the dependency management?). Which is Node.js. Just grab the latest version from https://nodejs.org/en/
+### Tools & Dependencies
+These are the tools you need to install manually, the rest of the needed tools follow from this.
+-   [node](https://nodejs.org/en/), node contains the "node package manager" (called with the command `npm`) that supplies the tools you need for developing the frontend. If you have installed this, you need to run three commands to finalize the installation. These commands require you to globally install some tools, during installation an error could occur regarding permissions. These issues can be solved by one of these [solutions](https://docs.npmjs.com/getting-started/fixing-npm-permissions). If you are required to call the commands with superuser priviliges you are doing something wrong!
+-   `npm install -g bower`
+-   `npm install`
+-   `bower install`
 
-We need node for its package manager `npm`. Therefore, make sure you can run `npm` from the command line. Once you can, open a command prompt/terminal in the folder where you just cloned this repo.
+### Viewing locally
+To view the webpage locally, run `npm run serve`. The page will be shown on `https://localhost:5100` 
 
-You may need administrator rights to install the following:
-```
-npm install -g bower
-```
+### Build
+To build the entire frontend, the `npm run build` command is used. This places the complete and ready to serve webpage in `./build`. There are two folders located in the build folder, a bundled and an unbundled version. The bundled version is for non-http/2 compatible servers. The unbundled version is for http/2 compatible servers. Keep in mind that if images are added since the last build, these have to be compressed, this is done with `npm run build optimize-images`
 
-We need these two packages to install all the other dependencies. The `-g` means we can run both `gulp` and `bower` from any directory on the command line. Useful for other projects you might encounter, as they're both commonly used tools.
+### Deploy
+To deploy the frontend, you can upload it to a server. This can be done by copying and pasting manually, but this is quite cumbersome. The easiest way to do this is with the `scp` command (only available on linux and OS X, no download needed). The scp command works like this:
 
-On to the more serious business. Run the following commands to install Polymer and all the other things we use for the website
+```scp -r $(local_build_folder)/. $(server_login)@$(server_ip):$(server_destination_folder)```
 
-```
-npm install
-bower install
-```
+Upon running this command, you are prompted to enter your password and all the files in the `$(build_folder)` are getting transferred to the `$(destination_folder)` on the target server. Authentication on the server is provided by the `$(server_login)` portion, this is your username on the server.
 
-This might take a while, but that's it!
-
-To inspect the local dev website:
-```
-npm run serve
-```
-(Sort of) builds the entire app and starts a local webserver. Your browser should open on https://localhost:5100 and display the full site! If not, something went wrong.
-
-You can generate a production ready build by simply running `npm run build`. This builds the entire app and puts it in the `build` folder. That folder contains everything you need, so that's what we upload to our webserver. You can use the gulp webserver by running `npm run serve-build`
-
-Easy enough huh?
-
-There's one more catch. While the homepage can do fine without someone to talk to, the more complex functionality like buying tickets and My Area require a back-end. See [the LANcie API](https://github.com/AreaFiftyLAN/lancie-api) for details on how to run that. We expect it to run at port 9000!
-
-## TL:DR
-
+## TL:DR;
 ```
 git clone git@github.com:AreaFiftyLAN/lancie-frontend.git
 cd lancie-frontend
