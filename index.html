@@ -57,6 +57,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       background-color: #eeecec;
       margin: 0;
     }
+
+    .placeholder-header {
+      height: 64px;
+      background-color: #1a2b43;
+    }
+
+    .placeholder-slider {
+      height: 500px;
+    }
   </style>
 
   <script>
@@ -104,11 +113,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   ga('send', 'pageview');
   </script>
 
-  <link rel="import" href="src/lancie-app.html" />
+  <link rel="import" href="src/lancie-app.html" async />
 </head>
 
 <body class="fullbleed layout vertical">
-  <lancie-app></lancie-app>
+  <lancie-app>
+    <div class="placeholder-header"></div>
+    <div class="placeholder-slider"></div>
+  </lancie-app>
 </body>
 
 </html>
