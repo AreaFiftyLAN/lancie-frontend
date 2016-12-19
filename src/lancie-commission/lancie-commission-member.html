@@ -41,13 +41,13 @@
     </style>
 
     <iron-media-query query="max-width: 530px" query-matches="{{small}}"></iron-media-query>
-    <paper-material elevation="1" class$="{{_computeClass(small)}}">
+    <paper-material elevation="1" class$="[[_computeClass(small)]]">
         <div class="number layout">
-            <img height="30px" width="30px" src$="{{_getIcon(commissioner)}}"></img>
+            <img height="30px" width="30px" src$="[[_getIcon(commissioner)]]" alt$="[[commissioner.name]] - [[commissioner.function]]"></img>
         </div>
         <div class="member-desc layout flex self-center">
-            <h2>{{commissioner.name}}</h2>
-            <h3>{{commissioner.function}}</h3>
+            <h2>[[commissioner.name]]</h2>
+            <h3>[[commissioner.function]]</h3>
         </div>
     </paper-material>
   </template>

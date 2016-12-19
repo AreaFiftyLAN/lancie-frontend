@@ -1,6 +1,6 @@
 {
-  "name": "Polymer Starter Kit",
-  "short_name": "Polymer Starter Kit",
+  "name": "AreaFiftyLAN",
+  "short_name": "AreaFiftyLAN",
   "icons": [{
         "src": "images-optimized/touch/icon-128x128.png",
         "sizes": "128x128"
@@ -14,6 +14,8 @@
         "src": "images-optimized/touch/chrome-touch-icon-192x192.png",
         "sizes": "192x192"
       }],
-  "start_url": "/#!/",
+  "background_color": "#eeecec",
+  "theme_color": "#1A2B43",
+  "start_url": "/",
   "display": "standalone"
 }

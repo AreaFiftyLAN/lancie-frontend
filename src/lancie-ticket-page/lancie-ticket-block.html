@@ -198,7 +198,7 @@
             computed: '_computeRemainingString(ticket)'
           },
 
-          chMember: { 
+          chMember: {
             type: Boolean
           },
 
@@ -222,7 +222,7 @@
             this.classList.add('disabled');
             this.disabled = true;
           }
-          if(Date.parse(this.ticket.deadline)-7200000 < Date.now()){
+          if(Date.parse(this.ticket.deadline)-7200000 < performance.now()){
             this.classList.add('disabled');
             this.disabled = true;
           }
