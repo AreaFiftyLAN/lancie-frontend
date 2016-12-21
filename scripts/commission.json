@@ -1,41 +1,41 @@
 [
   {
     "function": "Chairman",
-    "name": "Beer van der Drift",
+    "name": "Lotte Bryan",
     "icon": "group"
   }
 ,
   {
     "function": "Secretary",
-    "name": "Emiel Rietdijk",
-    "icon": "male"
+    "name": "Sterre Noorthoek",
+    "icon": "female"
   }
 ,
   {
     "function": "Treasurer",
-    "name": "Stijn Ruiter",
+    "name": "Francis Behnen",
     "icon": "money"
   },
   {
     "function": "Commissioner of Promo",
-    "name": "Youri Arkesteijn",
+    "name": "Hilco van der Wilk",
     "icon": "bullhorn"
   }
 ,
   {
     "function": "Commissioner of Logistics",
-    "name": "Martijn Janssen",
+    "name": "Millen van Osch",
     "icon": "truck"
   }
 ,{
-  "function": "Commissioner of System",
-  "name": "Thomas Oomens",
+  "function": "Commissioner of Systems",
+  "name": "Matthijs Kok",
   "icon": "cogs"
 }
 ,
   {
     "function": "Qualitate Qua",
-    "name": "Daan Rennings",
+    "name": "Beer van der Drift",
     "icon": "heart"
   }
 ]
