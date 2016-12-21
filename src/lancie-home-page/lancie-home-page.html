@@ -58,25 +58,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <lancie-section type="secondary" header="Area FiftyLAN">
       <div>
         <p>
-          Area FiftyLAN is the hottest gaming event of the TU Delft.
-          This spectacular all-weekend event, from 3 till 5 June 2016,
-          will be organized by the study association of mathematics
-          and computer science 'Christiaan Huygens' in cooperation
-          with Unit Sports &amp; Culture, TU Delft.
-          All students are welcome to bring their PC's or laptops
-          to play their favorite games with their fellow students and friends.
-          You decide what to play! There will be exciting competitive tournaments
-          like Rocket League, CS:GO, Heartstone and League of Legends.
-          If you're not into competitive gaming however, no problem!
-          You can play all the games you want, whether that's The Sims,
-          Age of Empires 2, Rollercoaster Tycoon or Minecraft, you decide!
-        </p>
+          Area FiftyLAN is the hottest gaming event of the TU Delft. This spectacular
+          all-weekend event, from 3 till 5 March 2017, will be organized by the study
+          association of mathematics and computer science 'Christiaan Huygens' in
+          cooperation with Unit Sports & Culture, TU Delft. All students are welcome
+          to bring their PC's or laptops to play their favorite games with their fellow
+          students and friends. You decide what to play! There will be exciting
+          competitive tournaments like Rocket League, CS:GO, Hearthstone, League
+          of Legends, Overwatch and TrackMania: Nations Forever. If you're not into
+          competitive gaming however, no problem! You can play all the games you
+          want, whether that's The Sims, Age of Empires 2, Rollercoaster Tycoon or
+          Minecraft, you decide!p>
         <p>
-          That is not all! There will be plenty to do offline as well.
-          Poker and foosball masters can also show off in this event.
-          In the Launch Area, you'll find pinball machines, airhockey tables,
-          football tables and various retro gaming consoles.
-          An overview of things you can do besides gaming can be found below.
+        That is not all! There will be plenty to do offline as well. Pokermasters can
+        also show off in this event, you can try your hand at laser gaming and you
+        can test your wit in a pop-up escape room. In the Launch Area, you'll find
+        pinball machines, airhockey tables, football tables and various retro gaming
+        consoles. An overview of things you can do besides gaming can be found
+        below.
         </p>
 
         <!-- <lancie-activities json="scripts/activity.json"></lancie-activities> -->
@@ -86,19 +85,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <lancie-section type="primary" header="What do you get?">
       <div>
         <p>
-          Early bird tickets are currently available and cost € 37,50*, regular tickets will cost € 40,-*.
-          This includes admission to the entire event + breakfast, lunch and dinner on saturday and breakfast and lunch on sunday.
-          You will have your own desk of 1.10m x 0.60m for the weekend, and a comfy chair to sit on. For an additional €2.50,
-          we will pick up your PC thursday evening and deliver it to the event. The maximum distance for the pickup service is 7.5Km from the Cornelis Drebbelweg 5. Your PC will be returned to you on sunday evening.
-          Area FiftyLAN will be an unforgettable event you do not want to miss! Are you ready for the launch?
+          Early bird tickets will cost € 37,50*, regular tickets will cost € 40,-*. This
+          includes admission to the entire event + breakfast, lunch and dinner on
+          Saturday and breakfast and lunch on Sunday. You will have your own desk
+          of 1.35m x 0.60m for the weekend, and a comfy chair to sit on. For an
+          additional €2.50, we will pick up your PC and deliver it to the event. The
+          maximum distance for the pickup service is 7.5Km from Sports and Culture
+          Unit of the TU Delft. Your PC will be returned to you on Sunday evening.
+          Area FiftyLAN will be an unforgettable event you do not want to miss! Are
+          you ready for the launch?
           <br /><sub>*CH members/alumni will get a small discount</sub>
         </p>
         <p>
           Besides that you can play any game you like, there are organized activities during the weekend.
-          Below you can find a global overview. Please note this is subject to change and of course this is not all!
-          A final schedule will be provided during the event.
+          A global overview will follow.
         </p>
-        <lancie-timeline></lancie-timeline>
       </div>
     </lancie-section>
 
@@ -109,7 +110,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           tournament, we will give you the opportunity to organize your own. More information about how this works can
           be found below.</p>
 
-        <lancie-activities json="scripts/activity.json?ver=1.1"></lancie-activities>
+        <lancie-activities json="scripts/activity.json?ver=1.2"></lancie-activities>
       </div>
     </lancie-section>
 
@@ -123,12 +124,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <marked-element markdown="{{markdown}}">
           <div class="markdown-html"></div>
         </marked-element>
+        <!--
         <lancie-activities json="scripts/unofficial-tournaments.json?ver=1.4"></lancie-activities>
+        -->
       </div>
     </lancie-section>
-    
-    <lancie-section header="2nd LANcie of W.I.S.V. 'Christiaan Huygens'">
-      <lancie-commission json="/scripts/commission.json"></lancie-commission>
+
+    <lancie-section header="3rd LANcie of W.I.S.V. 'Christiaan Huygens'">
+      <lancie-commission json="/scripts/commission.json?ver=1.1"></lancie-commission>
     </lancie-section>
     <lancie-section type="google-maps-section primary full no-padding">
       <iron-ajax
@@ -137,9 +140,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         handle-as="json"
         last-response="{{googleMapsToken}}"></iron-ajax>
       <template is="dom-if" if="{{googleMapsToken}}" restamp="true">
-        <google-map latitude="51.999020" longitude="4.371175" zoom="14" disable-zoom fit-to-markers draggable="false" api-key="{{googleMapsToken.message}}">
-          <google-map-marker latitude="51.999020" longitude="4.371175"
-              draggable="true" title="Area FiftyLAN"></google-map-marker>
+        <google-map latitude="51.995694" longitude="4.373950" zoom="14" disable-zoom fit-to-markers draggable="false" api-key="{{googleMapsToken.message}}">
+          <google-map-marker latitude="51.995694" longitude="4.373950" draggable="true" title="Area FiftyLAN"></google-map-marker>
         </google-map>
       </template>
     </lancie-section>
