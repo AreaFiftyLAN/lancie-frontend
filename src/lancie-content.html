@@ -148,6 +148,9 @@
         if (window.location.origin.indexOf('localhost') !== -1) {
           return;
         }
+        if (route.path.indexOf('tickets') !== -1) {
+          this.changePage('construction');
+        }
         if (route.path.indexOf('my-area') !== -1) {
           this.changePage('construction');
         }
