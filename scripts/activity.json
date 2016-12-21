@@ -3,112 +3,52 @@
     "title": "RL",
     "subtitle": "2 v 2",
     "headerTitle": "Rocket League",
-    "description": "Rocket League is a physics-based vehicle soccer video game developed and published by Psyonix. Players control a rocket-powered car and use it to hit a ball that is much larger than the cars towards the other team's goal area to score points, in a way that resembles a soccer game. Players can also jump and use speed-boosts in order to create sick plays and score more goals. \n# Rules\n## 1. Tournament Format\nThe tournament is a single elimination.\n\n## 2. Match Format\n* All matches must be played on the DFL Stadium map\n* All matches must be played in the designated tournament area using a laptop/device that can use wired internet.\n* All matches are played bo5, except for the final being bo7\n* All matches at Area FiftyLAN are played on Europe server.\n\n## 3. Technical Issues\n* If either player disconnects from the game due to technical reasons and the game is heavily favoured to the extent that the game would definitely have been won by one player, provided a screenshot of the game prior to the disconnect, an administrator may rule the game in favour of said player. Should the game be too close to call, it will be replayed.\n* Our main source for tournament internet will be wired internet. If a player uses an alternative connection they do so at their own risk and can’t be guaranteed the same stability. \n\n\n## 4. Behavior and Conduct\n* If a participant commits violent acts, or threatens to commit violent acts, against any other player in the Tournament, any admin, or any spectators of the Tournament, he or she may be disqualified from the Tournament.\n* If a participant behaves in any unsportsmanlike way it is possible, to the sole discretion of the administrators they will receive a penalty.\n* It is a players responsibility to be on time for their matches, if they are late they will suffer a penalty either losing a game after 20 minutes, or the entire match after 30 minutes as to not delay the entire tournament. A player is required to inform the tournament staff if they are late for a match, if not they will be dropped from the tournament.\n* One 5min break is allowed during a match. \n* Coaching is not allowed during a match. \n\n## 5. Tournament Eligibility\nAnyone Area FiftyLAN judges may have a conflict of interest may be disallowed to participate. \n\n## 6. Penalties\nDepending on the situation a player could be penalized in any of the following ways:\n* Penalized a game in a match (eg. starting their next match 0-1 instead of 0-0)\n* Penalized a match (eg. forfeiting a match, or being eliminated from the tournament)\n* Disqualified from the tournament entirely\n\n## 7. Drop out\nIf a player decides to drop out of the tournament they are required to contact the admin team and sign a drop out sheet for confirmation. Once a player has dropped out of the tournament they will not be able to rejoin.",
+    "description": "Rocket League is a physics-based vehicle soccer video game developed and published by Psyonix. Players control a rocket-powered car and use it to hit a ball that is much larger than the cars towards the other team's goal area to score points, in a way that resembles a soccer game. Players can also jump and use speed-boosts in order to create sick plays and score more goals. \n# Rules\nThe rules are yet to be determined.",
     "backgroundImagePath": "images-optimized/activities/rl.jpg",
     "sponsor": {
-      "name": "TBA",
+      "name": "",
       "imagePath": "images-optimized/activities/tba.png",
       "website": ""
     },
     "prizes": [
       "TBA"
-    ],
-    "format": "2 vs 2",
-    "startingDateTime": {
-      "monthValue": 6,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 3,
-      "dayOfWeek": "Friday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
     ]
   },
   {
     "title": "LoL",
     "subtitle": "5 v 5",
     "headerTitle": "League of Legends",
-    "description": "In League of Legends, players assume the role of a character, called a champion, with unique abilities, battling with a team against other player-controlled champions. In the most popular game modes, each team's goal is to destroy the opposing team's nexus, a building which lies at the heart of a base protected by defensive structures.\n\n## Rules\nAll the rules in the [LoL tournament rules](http://cdn.leagueoflegends.com/prized-events/Tournament+Rules+Beta.pdf) are in effect.\n### Format\n**5v5**\n - Best of 1 in the 8th finals\n - Best of 3 in the other rounds.\n\n### Played Map\nSummoner's Rift\n### Game Settings\nTournament Draft Mode",
+    "description": "In League of Legends, players assume the role of a character, called a champion, with unique abilities, battling with a team against other player-controlled champions. In the most popular game modes, each team's goal is to destroy the opposing team's nexus, a building which lies at the heart of a base protected by defensive structures.\n\n# Rules\nThe rules are yet to be determined.",
     "backgroundImagePath": "images-optimized/activities/lol.jpg",
     "sponsor": {
-      "name": "TBA",
+      "name": "",
       "imagePath": "images-optimized/activities/tba.png",
       "website": ""
     },
     "prizes": [
       "TBA"
-    ],
-    "format": "5 vs 5",
-    "startingDateTime": {
-      "monthValue": 6,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 873360000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
     ]
   },
   {
     "title": "CS:GO",
     "subtitle": "5 v 5",
     "headerTitle": "Counter Strike: Global Offensive",
-    "description": "Counter-Strike: Global Offensive is a tactical first-person shooter developed by Valve Corporation and Hidden Path Entertainment. It is the fourth game in the main Counter-Strike franchise. Like the previous games in the series, Global Offensive is an objective-based multiplayer first-person shooter. Each player joins either the Terrorist or Counter-Terrorist team and attempts to complete objectives or eliminate the enemy team. The game operates in short rounds that end when all players on one side are dead or a teams objective is completed",
+    "description": "Counter-Strike: Global Offensive is a tactical first-person shooter developed by Valve Corporation and Hidden Path Entertainment. It is the fourth game in the main Counter-Strike franchise. Like the previous games in the series, Global Offensive is an objective-based multiplayer first-person shooter. Each player joins either the Terrorist or Counter-Terrorist team and attempts to complete objectives or eliminate the enemy team. The game operates in short rounds that end when all players on one side are dead or a teams objective is completed\n# Rules\nThe rules are yet to be determined.",
     "backgroundImagePath": "images-optimized/activities/csgo.jpg",
     "sponsor": {
-      "name": "TBA",
+      "name": "StartSelect",
       "imagePath": "images-optimized/activities/tba.png",
       "website": ""
     },
     "prizes": [
       "5x AAA Game Coupon (€63,-) at Startselect"
-    ],
-    "format": "5 vs 5",
-    "startingDateTime": {
-      "monthValue": 6,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
     ]
   },
   {
     "title": "HS",
     "subtitle": "1 v 1",
     "headerTitle": "Hearthstone: Heroes of Warcraft",
-    "description": "Hearthstone is a digital collectible card game that revolves around turn-based matches between two opponents. Players start the game with a substantial collection of 'basic' cards, but can gain rarer and more powerful cards through purchasing packs of cards, or as reward for competing in the Arena. Hearthstone is set within the Warcraft universe, with its characters, cards and locations drawing from existing lore.",
+    "description": "Hearthstone is a digital collectible card game that revolves around turn-based matches between two opponents. Players start the game with a substantial collection of 'basic' cards, but can gain rarer and more powerful cards through purchasing packs of cards, or as reward for competing in the Arena. Hearthstone is set within the Warcraft universe, with its characters, cards and locations drawing from existing lore.\n# Rules\nThe rules are yet to be determined.",
     "backgroundImagePath": "images-optimized/activities/hs.jpg",
     "sponsor": {
       "name": "",
@@ -117,33 +57,13 @@
     },
     "prizes": [
       "TBA"
-    ],
-    "format": "1 vs 1",
-    "startingDateTime": {
-      "monthValue": 8,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
     ]
   },
   {
     "title": "OW",
     "subtitle": "6 v 6",
     "headerTitle": "Overwatch",
-    "description": "",
+    "description": "Overwatch puts players into two teams of six, with each player selecting one of several pre-defined hero characters with unique movement, attributes, and abilities; these heroes are divided into four classes: Offense, Defense, Tank and Support. Players on a team work together to secure and defend control points on a map and/or escort a payload across the map in a limited amount of time. Overwatch is a first-person shooter that features squad-based combat with two opposing teams. Players choose one of several hero characters, each with their own unique abilities and role classes. Each hero has a primary attack or skill and at least two additional skills that can be invoked at any time, some requiring a brief cooldown period before they can be used again.\n# Rules\nThe rules are yet to be determined.",
     "backgroundImagePath": "images-optimized/activities/overwatch.jpg",
     "sponsor": {
       "name": "",
@@ -152,33 +72,13 @@
     },
     "prizes": [
       "TBA"
-    ],
-    "format": "1 vs 1",
-    "startingDateTime": {
-      "monthValue": 8,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
     ]
   },
   {
-    "title": "TM: NF",
+    "title": "TM:NF",
     "subtitle": "1 v 1",
     "headerTitle": "TrackMania: Nations Forever",
-    "description": "",
+    "description": "A free game in the truest sense of the word, TrackMania Nations Forever lets you drive at mind-blowing speeds on fun and spectacular tracks in solo and multiplayer modes. TrackMania Nations Forever offers a new \"Forever\" version of the Stadium environment, a solid solo mode and 65 brand new, progressively challenging tracks. TrackMania Nations Forever will unite an even larger number of players than the original Nations thanks to its engaging multiplayer modes, innovative online functions and revolutionary interactivity between players.\n# Rules\nThe rules are yet to be determined.",
     "backgroundImagePath": "images-optimized/activities/trackmania.jpg",
     "sponsor": {
       "name": "",
@@ -187,26 +87,6 @@
     },
     "prizes": [
       "TBA"
-    ],
-    "format": "1 vs 1",
-    "startingDateTime": {
-      "monthValue": 8,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
     ]
   }
 ]
