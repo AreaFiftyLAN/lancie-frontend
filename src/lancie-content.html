@@ -123,6 +123,7 @@
         route: {
           type: String,
           notify: true,
+          observer: '_changed',
         },
         user: {
           type: Object
@@ -134,8 +135,28 @@
           this.$.auth.storeToken(e.detail.token);
         }.bind(this));
         this.addEventListener('navigate', function(e) {
-          this.set('page.page', e.detail.page);
+          this.changePage(e.detail.page);
         });
+      },
+
+      changePage: function(page) {
+        this.set('page.page', page);
+      },
+
+      // This function changes the page to construction if the page is opened and the page is under construction
+      _changed: function(route) {
+        if (window.location.origin.indexOf('localhost') !== -1) {
+          return;
+        }
+        if (route.path.indexOf('my-area') !== -1) {
+          this.changePage('construction');
+        }
+        if (route.path.indexOf('seatmap') !== -1) {
+          this.changePage('construction');
+        }
+        if (route.path.indexOf('shop') !== -1) {
+          this.changePage('construction');
+        }
       },
 
       _matches: function(path, route) {
