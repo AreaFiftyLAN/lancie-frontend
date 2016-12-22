@@ -22,7 +22,7 @@
     <app-location route="{{route}}"></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{page}}"></app-route>
 
-    <iron-lazy-pages attr-for-selected="data-route" selected="{{page.page}}" fallback-selection="404">
+    <iron-lazy-pages attr-for-selected="data-route" selected="[[_filterConstruction(page.page)]]" fallback-selection="404">
 
       <template is="iron-lazy-page" data-route="" path="src/lancie-home-page/lancie-home-page.html">
         <lancie-home-page></lancie-home-page>
@@ -78,9 +78,6 @@
         <lancie-order-check></lancie-order-check>
       </template>
 
-      <template is="iron-lazy-page" data-route="404" path="src/lancie-404.html">
-        <lancie-404></lancie-404>
-      </template>
 
       <template is="iron-lazy-page" data-route="resetPassword" path="src/lancie-password/lancie-password-reset.html">
         <lancie-password-reset></lancie-password-reset>
@@ -106,6 +103,14 @@
         <lancie-contact-success></lancie-contact-success>
       </template>
 
+      <template is="iron-lazy-page" data-route="construction" path="src/lancie-coming-soon.html">
+        <lancie-coming-soon></lancie-coming-soon>
+      </template>
+
+      <template is="iron-lazy-page" data-route="404" path="src/lancie-404.html">
+        <lancie-404></lancie-404>
+      </template>
+
     </iron-lazy-pages>
   </template>
   <script>
@@ -117,7 +122,7 @@
       properties: {
         route: {
           type: String,
-          notify: true
+          notify: true,
         },
         user: {
           type: Object
@@ -129,8 +134,21 @@
           this.$.auth.storeToken(e.detail.token);
         }.bind(this));
         this.addEventListener('navigate', function(e) {
-          this.set('page.page', e.detail.page);
-        });
+          this.changePage(e.detail.page);
+        }.bind(this));
+      },
+
+      changePage: function(page) {
+        this.async(function() {
+          this.set('page.page', page);
+        })
+      },
+
+      _filterConstruction: function(page) {
+        if (['tickets', 'my-area', 'seatmap', 'shop'].indexOf(page) !== -1) {
+          return 'construction';
+        }
+        return page;
       },
 
       _matches: function(path, route) {
