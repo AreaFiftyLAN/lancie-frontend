@@ -22,7 +22,7 @@
     <app-location route="{{route}}"></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{page}}"></app-route>
 
-    <iron-lazy-pages attr-for-selected="data-route" selected="{{page.page}}" fallback-selection="404">
+    <iron-lazy-pages attr-for-selected="data-route" selected="[[_filterConstruction(page.page)]]" fallback-selection="404">
 
       <template is="iron-lazy-page" data-route="" path="src/lancie-home-page/lancie-home-page.html">
         <lancie-home-page></lancie-home-page>
@@ -123,7 +123,6 @@
         route: {
           type: String,
           notify: true,
-          observer: '_changed',
         },
         user: {
           type: Object
@@ -136,30 +135,20 @@
         }.bind(this));
         this.addEventListener('navigate', function(e) {
           this.changePage(e.detail.page);
-        });
+        }.bind(this));
       },
 
       changePage: function(page) {
-        this.set('page.page', page);
+        this.async(function() {
+          this.set('page.page', page);
+        })
       },
 
-      // This function changes the page to construction if the page is opened and the page is under construction
-      _changed: function(route) {
-        if (window.location.origin.indexOf('localhost') !== -1) {
-          return;
+      _filterConstruction: function(page) {
+        if (['tickets', 'my-area', 'seatmap', 'shop'].indexOf(page) !== -1) {
+          return 'construction';
         }
-        if (route.path.indexOf('tickets') !== -1) {
-          this.changePage('construction');
-        }
-        if (route.path.indexOf('my-area') !== -1) {
-          this.changePage('construction');
-        }
-        if (route.path.indexOf('seatmap') !== -1) {
-          this.changePage('construction');
-        }
-        if (route.path.indexOf('shop') !== -1) {
-          this.changePage('construction');
-        }
+        return page;
       },
 
       _matches: function(path, route) {
