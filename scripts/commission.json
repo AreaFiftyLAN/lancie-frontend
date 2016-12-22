@@ -2,40 +2,40 @@
   {
     "function": "Chairman",
     "name": "Lotte Bryan",
-    "icon": "group"
+    "icon": "icons:gavel"
   }
 ,
   {
     "function": "Secretary",
     "name": "Sterre Noorthoek",
-    "icon": "female"
+    "icon": "icons:chrome-reader-mode"
   }
 ,
   {
     "function": "Treasurer",
     "name": "Francis Behnen",
-    "icon": "money"
+    "icon": "editor:attach-money"
   },
   {
     "function": "Commissioner of Promo",
     "name": "Hilco van der Wilk",
-    "icon": "bullhorn"
+    "icon": "social:notifications"
   }
 ,
   {
     "function": "Commissioner of Logistics",
     "name": "Millen van Osch",
-    "icon": "truck"
+    "icon": "maps:local-shipping"
   }
 ,{
   "function": "Commissioner of Systems",
   "name": "Matthijs Kok",
-  "icon": "cogs"
+  "icon": "icons:settings"
 }
 ,
   {
     "function": "Qualitate Qua",
     "name": "Beer van der Drift",
-    "icon": "heart"
+    "icon": "icons:announcement"
   }
 ]

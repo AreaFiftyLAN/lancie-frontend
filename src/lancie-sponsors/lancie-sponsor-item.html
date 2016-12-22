@@ -54,7 +54,9 @@
         },
 
         go: function() {
-          window.open(this.sponsor.href, '_blank').focus();
+          if (this.sponsor.href !== '') {
+            window.open(this.sponsor.href, '_blank').focus();
+          }
         }
       });
     })();
