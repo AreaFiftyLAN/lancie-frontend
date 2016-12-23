@@ -108,7 +108,7 @@ const imageOptions = {
 };
 
 // Optimize images with ImageOptim
-// Run with `yArn run build optimize-images`
+// Run with `yarn run build optimize-images`
 gulp.task('optimize-images', () =>
   glob('images/**/*.{jpg,png,svg}', (err, files) => {
     for (const file of files) {
