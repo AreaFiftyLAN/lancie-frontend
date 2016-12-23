@@ -101,8 +101,8 @@
         <lancie-contact-success></lancie-contact-success>
       </template>
 
-      <template is="iron-lazy-page" data-route="construction" path="src/lancie-coming-soon.html">
-        <lancie-coming-soon></lancie-coming-soon>
+      <template is="iron-lazy-page" data-route="construction" path="src/lancie-construction.html">
+        <lancie-construction></lancie-construction>
       </template>
 
       <template is="iron-lazy-page" data-route="404" path="src/lancie-404.html">
@@ -113,7 +113,7 @@
   </template>
   <script>
   (function() {
-  'use strict';
+    'use strict';
 
     Polymer({
       is: 'lancie-content',
@@ -139,7 +139,7 @@
       changePage: function(page) {
         this.async(function() {
           this.set('page.page', page);
-        })
+        });
       },
 
       _filterConstruction: function(page) {
@@ -147,10 +147,6 @@
           return 'construction';
         }
         return page;
-      },
-
-      _matches: function(path, route) {
-        return path === route;
       },
     });
   })();

@@ -10,20 +10,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="lancie-card.html">
 
-<dom-module id="lancie-coming-soon">
+<dom-module id="lancie-construction">
   <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
     <lancie-card heading="Coming soon!">
       <div class="card-content">
         This page in under construction and will be made available soon. Please come back later!
       </div>
     </lancie-card>
+
   </template>
   <script>
-  'use strict';
-
   (function() {
+    'use strict';
+
     Polymer({
-      is: 'lancie-coming-soon'
+      is: 'lancie-construction',
     });
   })();
   </script>
