@@ -8,22 +8,24 @@ Handles front end user interaction, couples with lancie-api. Built with Polymer,
 
 ### Tools & Dependencies
 These are the tools you need to install manually, the rest of the needed tools follow from this.
--   [node](https://nodejs.org/en/), node contains the "node package manager" (called with the command `npm`) that supplies the tools you need for developing the frontend. If you have installed this, you need to run three commands to finalize the installation. These commands require you to globally install some tools, during installation an error could occur regarding permissions. These issues can be solved by one of these [solutions](https://docs.npmjs.com/getting-started/fixing-npm-permissions). If you are required to call the commands with superuser priviliges you are doing something wrong!
--   `npm install -g bower`
--   `npm install -g yarn`
+-   [node](https://nodejs.org/en/) which is the Javascript runtime environment that is used by the other tools. If you have installed this, you need to run three commands to finalize the installation. These commands require you to globally install some tools, during installation an error could occur regarding permissions. If you are required to call the commands with superuser priviliges you are doing something wrong!
+-   [yarn](https://yarnpkg.com/en/docs/install) is the package manager we use to fetch all javascript dependencies.
+-   `yarn global add bower`
 -   `yarn`
 -   `bower install`
 
 ### Viewing locally
-To view the webpage locally, run `npm run serve`. The page will be shown on `https://localhost:5100` 
+To view the webpage locally, run `yarn run serve`. The page will be shown on `https://localhost:5100`
 
 ### Build
-To build the entire frontend, the `npm run build` command is used. This places the complete and ready to serve webpage in `./build`. There are two folders located in the build folder, a bundled and an unbundled version. The bundled version is for non-http/2 compatible servers. The unbundled version is for http/2 compatible servers. Keep in mind that if images are added since the last build, these have to be compressed, this is done with `npm run build optimize-images`
+To build the entire frontend, the `yarn run build` command is used. This places the complete and ready to serve webpage in `./build`. There are two folders located in the build folder, a bundled and an unbundled version. The bundled version is for non-http/2 compatible servers. The unbundled version is for http/2 compatible servers. Keep in mind that if images are added since the last build, these have to be compressed, this is done with `yArn run build optimize-images`
 
 ### Deploy
 To deploy the frontend, you can upload it to a server. This can be done by copying and pasting manually, but this is quite cumbersome. The easiest way to do this is with the `scp` command (only available on linux and OS X, no download needed). The scp command works like this:
 
-```scp -r $(local_build_folder)/. $(server_login)@$(server_ip):$(server_destination_folder)```
+```
+scp -r $(local_build_folder)/. $(server_login)@$(server_ip):$(server_destination_folder)
+```
 
 Upon running this command, you are prompted to enter your password and all the files in the `$(build_folder)` are getting transferred to the `$(destination_folder)` on the target server. Authentication on the server is provided by the `$(server_login)` portion, this is your username on the server.
 
@@ -31,7 +33,7 @@ Upon running this command, you are prompted to enter your password and all the f
 ```
 git clone git@github.com:AreaFiftyLAN/lancie-frontend.git
 cd lancie-frontend
-npm install
+yarn
 bower install
-npm run serve
+yarn run serve
 ```
