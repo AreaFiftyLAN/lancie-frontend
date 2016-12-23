@@ -1,11 +1,12 @@
 language: node_js
 node_js:
-  - '4.0'
+  - '6'
 before_script:
-  - 'npm install -g bower'
+  - 'yarn global add bower'
   - 'bower install'
-script: "npm run build"
+script: "yarn run build"
 cache:
+  yarn: true
   directories:
     - node_modules
 notifications:

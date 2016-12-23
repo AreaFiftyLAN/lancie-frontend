@@ -108,7 +108,7 @@ const imageOptions = {
 };
 
 // Optimize images with ImageOptim
-// Run with `npm run build optimize-images`
+// Run with `yarn run build optimize-images`
 gulp.task('optimize-images', () =>
   glob('images/**/*.{jpg,png,svg}', (err, files) => {
     for (const file of files) {
@@ -133,7 +133,7 @@ gulp.task('optimize-images', () =>
 gulp.task('ensure-images-optimized', () =>
   new Promise((resolve, reject) => {
     if (!fs.existsSync(optimizedImagesRoot)) {
-      reject('`images-optimized` does not exist. Make sure to run `npm run build optimize-images`');
+      reject('`images-optimized` does not exist. Make sure to run `yarn run build optimize-images`');
     } else {
       resolve();
     }
