@@ -10,7 +10,8 @@ Handles front end user interaction, couples with lancie-api. Built with Polymer,
 These are the tools you need to install manually, the rest of the needed tools follow from this.
 -   [node](https://nodejs.org/en/), node contains the "node package manager" (called with the command `npm`) that supplies the tools you need for developing the frontend. If you have installed this, you need to run three commands to finalize the installation. These commands require you to globally install some tools, during installation an error could occur regarding permissions. These issues can be solved by one of these [solutions](https://docs.npmjs.com/getting-started/fixing-npm-permissions). If you are required to call the commands with superuser priviliges you are doing something wrong!
 -   `npm install -g bower`
--   `npm install`
+-   `npm install -g yarn`
+-   `yarn`
 -   `bower install`
 
 ### Viewing locally
