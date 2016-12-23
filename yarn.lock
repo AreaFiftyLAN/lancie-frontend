@@ -95,12 +95,20 @@
   dependencies:
     "@types/node" "*"
 
+"@types/pem@^1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@types/pem/-/pem-1.8.1.tgz#2131a5b2a900674a59428e21173c825874d47eb4"
+
 "@types/serve-static@*", "@types/serve-static@^1.7.31":
   version "1.7.31"
   resolved "https://registry.yarnpkg.com/@types/serve-static/-/serve-static-1.7.31.tgz#15456de8d98d6b4cff31be6c6af7492ae63f521a"
   dependencies:
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
+
+"@types/spdy@^3.4.1":
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/@types/spdy/-/spdy-3.4.1.tgz#5e87b2c2be841746c283b2b4e1a32c786114e84c"
 
 "@types/ua-parser-js@^0.7.30":
   version "0.7.30"
@@ -2823,6 +2831,13 @@ lru-cache@2:
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-2.7.3.tgz#6d4524e8b955f95d4f5b58851ce21dd72fb4e952"
 
+lru-cache@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-4.0.2.tgz#1d17679c069cda5d040991a09dbc2c0db377e55e"
+  dependencies:
+    pseudomap "^1.0.1"
+    yallist "^2.0.0"
+
 make-error-cause@^1.1.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/make-error-cause/-/make-error-cause-1.2.2.tgz#df0388fcd0b37816dff0a5fb8108939777dcbc9d"
@@ -3335,9 +3350,9 @@ polymer-build@^0.4.0:
     vinyl-fs "^2.4.3"
     vulcanize "^1.14.8"
 
-"polyserve@github:timvdlippe/polyserve#proxy":
-  version "0.15.0"
-  resolved "https://codeload.github.com/timvdlippe/polyserve/tar.gz/5f95f5966593b55e8095585adfa3ecd3d6375fa6"
+polyserve@0.16.0-prerelease.9:
+  version "0.16.0-prerelease.9"
+  resolved "https://registry.yarnpkg.com/polyserve/-/polyserve-0.16.0-prerelease.9.tgz#1fedcbae78aa85a7b2eb5b8bdb6c26a2bd8f69f1"
   dependencies:
     "@types/babel-core" "^6.7.14"
     "@types/content-type" "^1.0.33"
@@ -3347,7 +3362,9 @@ polymer-build@^0.4.0:
     "@types/node" "^4.0.30"
     "@types/opn" "^3.0.28"
     "@types/parse5" "^2.2.34"
+    "@types/pem" "^1.8.1"
     "@types/serve-static" "^1.7.31"
+    "@types/spdy" "^3.4.1"
     "@types/ua-parser-js" "^0.7.30"
     babel-core "^6.18.2"
     babel-plugin-transform-es2015-arrow-functions "^6.8.0"
@@ -3376,6 +3393,7 @@ polymer-build@^0.4.0:
     express "^4.8.5"
     find-port "^1.0.1"
     http-proxy-middleware "^0.17.2"
+    lru-cache "^4.0.2"
     mime "^1.3.4"
     mz "^2.4.0"
     opn "^3.0.2"
@@ -3424,6 +3442,10 @@ proxy-addr@~1.1.2:
   dependencies:
     forwarded "~0.1.0"
     ipaddr.js "1.1.1"
+
+pseudomap@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
 
 punycode@^1.4.1:
   version "1.4.1"
@@ -4471,6 +4493,10 @@ xtend@~3.0.0:
 y18n@^3.2.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/y18n/-/y18n-3.2.1.tgz#6d15fba884c08679c0d77e88e7759e811e07fa41"
+
+yallist@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/yallist/-/yallist-2.0.0.tgz#306c543835f09ee1a4cb23b7bce9ab341c91cdd4"
 
 yargs@^3.28.0:
   version "3.32.0"
