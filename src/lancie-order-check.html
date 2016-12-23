@@ -28,50 +28,53 @@
     </lancie-card>
   </template>
   <script>
-  'use strict';
-  Polymer({
-    is: 'lancie-order-check',
-    properties: {
-      orderId: {
-        type: String,
-        value: ''
-      }
-    },
-    attached: function() {
-      this.confirming = true;
-      this.success = false;
-      this.error = false;
-      this.cancelled = false;
-      this.waiting = false;
-      this.orderId = window.location.href.split('order=')[1];
-      if (this.orderId) {
-        this.$.ajaxConfirmOrder.generateRequest();
-      } else {
-        this.error = true;
-        this.confirming = false;
-      }
-    },
+  (function() {
+    'use strict';
 
-    onResponse: function(e, request) {
-      this.confirming = false;
-      if (request.succeeded) {
-        switch (request.response.object.status) {
-          case 'PAID':
-            this.success = true;
-            break;
-          case 'CANCELLED':
-            this.cancelled = true;
-            break;
-          case 'WAITING':
-            this.waiting = true;
-            break;
-          default:
-            this.error = true;
+    Polymer({
+      is: 'lancie-order-check',
+      properties: {
+        orderId: {
+          type: String,
+          value: ''
         }
-      } else {
-        this.error = true;
+      },
+      attached: function() {
+        this.confirming = true;
+        this.success = false;
+        this.error = false;
+        this.cancelled = false;
+        this.waiting = false;
+        this.orderId = window.location.href.split('order=')[1];
+        if (this.orderId) {
+          this.$.ajaxConfirmOrder.generateRequest();
+        } else {
+          this.error = true;
+          this.confirming = false;
+        }
+      },
+
+      onResponse: function(e, request) {
+        this.confirming = false;
+        if (request.succeeded) {
+          switch (request.response.object.status) {
+            case 'PAID':
+              this.success = true;
+              break;
+            case 'CANCELLED':
+              this.cancelled = true;
+              break;
+            case 'WAITING':
+              this.waiting = true;
+              break;
+            default:
+              this.error = true;
+          }
+        } else {
+          this.error = true;
+        }
       }
-    }
-  });
+    });
+  })();
   </script>
 </dom-module>
