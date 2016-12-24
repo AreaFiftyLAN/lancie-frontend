@@ -10,11 +10,26 @@
         display: block;
         height: 100%;
       }
+
+      .content {
+        min-height: calc(100vh - 64px);
+      }
+
+      lancie-content {
+        padding-bottom: 340px;
+      }
+
+      lancie-footer {
+        position: absolute;
+        bottom: 0;
+      }
     </style>
     <lancie-layout route="{{page}}">
-      <lancie-content page="{{page}}"></lancie-content>
+      <div class="content">
+        <lancie-content page="{{page}}"></lancie-content>
 
-      <lancie-footer></lancie-footer>
+        <lancie-footer></lancie-footer>
+      </div>
     </lancie-layout>
   </template>
   <script>
