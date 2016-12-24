@@ -19,17 +19,23 @@
           display: flex;
         }
         --paper-card-header-image: {
-          margin: 16px 16px 64px;
+          margin: 16px;
         }
+      }
+
+      .header-text {
         --paper-card-header-text: {
           width: 100%;
           padding: 16px 0;
           text-align: center;
         }
+        --paper-card-header-image: {
+          margin: 16px 16px 64px;
+        }
       }
     </style>
 
-    <paper-card heading="[[heading]]" image="[[image]]">
+    <paper-card heading="[[heading]]" class$="[[_hasHeading(heading)]]" image="[[image]]">
       <content></content>
     </paper-card>
   </template>
@@ -45,7 +51,11 @@
           type: String,
           value: '../images-optimized/lancie/logo_without_date.png'
         }
-      }
+      },
+
+      _hasHeading: function(heading) {
+        return !!heading ? 'header-text' : '';
+      },
     });
   })();
   </script>
