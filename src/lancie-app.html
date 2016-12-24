@@ -8,10 +8,9 @@
     <style>
       :host {
         display: block;
-        height: 100%;
       }
 
-      .content {
+      .container {
         min-height: calc(100vh - 64px);
       }
 
@@ -25,7 +24,7 @@
       }
     </style>
     <lancie-layout route="{{page}}">
-      <div class="content">
+      <div class="container">
         <lancie-content page="{{page}}"></lancie-content>
 
         <lancie-footer></lancie-footer>
