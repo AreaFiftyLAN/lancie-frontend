@@ -19,14 +19,16 @@
   <template>
     <style include="iron-flex iron-flex-alignment"></style>
     <style>
+      :host {
+        color: black;
+      }
+
       app-toolbar {
         background-color: #1a2b43;
       }
 
       paper-tab[link] a {
         /* These mixins (from iron-flex-layout) center the link text. */
-        @apply(--layout-horizontal);
-        @apply(--layout-center-center);
         text-decoration: none;
         color: #ffe574;
         font-size: 16px;
@@ -34,6 +36,9 @@
         line-height: 24px;
         min-height: 48px;
         padding: 0 16px;
+
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
       }
 
       iron-image {
@@ -55,14 +60,10 @@
           height: 4px;
         };
       }
-
-      content {
-        color: black;
-      }
     </style>
 
     <!-- force-narrow prevents the drawer from ever being displayed in persistent mode -->
-    <app-drawer-layout force-narrow>
+    <app-drawer-layout force-narrow fullbleed>
       <app-drawer id="drawer">
         <app-toolbar></app-toolbar>
 
@@ -76,7 +77,7 @@
         </paper-menu>
       </app-drawer>
 
-      <app-header-layout>
+      <app-header-layout fullbleed>
         <app-header fixed effects="waterfall">
 
           <!-- Nav on mobile: side nav menu -->
