@@ -6,31 +6,13 @@
   <style>
     :host {
       display: block;
-      width: 100%;
-      min-height: 340px;
-      color: rgba(255, 255, 255, 0.87);
-      background-color: #1a2b43;
-      font-weight: 300;
-      line-height: 24px;
-
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
-    }
-
-    wisvch-footer {
-      margin: auto;
-      max-width: 1032px;
-    }
-
-    @media(max-width: 1017px) {
-      wisvch-footer {
-        padding: 0 8px;
-      }
     }
   </style>
 
   <template>
-    <wisvch-footer></wisvch-footer>
+    <lancie-section type="secondary">
+      <wisvch-footer></wisvch-footer>
+    </lancie-section>
   </template>
   <script>
     Polymer({
