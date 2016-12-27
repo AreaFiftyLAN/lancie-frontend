@@ -23,7 +23,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       handle-as="{{handleAs}}"
       last-response="{{lastResponse}}"
       loading="{{loading}}"
-      headers='{{createHeader(token, contenttype)}}'
       debounce-duration="300"
       on-response="handleResponse"
       on-error="handleResponse"
@@ -93,11 +92,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.token = token;
 
         for (var i = 0; i < ajax.length; i++) {
+          this.$.ajax.headers['X-Auth-Token'] = this.token;
           ajax[i](token);
         }
       },
 
       attached: function() {
+        this.$.ajax.headers['Content-Type'] = this.contenttype;
         if (!token) {
           ajax.push(function(newToken) {
             this.token = newToken;
@@ -120,10 +121,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       createHeader: function(token, contenttype) {
-        return {
-          'X-Auth-Token': token,
-          'Content-type': contenttype
-        };
+        console.log('called');
+        this.$.ajax.header = {
+          'Content-Type': contenttype,
+        }
+        if (!!token) {
+          this.$.ajax.header['X-Auth-Token'] = token;
+        }
       },
 
       generateRequest: function() {
