@@ -16,6 +16,8 @@
     "src/lancie-ticket-page/lancie-ticket-profile-intercept.html",
     "src/lancie-login/lancie-register-confirmation.html",
     "src/lancie-login/lancie-check-email.html",
+    "src/lancie-contact/lancie-contact.html",
+    "src/lancie-contact/lancie-contact-success.html",
     "src/lancie-order-check.html",
     "src/lancie-404.html",
     "src/lancie-construction.html",
