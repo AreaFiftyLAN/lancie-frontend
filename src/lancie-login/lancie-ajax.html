@@ -92,16 +92,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.token = token;
 
         for (var i = 0; i < ajax.length; i++) {
-          this.$.ajax.headers['X-Auth-Token'] = this.token;
           ajax[i](token);
         }
+        console.log('Tokens added');
+        console.log(this.$.ajax.headers);
       },
 
       attached: function() {
-        this.$.ajax.headers['Content-Type'] = this.contenttype;
+        this.$.ajax.headers = {
+          'Content-Type': this.contenttype,
+        };
         if (!token) {
           ajax.push(function(newToken) {
             this.token = newToken;
+            this.$.ajax.headers['X-Auth-Token'] = this.token;
+
+            console.log('function');
+            console.log(this.$.ajax.headers);
 
             if (this.auto) {
               this.generateRequest();
@@ -118,16 +125,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       handleResponse: function(event) {
         this.fire('response', event.detail);
-      },
-
-      createHeader: function(token, contenttype) {
-        console.log('called');
-        this.$.ajax.header = {
-          'Content-Type': contenttype,
-        }
-        if (!!token) {
-          this.$.ajax.header['X-Auth-Token'] = token;
-        }
       },
 
       generateRequest: function() {
