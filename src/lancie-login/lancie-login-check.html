@@ -47,11 +47,6 @@
           this.user = newUser;
         }.bind(this));
 
-        // Add eventlistener on loginDialog to catch logged-in event in entire element
-        // this.$.loginDialog.addEventListener('logged-in', function(e) {
-          // this.storeUser(e, e.detail);
-        // });
-
         // Add eventlistener to catch login dialog open request
         this.addEventListener('login-dialog', function() {
           this.$.loginDialog.open();
@@ -63,15 +58,14 @@
       },
 
       storeUser: function(e, detail) {
-        this.user = detail.user;
+        this.fire('store-token', {token: detail.token});
         this.$.ajax.injectToken(detail.token);
 
-        this.fire('store-token', {token: detail.token});
-
+        this.user = detail.user;
         for (var i = 0; i < checks.length; i++) {
           checks[i](this.user);
         }
-      }
+      },
     });
   })();
   </script>

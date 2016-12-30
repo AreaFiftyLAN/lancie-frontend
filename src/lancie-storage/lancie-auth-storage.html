@@ -74,7 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _changed: function(auth) {
         var token = this.getToken();
-        if (this.initial && token) {
+        if (!this.user && this.initial && token) {
           this.$.currentUser.injectToken(token);
           this.$.currentUser.generateRequest();
           this.initial = false;
