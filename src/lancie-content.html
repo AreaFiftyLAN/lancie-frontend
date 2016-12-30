@@ -142,6 +142,9 @@
       },
 
       _filterConstruction: function(page) {
+        if (window.location.host.indexOf('localhost') !== -1) {
+          return page;
+        }
         if (['tickets', 'my-area', 'seatmap', 'shop'].indexOf(page) !== -1) {
           return 'construction';
         }
