@@ -37,14 +37,14 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-order-storage id="orderStorage" on-order="storeStorageOrder"></lancie-order-storage>
 
 <lancie-ajax id="ajaxAvailable" refurl="tickets/available" on-response="onAvailableTickets"></lancie-ajax>
-<lancie-ajax id="ajaxCoupleOrder" refurl="orders/{{basket.id}}/assign" method="POST" on-response="onCoupleOrder"></lancie-ajax>
+<lancie-ajax id="ajaxCoupleOrder" refurl="orders/[[basket.id]]/assign" method="POST" on-response="onCoupleOrder"></lancie-ajax>
 <lancie-ajax auto refurl="users/current/orders/open" method="GET" on-response="onOpenOrder"></lancie-ajax>
 
 <div class="layout horizontal wrap" on-set-basket="storeBasket">
 
-  <lancie-tickets class="flex-2" tickets="{{availableTickets}}" basket="{{basket}}"></lancie-tickets>
+  <lancie-tickets class="flex-2" tickets="[[availableTickets]]" basket="[[basket]]"></lancie-tickets>
 
-  <lancie-ticket-basket class="flex" basket="{{basket}}"></lancie-ticket-basket>
+  <lancie-ticket-basket class="flex" basket="[[basket]]"></lancie-ticket-basket>
 
 </div>
 
