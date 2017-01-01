@@ -1,0 +1,47 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+
+<link rel="import" href="lancie-ticket-item.html">
+
+<dom-module id="lancie-tickets">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        display: block;
+      }
+
+      paper-card {
+        width: 100%;
+      }
+
+      lancie-ticket-item {
+        width: 100%;
+        flex-basis: 200px;
+      }
+    </style>
+
+    <paper-card heading="Tickets">
+      <div class="card-content layout horizontal wrap">
+        <template id="tickets" is="dom-repeat" items="{{tickets}}">
+          <lancie-ticket-item ticket="{{item}}" basket="{{basket}}"></lancie-ticket-item>
+        </template>
+      </div>
+    </paper-card>
+
+  </template>
+  <script>
+  'use strict';
+
+  (function() {
+    Polymer({
+      is: 'lancie-tickets',
+      properties: {
+        tickets: Object,
+        basket: Object,
+      },
+
+    });
+  })();
+  </script>
+</dom-module>

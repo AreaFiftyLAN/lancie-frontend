@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
@@ -8,36 +9,45 @@
 
 <dom-module id="lancie-ticket-basket">
   <template>
-	<style>
-	</style>
+  <style include="iron-flex iron-flex-alignment">
+    paper-card {
+      width: 100%;
+    }
 
-    <lancie-ajax id="removeTicket" refurl="/orders/[[basket.id]]" method="DELETE" on-response="onRemoveTicket"></lancie-ajax>
+    .price {
+      font-size: 24px;
+      font-weight: 100;
+    }
+  </style>
+
+    <lancie-ajax id="removeTicket" refurl="orders/[[basket.id]]" method="DELETE" on-response="onRemoveTicket"></lancie-ajax>
     <lancie-ajax id="checkout" refurl="orders/[[basket.id]]/checkout" on-response="onCheckout"></lancie-ajax>
 
     <paper-card heading="Basket" on-remove-ticket="removeTicket">
+      <template is="dom-if" if="[[!_hasTickets(basket.tickets)]]">
+        <div class="card-content">
+          You have no tickets
+        </div>
+      </template>
 
-		<template is="dom-if" if="{{!basket.tickets}}">
-      <div class="card-content">
-  			You have no tickets
-      </div>
-		</template>
-
-		<template is="dom-if" if="{{basket.tickets}}">
-      <div class="card-content">
-        <template is="dom-repeat" items="[[basket.tickets]]">
-          <lancie-ticket-basket-item ticket="{{item}}"></lancie-ticket-basket-item>
-        </template>
-      <div>
-      <div class="card-actions">
-        <paper-button on-tap="tryCheckout">
-          Checkout
-        </paper-button>
-      </div>
-    </template>
-
+      <template is="dom-if" if="[[_hasTickets(basket.tickets)]]">
+        <div class="card-content">
+          <template is="dom-repeat" items="[[basket.tickets]]" sort="_sortBasket">
+            <lancie-ticket-basket-item index="[[index]]" ticket="[[item]]"></lancie-ticket-basket-item>
+          </template>
+        </div>
+        <div class="card-actions layout horizontal">
+          <span class="flex price">Total: </span>
+          <span class="price">&euro; [[_formatPrice(basket.amount)]]</span>
+        </div>
+        <div class="card-actions">
+          <paper-button hidden$="[[_userAssigned(basket)]]" on-tap="loginDialog">Login</paper-button>
+          <paper-button hidden$="[[!_userAssigned(basket)]]" on-tap="tryCheckout">Checkout</paper-button>
+        </div>
+      </template>
     </paper-card>
 
-    <lancie-terms-of-service id="termsOfService" confirm="checkout"></lancie-terms-of-service>
+    <lancie-terms-of-service id="termsOfService" checkout="[[checkout]]"></lancie-terms-of-service>
 
   </template>
   <script>
@@ -51,25 +61,27 @@
 			  type: Object,
 			  notify: true,
 		  },
+      checkout: {
+        type: Function,
+        value: function() {
+          return function() {
+            this.$.checkout.generateRequest();
+          }.bind(this);
+        },
+      },
 	  },
 
-    tryCheckout: function() {
-      console.log(this.basket);
-      if (!this.basket.user) {
-        this.fire('login-dialog');
-        return;
-      }
-      this.$.termsOfService.open();
+    loginDialog: function() {
+      this.fire('login-dialog');
     },
 
-    checkout: function() {
-      this.$.checkout.generateRequest();
+    tryCheckout: function() {
+      this.$.termsOfService.open();
     },
 
     onCheckout: function(e, request) {
       if (request.succeeded) {
-        console.log('Checking out');
-        console.log(request.response);
+        window.location.href = request.response.object;
       } else {
         // TODO: Catch error
         console.log('Error while checking out');
@@ -78,6 +90,7 @@
 
     removeTicket: function(e, ticket) {
       this.$.removeTicket.body = ticket;
+      console.log(this.$.removeTicket.body);
       this.$.removeTicket.generateRequest();
     },
 
@@ -87,6 +100,29 @@
       } else {
         // TODO: Error toast not able to remove ticket, probably due to order being cleaned up
         console.log('Error while removing ticket, order has probably expired;');
+      }
+    },
+
+    _hasTickets: function(tickets) {
+      if (!tickets || tickets.length === 0) {
+        return false;
+      }
+      return true;
+    },
+
+    _formatPrice: function(price) {
+      return price.toFixed(2);
+    },
+
+    _userAssigned: function(basket) {
+      return !!basket.user;
+    },
+
+    _sortBasket: function(a, b) {
+      if (a.type.name !== b.type.name) {
+        return a.type.name.localeCompare(b.type.name);
+      } else {
+        return a.price - b.price;
       }
     },
 
