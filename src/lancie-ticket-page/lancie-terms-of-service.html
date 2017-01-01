@@ -1,5 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="lancie-terms-of-service-text.html">
 
 <dom-module id="lancie-terms-of-service">
@@ -17,7 +19,7 @@
       </paper-dialog-scrollable>
       <div class="buttons">
         <paper-button dialog-dismiss on-tap="closeDialog">Cancel</paper-button>
-        <paper-button dialog-confirm on-tap="confirm">I agree to the terms of service</paper-button>
+        <paper-button dialog-confirm on-tap="checkout">I agree to the terms of service</paper-button>
       </div>
     </paper-dialog>
 
@@ -29,11 +31,12 @@
     Polymer({
       is: 'lancie-terms-of-service',
       properties: {
-        confirm: Object,
+        checkout: Function,
       },
 
       open: function() {
         this.$.termsOfService.open();
+        window.document.body.appendChild(this.$.termsOfService);
       },
     });
   })();

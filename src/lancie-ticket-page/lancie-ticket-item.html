@@ -1,21 +1,77 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+
 <link rel="import" href="../lancie-login/lancie-ajax.html">
 
 <dom-module id="lancie-ticket-item">
   <template>
-    <style>
+    <style include="iron-flex iron-flex-alignment">
       :host {
         display: block;
         margin: 8px;
-        background-color: gray;
+        background-color: black;
+        color: white;
+      }
+
+      paper-material {
+        padding: 8px;
+      }
+
+      .name {
+        font-size: 32px;
+        font-weight: 600;
+        margin: 8px 0;
+      }
+
+      .price {
+        font-size: 24px;
+        font-weight: 100;
+      }
+
+      hr {
+        color: white;
+        width: 100%;
+      }
+
+      paper-checkbox {
+        margin: 2px;
+        --paper-checkbox-label-color: white;
+        --paper-checkbox-checked-color: white;
+        --paper-checkbox-unchecked-color: white;
+        --paper-checkbox-checkmark-color: black;
+        --paper-checkbox-checked-ink-color: white;
+      }
+
+      iron-icon {
+        background-color: white;
+        color: black;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
       }
     </style>
 
     <lancie-ajax id="addTicket" method="POST" on-response="onAddTicket"></lancie-ajax>
 
-    <div on-tap="addToBasket">
-      [[ticket.text]]
-    </div>
+    <paper-material class="layout vertical">
+      <span class="name">[[ticket.text]]</span>
+      <span class="price">&euro; [[totalString]]</span>
+      <span class="deadline">{{_deadline(ticket, available)}}</span>
+      <hr>
+      <div class="layout vertical">
+        <template is="dom-repeat" items="{{options}}">
+          <paper-checkbox checked="{{item.picked}}">[[item.text]]</paper-checkbox>
+        </template>
+      </div>
+      <hr>
+      <div class="layout horizontal end-justified">
+        <iron-icon icon="icons:add" on-tap="addToBasket"></iron-icon>
+      </div>
+    </paper-material>
 
   </template>
   <script>
@@ -26,35 +82,63 @@
       is: 'lancie-ticket-item',
       properties: {
         ticket: Object,
+        available: Boolean,
+        options: {
+          type: Array,
+          value: [],
+        },
         basket: {
           type: Object,
           notify: true,
         },
-        orderid: String,
-        member: {
-          type: Boolean,
-          value: false,
+        totalString: String,
+        // This determines how a ticket is displayed in the front-end
+        deadlineDisplay: {
+          type: Object,
+          value: {
+            Early: 'limit',
+            Normal: 'deadline',
+            Late: 'deadline',
+          },
         },
-        pickup: {
-          type: Boolean,
-          value: false,
+      },
+      observers: [
+        '_calulatePrice(options.*)'
+      ],
+
+      ready: function() {
+        for (var option in this.ticket.possibleOptions) {
+          this.push('options', {
+            text: option,
+            price: this.ticket.possibleOptions[option],
+            picked: false,
+          });
         }
+
+        this.available = this._available();
       },
 
       addToBasket: function() {
         if (!this.basket.tickets) {
           this.$.addTicket.refurl = 'orders';
-        } else if (this.basket.tickets.length === 5) {
+        } else if (this.basket.tickets.length >= 5) {
           // TODO: Toast of max ticket amount
           console.log('Max of 5 tickets;');
           return;
         } else {
           this.$.addTicket.refurl = 'orders/' + this.basket.id;
         }
+
+        var pickedOptions = this.options
+          .filter(function(option) {
+            return option.picked;
+          }).map(function(option) {
+            return option.text;
+          });
+
         this.$.addTicket.body = {
           type: this.ticket.ticketType,
-          chMember: this.member,
-          pickupService: this.pickup
+          options: pickedOptions,
         };
 
         this.$.addTicket.generateRequest();
@@ -67,6 +151,40 @@
           // todo: implement error handling
           console.log('Error');
         }
+      },
+
+      _available: function() {
+        var deadlineType = this.deadlineDisplay[this.ticket.ticketType];
+        if (Date.now() > new Date(this.ticket.deadline)) {
+          return false;
+        }
+        return this.ticket.numberSold < this.ticket.limit;
+      },
+
+      _deadline: function(ticket, available) {
+        if (!available) {
+          return 'Sold out!';
+        }
+        var deadlineType = this.deadlineDisplay[ticket.ticketType];
+        if (deadlineType === 'deadline') {
+          return new Date(this.ticket.deadline).toLocaleString('nl', {hour12: false});
+        } else if (deadlineType === 'limit') {
+          return 'Only ' + (ticket.limit - ticket.numberSold) + ' left!';
+        } else {
+          return 'available';
+        }
+      },
+
+      _calulatePrice: function(changed) {
+        if (!this.ticket) {
+          return;
+        }
+        this.totalString = changed.base
+          .filter(function(option) {
+            return option.picked;
+          }).reduce(function(a, b){
+            return a + b.price;
+          }, this.ticket.price).toFixed(2);
       }
 
     });
