@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-styles/color.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 
@@ -11,14 +11,15 @@
   <template>
     <style include="iron-flex iron-flex-alignment">
       :host {
-        display: block;
+        display: flex;
+        flex-direction: column;
         margin: 8px;
-        background-color: black;
         color: white;
       }
 
       paper-material {
         padding: 8px;
+        flex: 1;
       }
 
       .name {
@@ -33,7 +34,7 @@
       }
 
       hr {
-        color: white;
+        border: solid 1px white;
         width: 100%;
       }
 
@@ -47,29 +48,55 @@
       }
 
       iron-icon {
-        background-color: white;
-        color: black;
-        border-radius: 50%;
-        width: 32px;
         height: 32px;
+        width: 32px;
+      }
+
+      paper-button {
+        background: rgba(255, 255, 255, 0.3);
+        color: white;
+        width: 100%;
+        font-weight: 600;
+      }
+
+      paper-button[disabled] {
+        background: rgba(0, 0, 0, 0.2);
+        color: rgba(0, 0, 0, 0.4);
+      }
+
+      .red {
+        background-color: var(--paper-deep-orange-400);
+      }
+      .blue {
+        background-color: var(--paper-indigo-400);
+      }
+      .green {
+        background-color: var(--paper-green-400);
+      }
+      .purple {
+        background-color: var(--paper-purple-400);
+      }
+      .orange {
+        background-color: var(--paper-orange-400);
+      }
+      .sold-out {
+        background: rgba(0, 0, 0, 0.3);
       }
     </style>
 
     <lancie-ajax id="addTicket" method="POST" on-response="onAddTicket"></lancie-ajax>
 
-    <paper-material class="layout vertical">
+    <paper-material class$="[[_getClasses(color, available)]]">
       <span class="name">[[ticket.text]]</span>
       <span class="price">&euro; [[totalString]]</span>
       <span class="deadline">{{_deadline(ticket, available)}}</span>
-      <hr>
-      <div class="layout vertical">
-        <template is="dom-repeat" items="{{options}}">
-          <paper-checkbox checked="{{item.picked}}">[[item.text]]</paper-checkbox>
-        </template>
-      </div>
+      <hr hidden$="[[!_hasOptions(options)]]">
+      <template is="dom-repeat" items="{{options}}">
+        <paper-checkbox checked="{{item.picked}}">[[item.text]]</paper-checkbox>
+      </template>
       <hr>
       <div class="layout horizontal end-justified">
-        <iron-icon icon="icons:add" on-tap="addToBasket"></iron-icon>
+        <paper-button disabled="[[!available]]" on-tap="addToBasket">ADD</paper-button>
       </div>
     </paper-material>
 
@@ -85,7 +112,9 @@
         available: Boolean,
         options: {
           type: Array,
-          value: [],
+          value: function() {
+            return [];
+          },
         },
         basket: {
           type: Object,
@@ -101,20 +130,23 @@
             Late: 'deadline',
           },
         },
+        color: String,
       },
       observers: [
         '_calulatePrice(options.*)'
       ],
 
       ready: function() {
+        var options = [];
         for (var option in this.ticket.possibleOptions) {
-          this.push('options', {
+          options.push({
             text: option,
             price: this.ticket.possibleOptions[option],
             picked: false,
           });
         }
 
+        this.options = options;
         this.available = this._available();
       },
 
@@ -153,6 +185,16 @@
         }
       },
 
+      _getClasses: function(color, available) {
+        var classes = 'layout vertical justified ' + color;
+        classes += (available) ? '' : ' sold-out';
+        return classes;
+      },
+
+      _hasOptions: function(options) {
+        return options.length > 0;
+      },
+
       _available: function() {
         var deadlineType = this.deadlineDisplay[this.ticket.ticketType];
         if (Date.now() > new Date(this.ticket.deadline)) {
@@ -167,11 +209,11 @@
         }
         var deadlineType = this.deadlineDisplay[ticket.ticketType];
         if (deadlineType === 'deadline') {
-          return new Date(this.ticket.deadline).toLocaleString('nl', {hour12: false});
+          return 'Available until: ' + new Date(this.ticket.deadline).toLocaleString('nl', {hour12: false});
         } else if (deadlineType === 'limit') {
           return 'Only ' + (ticket.limit - ticket.numberSold) + ' left!';
         } else {
-          return 'available';
+          return 'Available';
         }
       },
 
