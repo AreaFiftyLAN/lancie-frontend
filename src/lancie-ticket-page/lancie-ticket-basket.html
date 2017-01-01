@@ -24,6 +24,12 @@
       color: white;
       width: 100%;
     }
+
+    @media(max-width: 600px) {
+      paper-card {
+        border-radius: 0;
+      }
+    }
   </style>
 
     <lancie-ajax id="removeTicket" refurl="orders/[[basket.id]]" method="DELETE" on-response="onRemoveTicket"></lancie-ajax>
