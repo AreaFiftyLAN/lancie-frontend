@@ -18,10 +18,16 @@
       font-size: 24px;
       font-weight: 100;
     }
+
+    paper-button {
+      background: #1a2b43;
+      color: white;
+      width: 100%;
+    }
   </style>
 
     <lancie-ajax id="removeTicket" refurl="orders/[[basket.id]]" method="DELETE" on-response="onRemoveTicket"></lancie-ajax>
-    <lancie-ajax id="checkout" refurl="orders/[[basket.id]]/checkout" on-response="onCheckout"></lancie-ajax>
+    <lancie-ajax id="checkout" refurl="orders/[[basket.id]]/checkout" method="POST" on-response="onCheckout"></lancie-ajax>
 
     <paper-card heading="Basket" on-remove-ticket="removeTicket">
       <template is="dom-if" if="[[!_hasTickets(basket.tickets)]]">
