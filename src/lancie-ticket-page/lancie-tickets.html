@@ -30,8 +30,8 @@
 
     <paper-card heading="Tickets">
       <div class="card-content layout horizontal wrap">
-        <template id="tickets" is="dom-repeat" items="{{tickets}}">
-          <lancie-ticket-item ticket="{{item}}" basket="{{basket}}" color="[[_getColorClass(index)]]"></lancie-ticket-item>
+        <template id="tickets" is="dom-repeat" items="[[tickets]]">
+          <lancie-ticket-item ticket="[[item]]" basket="[[basket]]" color="[[_getColorClass(index)]]"></lancie-ticket-item>
         </template>
       </div>
     </paper-card>

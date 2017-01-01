@@ -89,7 +89,7 @@
     <paper-material class$="[[_getClasses(color, available)]]">
       <span class="name">[[ticket.text]]</span>
       <span class="price">&euro; [[totalString]]</span>
-      <span class="deadline">{{_deadline(ticket, available)}}</span>
+      <span class="deadline">[[_deadline(ticket, available)]]</span>
       <hr hidden$="[[!_hasOptions(options)]]">
       <template is="dom-repeat" items="{{options}}">
         <paper-checkbox checked="{{item.picked}}">[[item.text]]</paper-checkbox>

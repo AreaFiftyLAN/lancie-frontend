@@ -45,7 +45,7 @@
       <template is="dom-if" if="[[_hasTickets(basket.tickets)]]">
         <div class="card-content">
           <template is="dom-repeat" items="[[basket.tickets]]" sort="_sortBasket">
-            <lancie-ticket-basket-item index="[[index]]" ticket="[[item]]"></lancie-ticket-basket-item>
+            <lancie-ticket-basket-item ticket="[[item]]"></lancie-ticket-basket-item>
           </template>
         </div>
         <div class="card-actions layout horizontal">
