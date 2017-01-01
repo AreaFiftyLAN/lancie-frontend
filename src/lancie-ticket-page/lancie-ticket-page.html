@@ -8,6 +8,7 @@ This code may only be used under the BSD style license found at https://github.c
 
 <link rel="import" href="lancie-tickets.html">
 <link rel="import" href="lancie-ticket-basket.html">
+<link rel="import" href="../lancie-storage/lancie-order-storage.html">
 
 <dom-module id="lancie-ticket-page">
   <template>
@@ -33,100 +34,112 @@ This code may only be used under the BSD style license found at https://github.c
       }
     </style>
 
-    <lancie-ajax id="ajaxAvailable" refurl="tickets/available" on-response="onAvailableTickets"></lancie-ajax>
-    <lancie-ajax id="ajaxCoupleOrder" refurl="orders/{{basket.id}}/assign" method="POST" on-response="onCoupleOrder"></lancie-ajax>
-    <!--<lancie-ajax auto="{{user}}" refurl="users/current/orders/open" method="GET" on-response="onOpenOrder"></lancie-ajax>-->
+    <lancie-order-storage id="orderStorage" on-order="storeStorageOrder"></lancie-order-storage>
 
-    <div class="layout horizontal wrap" on-set-basket="setBasket">
+<lancie-ajax id="ajaxAvailable" refurl="tickets/available" on-response="onAvailableTickets"></lancie-ajax>
+<lancie-ajax id="ajaxCoupleOrder" refurl="orders/{{basket.id}}/assign" method="POST" on-response="onCoupleOrder"></lancie-ajax>
+<lancie-ajax auto refurl="users/current/orders/open" method="GET" on-response="onOpenOrder"></lancie-ajax>
 
-      <lancie-tickets class="flex-2" tickets="{{availableTickets}}" basket="{{basket}}"></lancie-tickets>
+<div class="layout horizontal wrap" on-set-basket="storeBasket">
 
-      <lancie-ticket-basket class="flex" basket="{{basket}}"></lancie-ticket-basket>
+  <lancie-tickets class="flex-2" tickets="{{availableTickets}}" basket="{{basket}}"></lancie-tickets>
 
-    </div>
+  <lancie-ticket-basket class="flex" basket="{{basket}}"></lancie-ticket-basket>
 
-  </template>
-  <script>
-  'use strict';
+</div>
 
-  (function() {
-    Polymer({
-      is: 'lancie-ticket-page',
-      properties: {
-        user: {
-          type: Object,
-          observer: '_userChanged',
+</template>
+<script>
+    'use strict';
+
+    (function () {
+      Polymer({
+        is: 'lancie-ticket-page',
+        properties: {
+          user: {
+            type: Object,
+            observer: '_userChanged',
+          },
+          basket: {
+            type: Object,
+            value: {},
+            // notify: true,
+            observer: '_basketChanged',
+          },
+          availableTickets: {
+            type: Object,
+            value: [],
+          },
         },
-        basket: {
-          type: Object,
-          value: {},
-          // notify: true,
-          observer: '_basketChanged',
+
+        ready: function () {
+          this.$.ajaxAvailable.generateRequest();
         },
-        availableTickets: {
-          type: Object,
-          value: [],
+
+        onAvailableTickets: function (e, request) {
+          if (request.succeeded) {
+            this.availableTickets = request.response;
+          } else {
+            console.log('Server unavailable error;');
+          }
         },
-      },
 
-      ready: function() {
-        this.$.ajaxAvailable.generateRequest();
-      },
+        storeBasket: function (e) {
+          this.set('basket', e.detail.basket);
+        },
 
-      onAvailableTickets: function(e, request) {
-        if (request.succeeded) {
-          this.availableTickets = request.response;
-        } else {
-          // TODO: Handle error
-          console.log('Server unavailable error;');
-        }
-      },
+        storeStorageOrder: function(e) {
+          if (!this.basket.id) {
+            this.basket = e.detail;
+          }
+        },
 
-      onOpenOrder: function(e, request) {
-        if (request.succeeded) {
-          console.log('Got open order');
-          console.log(request.response);
-        } else {
-          // TODO: Handle error
-          console.log('Error retrieving open order;');
-        }
-      },
+        onOpenOrder: function (e, request) {
+          // Don't set basket when there is a new basket
+          if (!!this.basket.tickets) {
+            return;
+          }
+          if (request.succeeded) {
+            if (request.response.length > 0) {
+              this.basket = request.response[0];
+            }
+          }
+        },
 
-      setBasket: function(e) {
-        this.set('basket', e.detail.basket);
-      },
+        onCoupleOrder: function (e, request) {
+          if (request.succeeded) {
+            this.basket = request.response.object;
+            this.$.orderStorage.removeStorage();
+          } else {
+            this.basket.status = 'ANONYMOUS';
+            console.log('Error coupling user to order;');
+          }
+        },
 
-      onCoupleOrder: function(e, request) {
-        if (request.succeeded) {
-          this.basket = request.response.object;
-        } else {
-          this.basket.status = 'ANONYMOUS';
-          console.log('Error coupling user to order;');
-        }
-      },
+        /*
+          If there is an order and the user logs in later, couple the order to the user.
+         */
+        _userChanged: function (user) {
+          if (this.basket.status === 'ANONYMOUS' && !!user) {
+            this.basket.status = 'ASSIGNED';
+            this.$.ajaxCoupleOrder.generateRequest();
+          }
+        },
 
-      /*
-        If there is an order and the user logs in later, couple the order to the user.
-       */
-      _userChanged: function(user) {
-        if (this.basket.status === 'ANONYMOUS' && !!user) {
-          this.basket.status = 'ASSIGNED';
-          this.$.ajaxCoupleOrder.generateRequest();
-        }
-      },
+        /*
+          If the user is logged in and the order changes at a later point in time, couple the order.
+          If the user is not logged in and the order changes, we can store the ANONYMOUS order.
+        */
+        _basketChanged: function (basket, oldBasket) {
+          if (basket.status === 'ANONYMOUS' && !!this.user) {
+            this.basket.status = 'ASSIGNED';
+            this.$.ajaxCoupleOrder.generateRequest();
+          } else if (basket.status === 'ANONYMOUS' && !this.$.orderStorage.orderStored()) {
+            this.$.orderStorage.storeOrderId(basket.id);
+          }
+        },
 
-      /*
-        If the user is logged in and the order changes at a later point in time, couple the order.
-      */
-      _basketChanged: function(basket) {
-        console.log(basket);
-        if (basket.status === 'ANONYMOUS' && !!this.user) {
-          this.basket.status = 'ASSIGNED';
-          this.$.ajaxCoupleOrder.generateRequest();
-        }
-      },
-
-    });
-  })();
+      });
+    })();
   </script>
 </dom-module>
