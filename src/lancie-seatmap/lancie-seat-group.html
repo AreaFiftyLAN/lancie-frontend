@@ -15,7 +15,7 @@ This code may only be used under the BSD style license found at https://github.c
       display: block;
     }
     </style>
-    
+
     <div class="layout vertical flex">
       <div class="layout flex horizontal">
         <template is="dom-repeat" items="{{_getFirstHalf(seats)}}">
@@ -32,35 +32,37 @@ This code may only be used under the BSD style license found at https://github.c
   </template>
   <script>
   'use strict';
-  Polymer({
-    is: 'lancie-seat-group',
-    properties: {
-      user: Object,
-      group: String,
-      seats: {
-        type: Array
-      },
-      tickets: {
-        type: Array,
-        value: function() {
-          return [];
+  (function() {
+    Polymer({
+      is: 'lancie-seat-group',
+      properties: {
+        user: Object,
+        group: String,
+        seats: {
+          type: Array
+        },
+        tickets: {
+          type: Array,
+          value: function() {
+            return [];
+          }
+        },
+        fixed: {
+          type: Boolean,
+          notify: true
+        },
+        filter: {
+          type: String,
+          notify: true
         }
       },
-      fixed: {
-        type: Boolean,
-        notify: true
+      _getFirstHalf: function(seats) {
+        return seats.slice(0, seats.length / 2);
       },
-      filter: {
-        type: String,
-        notify: true
+      _getLastHalf: function(seats) {
+        return seats.slice(seats.length / 2, seats.length);
       }
-    },
-    _getFirstHalf: function(seats) {
-      return seats.slice(0, seats.length / 2);
-    },
-    _getLastHalf: function(seats) {
-      return seats.slice(seats.length / 2, seats.length);
-    }
-  });
+    });
+  })();
   </script>
 </dom-module>

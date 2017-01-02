@@ -21,7 +21,7 @@ This code may only be used under the BSD style license found at https://github.c
       position: relative;
       min-width: 0;
     }
-    
+
     .seat {
       height: 100%;
       margin: 4px;
@@ -29,15 +29,15 @@ This code may only be used under the BSD style license found at https://github.c
       background: #fafafa;
       box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
     }
-    
+
     .green {
       background-color: #4CAF50;
     }
-    
+
     .yellow {
       background-color: #FFEB3B;
     }
-    
+
     .red {
       background-color: #F44336;
     }
@@ -78,101 +78,104 @@ This code may only be used under the BSD style license found at https://github.c
   </template>
   <script>
   'use strict';
-  Polymer({
-    is: 'lancie-seat',
-    behaviors: [
-      Polymer.PaperButtonBehavior
-    ],
-    properties: {
-      reservationError: {
-        type: Boolean,
-        value: false
-      },
-      reservationErrorMessage: String,
-      user: {
-        type: Object,
-        value: {}
-      },
-      seat: Object,
-      tickets: {
-        type: Array,
-        value: function() {
-          return [];
+
+  (function() {
+    Polymer({
+      is: 'lancie-seat',
+      behaviors: [
+        Polymer.PaperButtonBehavior
+      ],
+      properties: {
+        reservationError: {
+          type: Boolean,
+          value: false
+        },
+        reservationErrorMessage: String,
+        user: {
+          type: Object,
+          value: {}
+        },
+        seat: Object,
+        tickets: {
+          type: Array,
+          value: function() {
+            return [];
+          }
+        },
+        filter: {
+          type: String,
+          value: ''
         }
       },
-      filter: {
-        type: String,
-        value: ''
-      }
-    },
-    _checkExists: function(tickets) {
-      return tickets.length > 0;
-    },
-    showSeatDialog: function() {
-      if (this.seat.taken) {
-        return;
-      }
-      this.$.seatDialog.open();
-      window.document.body.appendChild(this.$.seatDialog);
-    },
-    reserveSeat: function() {
-      if (!this.$.listbox.selectedItem) {
-        this.reservationError = true;
-        this.reservationErrorMessage = 'Please select a user!';
-        return;
-      }
-      this.$.ajaxReserveSeat.params = {
-        'ticketId': this.$.listbox.selectedItem.ticket
-      };
-      this.$.ajaxReserveSeat.refurl = 'seats/' + this.seat.seatGroup + '/' + this.seat.seatNumber;
-      this.$.ajaxReserveSeat.generateRequest();
-      this.$.seatDialog.close();
-    },
-    onReserveSeat: function(e, response) {
-      if (response.succeeded) {
-        this.reservationError = false;
-        this.reservationErrorMessage = '';
-        this.$.listbox.selected = undefined;
-        this.fire('reserve-seat');
-      } else {
-        this.reservationError = true;
-        if (response.request.status === 409) {
-          this.reservationErrorMessage = 'Seat was already reserved!';
+      _checkExists: function(tickets) {
+        return tickets.length > 0;
+      },
+      showSeatDialog: function() {
+        if (this.seat.taken) {
+          return;
+        }
+        this.$.seatDialog.open();
+        window.document.body.appendChild(this.$.seatDialog);
+      },
+      reserveSeat: function() {
+        if (!this.$.listbox.selectedItem) {
+          this.reservationError = true;
+          this.reservationErrorMessage = 'Please select a user!';
+          return;
+        }
+        this.$.ajaxReserveSeat.params = {
+          'ticketId': this.$.listbox.selectedItem.ticket
+        };
+        this.$.ajaxReserveSeat.refurl = 'seats/' + this.seat.seatGroup + '/' + this.seat.seatNumber;
+        this.$.ajaxReserveSeat.generateRequest();
+        this.$.seatDialog.close();
+      },
+      onReserveSeat: function(e, response) {
+        if (response.succeeded) {
+          this.reservationError = false;
+          this.reservationErrorMessage = '';
+          this.$.listbox.selected = undefined;
+          this.fire('reserve-seat');
         } else {
-          this.reservationErrorMessage = 'Something went wrong, please refresh and try again.';
+          this.reservationError = true;
+          if (response.request.status === 409) {
+            this.reservationErrorMessage = 'Seat was already reserved!';
+          } else {
+            this.reservationErrorMessage = 'Something went wrong, please refresh and try again.';
+          }
         }
-      }
-    },
-    _calculateClass: function(user, teamTickets, seat, filter) {
-      if (!seat.taken) {
-        return '';
-      }
-      if (seat.ticket && seat.ticket.owner.profile.displayName && filter !== '' && seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
-        return 'blue';
-      }
-      if ((seat.taken && this.fixed) || (seat.taken && !seat.ticket)) {
+      },
+      _calculateClass: function(user, teamTickets, seat, filter) {
+        if (!seat.taken) {
+          return '';
+        }
+        if (seat.ticket && seat.ticket.owner.profile.displayName && filter !== '' && seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
+          return 'blue';
+        }
+        if ((seat.taken && this.fixed) || (seat.taken && !seat.ticket)) {
+          return 'red';
+        }
+        if (!this.fixed && user.reference === seat.ticket.owner.reference) {
+          return 'yellow';
+        }
+        var teamMembers = teamTickets.map(function(ticket) {
+          return ticket.owner.reference;
+        });
+        if (!this.fixed && teamMembers.includes(seat.ticket.owner.reference)) {
+          return 'green';
+        }
         return 'red';
+      },
+      _getTooltipText: function(seat) {
+        if (!seat.taken) {
+          return 'Free';
+        }
+        if (seat.taken && !seat.ticket) {
+          return 'Reserved';
+        }
+        return seat.ticket.owner.profile.displayName;
       }
-      if (!this.fixed && user.reference === seat.ticket.owner.reference) {
-        return 'yellow';
-      }
-      var teamMembers = teamTickets.map(function(ticket) {
-        return ticket.owner.reference;
-      });
-      if (!this.fixed && teamMembers.includes(seat.ticket.owner.reference)) {
-        return 'green';
-      }
-      return 'red';
-    },
-    _getTooltipText: function(seat) {
-      if (!seat.taken) {
-        return 'Free';
-      }
-      if (seat.taken && !seat.ticket) {
-        return 'Reserved';
-      }
-      return seat.ticket.owner.profile.displayName;
-    }
-  });
+    });
+  })();
   </script>
 </dom-module>

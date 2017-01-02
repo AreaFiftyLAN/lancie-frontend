@@ -33,8 +33,8 @@ This code may only be used under the BSD style license found at https://github.c
     }
     </style>
 
-    <lancie-ajax id="ajaxGetAllSeats" refurl="seats" on-response="onGetAllSeats"></lancie-ajax>
-    <lancie-ajax id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-response="onGetTeamTickets"></lancie-ajax>
+    <lancie-ajax auto id="ajaxGetAllSeats" refurl="seats" on-response="onGetAllSeats"></lancie-ajax>
+    <lancie-ajax auto id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-response="onGetTeamTickets"></lancie-ajax>
 
     <paper-input label="Search user" value="{{filterUser}}"></paper-input>
     <div class="layout horizontal" on-reserve-seat="refreshSeats">
@@ -68,59 +68,57 @@ This code may only be used under the BSD style license found at https://github.c
   </template>
   <script>
   'use strict';
-  Polymer({
-    is: 'lancie-seatmap',
-    properties: {
-      user: Object,
-      seats: {
-        type: Array,
-        value: function() {
-          return [];
+  (function() {
+    Polymer({
+      is: 'lancie-seatmap',
+      properties: {
+        user: Object,
+        seats: {
+          type: Array,
+          value: function() {
+            return [];
+          }
+        },
+        tickets: {
+          type: Array,
+          value: function() {
+            return [];
+          }
+        },
+        fixed: {
+          type: Boolean,
+          notify: true
         }
       },
-      tickets: {
-        type: Array,
-        value: function() {
-          return [];
+      refreshSeats: function() {
+        this.$.reserveSeatSuccessToast.show();
+        this.$.ajaxGetAllSeats.generateRequest();
+      },
+      onGetAllSeats: function(e, request) {
+        if (request.succeeded) {
+          var seats = [];
+          var groups = 'ABCDEFGHIJ';
+          for (var i = 0; i < groups.length; i++) {
+            seats[groups.charAt(i)] = request.response.seatmap[groups.charAt(i)].sort(function(a, b) {
+              return a.seatNumber - b.seatNumber;
+            });
+          }
+          this.seats = seats;
+        } else {
+          this.$.getAllSeatsErrorToast.show();
         }
       },
-      fixed: {
-        type: Boolean,
-        notify: true
-      }
-    },
-    attached: function() {
-      this.$.ajaxGetAllSeats.generateRequest();
-      this.$.ajaxGetTeamTickets.generateRequest();
-    },
-    refreshSeats: function() {
-      this.$.reserveSeatSuccessToast.show();
-      this.$.ajaxGetAllSeats.generateRequest();
-    },
-    onGetAllSeats: function(e, request) {
-      if (request.succeeded) {
-        var seats = [];
-        var groups = 'ABCDEFGHIJ';
-        for (var i = 0; i < groups.length; i++) {
-          seats[groups.charAt(i)] = request.response.seatmap[groups.charAt(i)].sort(function(a, b) {
-            return a.seatNumber - b.seatNumber;
-          });
+      onGetTeamTickets: function(e, request) {
+        if (request.succeeded) {
+          this.tickets = request.response;
+        } else {
+          this.$.getAllTicketsErrorToast.show();
         }
-        this.seats = seats;
-      } else {
-        this.$.getAllSeatsErrorToast.show();
+      },
+      _getSeatGroup: function(seats, group) {
+        return seats[group];
       }
-    },
-    onGetTeamTickets: function(e, request) {
-      if (request.succeeded) {
-        this.tickets = request.response;
-      } else {
-        this.$.getAllTicketsErrorToast.show();
-      }
-    },
-    _getSeatGroup: function(seats, group) {
-      return seats[group];
-    }
-  });
+    });
+  })();
   </script>
 </dom-module>

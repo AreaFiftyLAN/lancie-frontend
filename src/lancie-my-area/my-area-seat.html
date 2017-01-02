@@ -24,7 +24,7 @@
     </style>
 
     <lancie-ajax id="ajaxGetAllSeats" refurl="seats" on-response="onGetAllSeats"></lancie-ajax>
-    <lancie-ajax id="ajaxGetSeat" refurl="users/current/seat" on-response="onGetSeat"></lancie-ajax>
+    <lancie-ajax auto id="ajaxGetSeat" refurl="users/current/seat" on-response="onGetSeat"></lancie-ajax>
     <lancie-ajax id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-response="onGetTeamTickets"></lancie-ajax>
 
     <paper-card heading="Seat" elevation="1" animated-shadow="true">
@@ -67,9 +67,6 @@
             return [];
           }
         }
-      },
-      attached: function() {
-        this.$.ajaxGetSeat.generateRequest();
       },
       onGetAllSeats: function(e, request) {
         if (request.succeeded) {
