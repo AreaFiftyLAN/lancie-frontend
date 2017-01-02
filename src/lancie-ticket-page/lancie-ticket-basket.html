@@ -95,14 +95,12 @@
       if (request.succeeded) {
         window.location.href = request.response.object;
       } else {
-        // TODO: Catch error
-        console.log('Error while checking out');
+        this.fire('refreshToast');
       }
     },
 
     removeTicket: function(e, ticket) {
       this.$.removeTicket.body = ticket;
-      console.log(this.$.removeTicket.body);
       this.$.removeTicket.generateRequest();
     },
 
@@ -110,8 +108,7 @@
       if (request.succeeded) {
         this.fire('set-basket', {basket: request.response.object});
       } else {
-        // TODO: Error toast not able to remove ticket, probably due to order being cleaned up
-        console.log('Error while removing ticket, order has probably expired;');
+        this.fire('toast', {text: 'Unable to remove ticket, order has probably expired. Try refreshing the page.'});
       }
     },
 
