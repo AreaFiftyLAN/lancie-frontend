@@ -121,7 +121,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       onProfileUpdate: function(e, response) {
         if (response.succeeded) {
           this.user = this.editingUser;
-          this.$.profileDialog.close();
+          this.$.dialog.close();
+        } else if (response.request.status === 409) {
+          this.fire('toast', {text: 'This displayname is already in use.'});
         } else {
           this.fire('refreshToast')
         }

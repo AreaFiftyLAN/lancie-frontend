@@ -32,7 +32,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <div class="card-content" hidden$="[[!success]]">
         <p>You have successfully verified your email and account!</p>
-        <a href="/my-area">You could start by filling out your profile</a>
+        <a href="/[[nextAction]]">You could start by filling out your profile</a>
       </div>
     </lancie-card>
 
@@ -45,6 +45,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'lancie-register-confirmation',
       properties: {
         search: String,
+        nextAction: String,
       },
 
       attached: function() {
@@ -53,6 +54,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.error = false;
         this.tokenTwice = false;
         this.search = window.location.search;
+        this.nextAction = (this.search.indexOf('orderId') > -1) ? 'tickets' : 'my-area';
         this.tryConfirmRegistration();
       },
 
