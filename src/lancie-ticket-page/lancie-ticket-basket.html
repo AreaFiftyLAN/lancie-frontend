@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-location/iron-location.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
@@ -32,6 +33,8 @@
       }
     }
   </style>
+
+    <iron-location query="{{query}}"></iron-location>
 
     <lancie-ajax id="removeTicket" refurl="orders/[[basket.id]]" method="DELETE" on-response="onRemoveTicket"></lancie-ajax>
     <lancie-ajax id="checkout" refurl="orders/[[basket.id]]/checkout" method="POST" on-response="onCheckout"></lancie-ajax>
@@ -86,7 +89,14 @@
           }.bind(this);
         },
       },
+      query: String,
 	  },
+
+    attached: function() {
+      if (this.query.indexOf('login') > -1 && !this.user) {
+        this.loginDialog();
+      }
+    },
 
     loginDialog: function() {
       this.fire('login-dialog', {orderId: this.basket.id});
