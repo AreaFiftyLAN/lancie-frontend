@@ -87,6 +87,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           value: false
         },
+        orderId: String,
       },
 
       ready: function() {
@@ -97,6 +98,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.fire('logged-in', e.detail);
           this.$.dialog.close();
         }.bind(this));
+        this.$.dialog.addEventListener('navigate', function(e) {
+          this.fire('navigate', e.detail);
+          this.$.dialog.close();
+        }.bind(this));
+
         window.document.body.appendChild(this.$.dialog);
       },
 
@@ -109,7 +115,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       register: function() {
-        this.$.loginForm.tryRegister();
+        this.$.loginForm.tryRegister(this.orderId);
       },
 
       logIn: function() {

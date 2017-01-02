@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
@@ -25,7 +26,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../lancie-login/lancie-ajax.html">
 <link rel="import" href="../lancie-my-area/profile-edit-form.html">
 
-<dom-module id="lancie-ticket-profile-intercept">
+<dom-module id="lancie-profile-dialog">
   <template>
     <style include="iron-flex iron-flex-alignment"></style>
     <style>
@@ -49,24 +50,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
 
-    <lancie-card heading="Fill in your profile">
+    <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+      <h2>Fill in your profile</h2>
       <div class="card-content">
         <paper-material class="errormessage" hidden$="{{complete}}">Please fill in all fields</paper-material>
         <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
-      </div>
+      </div
       <div class="card-actions">
         <paper-button class="btn btn-primary" raised on-tap="onSubmit">Submit</paper-button>
       </div>
-    </lancie-card>
+    </paper-dialog>
 
-    <paper-toast id="profileUpdateFailedToast" text="Something went wrong updating your profile" duration="3000"></paper-toast>
   </template>
   <script>
-  (function() {
-    'use strict';
+  'use strict';
 
+  (function() {
     Polymer({
-      is: 'lancie-ticket-profile-intercept',
+      is: 'lancie-profile-dialog',
       properties: {
         user: {
           type: Object,
@@ -80,14 +81,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           value: true
         },
-        route: {
-          type: String,
-          notify: true
-        }
+      },
+
+      ready: function() {
+        window.document.body.appendChild(this.$.dialog);
       },
 
       onSubmit: function() {
-        if (this.allFilledIn()) {
+        if (this.allFilledIn(this.editingUser)) {
           this.complete = true;
           this.$.ajaxUpdateProfile.body = {
             displayName: this.editingUser.profile.displayName,
@@ -106,13 +107,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      allFilledIn: function() {
-        for (var a in this.editingUser.profile) {
+      allFilledIn: function(user) {
+        if (!user.profile) {
+          return false;
+        }
+        for (var a in user.profile) {
           if (a === 'notes') {
             continue;
           }
 
-          if (!this.editingUser.profile[a] || this.editingUser.profile[a] === '') {
+          if (!user.profile[a] || user.profile[a] === '') {
             return false;
           }
         }
@@ -122,12 +126,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       onProfileUpdate: function(e, response) {
         if (response.succeeded) {
           this.user = this.editingUser;
-          this.async(function() {
-            this.route = 'tickets';
-          });
+          this.$.profileDialog.close();
         } else {
-          this.$.profileUpdateFailedToast.show();
+          this.fire('refreshToast')
         }
+      },
+
+      open: function() {
+        this.$.dialog.open();
       },
 
       _copyUser: function(newValue) {

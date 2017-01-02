@@ -128,8 +128,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      tryRegister: function() {
+      tryRegister: function(id) {
         if (this.validateRegisterForm()) {
+          if (!!id) {
+            this.$.ajaxRegister.body['orderId'] = id;
+          }
           this.$.ajaxRegister.generateRequest();
         }
       },
@@ -170,12 +173,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           user: this.user,
           token: this._token
         });
-     },
+      },
 
-      onRegister: function(e, response) {
-        if (response.succeeded) {
-          this.fire('navigate', {page: 'check-email'});
-        }
+      onRegister: function(e, request) {
+        this.fire('navigate', {page: 'check-email'});
+        this.registerError = false;
       },
 
       onRegisterError: function(event, request) {
@@ -191,7 +193,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       bodyFrom: function(username, password) {
         return {
           username: username,
-          password: password
+          password: password,
         };
       },
 
