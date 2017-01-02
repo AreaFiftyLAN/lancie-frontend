@@ -55,7 +55,7 @@
           <span class="price">&euro; [[_formatPrice(basket.amount)]]</span>
         </div>
         <div class="card-actions">
-          <paper-button hidden$="[[_userAssigned(basket)]]" on-tap="loginDialog">Login</paper-button>
+          <paper-button hidden$="[[_userAssigned(basket)]]" on-tap="loginDialog">Continue</paper-button>
           <paper-button hidden$="[[!_userAssigned(basket)]]" on-tap="tryCheckout">Checkout</paper-button>
         </div>
       </template>

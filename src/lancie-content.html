@@ -143,6 +143,9 @@
         this.addEventListener('refreshToast', function() {
           this.showToast({text: 'Unable to connect to server. Try refreshing the page.'});
         }.bind(this));
+
+        // Since the paper-dialogs are put here, the toast has to be moved here. If this is not done, the toasts will appear behind the backdrop.
+        window.document.body.appendChild(this.$.globalToast);
       },
 
       showToast: function(properties) {
