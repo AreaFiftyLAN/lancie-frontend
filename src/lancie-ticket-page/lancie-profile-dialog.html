@@ -9,18 +9,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
-<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
-<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
-<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
-<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 
 <link rel="import" href="../lancie-card.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
@@ -34,10 +24,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
 
+      .card-actions {
+        text-align: center;
+      }
+
       paper-button {
-        width: calc(100% - 15px);
+        width: 90%;
         color: #ffe574;
         background: #1a2b43;
+        margin: auto;
       }
 
       .errormessage {
@@ -55,7 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="card-content">
         <paper-material class="errormessage" hidden$="{{complete}}">Please fill in all fields</paper-material>
         <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
-      </div
+      </div>
       <div class="card-actions">
         <paper-button class="btn btn-primary" raised on-tap="onSubmit">Submit</paper-button>
       </div>
