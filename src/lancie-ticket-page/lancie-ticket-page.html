@@ -16,11 +16,11 @@ This code may only be used under the BSD style license found at https://github.c
       div {
         max-width: 1200px;
         margin: auto;
-        margin: 16px;
       }
 
       div > * {
-        flex-basis: 300px;
+        flex-basis: 400px;
+        margin: 16px;
       }
 
       lancie-tickets {
@@ -48,7 +48,7 @@ This code may only be used under the BSD style license found at https://github.c
 
     <div class="layout horizontal wrap" on-set-basket="storeBasket">
 
-      <lancie-tickets class="flex-2" tickets="[[availableTickets]]" basket="[[basket]]"></lancie-tickets>
+      <lancie-tickets class="flex-3" tickets="[[availableTickets]]" basket="[[basket]]"></lancie-tickets>
 
       <lancie-ticket-basket class="flex" basket="[[basket]]" user="{{user}}"></lancie-ticket-basket>
 
