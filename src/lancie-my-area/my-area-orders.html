@@ -34,8 +34,8 @@
     }
     </style>
 
-    <lancie-ajax id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-response="storeOrders"></lancie-ajax>
-    <lancie-ajax id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-response="storeTickets"></lancie-ajax>
+    <lancie-ajax auto id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-response="storeOrders"></lancie-ajax>
+    <lancie-ajax auto id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-response="storeTickets"></lancie-ajax>
     <lancie-ajax id="ajaxTokens" refurl="tickets/tokens" method="GET" handle-as="json" on-response="storeTokens"></lancie-ajax>
 
     <paper-card class="layout vertical flex" heading="Orders" elevation="1" animated-shadow="true">
@@ -145,10 +145,6 @@
     getIcon: function(binding) {
       return binding ? 'icons:check' : 'icons:clear';
     },
-    attached: function() {
-      this.$.ajaxOrders.generateRequest();
-      this.$.ajaxTickets.generateRequest();
-    }
   });
   </script>
 </dom-module>
