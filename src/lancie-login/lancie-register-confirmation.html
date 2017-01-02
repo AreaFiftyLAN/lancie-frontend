@@ -8,12 +8,15 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<link rel="import" href="../../bower_components/iron-location/iron-location.html">
 <link rel="import" href="../lancie-card.html">
 <link rel="import" href="lancie-ajax.html">
 
 <dom-module id="lancie-register-confirmation">
   <template>
-    <lancie-ajax id="ajaxConfirmRegistration" refurl="confirmRegistration[[search]]" method="GET" handle-as="json" on-response="onConfirmRegistration"></lancie-ajax>
+    <lancie-ajax id="ajaxConfirmRegistration" refurl="confirmRegistration?[[query]]" method="GET" handle-as="json" on-response="onConfirmRegistration"></lancie-ajax>
+
+    <iron-location query="{{query}}"></iron-location>
 
     <lancie-card>
       <div class="card-content" hidden$="[[!confirming]]">
@@ -32,7 +35,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <div class="card-content" hidden$="[[!success]]">
         <p>You have successfully verified your email and account!</p>
-        <a href="/[[nextAction]]">You could start by filling out your profile</a>
+        <a href="/[[nextAction]]">Click here to continue</a>
       </div>
     </lancie-card>
 
@@ -46,6 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         search: String,
         nextAction: String,
+        query: String,
       },
 
       attached: function() {
@@ -53,8 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.success = false;
         this.error = false;
         this.tokenTwice = false;
-        this.search = window.location.search;
-        this.nextAction = (this.search.indexOf('orderId') > -1) ? 'tickets' : 'my-area';
+        this.nextAction = (this.query.indexOf('orderId') > -1) ? 'tickets?login' : 'my-area';
         this.tryConfirmRegistration();
       },
 

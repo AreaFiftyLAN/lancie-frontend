@@ -78,7 +78,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
       },
 
-      ready: function() {
+      attached: function() {
         window.document.body.appendChild(this.$.dialog);
       },
 
@@ -143,7 +143,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         user.email = newValue.email;
         this.editingUser = user;
-      }
+      },
+
+      detatch: function() {
+        window.document.body.removeChild(this.$.dialog);
+      },
     });
   })();
   </script>
