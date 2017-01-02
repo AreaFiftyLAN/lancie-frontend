@@ -6,6 +6,7 @@
 <link rel="import" href="../lancie-login/lancie-ajax.html">
 <link rel="import" href="lancie-ticket-basket-item.html">
 <link rel="import" href="lancie-terms-of-service.html">
+<link rel="import" href="lancie-profile-dialog.html">
 
 <dom-module id="lancie-ticket-basket">
   <template>
@@ -35,10 +36,11 @@
     <lancie-ajax id="removeTicket" refurl="orders/[[basket.id]]" method="DELETE" on-response="onRemoveTicket"></lancie-ajax>
     <lancie-ajax id="checkout" refurl="orders/[[basket.id]]/checkout" method="POST" on-response="onCheckout"></lancie-ajax>
 
-    <paper-card heading="Basket" on-remove-ticket="removeTicket">
+    <paper-card heading="Order" on-remove-ticket="removeTicket">
       <template is="dom-if" if="[[!_hasTickets(basket.tickets)]]">
         <div class="card-content">
-          You have no tickets
+          <p>You have no tickets in your order.</p>
+          <p hidden="[[user]]">Please <a href="" on-tap="loginDialog">log in</a> to continue a previous order.</p>
         </div>
       </template>
 
@@ -59,6 +61,8 @@
       </template>
     </paper-card>
 
+    <lancie-profile-dialog id="profileDialog" user="{{user}}"></lancie-profile-dialog>
+
     <lancie-terms-of-service id="termsOfService" checkout="[[checkout]]"></lancie-terms-of-service>
 
   </template>
@@ -69,6 +73,7 @@
 	Polymer({
 	  is: 'lancie-ticket-basket',
 	  properties: {
+      user: Object,
 		  basket: {
 			  type: Object,
 			  notify: true,
@@ -84,11 +89,15 @@
 	  },
 
     loginDialog: function() {
-      this.fire('login-dialog');
+      this.fire('login-dialog', {orderId: this.basket.id});
     },
 
     tryCheckout: function() {
-      this.$.termsOfService.open();
+      if (!this.$.profileDialog.allFilledIn(this.user)) {
+        this.$.profileDialog.open();
+      } else {
+        this.$.termsOfService.open();
+      }
     },
 
     onCheckout: function(e, request) {
