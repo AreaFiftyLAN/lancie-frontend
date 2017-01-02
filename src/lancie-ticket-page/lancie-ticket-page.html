@@ -80,7 +80,7 @@ This code may only be used under the BSD style license found at https://github.c
           if (request.succeeded) {
             this.availableTickets = request.response;
           } else {
-            console.log('Server unavailable error;');
+            this.fire('refreshToast');
           }
         },
 
@@ -112,7 +112,7 @@ This code may only be used under the BSD style license found at https://github.c
             this.$.orderStorage.removeStorage();
           } else {
             this.basket.status = 'ANONYMOUS';
-            console.log('Error coupling user to order;');
+            this.fire('toast', {text: 'Unable to couple the order to your account. Try refreshing the page.'});
           }
         },
 

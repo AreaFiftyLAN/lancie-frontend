@@ -154,8 +154,7 @@
         if (!this.basket.tickets) {
           this.$.addTicket.refurl = 'orders';
         } else if (this.basket.tickets.length >= 5) {
-          // TODO: Toast of max ticket amount
-          console.log('Max of 5 tickets;');
+          this.fire('toast', {text: 'Maximum of 5 tickets.'});
           return;
         } else {
           this.$.addTicket.refurl = 'orders/' + this.basket.id;
@@ -172,7 +171,6 @@
           type: this.ticket.ticketType,
           options: pickedOptions,
         };
-
         this.$.addTicket.generateRequest();
       },
 
@@ -180,8 +178,7 @@
         if (request.succeeded) {
           this.fire('set-basket', {basket: request.response.object});
         } else {
-          // todo: implement error handling
-          console.log('Error');
+          this.fire('refreshToast');
         }
       },
 

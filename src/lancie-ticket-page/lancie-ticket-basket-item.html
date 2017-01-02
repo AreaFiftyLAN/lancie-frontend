@@ -60,10 +60,10 @@
       removeTicket: function() {
         this.fire('remove-ticket', {
           type: this.ticket.type.name,
-          options: this.ticket.enabledOptions.map(function(option) {
+          options: this.ticket.enabledOptions.map(function       (option) {
             return option.name;
           }),
-          });
+        });
       },
 
       _formatOptions: function(options) {
