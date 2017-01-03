@@ -10,8 +10,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-storage/app-localstorage/app-localstorage-document.html">
-
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<link rel="import" href="../lancie-login/lancie-ajax.html">
 
 <dom-module id="lancie-auth-storage">
   <template>
@@ -25,6 +26,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     handle-as="json"
     on-response="onCurrentUser"></iron-ajax>
 
+    <lancie-ajax id="ajax"></lancie-ajax>
 
   </template>
   <script>
@@ -68,6 +70,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           if (request.response.message === 'Not logged in') {
             return;
           }
+          this.$.ajax.injectToken(this.auth.token);
           this.user = request.response;
         } else {
           // Old token can be cleared when the token is no longer valid
