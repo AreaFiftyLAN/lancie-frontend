@@ -36,7 +36,7 @@
 
     <iron-location query="{{query}}"></iron-location>
 
-    <lancie-ajax id="removeTicket" refurl="orders/[[basket.id]]" method="DELETE" on-response="onRemoveTicket"></lancie-ajax>
+    <lancie-ajax id="removeTicket" method="DELETE" on-response="onRemoveTicket"></lancie-ajax>
     <lancie-ajax id="checkout" refurl="orders/[[basket.id]]/checkout" method="POST" on-response="onCheckout"></lancie-ajax>
 
     <paper-card heading="Order" on-remove-ticket="removeTicket">
@@ -118,8 +118,8 @@
       }
     },
 
-    removeTicket: function(e, ticket) {
-      this.$.removeTicket.body = ticket;
+    removeTicket: function(e, ticketId) {
+      this.$.removeTicket.refurl = 'orders/' + this.basket.id + '/' + ticketId;
       this.$.removeTicket.generateRequest();
     },
 
