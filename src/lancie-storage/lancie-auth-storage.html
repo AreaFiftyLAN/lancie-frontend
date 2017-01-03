@@ -11,17 +11,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-storage/app-localstorage/app-localstorage-document.html">
 
-<link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
 <dom-module id="lancie-auth-storage">
   <template>
 
     <app-localstorage-document id="storage" key="auth" data="{{auth}}" session-only></app-localstorage-document>
 
-    <lancie-ajax
-      id="currentUser"
-      refurl="users/current"
-      on-response="storeUser"></lancie-ajax>
+    <iron-ajax
+    id="currentUser"
+    url="/api/v1/users/current"
+    method="GET"
+    handle-as="json"
+    on-response="onCurrentUser"></iron-ajax>
+
 
   </template>
   <script>
@@ -54,13 +57,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       storeToken: function(token) {
-        this.initial = false;
         this.auth = {
           token: token
         };
       },
 
-      storeUser: function(e, request) {
+      onCurrentUser: function(e, request) {
         // If the request fails, no further action is required. The token has expired and is no longer valid. The user is required to log in as usual.
         if (request.succeeded) {
           if (request.response.message === 'Not logged in') {
@@ -75,10 +77,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _changed: function(auth) {
         var token = this.getToken();
-        if (!this.user && this.initial && token) {
-          this.initial = false;
-          this.$.currentUser.injectToken(token);
+        if (this.initial && token && !this.user) {
+          this.$.currentUser.headers = {
+            'X-Auth-Token': token,
+          };
           this.$.currentUser.generateRequest();
+          this.initial = false;
         }
       },
 

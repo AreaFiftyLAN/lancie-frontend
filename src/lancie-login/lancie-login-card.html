@@ -33,7 +33,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <lancie-card heading="{{getHeading(registering)}}">
+    <lancie-card heading="[[getHeading(registering)]]">
       <div class="card-content">
         <lancie-login-form id="loginForm" registering="[[registering]]"></lancie-login-form>
       </div>
@@ -67,11 +67,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       register: function() {
+        this.setBody();
         this.$.loginForm.tryRegister();
       },
 
       logIn: function() {
+        this.setBody();
         this.$.loginForm.tryLogIn();
+      },
+
+      setBody: function() {
+        this.$.loginForm.body = {
+          username: this.$.loginForm.username,
+          password: this.$.loginForm.password,
+        };
       },
 
       getHeading: function(registering) {
