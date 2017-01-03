@@ -24,13 +24,13 @@
       }
 
       app-toolbar {
-        background-color: #1a2b43;
+        background-color: var(--primary-color);
       }
 
       paper-tab[link] a {
         /* These mixins (from iron-flex-layout) center the link text. */
         text-decoration: none;
-        color: #ffe574;
+        color: var(--secondary-color);
         font-size: 16px;
         font-weight: 400;
         line-height: 24px;
@@ -48,7 +48,7 @@
       }
 
       paper-icon-button {
-        color: #ffe574;
+        color: var(--secondary-color);
         height: 48px;
         width: 48px;
       }
@@ -87,7 +87,7 @@
 
             <a href="/">
             <iron-image class="logo-frontpage" preload fade sizing="contain" id="toolbar-header"
-  position="left" src="https://areafiftylan.nl/images-optimized/lancie/logo_without_date.png"></iron-image></a>
+  position="left" src="../../images-optimized/lancie/logo_without_date.png"></iron-image></a>
             <span class="flex" hidden$="{{!wideLayout}}"></span>
 
             <paper-tabs selected="{{route.page}}" attr-for-selected="data-route" hidden$="{{!wideLayout}}">
