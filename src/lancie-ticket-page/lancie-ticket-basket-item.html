@@ -58,12 +58,7 @@
       },
 
       removeTicket: function() {
-        this.fire('remove-ticket', {
-          type: this.ticket.type.name,
-          options: this.ticket.enabledOptions.map(function       (option) {
-            return option.name;
-          }),
-        });
+        this.fire('remove-ticket', this.ticket.id);
       },
 
       _formatOptions: function(options) {
