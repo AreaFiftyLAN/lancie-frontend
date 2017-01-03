@@ -17,9 +17,9 @@
         width: calc(100% - 10px);
       }
 
-      .number {
-        background-color: #1a2a43;
-        color: #ffe574;
+      iron-icon {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
         padding: 14px 14px;
         width: 30px;
         height: 30px;
@@ -48,7 +48,7 @@
 
     <iron-media-query query="max-width: 530px" query-matches="{{small}}"></iron-media-query>
     <paper-material elevation="1" class$="[[_computeClass(small)]]">
-        <iron-icon class="number" icon="[[commissioner.icon]]"></iron-icon>
+        <iron-icon icon="[[commissioner.icon]]"></iron-icon>
         <div class="member-desc layout flex self-center">
             <h2>[[commissioner.name]]</h2>
             <h3>[[commissioner.function]]</h3>
