@@ -142,12 +142,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      tryLoginOnEnter: function(event) {
-        if (event.keyCode === 13) {
-          this.tryLogIn();
-        }
-      },
-
       onLoggedIn: function(event, request) {
         this._token = request.response.object;
         this.$.getCurrentUser.generateRequest();
