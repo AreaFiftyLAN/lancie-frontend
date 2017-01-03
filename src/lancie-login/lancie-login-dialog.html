@@ -60,7 +60,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
-      <h2>{{getHeading(registering)}}</h2>
+      <h2>[[getHeading(registering)]]</h2>
       <lancie-login-form id="loginForm" registering="[[registering]]"></lancie-login-form>
 
       <div class="buttons dialog-actions">
@@ -115,11 +115,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       register: function() {
-        this.$.loginForm.tryRegister(this.orderId);
+        this.setBody(this.orderId);
+        this.$.loginForm.tryRegister();
       },
 
       logIn: function() {
+        this.setBody();
         this.$.loginForm.tryLogIn();
+      },
+
+      setBody: function(orderId) {
+        this.$.loginForm.body = {
+          username: this.$.loginForm.username,
+          password: this.$.loginForm.password,
+        }
+        if (!!orderId) {
+          this.$.loginForm.body['orderId'] = orderId;
+        }
       },
 
       getHeading: function(registering) {

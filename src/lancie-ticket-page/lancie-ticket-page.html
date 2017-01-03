@@ -69,7 +69,7 @@ This code may only be used under the BSD style license found at https://github.c
           basket: {
             type: Object,
             value: {},
-            // notify: true,
+            notify: true,
             observer: '_basketChanged',
           },
           availableTickets: {
@@ -117,8 +117,14 @@ This code may only be used under the BSD style license found at https://github.c
             this.basket = request.response.object;
             this.$.orderStorage.removeStorage();
           } else {
-            this.basket.status = 'ANONYMOUS';
-            this.fire('toast', {text: 'Unable to couple the order to your account. Try refreshing the page.'});
+            if (request.status = 409) {
+              this.fire('toast', {text: 'Unable to assign the order to your account. Order is already linked.'});
+              this.$.orderStorage.removeStorage();
+              this.set('basket.tickets', []);
+            } else {
+              this.basket.status = 'ANONYMOUS';
+              this.fire('toast', {text: 'Unable to couple the order to your account. Try refreshing the page.'});
+            }
           }
         },
 
