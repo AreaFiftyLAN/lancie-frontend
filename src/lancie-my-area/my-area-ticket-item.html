@@ -19,7 +19,7 @@
     :host {
       display: block;
     }
-    
+
     hr {
       display: block;
       height: 1px;
@@ -31,6 +31,7 @@
 
     <lancie-ajax id="ajaxSetupTicketTransfer" refurl="tickets/transfer/{{ticket.id}}" method="POST" handle-as="json" on-response="onSetupTicketTransfer"></lancie-ajax>
     <lancie-ajax id="ajaxCancelTicketTransfer" refurl="tickets/transfer" method="DELETE" handle-as="json" on-response="onCancelTicketTransfer"></lancie-ajax>
+
     <hr>
     <lancie-ticket-item id="ticketItem" ticket="{{ticket}}" class="flex">
       <div class="layout self-center vertical">
@@ -68,94 +69,97 @@
   </template>
   <script>
   'use strict';
-  Polymer({
-    is: 'my-area-ticket-item',
-    properties: {
-      ticket: {
-        type: Object,
-        value: {},
-        notify: true
-      },
-      username: String,
-      transferError: {
-        type: Boolean,
-        value: false
-      },
-      transferErrorMessage: String,
-      transferUsername: String
-    },
-    getIcon: function(token) {
-      return token === undefined ? 'icons:send' : 'icons:clear';
-    },
-    getText: function(token) {
-      return token === undefined ? 'Setup up' : 'Cancel';
-    },
-    openTicketTransferDialog: function() {
-      if (this.ticket.token) {
-        this.cancelTicketTransferDialog();
-      } else {
-        this.setupTicketTransferDialog();
-      }
-    },
-    setupTicketTransferDialog: function() {
-      this.transferUsername = '';
-      this.transferError = false;
-      this.transferErrorMessage = '';
-      this.$.setupTicketTransferDialog.open();
-      window.document.body.appendChild(this.$.setupTicketTransferDialog);
-    },
-    setupTicketTransfer: function() {
-      if (!this.transferUsername || this.transferUsername.length === 0) {
-        this.transferError = true;
-        this.transferErrorMessage = 'Please fill in a username.';
-        return;
-      }
-      if (this.transferUsername === this.username) {
-        this.transferError = true;
-        this.transferErrorMessage = 'This ticket is already yours.';
-        return;
-      }
-      this.$.ajaxSetupTicketTransfer.body = this.transferUsername;
-      this.$.ajaxSetupTicketTransfer.generateRequest();
-      this.transferError = false;
-      this.transferErrorMessage = '';
-    },
-    onSetupTicketTransfer: function(e, r) {
-      if (r.succeeded) {
-        this.set('ticket.token', r.response.object);
-        this.$.ticketItem.updateTicketInfo();
 
-        this.setupTicketTransferDialog();
-        this.$.setupTicketTransferSuccessToast.show();
-      } else {
-        this.transferError = true;
-        if (r.request.status === 403) {
-          this.transferErrorMessage = 'User not found.';
+  (function() {
+    Polymer({
+      is: 'my-area-ticket-item',
+      properties: {
+        ticket: {
+          type: Object,
+          value: {},
+          notify: true
+        },
+        username: String,
+        transferError: {
+          type: Boolean,
+          value: false
+        },
+        transferErrorMessage: String,
+        transferUsername: String
+      },
+      getIcon: function(token) {
+        return token === undefined ? 'icons:send' : 'icons:clear';
+      },
+      getText: function(token) {
+        return token === undefined ? 'Setup up' : 'Cancel';
+      },
+      openTicketTransferDialog: function() {
+        if (this.ticket.token) {
+          this.cancelTicketTransferDialog();
         } else {
+          this.setupTicketTransferDialog();
+        }
+      },
+      setupTicketTransferDialog: function() {
+        this.transferUsername = '';
+        this.transferError = false;
+        this.transferErrorMessage = '';
+        this.$.setupTicketTransferDialog.open();
+        window.document.body.appendChild(this.$.setupTicketTransferDialog);
+      },
+      setupTicketTransfer: function() {
+        if (!this.transferUsername || this.transferUsername.length === 0) {
+          this.transferError = true;
+          this.transferErrorMessage = 'Please fill in a username.';
+          return;
+        }
+        if (this.transferUsername === this.username) {
+          this.transferError = true;
+          this.transferErrorMessage = 'This ticket is already yours.';
+          return;
+        }
+        this.$.ajaxSetupTicketTransfer.body = this.transferUsername;
+        this.$.ajaxSetupTicketTransfer.generateRequest();
+        this.transferError = false;
+        this.transferErrorMessage = '';
+      },
+      onSetupTicketTransfer: function(e, r) {
+        if (r.succeeded) {
+          this.set('ticket.token', r.response.object);
+          this.$.ticketItem.updateTicketInfo();
+
+          this.setupTicketTransferDialog();
+          this.$.setupTicketTransferSuccessToast.show();
+        } else {
+          this.transferError = true;
+          if (r.request.status === 403) {
+            this.transferErrorMessage = 'User not found.';
+          } else {
+            this.transferErrorMessage = 'The server was unable to process your request.';
+          }
+        }
+      },
+      cancelTicketTransferDialog: function() {
+        this.$.cancelTicketTransferDialog.open();
+        window.document.body.appendChild(this.$.cancelTicketTransferDialog);
+      },
+      cancelTicketTransfer: function() {
+        this.$.ajaxCancelTicketTransfer.body = this.ticket.token;
+        this.$.ajaxCancelTicketTransfer.generateRequest();
+      },
+      onCancelTicketTransfer: function(e, r) {
+        if (r.succeeded) {
+          this.set('ticket.token', undefined);
+          this.$.ticketItem.updateTicketInfo();
+
+          this.cancelTicketTransferDialog();
+          this.$.cancelTicketTransferSuccessToast.show();
+        } else {
+          this.transferError = true;
           this.transferErrorMessage = 'The server was unable to process your request.';
         }
       }
-    },
-    cancelTicketTransferDialog: function() {
-      this.$.cancelTicketTransferDialog.open();
-      window.document.body.appendChild(this.$.cancelTicketTransferDialog);
-    },
-    cancelTicketTransfer: function() {
-      this.$.ajaxCancelTicketTransfer.body = this.ticket.token;
-      this.$.ajaxCancelTicketTransfer.generateRequest();
-    },
-    onCancelTicketTransfer: function(e, r) {
-      if (r.succeeded) {
-        this.set('ticket.token', undefined);
-        this.$.ticketItem.updateTicketInfo();
-
-        this.cancelTicketTransferDialog();
-        this.$.cancelTicketTransferSuccessToast.show();
-      } else {
-        this.transferError = true;
-        this.transferErrorMessage = 'The server was unable to process your request.';
-      }
-    }
-  });
+    });
+  })();
   </script>
 </dom-module>
