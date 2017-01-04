@@ -154,7 +154,7 @@
         if (!this.basket.tickets) {
           this.$.addTicket.refurl = 'orders';
         } else if (this.basket.tickets.length >= 5) {
-          this.fire('toast', {text: 'Maximum of 5 tickets.'});
+          this.fire('toast', {text: 'Maximum of 5 tickets in order.'});
           return;
         } else {
           this.$.addTicket.refurl = 'orders/' + this.basket.id;
