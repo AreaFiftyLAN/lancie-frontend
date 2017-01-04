@@ -11,11 +11,11 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 <link rel="import" href="../lancie-dialog/lancie-dialog.html">
+<link rel="import" href="../lancie-error/lancie-error.html">
 
 <dom-module id="lancie-seat">
   <template>
-    <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
-    <style>
+    <style include="iron-flex iron-flex-alignment iron-flex-factors">
     :host {
       display: block;
       position: relative;
@@ -57,7 +57,7 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-dialog id="seatDialog" entry-animation="scale-up-animation" with-backdrop>
       <h2>Seat reservation</h2>
       <div class="card-content">
-        <paper-material class="errormessage" hidden$="{{!reservationError}}">{{reservationErrorMessage}}</paper-material>
+        <lancie-error id="error"></lancie-error>
         <div hidden$="{{!_checkExists(tickets)}}">
           Select the user to reserve this seat for:
           <paper-listbox id="listbox">
@@ -86,11 +86,6 @@ This code may only be used under the BSD style license found at https://github.c
         Polymer.PaperButtonBehavior
       ],
       properties: {
-        reservationError: {
-          type: Boolean,
-          value: false
-        },
-        reservationErrorMessage: String,
         user: {
           type: Object,
           value: {}
@@ -118,9 +113,9 @@ This code may only be used under the BSD style license found at https://github.c
         window.document.body.appendChild(this.$.seatDialog);
       },
       reserveSeat: function() {
+        this.$.error.clear();
         if (!this.$.listbox.selectedItem) {
-          this.reservationError = true;
-          this.reservationErrorMessage = 'Please select a user!';
+          this.$.error.setError('Please select a user.');
           return;
         }
         this.$.ajaxReserveSeat.params = {
@@ -132,16 +127,14 @@ This code may only be used under the BSD style license found at https://github.c
       },
       onReserveSeat: function(e, response) {
         if (response.succeeded) {
-          this.reservationError = false;
-          this.reservationErrorMessage = '';
           this.$.listbox.selected = undefined;
           this.fire('reserve-seat');
         } else {
           this.reservationError = true;
           if (response.request.status === 409) {
-            this.reservationErrorMessage = 'Seat was already reserved!';
+            this.$.error.setError('Seat is already taken.');
           } else {
-            this.reservationErrorMessage = 'Something went wrong, please refresh and try again.';
+            this.$.error.setError('Something went wrong, please refresh and try again.');
           }
         }
       },
