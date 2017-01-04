@@ -41,12 +41,12 @@
     <paper-card class="layout vertical flex" heading="Orders" elevation="1" animated-shadow="true">
       <div class="card-content">
         <hr>
-        <template is="dom-if" if="{{orders.length}}">
-          <template is="dom-repeat" items="{{orders}}">
-            <my-area-order-item order="{{item}}"></my-area-order-item>
+        <template is="dom-if" if="[[orders.length]]">
+          <template is="dom-repeat" items="[[orders]]">
+            <my-area-order-item order="[[item]]"></my-area-order-item>
           </template>
         </template>
-        <template is="dom-if" if="{{!orders.length}}">
+        <template is="dom-if" if="[[!orders.length]]">
           You don't have any orders yet
         </template>
       </div>
@@ -55,12 +55,12 @@
         <div class="title-text style-scope paper-card">Tickets</div>
       </div>
       <div class="card-content">
-        <template is="dom-if" if="{{tickets.length}}">
-          <template is="dom-repeat" items="{{tickets}}" index-as="index">
-            <my-area-ticket-item username="{{username}}" ticket="{{item}}"></my-area-ticket-item>
+        <template is="dom-if" if="[[tickets.length]]">
+          <template is="dom-repeat" items="[[tickets]]" index-as="index">
+            <my-area-ticket-item username="{{username}}" ticket="[[item]]"></my-area-ticket-item>
           </template>
         </template>
-        <template is="dom-if" if="{{!tickets.length}}">
+        <template is="dom-if" if="[[!tickets.length]]">
           You don't have any tickets yet
         </template>
       </div>
@@ -106,9 +106,6 @@
         value: function() {
           return [];
         }
-      },
-      orderTickets: {
-        type: Array
       },
       username: String
     },

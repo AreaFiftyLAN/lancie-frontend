@@ -19,7 +19,7 @@
     :host {
       display: block;
     }
-    
+
     hr {
       display: block;
       height: 1px;
@@ -28,17 +28,17 @@
       padding: 0;
     }
 
-    #orderInfo {
+    lancie-dialog {
       width: 840px;
     }
 
-    .order-stats > div > b{
+    .order-stats > div > b {
       display: inline-block;
       width: 120px;
     }
 
     .block {
-      padding: 4px 32px 4px 0;
+      padding: 4px 16px 4px 0;
     }
 
     .block > *:first-child {
@@ -50,38 +50,38 @@
     }
     </style>
 
-    <paper-item id="{{order.id}}" class="layout horizontal center justified wrap">
+    <paper-item id="[[order.id]]" class="layout horizontal center justified wrap">
       <div class="layout vertical block">
         <div>Order:</div>
-        <div>Order #{{order.id}}</div>
+        <div>Order #[[order.id]]</div>
       </div>
       <div class="layout vertical block">
         <div>Amount:</div>
-        <div>&euro; {{_format(order.amount)}}</div>
+        <div>&euro; [[_format(order.amount)]]</div>
       </div>
       <div class="layout vertical block">
         <div>Status:</div>
-        <div>{{order.status}}</div>
+        <div>[[order.status]]</div>
       </div>
       <div class="layout vertical block">
         <div>Ordered on:</div>
-        <div>{{order.creationDateTime}}</div>
+        <div>[[order.creationDateTime]]</div>
       </div>
       <paper-icon-button icon="icons:info" on-tap="showOrderTickets"></paper-icon-button>
     </paper-item>
     <hr>
 
     <lancie-dialog id="orderInfo" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop>
-      <h2>Order #{{order.id}}</h2>
+      <h2>Order #[[order.id]]</h2>
       <div class="card-content">
         <div class="order-stats">
-          <div><b>Ordered on: </b>{{order.creationDateTime}}</div>
-          <div><b>Price: </b>&euro; {{_format(order.amount)}}</div>
-          <div><b>Status: </b>{{order.status}}</div>
+          <div><b>Ordered on: </b>[[order.creationDateTime]]</div>
+          <div><b>Price: </b>&euro; [[_format(order.amount)]]</div>
+          <div><b>Status: </b>[[order.status]]</div>
         </div>
-        <template is="dom-repeat" items="{{order.tickets}}" status="{{order.status}}" index-as="index">
+        <template is="dom-repeat" items="[[order.tickets]]" status="[[order.status]]" index-as="index">
           <hr>
-          <lancie-ticket-item ticket="{{item}}" status="{{order.status}}"></lancie-ticket-item>
+          <lancie-ticket-item ticket="[[item]]" status="[[order.status]]"></lancie-ticket-item>
         </template>
       </div>
       <div class="buttons">
@@ -99,22 +99,18 @@
         notify: true
       }
     },
+
     getIcon: function(binding) {
       return binding ? 'icons:check' : 'icons:clear';
     },
+
     showOrderTickets: function() {
       this.$.orderInfo.open();
-      window.document.body.appendChild(this.$.termsofservice);
+      window.document.body.appendChild(this.$.orderInfo);
     },
-    _format: function(money) {
-      var n = money,
-        c = 2,
-        d = ',',
-        t = '.',
-        s = n < 0 ? '-' : '',
-        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + '',
-        j = (j = i.length) > 3 ? j % 3 : 0;
-      return s + (j ? i.substr(0, j) + t : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : '');
+
+    _format: function(amount) {
+      return amount.toFixed(2);
     }
   });
   </script>

@@ -1,27 +1,19 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 <dom-module id="lancie-ticket-item">
   <template>
-    <style>
+    <style include="iron-flex iron-flex-alignment">
     :host {
       display: block;
     }
-    
+
     .block {
-      padding: 4px 32px 4px 0;
-    }
-    
-    .options {
-      width: 40%;
+      padding: 4px 16px 4px 0;
     }
 
-    .status {
-      width: 82px;
-    }
-    
     .block > *:first-child {
       color: #737373;
-      font-family: 'Roboto', 'Noto', sans-serif;
       font-size: 14px;
       font-weight: 400;
       line-height: 20px;
@@ -31,70 +23,57 @@
     <paper-item class="layout horizontal center justified wrap" role="option" tabindex="0" aria-disabled="true">
       <div class="layout vertical block">
         <div>Ticket type:</div>
-        <div>{{ticket.text}}</div>
+        <div>[[ticket.type.text]]</div>
       </div>
       <div class="layout vertical block options">
         <div>Extra options:</div>
-        <div>{{options}}</div>
+        <div>[[_getOptions(ticket.enabledOptions)]]</div>
       </div>
       <div class="layout vertical block">
         <div>Price:</div>
-        <div>&euro; {{price}}</div>
+        <div>&euro; [[_formatPrice(ticket.price)]]</div>
       </div>
       <div class="layout vertical block status">
         <div>Status:</div>
-        <div>{{accStatus}}</div>
+        <div>[[_getStatus(ticket)]]</div>
       </div>
       <content></content>
     </paper-item>
   </template>
   <script>
+  'use strict';
+
   (function() {
-    'use strict';
     Polymer({
       is: 'lancie-ticket-item',
       properties: {
         ticket: {
           type: Object,
           notify: true,
-          observer: 'updateTicketInfo'
         },
         status: {
           type: String,
           value: '',
           notify: true
         },
-        options: String,
-        price: String,
-        accStatus: String
       },
-      updateTicketInfo: function() {
-        this.options = this._showOptions();
-        this.accStatus = this._getStatus();
-        this.price = this._format(this.ticket.price);
-      },
-      _getStatus: function(ticket) {
-        return this.status !== '' ? this.status : (this.ticket.token === undefined ? 'Owned' : 'Transfering');
-      },
-      _showOptions: function(ticket) {
-        if (this.ticket.pickupService && this.ticket.chMember) {
-          return 'Christiaan Huygens Member, Pickup Service';
-        } else if (this.ticket.pickupService) {
-          return 'Pickup Service';
-        } else if (this.ticket.chMember) {
-          return 'Christiaan Huygens Member';
+
+      _getOptions: function(options) {
+        if (options.length <= 0) {
+          return 'No options selected';
         }
-        return 'No extra options';
+        var optionString =  options.reduce(function(a, b) {
+          return a + b.name + ', ';
+        }, '');
+        return optionString.substring(0, optionString.length - 2);
       },
-      _format: function(money) {
-        var n = money,
-          c = 2,
-          d = ',',
-          t = '.',
-          s = n < 0 ? '-' : '',
-          i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + '',
-          j = (j = i.length) > 3 ? j % 3 : 0;
-        return s + (j ? i.substr(0, j) + t : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, '$1' + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : '');
+
+      _getStatus: function(ticket) {
+        return (this.ticket.token === undefined) ? 'Owned' : 'Transfering';
+      },
+
+      _formatPrice: function(amount) {
+        return amount.toFixed(2);
       }
     });
   })();
