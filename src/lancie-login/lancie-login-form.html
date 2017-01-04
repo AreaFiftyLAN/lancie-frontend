@@ -15,20 +15,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html">
 
+<link rel="import" href="../lancie-error/lancie-error.html">
+
 <dom-module id="lancie-login-form">
   <template>
-    <style include="iron-flex iron-flex-alignment"></style>
-    <style>
+    <style include="iron-flex iron-flex-alignment">
       :host {
         display: block;
-      }
-
-      .errormessage {
-        padding: 10px 20px 9px;
-        margin-bottom: 4px;
-        border-left: 3px solid #F44336;
-        background: #FFCDD2;
-        color: #B71C1C;
       }
     </style>
 
@@ -39,8 +32,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       method="POST"
       content-type="application/json"
       handle-as="json"
-      on-response="onLoggedIn"
-      on-error="onFailedLogin"></iron-ajax>
+      on-response="onLogin"
+      on-error="onLoginError"></iron-ajax>
 
     <iron-ajax
       id="getCurrentUser"
@@ -60,15 +53,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       on-response="onRegister"
       on-error="onRegisterError"></iron-ajax>
 
+      <lancie-error id="error"></lancie-error>
       <div hidden$="[[registering]]">
-        <paper-material class="errormessage" hidden$="[[!loginError]]">{{loginErrorMessage}}</paper-material>
-        <gold-email-input id="username" label="Username" name="Username" value="{{username}}" error-message="Username should be a valid email address." on-blur="validateUsername" required autofocus></gold-email-input>
+        <gold-email-input id="username" label="Email" name="Username" value="{{username}}" error-message="Email should be valid." on-blur="validateUsername" required autofocus></gold-email-input>
         <paper-input label="Password" type="password" name="password" value="{{password}}"></paper-input>
       </div>
       <div hidden$="[[!registering]]">
-        <paper-material class="errormessage" hidden$="[[!registerError]]">{{registerErrorMessage}}</paper-material>
-        <paper-material class="errormessage" hidden$="[[!passwordError]]">{{passwordErrorMessage}}</paper-material>
-        <gold-email-input id="registerUsername" label="Username" name="Username" value="{{username}}" error-message="Username should be a valid email address." on-blur="validateRegisterUsername" required></gold-email-input>
+        <gold-email-input id="registerUsername" label="Email" name="Username" value="{{username}}" error-message="Email should be valid." on-blur="validateRegisterUsername" required></gold-email-input>
         <paper-input label="Password" name="password" type="password" value="{{password}}"></paper-input>
         <paper-input label="Retype password" type="password" value="{{secondPassword}}"></paper-input>
       </div>
@@ -96,10 +87,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           },
           notify: true,
         },
-        loginError: {
-          type: Boolean,
-          value: false
-        },
         username: {
           type: String,
         },
@@ -109,50 +96,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         secondPassword: {
           type: String,
         },
-        equalPassword: {
-          type: Boolean,
-          value: true
-        },
-        registerError: {
-          type: Boolean,
-          value: false
-        },
-        passwordError: {
-          type: Boolean,
-          value: false
-        }
       },
 
       switchForm: function() {
+        this.$.error.clear();
         this.registering = !this.registering;
       },
 
       tryRegister: function() {
+        this.$.error.clear();
         if (this.validateRegisterForm()) {
           this.$.ajaxRegister.generateRequest();
         }
       },
 
       tryLogIn: function() {
+        this.$.error.clear();
         if (this.$.username.validate()) {
           this.$.ajaxLogin.generateRequest();
-        } else {
-          this.loginError = false;
-          this.loginErrorMessage = '';
         }
       },
 
-      onLoggedIn: function(event, request) {
+      onLogin: function(event, request) {
         this._token = request.response.object;
         this.$.getCurrentUser.generateRequest();
       },
 
-      onFailedLogin: function(event, request) {
-        this.loginError = true;
+      onLoginError: function(event, request) {
         if (request.request.status === 401) {
-          this.loginErrorMessage = 'Bad credentials.';
+          this.$.error.setError('Bad credentials.')
         } else {
-          this.loginErrorMessage = 'Server failed processing the request, please try refreshing the page.';
+          this.$.error.setError('Server failed processing the request, please try refreshing the page.');
         }
       },
 
@@ -168,17 +142,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       onRegister: function(e, request) {
         if (request.succeeded) {
           this.fire('navigate', {page: 'check-email'});
-          this.registerError = false;
         }
       },
 
       onRegisterError: function(event, request) {
-        this.registerError = true;
-
         if (request.request.status === 409) {
-          this.registerErrorMessage = 'Email is already in use.';
+          this.$.error.setError('Email is already in use.');
         } else {
-          this.registerErrorMessage = 'Server failed processing the request, please try refreshing the page.';
+          this.$.error.setError('Server failed processing the request, please try refreshing the page.');
         }
       },
 
@@ -186,10 +157,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return {
           "X-Auth-Token": token,
         };
-      },
-
-      getHeading: function(registering) {
-        return registering ? 'Register' : 'Log In';
       },
 
       validateRegisterForm: function() {
@@ -210,19 +177,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       validateRegisterPassword: function() {
         if (!this.password || this.password === '') {
-          this.passwordError = true;
-          this.passwordErrorMessage = 'Please fill in a password.';
+          this.$.error.setError('Please fill in a password.');
           return false;
         }
         if (this.password !== this.secondPassword) {
-          this.passwordError = true;
-          this.passwordErrorMessage = 'Passwords have to be equal.';
+          this.$.error.setError('Passwords have to be equal.');
           return false;
         }
-        this.passwordError = false;
-        this.passwordErrorMessage = '';
         return true;
-      }
+      },
     });
   })();
   </script>
