@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
 
 <dom-module id="lancie-image-slider">
   <template>
@@ -8,21 +8,13 @@
     <style>
       :host {
         display: block;
-        width: 100%;
-        height: 500px;
-      }
-
-      .slider {
-        position: relative;
-        width: 100%;
         height: 500px;
         background-color: var(--primary-color);
       }
 
       .image-slider iron-image {
         position: absolute;
-        width: 100%;
-        height: 500px;
+        width: inherit;
         background-color: var(--primary-color);
         -webkit-transition: opacity 1s ease-in-out;
         -moz-transition: opacity 1s ease-in-out;
@@ -38,111 +30,55 @@
         opacity: 1;
       }
 
-      .overlay {
-        position: absolute;
-        z-index: 5;
-        top: 0; left: 0; bottom: 0; right: 0;
-        background: rgba(0, 0, 0, 0.4);
-        overflow: hidden;
-        box-sizing: border-box;
-        color: rgb(255, 255, 255);
-      }
-
       .content {
         position: absolute;
-        z-index: 10;
-        display: inline-block;
-        width: 100%;
         text-align: center;
-        margin-top: 50px;
+        width: inherit;
+        height: inherit;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.4);
       }
 
-      .content iron-image {
-        width: 75%;
-        margin-bottom: 48px;
+      iron-image {
+        width: 90%;
       }
 
-      .content span {
-        color: rgb(255, 255, 255);
-        line-height: 1.1em;
-        font-weight: 500;
+      div {
+        width: inherit;
       }
 
-      .content .date {
-        font-size: 72px;
-        text-transform: uppercase;
-        letter-spacing: 10px;
-        margin-bottom: 32px;
-      }
-
-      .content .tickets {
+      .text {
         font-size: 48px;
-        text-transform: uppercase;
-      }
-      .content .tickets a {
-        color: var(--secondary-color)
+        font-weight: 400;
+        line-height: 48px;
       }
 
-      paper-card {
-        --paper-card-background-color:var(--secondary-color);
-        --paper-card-header-text {
-          color: var(--primary-color);
-        }
-      }
-
-      @media (max-width: 750px) {
-        .content .date {
-          font-size: 56px;
-        }
-
-        .content .tickets {
-          font-size: 36px;
-        }
-      }
-
-      @media (max-width: 600px) {
-        .content .date {
-          font-size: 40px;
-        }
-
-        .content .tickets {
-          font-size: 36px;
-        }
-      }
-
-      @media (max-width: 530px) {
-        .content .date {
-          font-size: 28px;
-        }
-
-        .content .tickets {
-          font-size: 28px;
-        }
+      paper-material {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+        padding: 16px;
+        border-radius: 2px;
+        display: inline-block;
+        font-size: 24px;
       }
     </style>
-    <div>
-      <div class="slider">
-        <div class="overlay"></div>
-        <div class="content layout vertical center-justified">
-          <span class="date">3-5 March 2017</span>
-          <div>
-            <iron-image preload fade src="/images-optimized/lancie/logo_without_date.png"
-              height="120" alt="Lancie Logo"
+      <div class="layout vertical center around-justified content">
+        <div>
+          <iron-image preload fade src="/images-optimized/lancie/logo_without_date.png"
+              height="120" alt="LANcie Logo"
               sizing="contain"></iron-image>
-          </div>
-          <span class="tickets">Ticketsale will start soon!</a></span>
-          <br />
-          <a href="https://www.facebook.com/media/set/?set=a.1149538975092338.1073741833.947682658611305&type=1&l=bd58b9d11d"><paper-card heading="Click here for Area FiftyLAN 2016 photos!"></paper-card></a>
+          <div class="text">3-5 March 2017</div>
         </div>
-        <div class="image-slider">
-          <template is="dom-repeat" items="{{images}}" index-as="index">
-            <iron-image preload fade src="{{item}}"
-              height="500" alt="Slider image AreaFiftyLan 2015"
-              sizing="cover" class$="{{hide(current, index)}}"></iron-image>
-          </template>
-        </div>
+        <div class="text">Ticketsale will start soon!</div>
+        <a href="https://www.facebook.com/media/set/?set=a.1149538975092338.1073741833.947682658611305&type=1&l=bd58b9d11d"><paper-material>Click here for Area FiftyLAN 2016 photos!</paper-material></a>
       </div>
-    </div>
+      <div class="image-slider">
+        <template is="dom-repeat" items="{{images}}" index-as="index">
+          <iron-image preload fade src="{{item}}"
+            height="500" alt="Slider image AreaFiftyLan 2015"
+            sizing="cover" class$="{{hide(current, index)}}"></iron-image>
+        </template>
+      </div>
   </template>
   <script>
   'use strict';
