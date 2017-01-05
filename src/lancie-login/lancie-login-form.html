@@ -23,6 +23,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
       }
+
+      .reset {
+        text-align: center;
+      }
     </style>
 
     <iron-ajax
@@ -57,6 +61,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div hidden$="[[registering]]">
         <gold-email-input id="username" label="Email" name="Username" value="{{username}}" error-message="Email should be valid." on-blur="validateUsername" required autofocus></gold-email-input>
         <paper-input label="Password" type="password" name="password" value="{{password}}"></paper-input>
+        <div class="reset">
+          <a href="/request-password-reset">Forgot password?</a>
+        </div>
       </div>
       <div hidden$="[[!registering]]">
         <gold-email-input id="registerUsername" label="Email" name="Username" value="{{username}}" error-message="Email should be valid." on-blur="validateRegisterUsername" required></gold-email-input>
