@@ -14,12 +14,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../lancie-card.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="../lancie-error/lancie-error.html">
 <link rel="import" href="../lancie-my-area/profile-edit-form.html">
 
 <dom-module id="lancie-profile-dialog">
   <template>
-    <style include="iron-flex iron-flex-alignment"></style>
-    <style>
+    <style include="iron-flex iron-flex-alignment">
       :host {
         display: block;
       }
@@ -34,13 +34,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background: var(--primary-color);
         margin: auto;
       }
-
-      .errormessage {
-        padding: 10px 20px 9px;
-        border-left: 3px solid #F44336;
-        background: #FFCDD2;
-        color: #B71C1C;
-      }
     </style>
 
     <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
@@ -48,7 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Fill in your profile</h2>
       <div class="card-content">
-        <paper-material class="errormessage" hidden$="{{complete}}">Please fill in all fields</paper-material>
+        <lancie-error id="error"></lancie-error>
         <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
       </div>
       <div class="card-actions">
@@ -83,6 +76,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       onSubmit: function() {
+        this.$.error.clear();
         if (this.allFilledIn(this.editingUser)) {
           this.complete = true;
           this.$.ajaxUpdateProfile.body = {
@@ -98,7 +92,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           };
           this.$.ajaxUpdateProfile.generateRequest();
         } else {
-          this.complete = false;
+          this.$.error.setError('Fill in all fields.');
         }
       },
 

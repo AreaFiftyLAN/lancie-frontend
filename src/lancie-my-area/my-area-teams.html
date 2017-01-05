@@ -14,6 +14,7 @@
 <link rel="import" href="../../bower_components/paper-badge/paper-badge.html">
 
 <link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="../lancie-error/lancie-error.html">
 <link rel="import" href="../lancie-dialog/lancie-dialog.html">
 
 <link rel="import" href="my-area-teams/my-area-teams-invite.html">
@@ -79,7 +80,7 @@
     <lancie-dialog id="createTeamDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Create a Team</h2>
       <div class="card-content">
-        <paper-material class="errormessage" hidden$="{{!createTeamError}}">{{createTeamMessage}}</paper-material>
+        <lancie-error id="error"></lancie-error>
         <paper-input label="Team name" type="text" value="{{teamName}}"></paper-input>
       </div>
       <div class="buttons">
@@ -112,10 +113,6 @@
     properties: {
       teams: Array,
       user: Object,
-      createTeamError: {
-        type: Boolean,
-        value: false
-      },
       personalInvites: Array,
       teamName: String,
       createTeamMessage: String
@@ -131,8 +128,6 @@
     },
 
     openCreateTeamDialog: function() {
-      this.createTeamError = false;
-      this.createTeamMessage = '';
       this.teamName = '';
       this.$.createTeamDialog.open();
       window.document.body.appendChild(this.$.createTeamDialog);
@@ -144,6 +139,7 @@
     },
 
     submitCreateTeam: function() {
+      this.$.error.clear();
       this.$.ajaxCreateTeam.body = {
         teamName: this.teamName,
         captainUsername: this.user.username
@@ -152,17 +148,16 @@
     },
 
     onCreateTeam: function(e, r) {
-      this.createTeamError = !r.succeeded;
       if (r.succeeded) {
         this.$.ajaxTeams.generateRequest();
         this.$.createTeamDialog.close();
       } else {
         if (r.request.status === 409) {
-          this.createTeamMessage = 'Teamname already in use.';
+          this.$.error.setError('Teamname already in use.');
         } else if (r.request.status === 403) {
-          this.createTeamMessage = 'You\'re not allowed to create a team. Do you have a ticket?';
+          this.$.error.setError('You\'re not allowed to create a team. Do you have a ticket?');
         } else {
-          this.createTeamMessage = 'Something went wrong';
+          this.$.error.setError('Something went wrong');
         }
       }
     }

@@ -14,6 +14,7 @@
 <link rel="import" href="../../../bower_components/paper-tooltip/paper-tooltip.html">
 
 <link rel="import" href="../../lancie-login/lancie-ajax.html">
+<link rel="import" href="../../lancie-error/lancie-error.html">
 <link rel="import" href="../../lancie-dialog/lancie-dialog.html">
 
 <link rel="import" href="team-member-item.html">
@@ -70,7 +71,7 @@
     <lancie-dialog id="addMemberDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Add a team member</h2>
       <div class="card-content">
-        <paper-material class="errormessage" hidden$="{{!addMemberError}}">{{addMemberMessage}}</paper-material>
+        <lancie-error id="error"></lancie-error>
         <paper-input label="Email" type="text" value="{{memberUsername}}"></paper-input>
       </div>
       <div class="buttons">
@@ -107,14 +108,9 @@
       team: Object,
       user: Object,
       teamInvites: Array,
-      addMemberError: {
-        type: Boolean,
-        value: false
-      },
       isCurrentUser: Boolean,
       isCaptain: Boolean,
       memberUsername: String,
-      addMemberMessage: String
     },
 
     refreshInvites: function() {
@@ -122,28 +118,27 @@
     },
     openAddMemberDialog: function() {
       this.addMemberMessage = '';
-      this.addMemberError = false;
       this.memberUsername = '';
       this.$.addMemberDialog.open();
       window.document.body.appendChild(this.$.addMemberDialog);
     },
     submitInviteMember: function() {
+      this.$.error.clear();
       this.$.ajaxInviteMember.body = this.memberUsername;
       this.$.ajaxInviteMember.generateRequest();
     },
     onInviteMember: function(e, r) {
-      this.addMemberError = !r.succeeded;
       if (r.succeeded) {
         this.fire('invite-success');
         this.$.addMemberDialog.close();
         this.$.memberInviteSuccessToast.show();
       } else {
         if (r.request.status === 403) {
-          this.addMemberMessage = 'User can\'t be added to this team, does he/she have a ticket?';
+          this.$.error.setError('User can\'t be added to this team, does he/she have a ticket?');
         } else if (r.request.status === 409) {
-          this.addMemberMessage = 'User is already invited for this team!';
+          this.$.error.setError('User is already invited for this team!');
         } else {
-          this.addMemberMessage = 'Something went wrong';
+          this.$.error.setError('Something went wrong');
         }
       }
     },
