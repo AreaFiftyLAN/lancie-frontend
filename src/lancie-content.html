@@ -1,6 +1,7 @@
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/iron-lazy-pages/iron-lazy-pages.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 
 <link rel="import" href="lancie-storage/lancie-auth-storage.html">
 <link rel="import" href="lancie-login/lancie-ajax.html">
@@ -18,6 +19,8 @@
 
     <app-location route="{{route}}"></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{page}}"></app-route>
+
+    <paper-toast id="globalToast"></paper-toast>
 
     <iron-lazy-pages attr-for-selected="data-route" selected="[[_filterConstruction(page.page)]]" fallback-selection="404">
 
@@ -42,7 +45,7 @@
       </template>
 
       <template is="iron-lazy-page" data-route="tickets" path="src/lancie-ticket-page/lancie-ticket-page.html">
-        <lancie-login-check user="{{user}}">
+        <lancie-login-check user="{{user}}" nologin>
           <lancie-ticket-page route="{{page.page}}" user="{{user}}"></lancie-ticket-page>
         </lancie-login-check>
       </template>
@@ -74,7 +77,6 @@
       <template is="iron-lazy-page" data-route="ordersuccess" path="src/lancie-order-check.html">
         <lancie-order-check></lancie-order-check>
       </template>
-
 
       <template is="iron-lazy-page" data-route="resetPassword" path="src/lancie-password/lancie-password-reset.html">
         <lancie-password-reset></lancie-password-reset>
@@ -133,6 +135,28 @@
         this.addEventListener('navigate', function(e) {
           this.changePage(e.detail.page);
         }.bind(this));
+
+        // Catch global toast events
+        this.addEventListener('toast', function(e) {
+          this.showToast(e.detail);
+        }.bind(this));
+        this.addEventListener('refreshToast', function() {
+          this.showToast({text: 'Unable to connect to server. Try refreshing the page.'});
+        }.bind(this));
+
+        // Since the paper-dialogs are put here, the toast has to be moved here. If this is not done, the toasts will appear behind the backdrop.
+        window.document.body.appendChild(this.$.globalToast);
+      },
+
+      showToast: function(properties) {
+        if (this.$.globalToast.opened) {
+          this.$.globalToast.close();
+          this.async(function() {
+            this.$.globalToast.show(properties);
+          }, 100);
+        } else {
+          this.$.globalToast.show(properties);
+        }
       },
 
       changePage: function(page) {
@@ -142,6 +166,9 @@
       },
 
       _filterConstruction: function(page) {
+        if (window.location.host.indexOf('localhost') >= 0 || window.location.host.indexOf('127.0.0.1') >= 0) {
+          return page;
+        }
         if (['tickets', 'my-area', 'seatmap', 'shop'].indexOf(page) !== -1) {
           return 'construction';
         }

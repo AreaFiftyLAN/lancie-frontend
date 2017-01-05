@@ -10,7 +10,8 @@
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 
 <link rel="import" href="../lancie-dialog/lancie-dialog.html">
-<link rel="import" href="my-area-orders/lancie-ticket-item.html">
+<link rel="import" href="../lancie-error/lancie-error.html">
+<link rel="import" href="my-area-orders/lancie-order-item.html">
 
 <dom-module id="my-area-ticket-item">
   <template>
@@ -33,17 +34,17 @@
     <lancie-ajax id="ajaxCancelTicketTransfer" refurl="tickets/transfer" method="DELETE" handle-as="json" on-response="onCancelTicketTransfer"></lancie-ajax>
 
     <hr>
-    <lancie-ticket-item id="ticketItem" ticket="{{ticket}}" class="flex">
+    <lancie-order-item id="ticketItem" ticket="{{ticket}}" class="flex">
       <div class="layout self-center vertical">
         <paper-icon-button icon="{{getIcon(ticket.token)}}" on-tap="openTicketTransferDialog"></paper-icon-button>
         <paper-tooltip offset="0" animation-delay="1">{{getText(ticket.token)}} ticket transfer</paper-tooltip>
       </div>
-    </lancie-ticket-item>
+    </lancie-order-item>
 
     <lancie-dialog id="setupTicketTransferDialog" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop>
       <h2>Set up ticket transfer</h2>
       <div class="card-content">
-        <paper-material class="errormessage" hidden$="{{!transferError}}">{{transferErrorMessage}}</paper-material>
+        <lancie-error id="transferError"></lancie-error>
         <paper-input label="Email" type="text" value="{{transferUsername}}"></paper-input>
       </div>
       <div class="buttons">
@@ -55,7 +56,7 @@
     <lancie-dialog id="cancelTicketTransferDialog" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop>
       <h2>Cancel ticket transfer</h2>
       <div class="card-content">
-        <paper-material class="errormessage" hidden$="{{!transferError}}">{{transferErrorMessage}}</paper-material>
+        <lancie-error id="cancelError"></lancie-error>
         Are you sure you want to cancel the ticket transfer?
       </div>
       <div class="buttons">
@@ -80,11 +81,6 @@
           notify: true
         },
         username: String,
-        transferError: {
-          type: Boolean,
-          value: false
-        },
-        transferErrorMessage: String,
         transferUsername: String
       },
       getIcon: function(token) {
@@ -102,26 +98,21 @@
       },
       setupTicketTransferDialog: function() {
         this.transferUsername = '';
-        this.transferError = false;
-        this.transferErrorMessage = '';
         this.$.setupTicketTransferDialog.open();
         window.document.body.appendChild(this.$.setupTicketTransferDialog);
       },
       setupTicketTransfer: function() {
         if (!this.transferUsername || this.transferUsername.length === 0) {
-          this.transferError = true;
-          this.transferErrorMessage = 'Please fill in a username.';
+          this.$.transferError.setError('Please fill in a username.');
           return;
         }
         if (this.transferUsername === this.username) {
-          this.transferError = true;
-          this.transferErrorMessage = 'This ticket is already yours.';
+          this.$.transferError.setError('This ticket is already yours.');
           return;
         }
+        this.$.transferError.clear();
         this.$.ajaxSetupTicketTransfer.body = this.transferUsername;
         this.$.ajaxSetupTicketTransfer.generateRequest();
-        this.transferError = false;
-        this.transferErrorMessage = '';
       },
       onSetupTicketTransfer: function(e, r) {
         if (r.succeeded) {
@@ -133,9 +124,9 @@
         } else {
           this.transferError = true;
           if (r.request.status === 403) {
-            this.transferErrorMessage = 'User not found.';
+            this.$.transferError.setError('User not found.');
           } else {
-            this.transferErrorMessage = 'The server was unable to process your request.';
+            this.$.transferError.setError('The server was unable to process your request.');
           }
         }
       },
@@ -144,6 +135,7 @@
         window.document.body.appendChild(this.$.cancelTicketTransferDialog);
       },
       cancelTicketTransfer: function() {
+        this.$.transferError.clear();
         this.$.ajaxCancelTicketTransfer.body = this.ticket.token;
         this.$.ajaxCancelTicketTransfer.generateRequest();
       },
@@ -155,8 +147,7 @@
           this.cancelTicketTransferDialog();
           this.$.cancelTicketTransferSuccessToast.show();
         } else {
-          this.transferError = true;
-          this.transferErrorMessage = 'The server was unable to process your request.';
+          this.$.transferError.setError('The server was unable to process your request.');
         }
       }
     });

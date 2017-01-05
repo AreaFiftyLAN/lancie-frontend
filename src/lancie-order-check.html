@@ -3,7 +3,7 @@
 
 <dom-module id="lancie-order-check">
   <template>
-    <lancie-ajax id="ajaxConfirmOrder" refurl="orders/{{orderId}}/status" method="GET" handle-as="json" on-response="onResponse"></lancie-ajax>
+    <lancie-ajax auto id="ajaxConfirmOrder" refurl="orders/{{orderId}}/status" method="GET" handle-as="json" on-response="onResponse"></lancie-ajax>
 
     <lancie-card>
       <div class="card-content" hidden$="{{!confirming}}">
@@ -34,11 +34,9 @@
     Polymer({
       is: 'lancie-order-check',
       properties: {
-        orderId: {
-          type: String,
-          value: ''
-        }
+        orderId: String,
       },
+
       attached: function() {
         this.confirming = true;
         this.success = false;
@@ -46,9 +44,7 @@
         this.cancelled = false;
         this.waiting = false;
         this.orderId = window.location.href.split('order=')[1];
-        if (this.orderId) {
-          this.$.ajaxConfirmOrder.generateRequest();
-        } else {
+        if (!this.orderId) {
           this.error = true;
           this.confirming = false;
         }

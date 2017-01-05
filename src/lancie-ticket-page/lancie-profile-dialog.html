@@ -9,64 +9,53 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
-<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
-<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
-<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
-<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 
 <link rel="import" href="../lancie-card.html">
 <link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="../lancie-error/lancie-error.html">
 <link rel="import" href="../lancie-my-area/profile-edit-form.html">
 
-<dom-module id="lancie-ticket-profile-intercept">
+<dom-module id="lancie-profile-dialog">
   <template>
-    <style include="iron-flex iron-flex-alignment"></style>
-    <style>
+    <style include="iron-flex iron-flex-alignment">
       :host {
         display: block;
       }
 
-      paper-button {
-        width: calc(100% - 15px);
-        color: #ffe574;
-        background: #1a2b43;
+      .card-actions {
+        text-align: center;
       }
 
-      .errormessage {
-        padding: 10px 20px 9px;
-        border-left: 3px solid #F44336;
-        background: #FFCDD2;
-        color: #B71C1C;
+      paper-button {
+        width: 90%;
+        color: var(--secodary-color);
+        background: var(--primary-color);
+        margin: auto;
       }
     </style>
 
     <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
 
-    <lancie-card heading="Fill in your profile">
+    <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+      <h2>Fill in your profile</h2>
       <div class="card-content">
-        <paper-material class="errormessage" hidden$="{{complete}}">Please fill in all fields</paper-material>
+        <lancie-error id="error"></lancie-error>
         <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
       </div>
       <div class="card-actions">
         <paper-button class="btn btn-primary" raised on-tap="onSubmit">Submit</paper-button>
       </div>
-    </lancie-card>
+    </paper-dialog>
 
-    <paper-toast id="profileUpdateFailedToast" text="Something went wrong updating your profile" duration="3000"></paper-toast>
   </template>
   <script>
-  (function() {
-    'use strict';
+  'use strict';
 
+  (function() {
     Polymer({
-      is: 'lancie-ticket-profile-intercept',
+      is: 'lancie-profile-dialog',
       properties: {
         user: {
           type: Object,
@@ -80,14 +69,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           value: true
         },
-        route: {
-          type: String,
-          notify: true
-        }
+      },
+
+      attached: function() {
+        window.document.body.appendChild(this.$.dialog);
       },
 
       onSubmit: function() {
-        if (this.allFilledIn()) {
+        this.$.error.clear();
+        if (this.allFilledIn(this.editingUser)) {
           this.complete = true;
           this.$.ajaxUpdateProfile.body = {
             displayName: this.editingUser.profile.displayName,
@@ -102,17 +92,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           };
           this.$.ajaxUpdateProfile.generateRequest();
         } else {
-          this.complete = false;
+          this.$.error.setError('Fill in all fields.');
         }
       },
 
-      allFilledIn: function() {
-        for (var a in this.editingUser.profile) {
+      allFilledIn: function(user) {
+        if (!user.profile) {
+          return false;
+        }
+        for (var a in user.profile) {
           if (a === 'notes') {
             continue;
           }
 
-          if (!this.editingUser.profile[a] || this.editingUser.profile[a] === '') {
+          if (!user.profile[a] || user.profile[a] === '') {
             return false;
           }
         }
@@ -122,12 +115,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       onProfileUpdate: function(e, response) {
         if (response.succeeded) {
           this.user = this.editingUser;
-          this.async(function() {
-            this.route = 'tickets';
-          });
+          this.$.dialog.close();
+        } else if (response.request.status === 409) {
+          this.fire('toast', {text: 'This displayname is already in use.'});
         } else {
-          this.$.profileUpdateFailedToast.show();
+          this.fire('refreshToast')
         }
+      },
+
+      open: function() {
+        this.$.dialog.open();
       },
 
       _copyUser: function(newValue) {
@@ -140,7 +137,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         user.email = newValue.email;
         this.editingUser = user;
-      }
+      },
+
+      detatch: function() {
+        window.document.body.removeChild(this.$.dialog);
+      },
     });
   })();
   </script>

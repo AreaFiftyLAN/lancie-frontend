@@ -8,31 +8,34 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<link rel="import" href="../../bower_components/iron-location/iron-location.html">
 <link rel="import" href="../lancie-card.html">
 <link rel="import" href="lancie-ajax.html">
 
 <dom-module id="lancie-register-confirmation">
   <template>
-    <lancie-ajax id="ajaxConfirmRegistration" refurl="confirmRegistration?token={{token}}" method="GET" handle-as="json" on-response="onResponse"></lancie-ajax>
+    <lancie-ajax id="ajaxConfirmRegistration" refurl="confirmRegistration?[[query]]" method="GET" handle-as="json" on-response="onConfirmRegistration"></lancie-ajax>
+
+    <iron-location query="{{query}}"></iron-location>
 
     <lancie-card>
-      <div class="card-content" hidden$="{{!confirming}}">
+      <div class="card-content" hidden$="[[!confirming]]">
         <p>Confirming.</p>
       </div>
 
-      <div class="card-content" hidden$="{{!error}}">
+      <div class="card-content" hidden$="[[!error]]">
         <p>Hmm, something went wrong with the verification of your account. Please <a href="/contact">send us an email</a>, We will then check what went wrong.</p>
         <a href="/">Head back to the homepage</a>
       </div>
 
-      <div class="card-content" hidden$="{{!tokenTwice}}">
+      <div class="card-content" hidden$="[[!tokenTwice]]">
         <p>Hmm, this token was already claimed. Did you already confirm your account?</p>
         <a href="/">Head back to the homepage</a>
       </div>
 
-      <div class="card-content" hidden$="{{!success}}">
+      <div class="card-content" hidden$="[[!success]]">
         <p>You have successfully verified your email and account!</p>
-        <a href="/my-area">Fill in your profile</a>
+        <a href="/[[nextAction]]">Click here to continue</a>
       </div>
     </lancie-card>
 
@@ -44,10 +47,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'lancie-register-confirmation',
       properties: {
-        token: {
-          type: String,
-          value: ''
-        }
+        search: String,
+        nextAction: String,
+        query: String,
       },
 
       attached: function() {
@@ -55,15 +57,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.success = false;
         this.error = false;
         this.tokenTwice = false;
-        this.token = window.location.href.split('token=')[1];
-        this.tryRequestPasswordReset();
+        this.nextAction = (this.query.indexOf('orderId') > -1) ? 'tickets?login' : 'my-area';
+        this.tryConfirmRegistration();
       },
 
-      tryRequestPasswordReset: function() {
+      tryConfirmRegistration: function() {
         this.$.ajaxConfirmRegistration.generateRequest();
       },
 
-      onResponse: function(e, response) {
+      onConfirmRegistration: function(e, response) {
         // Such beauty Tour-De-France-code
         this.confirming = false;
         if (response.succeeded) {
@@ -75,7 +77,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             this.tokenTwice = true;
           }
         }
-      }
+      },
     });
   })();
   </script>

@@ -1,5 +1,7 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="lancie-login-card.html">
 <link rel="import" href="lancie-ajax.html">
+<link rel="import" href="lancie-login-dialog.html">
 
 <dom-module id="lancie-login-check">
   <template>
@@ -11,6 +13,8 @@
     <template is="dom-if" if="{{!canAccess(user, nologin)}}">
       <lancie-login-card on-logged-in="storeUser"></lancie-login-card>
     </template>
+
+    <lancie-login-dialog id="loginDialog" on-logged-in="storeUser"></lancie-login-dialog>
 
     <lancie-ajax id="ajax"></lancie-ajax>
   </template>
@@ -42,6 +46,14 @@
         checks.push(function(newUser) {
           this.user = newUser;
         }.bind(this));
+
+        // Add eventlistener to catch login dialog open request
+        this.addEventListener('login-dialog', function(e) {
+          this.$.loginDialog.open();
+          if (!!e.detail.orderId) {
+            this.$.loginDialog.orderId = e.detail.orderId;
+          }
+        });
       },
 
       canAccess: function(user, nologin) {
@@ -49,16 +61,14 @@
       },
 
       storeUser: function(e, detail) {
-        this.user = detail.user;
-        user = this.user;
+        this.fire('store-token', {token: detail.token});
         this.$.ajax.injectToken(detail.token);
 
-        this.fire('store-token', {token: detail.token});
-
+        this.user = detail.user;
         for (var i = 0; i < checks.length; i++) {
-          checks[i](user);
+          checks[i](this.user);
         }
-      }
+      },
     });
   })();
   </script>

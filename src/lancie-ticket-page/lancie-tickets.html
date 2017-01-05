@@ -1,0 +1,70 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+
+<link rel="import" href="lancie-ticket-item.html">
+
+<dom-module id="lancie-tickets">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        display: block;
+      }
+
+      paper-card {
+        width: 100%;
+      }
+
+      lancie-ticket-item {
+        flex: 1;
+        flex-basis: 200px;
+      }
+
+      @media(max-width: 600px) {
+        paper-card {
+          border-radius: 0;
+          border-bottom: solid 1px #e8e8e8;
+        }
+      }
+    </style>
+
+    <paper-card heading="Tickets">
+      <div class="card-content layout horizontal wrap">
+        <template id="tickets" is="dom-repeat" items="[[tickets]]">
+          <lancie-ticket-item ticket="[[item]]" basket="[[basket]]" color="[[_getColorClass(index)]]"></lancie-ticket-item>
+        </template>
+      </div>
+    </paper-card>
+
+  </template>
+  <script>
+  'use strict';
+
+  (function() {
+    Polymer({
+      is: 'lancie-tickets',
+      properties: {
+        tickets: Object,
+        basket: Object,
+        colors: {
+          type: Array,
+          value: function() {
+            return [
+              'red',
+              'blue',
+              'green',
+              'purple',
+              'orange',
+            ];
+          },
+        },
+      },
+
+      _getColorClass: function(index) {
+        return this.colors[index % this.colors.length];
+      },
+
+    });
+  })();
+  </script>
+</dom-module>

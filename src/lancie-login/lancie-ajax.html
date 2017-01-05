@@ -16,6 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
     <iron-ajax
       id="ajax"
+      headers="{{createHeader(token, contenttype)}}"
       body="{{body}}"
       params="{{params}}"
       method="{{method}}"
@@ -23,7 +24,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       handle-as="{{handleAs}}"
       last-response="{{lastResponse}}"
       loading="{{loading}}"
-      headers='{{createHeader(token, contenttype)}}'
       debounce-duration="300"
       on-response="handleResponse"
       on-error="handleResponse"
@@ -83,7 +83,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Object
         },
         token: {
-          type: String
+          type: String,
+          value: '',
+          notify: true,
         }
       },
 
@@ -115,20 +117,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
+      createHeader: function(token, contenttype) {
+        return {
+          'Content-Type': contenttype,
+          'X-Auth-Token': token,
+        };
+      },
+
       handleResponse: function(event) {
         this.fire('response', event.detail);
       },
 
-      createHeader: function(token, contenttype) {
-        return {
-          'X-Auth-Token': token,
-          'Content-type': contenttype
-        };
-      },
-
       generateRequest: function() {
         this.$.ajax.generateRequest();
-      }
+      },
     });
   })();
   </script>

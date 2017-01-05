@@ -1,0 +1,161 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-location/iron-location.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="lancie-ticket-basket-item.html">
+<link rel="import" href="lancie-terms-of-service.html">
+<link rel="import" href="lancie-profile-dialog.html">
+
+<dom-module id="lancie-ticket-basket">
+  <template>
+  <style include="iron-flex iron-flex-alignment">
+    paper-card {
+      width: 100%;
+    }
+
+    .price {
+      font-size: 24px;
+      font-weight: 100;
+    }
+
+    paper-button {
+      background: var(--primary-color);
+      color: var(--secondary-color);
+      width: 100%;
+    }
+
+    @media(max-width: 600px) {
+      paper-card {
+        border-radius: 0;
+      }
+    }
+  </style>
+
+    <iron-location query="{{query}}"></iron-location>
+
+    <lancie-ajax id="removeTicket" method="DELETE" on-response="onRemoveTicket"></lancie-ajax>
+    <lancie-ajax id="checkout" refurl="orders/[[basket.id]]/checkout" method="POST" on-response="onCheckout"></lancie-ajax>
+
+    <paper-card heading="Order" on-remove-ticket="removeTicket">
+      <template is="dom-if" if="[[!_hasTickets(basket.tickets)]]">
+        <div class="card-content">
+          <p>You have no tickets in your order.</p>
+          <p hidden="[[user]]">Please <a href="" on-tap="loginDialog">log in</a> to continue a previous order.</p>
+        </div>
+      </template>
+
+      <template is="dom-if" if="[[_hasTickets(basket.tickets)]]">
+        <div class="card-content">
+          <template is="dom-repeat" items="[[basket.tickets]]" sort="_sortBasket">
+            <lancie-ticket-basket-item ticket="[[item]]"></lancie-ticket-basket-item>
+          </template>
+        </div>
+        <div class="card-actions layout horizontal">
+          <span class="flex price">Total: </span>
+          <span class="price">&euro; [[_formatPrice(basket.amount)]]</span>
+        </div>
+        <div class="card-actions">
+          <paper-button hidden$="[[_userAssigned(basket)]]" on-tap="loginDialog">Continue</paper-button>
+          <paper-button hidden$="[[!_userAssigned(basket)]]" on-tap="tryCheckout">Checkout</paper-button>
+        </div>
+      </template>
+    </paper-card>
+
+    <lancie-profile-dialog id="profileDialog" user="{{user}}"></lancie-profile-dialog>
+
+    <lancie-terms-of-service id="termsOfService" checkout="[[checkout]]"></lancie-terms-of-service>
+
+  </template>
+  <script>
+  'use strict';
+
+  (function() {
+  Polymer({
+    is: 'lancie-ticket-basket',
+    properties: {
+      user: Object,
+      basket: {
+        type: Object,
+        notify: true,
+      },
+      checkout: {
+        type: Function,
+        value: function() {
+          return function() {
+            this.$.checkout.generateRequest();
+          }.bind(this);
+        },
+      },
+      query: String,
+    },
+
+    attached: function() {
+      if (this.query.indexOf('login') > -1 && !this.user) {
+        this.loginDialog();
+      }
+    },
+
+    loginDialog: function() {
+      this.fire('login-dialog', {orderId: this.basket.id});
+    },
+
+    tryCheckout: function() {
+      if (!this.$.profileDialog.allFilledIn(this.user)) {
+        this.$.profileDialog.open();
+      } else {
+        this.$.termsOfService.open();
+      }
+    },
+
+    onCheckout: function(e, request) {
+      if (request.succeeded) {
+        // This sets the url to the mollie address of the order.
+        window.location.href = request.response.object;
+      } else {
+        this.fire('refreshToast');
+      }
+    },
+
+    removeTicket: function(e, ticketId) {
+      this.$.removeTicket.refurl = 'orders/' + this.basket.id + '/' + ticketId;
+      this.$.removeTicket.generateRequest();
+    },
+
+    onRemoveTicket: function(e, request) {
+      if (request.succeeded) {
+        this.fire('set-basket', {basket: request.response.object});
+      } else {
+        this.fire('toast', {text: 'Unable to remove ticket, order has probably expired. Try refreshing the page.'});
+      }
+    },
+
+    _hasTickets: function(tickets) {
+      if (!tickets || tickets.length === 0) {
+        return false;
+      }
+      return true;
+    },
+
+    _formatPrice: function(price) {
+      return price.toFixed(2);
+    },
+
+    _userAssigned: function(basket) {
+      return !!basket.user;
+    },
+
+    _sortBasket: function(a, b) {
+      if (a.type.name !== b.type.name) {
+        return a.type.name.localeCompare(b.type.name);
+      } else {
+        return a.price - b.price;
+      }
+    },
+
+	});
+  })();
+  </script>
+</dom-module>
