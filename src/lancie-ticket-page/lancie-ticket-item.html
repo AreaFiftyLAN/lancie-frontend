@@ -90,7 +90,7 @@
       <span class="name">[[ticket.text]]</span>
       <span class="price">&euro; [[totalString]]</span>
       <span class="deadline">[[_deadline(ticket, available)]]</span>
-      <hr hidden$="[[!_hasOptions(options)]]">
+      <hr hidden$="[[!options.length]]">
       <template is="dom-repeat" items="{{options}}">
         <paper-checkbox checked="{{item.picked}}">[[item.text]]</paper-checkbox>
       </template>
@@ -133,22 +133,10 @@
         color: String,
       },
       observers: [
-        '_calulatePrice(options.*)'
+        '_calculatePrice(options.*, ticket)',
+        '_ticketProperties(ticket)'
       ],
 
-      ready: function() {
-        var options = [];
-        for (var option in this.ticket.possibleOptions) {
-          options.push({
-            text: option,
-            price: this.ticket.possibleOptions[option],
-            picked: false,
-          });
-        }
-
-        this.options = options;
-        this.available = this._available();
-      },
 
       addToBasket: function() {
         if (!this.basket.tickets) {
@@ -188,11 +176,24 @@
         return classes;
       },
 
-      _hasOptions: function(options) {
-        return options.length > 0;
+      _ticketProperties: function(ticket) {
+        this.options = this._options(ticket);
+        this.available = this._available(ticket);
       },
 
-      _available: function() {
+      _options: function(ticket) {
+        var options = [];
+        for (var option in ticket.possibleOptions) {
+          options.push({
+            text: option,
+            price: ticket.possibleOptions[option],
+            picked: false,
+          });
+        }
+        return options;
+      },
+
+      _available: function(ticket) {
         var deadlineType = this.deadlineDisplay[this.ticket.ticketType];
         if (Date.now() > new Date(this.ticket.deadline)) {
           return false;
@@ -214,16 +215,13 @@
         }
       },
 
-      _calulatePrice: function(changed) {
-        if (!this.ticket) {
-          return;
-        }
+      _calculatePrice: function(changed, ticket) {
         this.totalString = changed.base
           .filter(function(option) {
             return option.picked;
           }).reduce(function(a, b){
             return a + b.price;
-          }, this.ticket.price).toFixed(2);
+          }, ticket.price).toFixed(2);
       }
 
     });

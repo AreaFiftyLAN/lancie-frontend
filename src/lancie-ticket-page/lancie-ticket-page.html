@@ -62,21 +62,20 @@ This code may only be used under the BSD style license found at https://github.c
       Polymer({
         is: 'lancie-ticket-page',
         properties: {
-          user: {
-            type: Object,
-            observer: '_userChanged',
-          },
+          user: Object,
           basket: {
             type: Object,
             value: {},
             notify: true,
-            observer: '_basketChanged',
           },
           availableTickets: {
             type: Object,
             value: [],
           },
         },
+        observers: [
+          '_assignOrder(user, basket)'
+        ],
 
         ready: function () {
           this.$.ajaxAvailable.generateRequest();
@@ -118,33 +117,24 @@ This code may only be used under the BSD style license found at https://github.c
             this.$.orderStorage.removeStorage();
           } else {
             if (request.status = 409) {
-              this.fire('toast', {text: 'Unable to assign the order to your account. Order is already linked.'});
+              this.fire('toast', {text: 'Unable to couple the order to your account. Order is already linked.'});
               this.$.orderStorage.removeStorage();
               this.set('basket.tickets', []);
             } else {
               this.basket.status = 'ANONYMOUS';
+              this.$.orderStorage.storeOrderId(this.basket.id);
               this.fire('toast', {text: 'Unable to couple the order to your account. Try refreshing the page.'});
             }
           }
         },
 
         /*
-          If there is an order and the user logs in later, couple the order to the user.
-         */
-        _userChanged: function (user) {
-          if (this.basket.status === 'ANONYMOUS' && !!user) {
-            this.basket.status = 'ASSIGNED';
-            this.$.ajaxCoupleOrder.generateRequest();
-          }
-        },
-
-        /*
-          If the user is logged in and the order changes at a later point in time, couple the order.
-          If the user is not logged in and the order changes, we can store the ANONYMOUS order.
+          If the order is set and the user is logged in, attempt to couple the order to the user.
+          If the user is not logged in and the order is not yet stored, store the orderId.
         */
-        _basketChanged: function (basket, oldBasket) {
-          if (basket.status === 'ANONYMOUS' && !!this.user) {
-            this.basket.status = 'ASSIGNED';
+        _assignOrder: function (user, basket) {
+          if (basket.status === 'ANONYMOUS' && !!user) {
+            basket.status = 'ASSIGNED';
             this.$.ajaxCoupleOrder.generateRequest();
           } else if (basket.status === 'ANONYMOUS' && !this.$.orderStorage.orderStored()) {
             this.$.orderStorage.storeOrderId(basket.id);

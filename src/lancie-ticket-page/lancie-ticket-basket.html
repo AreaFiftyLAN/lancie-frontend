@@ -73,14 +73,14 @@
   'use strict';
 
   (function() {
-	Polymer({
-	  is: 'lancie-ticket-basket',
-	  properties: {
+  Polymer({
+    is: 'lancie-ticket-basket',
+    properties: {
       user: Object,
-		  basket: {
-			  type: Object,
-			  notify: true,
-		  },
+      basket: {
+        type: Object,
+        notify: true,
+      },
       checkout: {
         type: Function,
         value: function() {
@@ -90,7 +90,7 @@
         },
       },
       query: String,
-	  },
+    },
 
     attached: function() {
       if (this.query.indexOf('login') > -1 && !this.user) {
@@ -112,6 +112,7 @@
 
     onCheckout: function(e, request) {
       if (request.succeeded) {
+        // This sets the url to the mollie address of the order.
         window.location.href = request.response.object;
       } else {
         this.fire('refreshToast');

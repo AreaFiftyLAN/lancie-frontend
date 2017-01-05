@@ -61,7 +61,7 @@
       },
 
       _getColorClass: function(index) {
-        return this.colors[index];
+        return this.colors[index % this.colors.length];
       },
 
     });
