@@ -60,7 +60,7 @@
       <div class="card-content">
         <template is="dom-if" if="[[tickets.length]]">
           <template is="dom-repeat" items="[[tickets]]" index-as="index">
-            <my-area-ticket-item username="{{username}}" ticket="[[item]]"></my-area-ticket-item>
+            <my-area-ticket-item user="[[username]]" ticket="[[item]]"></my-area-ticket-item>
           </template>
         </template>
         <template is="dom-if" if="[[!tickets.length]]">
@@ -92,6 +92,7 @@
   Polymer({
     is: 'my-area-orders',
     properties: {
+      user: Object,
       orders: {
         type: Array,
         value: function() {
@@ -110,7 +111,6 @@
           return [];
         }
       },
-      username: String
     },
     buyTickets: function() {
       this.fire('navigate', {page: 'tickets'});

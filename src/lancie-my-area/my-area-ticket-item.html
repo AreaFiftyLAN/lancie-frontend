@@ -1,7 +1,5 @@
-<link rel="import" href="../../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
@@ -34,43 +32,29 @@
     }
     </style>
 
-    <lancie-ajax id="ajaxSetupTicketTransfer" refurl="tickets/transfer/{{ticket.id}}" method="POST" handle-as="json" on-response="onSetupTicketTransfer"></lancie-ajax>
-    <lancie-ajax id="ajaxCancelTicketTransfer" refurl="tickets/transfer" method="DELETE" handle-as="json" on-response="onCancelTicketTransfer"></lancie-ajax>
+    <lancie-ajax id="ajaxSetupTicketTransfer" refurl="tickets/transfer/[[ticket.id]]" method="POST" body="[[username]]" on-response="onSetupTicketTransfer"></lancie-ajax>
+    <lancie-ajax id="ajaxCancelTicketTransfer" refurl="tickets/transfer" method="DELETE" body="[[ticket.token]]" on-response="onCancelTicketTransfer"></lancie-ajax>
 
     <hr>
     <lancie-order-item id="ticketItem" ticket="{{ticket}}" class="flex">
       <div class="layout self-center vertical">
-        <paper-icon-button icon="{{getIcon(ticket.token)}}" on-tap="openTicketTransferDialog"></paper-icon-button>
-        <paper-tooltip offset="0" animation-delay="1">{{getText(ticket.token)}} ticket transfer</paper-tooltip>
+        <paper-icon-button icon="[[_getIcon(ticket.token)]]" on-tap="openTicketTransferDialog"></paper-icon-button>
+        <paper-tooltip offset="0" animation-delay="1">[[_getText(ticket.token)]] ticket transfer</paper-tooltip>
       </div>
     </lancie-order-item>
 
-    <lancie-dialog id="setupTicketTransferDialog" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop>
+    <lancie-dialog id="ticketTransferDialog" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop>
       <h2>Set up ticket transfer</h2>
       <div class="card-content">
-        <lancie-error id="transferError"></lancie-error>
-        <paper-input label="Email" type="text" value="{{transferUsername}}"></paper-input>
+        <lancie-error id="error"></lancie-error>
+        <gold-email-input id="username" label="Email" name="Username" value="{{username}}" error-message="Email should be valid." required autofocus auto-validate></gold-email-input>
       </div>
       <div class="buttons">
-        <paper-button raised dialog-dismiss>Cancel</paper-button>
-        <paper-button raised on-tap="setupTicketTransfer">Transfer</paper-button>
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button on-tap="setupTicketTransfer">Set up</paper-button>
       </div>
     </lancie-dialog>
 
-    <lancie-dialog id="cancelTicketTransferDialog" entry-animation="scale-up-animation" exit-animation="scale-down-animation" with-backdrop>
-      <h2>Cancel ticket transfer</h2>
-      <div class="card-content">
-        <lancie-error id="cancelError"></lancie-error>
-        Are you sure you want to cancel the ticket transfer?
-      </div>
-      <div class="buttons">
-        <paper-button raised dialog-dismiss>No</paper-button>
-        <paper-button raised on-tap="cancelTicketTransfer">Yes</paper-button>
-      </div>
-    </lancie-dialog>
-
-    <paper-toast id="setupTicketTransferSuccessToast" text="Ticket successfully set up for transfer!" duration="3000"></paper-toast>
-    <paper-toast id="cancelTicketTransferSuccessToast" text="Ticket transfer successfully cancelled!" duration="3000"></paper-toast>
   </template>
   <script>
   'use strict';
@@ -79,81 +63,68 @@
     Polymer({
       is: 'my-area-ticket-item',
       properties: {
+        user: Object,
         ticket: {
           type: Object,
           value: {},
           notify: true
         },
         username: String,
-        transferUsername: String
       },
-      getIcon: function(token) {
-        return token === undefined ? 'icons:send' : 'icons:clear';
-      },
-      getText: function(token) {
-        return token === undefined ? 'Setup up' : 'Cancel';
-      },
+
       openTicketTransferDialog: function() {
-        if (this.ticket.token) {
-          this.cancelTicketTransferDialog();
+        if (!!this.ticket.token) {
+          this.$.ajaxCancelTicketTransfer.generateRequest();
         } else {
-          this.setupTicketTransferDialog();
+          this.$.ticketTransferDialog.open();
+          window.document.body.appendChild(this.$.ticketTransferDialog);
         }
       },
-      setupTicketTransferDialog: function() {
-        this.transferUsername = '';
-        this.$.setupTicketTransferDialog.open();
-        window.document.body.appendChild(this.$.setupTicketTransferDialog);
-      },
+
       setupTicketTransfer: function() {
-        if (!this.transferUsername || this.transferUsername.length === 0) {
-          this.$.transferError.setError('Please fill in a username.');
+        this.$.error.clear();
+        if (!this.$.username.validate()) {
           return;
         }
-        if (this.transferUsername === this.username) {
-          this.$.transferError.setError('This ticket is already yours.');
+        if (this.username === this.user.name) {
+          this.$.error.setError('This ticket is already yours.');
           return;
         }
-        this.$.transferError.clear();
-        this.$.ajaxSetupTicketTransfer.body = this.transferUsername;
         this.$.ajaxSetupTicketTransfer.generateRequest();
       },
-      onSetupTicketTransfer: function(e, r) {
-        if (r.succeeded) {
-          this.set('ticket.token', r.response.object);
-          this.$.ticketItem.updateTicketInfo();
 
-          this.setupTicketTransferDialog();
-          this.$.setupTicketTransferSuccessToast.show();
+      onSetupTicketTransfer: function(e, request) {
+        if (request.succeeded) {
+          this.$.ticketTransferDialog.close();
+          this.username = '';
+          this.async(function() {this.set('ticket.token', request.response.object);}, 500);
+          this.fire('toast', {text: 'Ticket set up for transfer.'});
         } else {
-          this.transferError = true;
-          if (r.request.status === 403) {
-            this.$.transferError.setError('User not found.');
+          if (request.request.response.exception.indexOf('UsernameNotFound') > -1) {
+            this.$.error.setError('User not found.');
           } else {
-            this.$.transferError.setError('The server was unable to process your request.');
+            this.$.error.setError('The server was unable to process your request.');
           }
         }
       },
-      cancelTicketTransferDialog: function() {
-        this.$.cancelTicketTransferDialog.open();
-        window.document.body.appendChild(this.$.cancelTicketTransferDialog);
-      },
-      cancelTicketTransfer: function() {
-        this.$.transferError.clear();
-        this.$.ajaxCancelTicketTransfer.body = this.ticket.token;
-        this.$.ajaxCancelTicketTransfer.generateRequest();
-      },
-      onCancelTicketTransfer: function(e, r) {
-        if (r.succeeded) {
-          this.set('ticket.token', undefined);
-          this.$.ticketItem.updateTicketInfo();
 
-          this.cancelTicketTransferDialog();
-          this.$.cancelTicketTransferSuccessToast.show();
+      onCancelTicketTransfer: function(e, request) {
+        if (request.succeeded) {
+          this.set('ticket.token', undefined);
+          this.fire('toast', {text: 'Ticket transfer cancelled.'});
         } else {
-          this.$.transferError.setError('The server was unable to process your request.');
+          this.fire('toast', {text: 'Unable to cancel ticket transfer. Try refreshing the page.'});
         }
-      }
+      },
+
+      _getIcon: function(token) {
+        return token === undefined ? 'icons:send' : 'icons:clear';
+      },
+
+      _getText: function(token) {
+        return token === undefined ? 'Setup up' : 'Cancel';
+      },
+
     });
   })();
   </script>
