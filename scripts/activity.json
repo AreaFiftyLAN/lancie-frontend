@@ -1,13 +1,13 @@
 [
   {
     "title": "RL",
-    "subtitle": "2 v 2",
+    "subtitle": "3 v 3",
     "headerTitle": "Rocket League",
     "description": "Rocket League is a physics-based vehicle soccer video game developed and published by Psyonix. Players control a rocket-powered car and use it to hit a ball that is much larger than the cars towards the other team's goal area to score points, in a way that resembles a soccer game. Players can also jump and use speed-boosts in order to create sick plays and score more goals. \n# Rules\nThe rules are yet to be determined.",
     "backgroundImagePath": "images-optimized/activities/rl.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "images-optimized/activities/tba.png",
+      "imagePath": "images-optimized/activities/rl_logo.png",
       "website": ""
     },
     "prizes": [
@@ -22,7 +22,7 @@
     "backgroundImagePath": "images-optimized/activities/lol.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "images-optimized/activities/tba.png",
+      "imagePath": "images-optimized/activities/lol_logo.png",
       "website": ""
     },
     "prizes": [
@@ -37,7 +37,7 @@
     "backgroundImagePath": "images-optimized/activities/csgo.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "images-optimized/activities/tba.png",
+      "imagePath": "images-optimized/activities/csgo_logo.png",
       "website": ""
     },
     "prizes": [
@@ -76,7 +76,7 @@
   },
   {
     "title": "TM:NF",
-    "subtitle": "1 v 1",
+    "subtitle": "1 v 1 v 1 v 1",
     "headerTitle": "TrackMania: Nations Forever",
     "description": "A free game in the truest sense of the word, TrackMania Nations Forever lets you drive at mind-blowing speeds on fun and spectacular tracks in solo and multiplayer modes. TrackMania Nations Forever offers a new \"Forever\" version of the Stadium environment, a solid solo mode and 65 brand new, progressively challenging tracks. TrackMania Nations Forever will unite an even larger number of players than the original Nations thanks to its engaging multiplayer modes, innovative online functions and revolutionary interactivity between players.\n# Rules\nThe rules are yet to be determined.",
     "backgroundImagePath": "images-optimized/activities/trackmania.jpg",
