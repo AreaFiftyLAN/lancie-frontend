@@ -32,13 +32,13 @@
         </template>
       </lancie-login-check>
 
-      <lancie-login-check user="{{user}}" data-route="accept-transfer" data-path="lancie-my-area/lancie-accept-ticket-transfer.html">
+      <lancie-login-check user="{{user}}" data-route="accept-transfer" data-path="lancie-ticket-transfer/lancie-ticket-transfer-accept.html">
         <template>
-          <lancie-accept-ticket-transfer></lancie-accept-ticket-transfer>
+          <lancie-ticket-transfer-accept></lancie-ticket-transfer-accept>
         </template>
       </lancie-login-check>
 
-      <lancie-success-ticket-transfer data-route="transfer-success" data-path="lancie-my-area/lancie-success-ticket-transfer.html"></lancie-success-ticket-transfer>
+      <lancie-ticket-transfer-success data-route="transfer-success" data-path="lancie-ticket-transfer/lancie-ticket-transfer-success.html"></lancie-ticket-transfer-success>
 
       <lancie-login-check user="{{user}}" nologin data-route="tickets" data-path="lancie-ticket-page/lancie-ticket-page.html">
         <template>
@@ -58,23 +58,19 @@
         </template>
       </lancie-login-check>
 
-      <lancie-ticket-profile-intercept
-          data-route="tickets-intercept" data-path="lancie-ticket-page/lancie-ticket-profile-intercept.html"
-          route="{{page.page}}" user="{{user}}"></lancie-ticket-profile-intercept>
-
-      <lancie-register-confirmation data-route="confirmRegistration" data-path="lancie-login/lancie-register-confirmation.html"></lancie-register-confirmation>
+      <lancie-register-confirm data-route="confirmRegistration" data-path="lancie-login/lancie-register-confirm.html"></lancie-register-confirm>
 
       <lancie-check-email data-route="check-email" data-path="lancie-login/lancie-check-email.html"></lancie-check-email>
 
-      <lancie-order-check data-route="ordersuccess" data-path="lancie-order-check.html"></lancie-order-check>
+      <lancie-order-check data-route="order-check" data-path="lancie-order-check.html"></lancie-order-check>
 
-      <lancie-password-reset data-route="resetPassword" data-path="lancie-password/lancie-password-reset.html"></lancie-password-reset>
+      <lancie-password-reset data-route="password-reset" data-path="lancie-password/lancie-password-reset.html"></lancie-password-reset>
 
       <lancie-password-reset-success data-route="password-reset-success" data-path="lancie-password/lancie-password-reset-success.html"></lancie-password-reset-success>
 
-      <lancie-request-password-reset data-route="request-password-reset" data-path="lancie-password/lancie-request-password-reset.html"></lancie-request-password-reset>
+      <lancie-password-reset-request data-route="password-reset-request" data-path="lancie-password/lancie-password-reset-request.html"></lancie-password-reset-request>
 
-      <lancie-request-password-reset-success data-route="request-password-reset-success" data-path="lancie-password/lancie-request-password-reset-success.html"></lancie-request-password-reset-success>
+      <lancie-password-reset-request-success data-route="password-reset-request-success" data-path="lancie-password/lancie-password-reset-request-success.html"></lancie-password-reset-request-success>
 
       <lancie-contact data-route="contact" data-path="lancie-contact/lancie-contact.html"></lancie-contact>
 
