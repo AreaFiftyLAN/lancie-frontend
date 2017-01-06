@@ -31,7 +31,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <iron-ajax
       id="ajaxLogin"
-      url="/api/v1/token"
+      url="/api/v1/login"
       body="[[body]]"
       method="POST"
       content-type="application/json"
@@ -105,9 +105,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
       },
 
-      switchForm: function() {
+      clearError: function() {
         this.$.error.clear();
-        this.registering = !this.registering;
       },
 
       tryRegister: function() {
@@ -125,13 +124,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       onLogin: function(event, request) {
-        this._token = request.response.object;
+        this._token = request.xhr.getResponseHeader('X-Auth-Token');
         this.$.getCurrentUser.generateRequest();
       },
 
       onLoginError: function(event, request) {
         if (request.request.status === 401) {
-          this.$.error.setError('Bad credentials.')
+          if (request.request.xhr.response.message.indexOf('disabled') > 0) {
+            this.$.error.setError('Account not validated.');
+          } else {
+            this.$.error.setError('Bad credentials.')
+          }
         } else {
           this.$.error.setError('Server failed processing the request, please try refreshing the page.');
         }
