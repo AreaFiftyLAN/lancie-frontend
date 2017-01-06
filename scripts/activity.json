@@ -7,7 +7,7 @@
     "backgroundImagePath": "images-optimized/activities/rl.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "images-optimized/activities/rl_logo.png",
+      "imagePath": "images-optimized/activities/tba.png",
       "website": ""
     },
     "prizes": [
@@ -22,7 +22,7 @@
     "backgroundImagePath": "images-optimized/activities/lol.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "images-optimized/activities/lol_logo.png",
+      "imagePath": "images-optimized/activities/tba.png",
       "website": ""
     },
     "prizes": [
@@ -37,7 +37,7 @@
     "backgroundImagePath": "images-optimized/activities/csgo.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "images-optimized/activities/csgo_logo.png",
+      "imagePath": "images-optimized/activities/tba.png",
       "website": ""
     },
     "prizes": [
@@ -52,7 +52,7 @@
     "backgroundImagePath": "images-optimized/activities/hs.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "images-optimized/activities/hs_logo.png",
+      "imagePath": "images-optimized/activities/tba.png",
       "website": "http://eu.battle.net/hearthstone/en/"
     },
     "prizes": [
@@ -67,7 +67,7 @@
     "backgroundImagePath": "images-optimized/activities/overwatch.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "images-optimized/activities/overwatch_logo.png",
+      "imagePath": "images-optimized/activities/tba.png",
       "website": "https://playoverwatch.com/en-us/"
     },
     "prizes": [
@@ -76,13 +76,13 @@
   },
   {
     "title": "TM:NF",
-    "subtitle": "1 v 1 v 1 v 1",
+    "subtitle": "FFA",
     "headerTitle": "TrackMania: Nations Forever",
     "description": "A free game in the truest sense of the word, TrackMania Nations Forever lets you drive at mind-blowing speeds on fun and spectacular tracks in solo and multiplayer modes. TrackMania Nations Forever offers a new \"Forever\" version of the Stadium environment, a solid solo mode and 65 brand new, progressively challenging tracks. TrackMania Nations Forever will unite an even larger number of players than the original Nations thanks to its engaging multiplayer modes, innovative online functions and revolutionary interactivity between players.\n# Rules\nThe rules are yet to be determined.",
     "backgroundImagePath": "images-optimized/activities/trackmania.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "images-optimized/activities/trackmania.jpg",
+      "imagePath": "images-optimized/activities/tba.png",
       "website": "http://trackmaniaforever.com/"
     },
     "prizes": [
