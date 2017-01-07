@@ -15,16 +15,36 @@ Dialog for the lancie frontends
 <dom-module id="lancie-dialog">
   <template>
     <style>
+      /*#actualDialog * {
+        margin-top: 0;
+        padding: 0 24px;
+        font-size: 16px;
+      }*/
+
       #actualDialog {
         position: fixed;
         width: 400px;
-        height: 200px;
+        /*height: 200px;*/
         left: 0;
         right: 0;
-        top: 100px;
-        bottom: 100px;
+        top: 50vh;
+        /*bottom: 100px;*/
         margin: auto;
       }
+
+      #actualDialog ::content h2 {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+        margin: 0;
+        padding: 16px 16px;
+        font-size: 20px;
+      }
+
+      #actualDialog ::content .buttons {
+        border-top: 1px solid #e8e8e8;
+        color: rgba(0, 0, 0, 0.87);
+      }
+
     </style>
     <paper-dialog id="actualDialog">
     <content></content>
