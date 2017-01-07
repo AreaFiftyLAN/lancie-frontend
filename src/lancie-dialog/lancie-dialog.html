@@ -1,74 +1,67 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-behavior.html">
+<link rel="import" href="../../bower_components/paper-dialog-behavior/paper-dialog-shared-style.html">
+
+
+<!--
+`lancie-dialog`
+Dialog for the lancie frontends
+
+@demo demo/index.html 
+-->
 
 <dom-module id="lancie-dialog">
   <template>
-    <style include="paper-dialog-shared-styles"></style>
     <style>
-    :host > ::content > * {
-      margin-top: 0;
-      padding: 0 24px;
-      font-size: 16px;
-    }
-
-    :host > ::content > *:first-child {
-      margin-top: 0;
-    }
-
-    :host > ::content > h2 {
-      background-color: var(--primary-color);
-      color: var(--secondary-color);
-      margin: 0;
-      padding: 16px 16px;
-      font-size: 20px;
-    }
-
-    :host > ::content > .card-content {
-      padding: 16px;
-    }
-
-    :host > ::content > .buttons {
-      border-top: 1px solid #e8e8e8;
-      color: var(--primary-color);
-    }
+      #dialog {
+        display: none;
+        position: fixed;
+        width: 400px;
+        height: 200px;
+        left: 0;
+        right: 0;
+        top: 100px;
+        bottom: 100px;
+        z-index: 11;
+        margin: auto;
+      }
     </style>
+    <paper-dialog id="dialog">
     <content></content>
+    </paper-dialog>
   </template>
-  <script>
-  (function() {
-    'use strict';
 
+  <script>
     Polymer({
+
       is: 'lancie-dialog',
 
-      behaviors: [
-        Polymer.PaperDialogBehavior,
-        Polymer.NeonAnimationRunnerBehavior
-      ],
-      listeners: {
-        'neon-animation-finish': '_onNeonAnimationFinish'
+      properties: {
+        prop1: {
+          type: String,
+          value: 'lancie-dialog',
+        },
       },
-      _renderOpened: function() {
-        this.cancelAnimation();
-        if (this.withBackdrop) {
-          this.backdropElement.open();
-        }
-        this.playAnimation('entry');
-      },
-      _renderClosed: function() {
-        this.cancelAnimation();
-        if (this.withBackdrop) {
-          this.backdropElement.close();
-        }
-        this.playAnimation('exit');
-      },
-      _onNeonAnimationFinish: function() {
-        if (this.opened) {
-          this._finishRenderOpened();
-        } else {
-          this._finishRenderClosed();
-        }
-      }
+
+      /**
+     * Opens the lancie-dialog
+     * @return {void}
+     */
+     open: function() {
+       this.$.dialog.style.display = 'block';
+     },
+
+     /**
+     * Closes the lancie-dialog
+     * @return {void}
+     */
+     close: function() {
+       this.$.dialog.style.display = 'none';
+     },
+     
+
     });
-  })();
   </script>
 </dom-module>
