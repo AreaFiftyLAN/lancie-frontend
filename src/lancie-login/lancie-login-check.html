@@ -5,18 +5,19 @@
 
 <dom-module id="lancie-login-check">
   <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
 
-    <template is="dom-if" if="{{canAccess(user, nologin)}}" restamp=true>
-      <content></content>
-    </template>
-
-    <template is="dom-if" if="{{!canAccess(user, nologin)}}">
-      <lancie-login-card on-logged-in="storeUser"></lancie-login-card>
-    </template>
+    <lancie-login-card id="loginForm" on-logged-in="storeUser"></lancie-login-card>
 
     <lancie-login-dialog id="loginDialog" on-logged-in="storeUser"></lancie-login-dialog>
 
     <lancie-ajax id="ajax"></lancie-ajax>
+
+    <slot id="contentContainer"></slot>
   </template>
   <script>
   'use strict';
@@ -28,6 +29,9 @@
 
     Polymer({
       is: 'lancie-login-check',
+
+      behaviors: [Polymer.Templatizer],
+
       properties: {
         user: {
           type: Object,
@@ -41,6 +45,10 @@
           value: false
         },
       },
+
+      observers: [
+        '_canAccess(user, nologin)'
+      ],
 
       ready: function() {
         checks.push(function(newUser) {
@@ -56,8 +64,16 @@
         });
       },
 
-      canAccess: function(user, nologin) {
-        return nologin || user !== '';
+      _canAccess: function(user, nologin) {
+        if (!this.stamped && (nologin || (user && user !== ''))) {
+          var nodes = this.$.contentContainer.getDistributedNodes();
+          var template = nodes[0].nodeName.toLowerCase() === 'template' ? nodes[0] : nodes[1];
+          this.templatize(template);
+          this._instance = this.stamp({});
+          Polymer.dom(this.root).appendChild(this._instance.root);
+          this.$.loginForm.style.display = 'none';
+          this.stamped = true;
+        }
       },
 
       storeUser: function(e, detail) {
@@ -69,6 +85,23 @@
           checks[i](this.user);
         }
       },
+
+      // Implements extension point from Templatizer mixin
+      // Called as side-effect of a host property change, responsible for
+      // notifying parent.<prop> path change on instance
+      _forwardParentProp: function(prop, value) {
+        if (this._instance) {
+          this._instance.__setProperty(prop, value, true);
+        }
+      },
+      // Implements extension point from Templatizer
+      // Called as side-effect of a host path change, responsible for
+      // notifying parent.<path> path change on each row
+      _forwardParentPath: function(path, value) {
+        if (this._instance) {
+          this._instance._notifyPath(path, value, true);
+        }
+      }
     });
   })();
   </script>

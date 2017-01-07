@@ -2,8 +2,6 @@
 <link rel="import" href="../../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../../bower_components/paper-styles/shadow.html">
 
-<link rel="import" href="lancie-sponsor-item.html">
-
 <dom-module id="lancie-sponsors">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
@@ -13,51 +11,46 @@
         width: 100%;
       }
 
-      .main-sponsors {
+      .main-sponsors img {
         margin-right: 32px;
         min-width: 200px;
       }
 
-      .premium-sponsors lancie-sponsor-item {
+      .premium-sponsors img {
         margin: 10px 6px;
       }
 
-      lancie-sponsor-item {
-        width: 100%;
+      img {
         max-width: 250px;
+        margin: 10px 6px;
       }
     </style>
 
     <div id="grid" class="layout horizontal wrap flex">
       <div class="layout vertical flex-1 main-sponsors">
         <h3>Presented by</h3>
-        <lancie-sponsor-item sponsor='{
-          "href": "https://ch.tudelft.nl",
-          "logo": "images-optimized/lancie/logo_CH.png"
-        }'></lancie-sponsor-item>
-        <lancie-sponsor-item sponsor='{
-          "href": "https://www.tudelft.nl",
-          "logo": "images-optimized/logos/logo_SC.png"
-        }'></lancie-sponsor-item>
+        <img src="/images-optimized/lancie/logo_CH.png" title="https://ch.tudelft.nl" />
+        <img src="/images-optimized/logos/logo_SC.png" title="https://www.tudelft.nl" />
       </div>
       <div class="layout vertical flex-4">
         <h3>Premium sponsors</h3>
         To be announced!
-        <!--<div class="layout horizontal wrap premium-sponsors">
-          <lancie-sponsor-item sponsor='{
-            "href": "",
-            "logo": ""
-          }'></lancie-sponsor-item>
-        </div>-->
+        <!-- <div class="layout horizontal wrap premium-sponsors">
+          <img src="/images-optimized/logos/Innovattic_Logo.svg" title="http://innovattic.com/" />
+          <img src="/images-optimized/logos/Keylane_Logo.svg" title="http://www.keylane.com/nl/" />
+          <img src="/images-optimized/logos/Topicus_Logo.svg" title="http://www.topicusfinance.nl/" />
+        </div> -->
       <div class="layout vertical flex-4">
         <h3>Sponsors</h3>
         To be announced!
-        <!--<div class="layout horizontal wrap regular-sponsors">
-          <lancie-sponsor-item sponsor='{
-            "href": "",
-            "logo": "images-optimized/activities/tba.png"
-          }'></lancie-sponsor-item>
-        </div>-->
+        <!-- <div class="layout horizontal wrap regular-sponsors">
+          <img src="/images-optimized/logos/spam-logo.jpg" title="http://www.spam-energydrink.com/" />
+          <img src="/images-optimized/logos/Ordina-logo.png" title="https://www.ordina.nl/" />
+          <img src="/images-optimized/logos/startselect-logo.png" title="https://startselect.com/nl-nl" />
+          <img src="/images-optimized/logos/Corsair_Logo.png" title="http://www.corsair.com/" />
+          <img src="/images-optimized/logos/ASML_logo.png" title="https://www.asml.com/" />
+          <img src="/images-optimized/logos/transip_logo.png" title="https://www.transip.nl/" />
+        </div> -->
       </div>
     </div>
 

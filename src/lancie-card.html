@@ -13,7 +13,6 @@
         margin: 16px auto;
         max-width: 500px;
 
-        --paper-card-header-color: #ffffff;
         --paper-card-header: {
           background-color: #1a2b43;
           display: flex;
@@ -23,15 +22,16 @@
         }
       }
 
-      .header-text {
+      .text {
+        --paper-card-header-color: white;
+        --paper-card-header-image: {
+          margin: 16px 16px 64px;
+        };
         --paper-card-header-text: {
           width: 100%;
           padding: 16px 0;
           text-align: center;
-        }
-        --paper-card-header-image: {
-          margin: 16px 16px 64px;
-        }
+        };
       }
     </style>
 
@@ -54,7 +54,8 @@
       },
 
       _hasHeading: function(heading) {
-        return !!heading ? 'header-text' : '';
+        this.async(this.updateStyles);
+        return !!heading ? 'text' : '';
       },
     });
   })();
