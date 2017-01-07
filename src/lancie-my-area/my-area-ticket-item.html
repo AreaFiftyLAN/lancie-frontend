@@ -47,7 +47,7 @@
       <h2>Set up ticket transfer</h2>
       <div class="card-content">
         <lancie-error id="error"></lancie-error>
-        <gold-email-input id="username" label="Email" name="Username" value="{{username}}" error-message="Email should be valid." required autofocus auto-validate></gold-email-input>
+        <gold-email-input id="username" label="Email" name="Username" value="{{username}}" error-message="Email should be valid." required autofocus on-blur="validate()"></gold-email-input>
       </div>
       <div class="buttons">
         <paper-button dialog-dismiss>Cancel</paper-button>
