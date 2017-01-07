@@ -79,7 +79,28 @@ Dialog for the lancie frontends
   <script>
     Polymer({
 
-      is: 'lancie-dialog',
+     is: 'lancie-dialog',
+
+     listeners: {
+       'tap': 'isDismissButton'
+     },
+
+    /**
+     * Find out if the tapped place was within the dismiss button
+     */
+     isDismissButton: function(event) {
+      // Search for the element with dialog-confirm or dialog-dismiss,
+      // from the root target until this (excluded).
+      var path = Polymer.dom(event).path;
+      for (var i = 0; i < path.indexOf(this); i++) {
+        var target = path[i];
+        if (target.hasAttribute && (target.hasAttribute('dialog-dismiss') )) {
+          this.close();
+          event.stopPropagation();
+          break;
+        }
+      }
+    },
 
       /**
      * Opens the lancie-dialog
