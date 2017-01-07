@@ -49,6 +49,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           value: 'application/json',
         },
+        noReset: {
+          type: Boolean,
+          value: false,
+        },
         refurl: String,
         token: String,
       },
@@ -84,7 +88,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       validateAndSubmit: function() {
         if (this.validate()) {
           this.submit();
+          return true;
         }
+        return false;
       },
 
       reset: function() {
@@ -92,10 +98,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       handleResponse: function(event) {
-        this.fire('response', event.detail);
-        if (event.detail.succeeded) {
+        if (event.detail.succeeded && !this.noReset) {
           this.reset();
         }
+        this.fire('response', event.detail);
       },
 
       submitOnEnter: function(e) {

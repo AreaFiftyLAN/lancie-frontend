@@ -22,6 +22,10 @@
       display: block;
     }
 
+    [hidden] {
+      display: none !important;
+    }
+
     paper-tooltip {
       --paper-tooltip-background: var(--primary-color);
       --paper-tooltip-text-color: var(--secondary-color);
@@ -54,13 +58,12 @@
       padding: 0;
     }
     </style>
-    <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
     <lancie-ajax id="ajaxUpdatePassword" refurl="users/current/password" method="PUT" on-response="onPasswordUpdate"></lancie-ajax>
 
-    <paper-card class="layout vertical flex" heading="Profile" elevation="1" animated-shadow="true">
-      <div class="card-content" role="listbox">
+    <paper-card class="layout vertical flex" heading="Profile">
+      <div class="card-content">
 
-        <template is="dom-if" if="{{!editingProfile}}">
+        <div hidden$="[[editingProfile]]">
           <div class="layout horizontal center">
             <iron-icon icon="icons:account-circle" item-icon></iron-icon>
             <div class="item flex">
@@ -87,11 +90,9 @@
               <div>{{user.profile.zipcode}} {{user.profile.city}}</div>
             </div>
           </div>
-        </template>
+        </div>
 
-        <template is="dom-if" if="{{editingProfile}}">
-          <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
-        </template>
+        <profile-edit-form id="profileForm" hidden$="[[!editingProfile]]" user={{user}}></profile-edit-form>
 
         <hr>
         <div class="layout horizontal center">
@@ -102,49 +103,43 @@
         </div>
 
         <hr>
-        <template is="dom-if" if="{{!editingPassword}}">
-          <div class="layout horizontal center">
-            <iron-icon icon="icons:lock" item-icon></iron-icon>
-            <div class="item flex">
-              <div>&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
-            </div>
+        <div class="layout horizontal center" hidden$="[[editingPassword]]">
+          <iron-icon icon="icons:lock" item-icon></iron-icon>
+          <div class="item flex">
+            <div>&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
           </div>
-        </template>
+        </div>
 
-        <template is="dom-if" if="{{editingPassword}}">
-          <div class="layout horizontal center">
-            <iron-icon icon="icons:lock" item-icon></iron-icon>
-            <div class="flex">
-              <paper-input label="Current Password" type="password" value="{{currentPassword}}"></paper-input>
-              <paper-input label="New Password" type="password" value="{{newPassword}}"></paper-input>
-              <paper-input id="passwordRepeatInput" error-message="Passwords don't match!" label="Repeat New Password" type="password" value="{{newPasswordRepeat}}"></paper-input>
-            </div>
+        <div class="layout horizontal center" hidden$="[[!editingPassword]]">
+          <iron-icon icon="icons:lock" item-icon></iron-icon>
+          <div class="flex">
+            <paper-input label="Current Password" type="password" value="{{currentPassword}}"></paper-input>
+            <paper-input label="New Password" type="password" value="{{newPassword}}"></paper-input>
+            <paper-input id="passwordRepeatInput" error-message="Passwords don't match!" label="Repeat New Password" type="password" value="{{newPasswordRepeat}}"></paper-input>
           </div>
-        </template>
+        </div>
       </div>
 
-      <div class="card-actions">
-        <template is="dom-if" if="{{!isEditing(editingProfile, editingPassword)}}">
-          <paper-icon-button on-tap="switchProfileForm" icon="icons:create" id="edit-profile"></paper-icon-button>
-          <paper-tooltip for="edit-profile" offset="0" animation-delay="1">Edit your profile</paper-tooltip>
-          <paper-icon-button on-tap="switchPasswordForm" icon="icons:lock" id="change-password"></paper-icon-button>
-          <paper-tooltip for="change-password" offset="0" animation-delay="1">Change your password</paper-tooltip>
-        </template>
-        <template is="dom-if" if="{{isEditing(editingProfile, editingPassword)}}">
-          <paper-icon-button on-tap="resetForms" icon="icons:clear" id="closeIcon"></paper-icon-button>
-          <paper-tooltip for="closeIcon" offset="0" animation-delay="1">Cancel</paper-tooltip>
-          <paper-icon-button on-tap="submitEdit" icon="icons:check" id="checkIcon"></paper-icon-button>
-          <paper-tooltip for="checkIcon" offset="0" animation-delay="1">Save changes</paper-tooltip>
-        </template>
+      <div class="card-actions" hidden$="[[isEditing(editingProfile, editingPassword)]]">
+        <paper-icon-button on-tap="switchProfileForm" icon="icons:create" id="edit-profile"></paper-icon-button>
+        <paper-tooltip for="edit-profile" offset="0" animation-delay="1">Edit your profile</paper-tooltip>
+        <paper-icon-button on-tap="switchPasswordForm" icon="icons:lock" id="change-password"></paper-icon-button>
+        <paper-tooltip for="change-password" offset="0" animation-delay="1">Change your password</paper-tooltip>
+      </div>
+      <div class="card-actions" hidden$="[[!isEditing(editingProfile, editingPassword)]]">
+        <paper-icon-button on-tap="resetForms" icon="icons:clear" id="closeIcon"></paper-icon-button>
+        <paper-tooltip for="closeIcon" offset="0" animation-delay="1">Cancel</paper-tooltip>
+        <paper-icon-button on-tap="submitEdit" icon="icons:check" id="checkIcon"></paper-icon-button>
+        <paper-tooltip for="checkIcon" offset="0" animation-delay="1">Save changes</paper-tooltip>
       </div>
     </paper-card>
-    <paper-toast id="profileUpdateSuccessToast" text="Profile succcesfully updated!" duration="3000"></paper-toast>
-    <paper-toast id="profileUpdateFailedToast" text="Something went wrong updating your profile" duration="3000"></paper-toast>
+
     <paper-toast id="passwordUpdateSuccessToast" text="Password changed!" duration="3000"></paper-toast>
     <paper-toast id="passwordUpdateFailedToast" text="Something went wrong changing your password" duration="3000"></paper-toast>
   </template>
   <script>
   'use strict';
+
   (function() {
     Polymer({
       is: 'my-area-profile',
@@ -165,9 +160,11 @@
           value: false
         }
       },
+
       switchProfileForm: function() {
         this.editingProfile = !this.editingProfile;
       },
+
       switchPasswordForm: function() {
         this.currentPassword = '';
         this.newPassword = '';
@@ -175,25 +172,17 @@
 
         this.editingPassword = !this.editingPassword;
       },
+
       resetForms: function() {
         this.editingProfile = false;
         this.editingPassword = false;
       },
+
       submitEdit: function() {
         if (this.editingProfile) {
-          this.$.ajaxUpdateProfile.body = {
-            displayName: this.editingUser.profile.displayName,
-            firstName: this.editingUser.profile.firstName,
-            lastName: this.editingUser.profile.lastName,
-            phoneNumber: this.editingUser.profile.phoneNumber,
-            address: this.editingUser.profile.address,
-            zipcode: this.editingUser.profile.zipcode,
-            city: this.editingUser.profile.city,
-            gender: this.editingUser.profile.gender,
-            birthday: this.editingUser.profile.birthday
-          };
-          this.$.ajaxUpdateProfile.generateRequest();
-          this.switchProfileForm();
+          if (this.$.profileForm.validateAndSubmit()) {
+            this.switchProfileForm();
+          }
         }
 
         if (this.editingPassword) {
@@ -209,17 +198,7 @@
           }
         }
       },
-      onProfileUpdate: function(e, response) {
-        if (response.succeeded) {
-          this.user = this.editingUser;
-          // load toast
-          this.$.profileUpdateSuccessToast.show();
-        } else {
-          this.editingUser = this.user;
-          // load failed toast
-          this.$.profileUpdateFailedToast.show();
-        }
-      },
+
       onPasswordUpdate: function(e, response) {
         this.$.passwordRepeatInput.invalid = false;
 
@@ -230,23 +209,15 @@
           this.$.passwordUpdateFailedToast.show();
         }
       },
+
       isEditing: function(editingProfile, editingPassword) {
         return editingProfile || editingPassword;
       },
-      _copyUser: function(newValue) {
-        var user = {
-          profile: {}
-        };
 
-        for (var a in newValue.profile) {
-          user.profile[a] = newValue.profile[a];
-        }
-        user.username = newValue.username;
-        this.editingUser = user;
-      },
       _checkEmpty: function(value) {
         return value || 'Not yet filled in, please click the pencil icon in the bottom left to complete your profile.';
-      }
+      },
+
     });
   })();
   </script>
