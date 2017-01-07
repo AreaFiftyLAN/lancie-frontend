@@ -60,7 +60,7 @@
       <div class="card-content">
         <template is="dom-if" if="[[tickets.length]]">
           <template is="dom-repeat" items="[[tickets]]" index-as="index">
-            <my-area-ticket-item user="[[username]]" ticket="[[item]]"></my-area-ticket-item>
+            <my-area-ticket-item user="[[user]]" ticket="[[item]]"></my-area-ticket-item>
           </template>
         </template>
         <template is="dom-if" if="[[!tickets.length]]">
