@@ -86,8 +86,8 @@
         if (!this.$.username.validate()) {
           return;
         }
-        if (this.username === this.user.name) {
-          this.$.error.setError('This ticket is already yours.');
+        if (this.username === this.user.username) {
+          this.$.error.setError('You can\'t a transfer ticket to yourself.');
           return;
         }
         this.$.ajaxSetupTicketTransfer.generateRequest();
