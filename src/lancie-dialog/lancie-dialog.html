@@ -15,8 +15,7 @@ Dialog for the lancie frontends
 <dom-module id="lancie-dialog">
   <template>
     <style>
-      #dialog {
-        display: none;
+      #actualDialog {
         position: fixed;
         width: 400px;
         height: 200px;
@@ -24,11 +23,10 @@ Dialog for the lancie frontends
         right: 0;
         top: 100px;
         bottom: 100px;
-        z-index: 11;
         margin: auto;
       }
     </style>
-    <paper-dialog id="dialog">
+    <paper-dialog id="actualDialog">
     <content></content>
     </paper-dialog>
   </template>
@@ -38,19 +36,12 @@ Dialog for the lancie frontends
 
       is: 'lancie-dialog',
 
-      properties: {
-        prop1: {
-          type: String,
-          value: 'lancie-dialog',
-        },
-      },
-
       /**
      * Opens the lancie-dialog
      * @return {void}
      */
      open: function() {
-       this.$.dialog.style.display = 'block';
+       this.$.actualDialog.style.display = 'block';
      },
 
      /**
@@ -58,7 +49,7 @@ Dialog for the lancie frontends
      * @return {void}
      */
      close: function() {
-       this.$.dialog.style.display = 'none';
+       this.$.actualDialog.style.display = 'none';
      },
      
 
