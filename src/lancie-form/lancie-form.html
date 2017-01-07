@@ -1,0 +1,82 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/iron-form/iron-form.html">
+
+<dom-module id="lancie-form">
+  <template>
+    <form is="iron-form"
+      id="form"
+      method="[[method]]"
+      content-type="[[contenttype]]"
+      action="/api/v1/[[refurl]]"
+      on-iron-form-response="handleResponse"
+      on-iron-form-error="handleResponse"
+      on-keydown="submitOnEnter">
+      <content></content>
+    </form>
+  </template>
+  <script>
+  'use strict';
+
+  (function() {
+    Polymer({
+      is: 'lancie-form',
+
+      properties: {
+        method: {
+          type: String,
+          value: 'POST',
+        },
+        contenttype: {
+          type: String,
+          value: 'application/json',
+        },
+        refurl: String,
+      },
+
+      submitOnEnter: function(e) {
+        if (e.keyCode !== 13) {
+          return;
+        }
+        this.validateAndSubmit();
+      },
+
+      validate: function() {
+        return this.$.form.validate();
+      },
+
+      submit: function() {
+        this.$.form.submit();
+      },
+
+      validateAndSubmit: function() {
+        if (this.validate()) {
+          this.submit();
+        }
+      },
+
+      reset: function() {
+        this.$.form.reset();
+      },
+
+      handleResponse: function(event) {
+        this.fire('response', event.detail);
+        if (event.detail.succeeded) {
+          this.reset();
+        }
+      },
+
+    });
+  })();
+  </script>
+</dom-module>
