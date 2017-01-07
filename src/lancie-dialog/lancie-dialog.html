@@ -23,6 +23,7 @@ Dialog for the lancie frontends
         right: 0;
         top: 50vh;
         margin: auto;
+        z-index: 11;
 
         background-color: white;
         box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
@@ -50,14 +51,25 @@ Dialog for the lancie frontends
         float: right;
       }
 
-      #actualDialog ::content .buttons paper-button {
-        /*margin: 16px;*/
+      #backdrop {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: black;
+        opacity: 0;
+        z-index: 10;
+        transition: opacity 6s;
       }
 
     </style>
     <div id="actualDialog">
       <content></content>
     </div>
+
+    <div id="backdrop" on-tap="close"></div>
   </template>
 
   <script>
@@ -71,6 +83,8 @@ Dialog for the lancie frontends
      */
      open: function() {
        this.$.actualDialog.style.display = 'block';
+       this.$.backdrop.style.display = 'block';
+       this.$.backdrop.style.opacity = '0.6';
      },
 
      /**
@@ -79,6 +93,8 @@ Dialog for the lancie frontends
      */
      close: function() {
        this.$.actualDialog.style.display = 'none';
+       this.$.backdrop.style.display = 'none';
+       this.$.backdrop.style.opacity = '0.0';
      },
      
 
