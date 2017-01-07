@@ -66,7 +66,7 @@
 
       _canAccess: function(user, nologin) {
         if (!this.stamped && (nologin || (user && user !== ''))) {
-          var nodes = this.$.contentContainer.getDistributedNodes();
+          var nodes = this.getContentChildren('#contentContainer');
           var template = nodes[0].nodeName.toLowerCase() === 'template' ? nodes[0] : nodes[1];
           this.templatize(template);
           this._instance = this.stamp({});
