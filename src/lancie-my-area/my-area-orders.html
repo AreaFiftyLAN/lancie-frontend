@@ -21,16 +21,20 @@
     }
 
     hr {
-      display: block;
-      height: 1px;
       border: 0;
       border-top: 1px solid #e8e8e8;
-      padding: 0;
     }
 
     paper-tooltip {
       --paper-tooltip-background: var(--primary-color);
       --paper-tooltip-text-color: var(--secondary-color);
+    }
+
+    .title-text {
+      font-size: 24px;
+      font-weight: 400;
+      color: #000;
+      padding: 16px;
     }
     </style>
 
@@ -38,7 +42,8 @@
     <lancie-ajax auto id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-response="storeTickets"></lancie-ajax>
     <lancie-ajax id="ajaxTokens" refurl="tickets/tokens" method="GET" handle-as="json" on-response="storeTokens"></lancie-ajax>
 
-    <paper-card class="layout vertical flex" heading="Orders" elevation="1" animated-shadow="true">
+    <paper-card class="layout vertical flex">
+      <div class="title-text">Orders</div>
       <div class="card-content">
         <hr>
         <template is="dom-if" if="[[orders.length]]">
@@ -51,9 +56,7 @@
         </template>
       </div>
 
-      <div class="header style-scope paper-card">
-        <div class="title-text style-scope paper-card">Tickets</div>
-      </div>
+      <div class="title-text">Tickets</div>
       <div class="card-content">
         <template is="dom-if" if="[[tickets.length]]">
           <template is="dom-repeat" items="[[tickets]]" index-as="index">

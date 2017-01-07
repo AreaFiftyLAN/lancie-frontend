@@ -19,15 +19,15 @@ This code may only be used under the BSD style license found at https://github.c
       }
 
       div > * {
-        flex-basis: 400px;
         margin: 16px;
+        min-width: 300px;
       }
 
-      lancie-tickets {
-        margin-right: 16px;
+      lancie-ticket-basket {
+        margin-left: 0;
       }
 
-      @media(max-width: 600px) {
+      @media(max-width: 599px) {
         div > * {
           margin: 0;
         }
@@ -50,7 +50,7 @@ This code may only be used under the BSD style license found at https://github.c
 
       <lancie-tickets class="flex-3" tickets="[[availableTickets]]" basket="[[basket]]"></lancie-tickets>
 
-      <lancie-ticket-basket class="flex" basket="[[basket]]" user="{{user}}"></lancie-ticket-basket>
+      <lancie-ticket-basket class="flex-2" basket="[[basket]]" user="{{user}}"></lancie-ticket-basket>
 
     </div>
 

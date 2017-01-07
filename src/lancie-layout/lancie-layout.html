@@ -21,14 +21,23 @@
     <style>
       :host {
         color: black;
+        display: block;
+      }
+
+      [hidden] {
+        display: none !important;
       }
 
       app-toolbar {
         background-color: var(--primary-color);
       }
 
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
       paper-tab[link] a {
-        /* These mixins (from iron-flex-layout) center the link text. */
         text-decoration: none;
         color: var(--secondary-color);
         font-size: 16px;
@@ -37,6 +46,7 @@
         min-height: 48px;
         padding: 0 16px;
 
+        /* These mixins (from iron-flex-layout) center the link text. */
         @apply(--layout-horizontal);
         @apply(--layout-center-center);
       }
@@ -60,6 +70,10 @@
           height: 4px;
         };
       }
+
+      app-header {
+        width: 100%;
+      }
     </style>
 
     <!-- force-narrow prevents the drawer from ever being displayed in persistent mode -->
@@ -69,11 +83,11 @@
 
         <!-- Nav on mobile: side nav menu -->
         <paper-menu selected="{{route.page}}" attr-for-selected="data-route">
-          <paper-item data-route="" on-tap="_closeDrawer">Home</paper-item>
-          <paper-item data-route="tickets" on-tap="_closeDrawer">Tickets</paper-item>
-          <paper-item data-route="my-area" on-tap="_closeDrawer">My Area</paper-item>
-          <paper-item data-route="seatmap" on-tap="_closeDrawer">Seatmap</paper-item>
-          <paper-item data-route="shop" on-tap="_closeDrawer">Shop</paper-item>
+          <paper-item data-route="" on-tap="_closeDrawer"><a href="/">Home</a></paper-item>
+          <paper-item data-route="tickets" on-tap="_closeDrawer"><a href="/tickets">Tickets</a></paper-item>
+          <paper-item data-route="my-area" on-tap="_closeDrawer"><a href="/my-area">My Area</a></paper-item>
+          <paper-item data-route="seatmap" on-tap="_closeDrawer"><a href="/seatmap">Seatmap</a></paper-item>
+          <paper-item data-route="shop" on-tap="_closeDrawer"><a href="/shop">Shop</a></paper-item>
         </paper-menu>
       </app-drawer>
 
@@ -111,6 +125,8 @@
           </app-toolbar>
         </app-header>
 
+        <div id="contentContainer"></div>
+
         <content></content>
 
       </app-header-layout>
@@ -123,6 +139,32 @@
   'use strict';
   Polymer({
     is: 'lancie-layout',
+
+    properties: {
+      route: {
+        type: Object,
+        notify: true
+      }
+    },
+
+    listeners: {
+      'iron-resize': '_fixHeader'
+    },
+
+    // Header layout modifies the height of the app-header after iron-resize.
+    // To not create a gap between the content and the header, reset the margin-top
+    // of the content container to correctly flow again.
+    _fixHeader: function() {
+      if (!this.isAttached) {
+        // In shadow dom, the header is incorrectly positioned. Force the content
+        // container to adjust temporarily.
+        if (Polymer.Settings.hasShadow) {
+          this.$.contentContainer.style['margin-top'] = '64px';
+        }
+        return;
+      }
+      this.$.contentContainer.style['margin-top'] = 0;
+    },
 
     _closeDrawer: function() {
       this.$.drawer.close();

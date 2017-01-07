@@ -21,6 +21,10 @@ This code may only be used under the BSD style license found at https://github.c
         cursor: pointer;
       }
 
+      [hidden] {
+        display: none !important;
+      }
+
       .errormessage {
         padding: 10px 20px 9px;
         margin-bottom: 4px;
@@ -117,14 +121,14 @@ This code may only be used under the BSD style license found at https://github.c
         if (e.keyCode !== 13) {
           return;
         }
-        
+
         if (!this.$.userListbox.focusedItem && this.$.userListbox.children.length === 2) {
           this.ticketId = this.$.userListbox.children[0].ticket;
         } else if (this.$.userListbox.focusedItem) {
           this.ticketId = this.$.userListbox.focusedItem.ticket;
         } else {
           this.ticketId = undefined;
-        } 
+        }
         if (!this.ticketId) {
           this._showErrorMessage('Please select a user!');
         } else {
