@@ -13,11 +13,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-form/iron-form.html">
 
 <dom-module id="lancie-form">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
   <template>
     <form is="iron-form"
       id="form"
       method="[[method]]"
       content-type="[[contenttype]]"
+      headers="[[_getHeaders(token)]]"
       action="/api/v1/[[refurl]]"
       on-iron-form-response="handleResponse"
       on-iron-form-error="handleResponse"
@@ -29,6 +35,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   'use strict';
 
   (function() {
+    var token, form = [];
+
     Polymer({
       is: 'lancie-form',
 
@@ -42,13 +50,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: 'application/json',
         },
         refurl: String,
+        token: String,
       },
 
-      submitOnEnter: function(e) {
-        if (e.keyCode !== 13) {
-          return;
+      /* STATIC CALL */
+      injectToken: function(newToken) {
+        token = newToken;
+        this.token = token;
+
+        for (var i = 0; i < form.length; i++) {
+          form[i](token);
         }
-        this.validateAndSubmit();
+      },
+
+      attached: function() {
+        if (!token) {
+          form.push(function(newToken) {
+            this.token = newToken;
+          }.bind(this));
+        } else {
+          this.token = token;
+        }
       },
 
       validate: function() {
@@ -74,6 +96,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (event.detail.succeeded) {
           this.reset();
         }
+      },
+
+      submitOnEnter: function(e) {
+        if (e.keyCode !== 13) {
+          return;
+        }
+        this.validateAndSubmit();
+      },
+
+      _getHeaders: function(token) {
+        return {
+          'X-Auth-Token': token,
+        };
       },
 
     });
