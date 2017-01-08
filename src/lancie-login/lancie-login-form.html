@@ -17,7 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../lancie-error/lancie-error.html">
 <link rel="import" href="../lancie-form/lancie-form.html">
-<link rel="import" href="./lancie-passwords.html">
+<link rel="import" href="lancie-passwords.html">
 
 <dom-module id="lancie-login-form">
   <template>
@@ -54,6 +54,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <lancie-form id="register" refurl="users" hidden$="[[!registering]]" on-response="onRegister">
         <gold-email-input label="Email" name="username" error-message="Email should be valid." autofocus required></gold-email-input>
         <lancie-passwords></lancie-passwords>
+        <paper-input id="orderId" name="orderId" hidden></paper-input>
       </lancie-form>
 
   </template>
@@ -72,10 +73,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return _token;
           }
         },
+        orderId: String,
       },
 
       tryRegister: function() {
         this.$.error.clear();
+        this.$.orderId.value = this.orderId;
         this.$.register.validateAndSubmit();
       },
 

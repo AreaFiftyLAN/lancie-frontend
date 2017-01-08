@@ -59,10 +59,10 @@
 
         // Add eventlistener to catch login dialog open request
         this.addEventListener('login-dialog', function(e) {
-          this.$.loginDialog.open();
           if (!!e.detail.orderId) {
             this.$.loginDialog.orderId = e.detail.orderId;
           }
+          this.$.loginDialog.open();
         });
       },
 
