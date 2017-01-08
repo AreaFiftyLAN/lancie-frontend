@@ -22,7 +22,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <form is="iron-form"
       id="form"
       method="[[method]]"
-      content-type="[[contenttype]]"
+      content-type="[[contentType]]"
       headers="[[_getHeaders(token)]]"
       action="/api/v1/[[refurl]]"
       on-iron-form-response="handleResponse"
@@ -45,7 +45,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           value: 'POST',
         },
-        contenttype: {
+        contentType: {
           type: String,
           value: 'application/json',
         },
