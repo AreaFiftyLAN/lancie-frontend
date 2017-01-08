@@ -34,15 +34,15 @@
       }
     </style>
 
-    <lancie-form id="form" refurl="users/current/profile" on-response="onProfileUpdate" no-reset>
+    <lancie-form id="form" refurl="users/current/profile" on-response="onProfileUpdate" no-reset on-enter="validateAndSubmit">
       <div class="layout horizontal center">
         <iron-icon icon="icons:account-circle" item-icon></iron-icon>
         <div class="layout horizontal wrap flex">
           <paper-input label="First Name" name="firstName" type="text" value="{{profile.firstName}}" class="flex" required></paper-input>
           <paper-input label="Last Name" name="lastName" type="text" value="{{profile.lastName}}" class="flex" required></paper-input>
           <paper-input label="Display Name" name="displayName" type="text" value="{{profile.displayName}}" required></paper-input>
-          <paper-dropdown-menu class="flex" label="Gender" name="gender">
-            <paper-menu class="dropdown-content" selected="{{user.profile.gender}}" attr-for-selected="data-value" required>
+          <paper-dropdown-menu class="flex" label="Gender" name="gender" required>
+            <paper-menu class="dropdown-content" selected="{{user.profile.gender}}" attr-for-selected="data-value">
               <paper-item data-value="MALE">MALE</paper-item>
               <paper-item data-value="FEMALE">FEMALE</paper-item>
             </paper-menu>
@@ -96,8 +96,12 @@
           this.set('user.profile', request.response.object);
           this.fire('toast', {text: 'Profile updated successfully.'});
         } else {
+          if (request.request.status === 409) {
+            this.fire('toast', {text: 'Displayname already in use.'});
+          } else {
+            this.fire('toast', {text: 'Profile updated failed.'});
+          }
           this.set('profile', this.user.profile);
-          this.fire('toast', {text: 'Profile updated failed.'});
         }
       },
 

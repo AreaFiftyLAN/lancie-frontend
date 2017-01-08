@@ -45,11 +45,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Fill in your profile</h2>
       <div class="card-content">
-        <lancie-error id="error"></lancie-error>
-        <profile-edit-form profile={{editingUser.profile}}></profile-edit-form>
+        <profile-edit-form id="form" user="{{user}}" on-response="checkSucceeded"></profile-edit-form>
       </div>
       <div class="card-actions">
-        <paper-button class="btn btn-primary" raised on-tap="onSubmit">Submit</paper-button>
+        <paper-button class="btn btn-primary" raised on-tap="submit">Submit</paper-button>
       </div>
     </paper-dialog>
 
@@ -61,42 +60,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'lancie-profile-dialog',
       properties: {
-        user: {
-          type: Object,
-          observer: '_copyUser',
-          notify: true
-        },
-        editingUser: {
-          type: Object
-        },
-        complete: {
-          type: Boolean,
-          value: true
-        },
+        user: Object,
       },
 
       attached: function() {
+        this.$.dialog.addEventListener('toast', function(e) {
+          this.fire('toast', e.detail);
+        }.bind(this));
+
         window.document.body.appendChild(this.$.dialog);
       },
 
-      onSubmit: function() {
-        this.$.error.clear();
-        if (this.allFilledIn(this.editingUser)) {
-          this.complete = true;
-          this.$.ajaxUpdateProfile.body = {
-            displayName: this.editingUser.profile.displayName,
-            firstName: this.editingUser.profile.firstName,
-            lastName: this.editingUser.profile.lastName,
-            phoneNumber: this.editingUser.profile.phoneNumber,
-            address: this.editingUser.profile.address,
-            zipcode: this.editingUser.profile.zipcode,
-            city: this.editingUser.profile.city,
-            gender: this.editingUser.profile.gender,
-            birthday: this.editingUser.profile.birthday
-          };
-          this.$.ajaxUpdateProfile.generateRequest();
-        } else {
-          this.$.error.setError('Fill in all fields.');
+      open: function() {
+        this.$.dialog.open();
+      },
+
+      submit: function() {
+        this.$.form.validateAndSubmit()
+      },
+
+      checkSucceeded: function(e, request) {
+        if (request.succeeded) {
+          this.$.dialog.close();
         }
       },
 
@@ -114,33 +99,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         }
         return true;
-      },
-
-      onProfileUpdate: function(e, response) {
-        if (response.succeeded) {
-          this.user = this.editingUser;
-          this.$.dialog.close();
-        } else if (response.request.status === 409) {
-          this.fire('toast', {text: 'This displayname is already in use.'});
-        } else {
-          this.fire('refreshToast')
-        }
-      },
-
-      open: function() {
-        this.$.dialog.open();
-      },
-
-      _copyUser: function(newValue) {
-        var user = {
-          profile: {}
-        };
-
-        for (var a in newValue.profile) {
-          user.profile[a] = newValue.profile[a];
-        }
-        user.email = newValue.email;
-        this.editingUser = user;
       },
 
       detatch: function() {
