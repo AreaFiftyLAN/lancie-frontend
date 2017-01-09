@@ -32,6 +32,18 @@
         border-radius: 0;
       }
     }
+
+    lancie-ticket-basket-item:not(:last-of-type) {
+      border-bottom: solid 1px #e8e8e8;
+    }
+
+    small {
+      margin-top: 4px;
+    }
+
+    paper-button {
+      margin: 0 auto;
+    }
   </style>
 
     <iron-location query="{{query}}"></iron-location>
@@ -53,13 +65,18 @@
             <lancie-ticket-basket-item ticket="[[item]]"></lancie-ticket-basket-item>
           </template>
         </div>
-        <div class="card-actions layout horizontal">
-          <span class="flex price">Total: </span>
-          <span class="price">&euro; [[_formatPrice(basket.amount)]]</span>
-        </div>
-        <div class="card-actions">
+        <div class="card-actions layout vertical">
+          <div class="layout horizontal">
+            <span class="flex price">Total: </span>
+            <span class="price">&euro; [[_formatPrice(basket.amount)]]</span>
+          </div>
+          <ul>
+            <li>Pickup radius is 7.5Km</li>
+            <li>Under 18 years, you must be able to provide parental approval</li>
+          </ul>
           <paper-button hidden$="[[_userAssigned(basket)]]" on-tap="loginDialog">Continue</paper-button>
           <paper-button hidden$="[[!_userAssigned(basket)]]" on-tap="tryCheckout">Checkout</paper-button>
+          <small hidden$="[[!_userAssigned(basket)]]">Note: Every ticket added to this order will be reserved and you will have 15 minutes to pay. Tickets will be released after this period if not paid.</small>
         </div>
       </template>
     </paper-card>
