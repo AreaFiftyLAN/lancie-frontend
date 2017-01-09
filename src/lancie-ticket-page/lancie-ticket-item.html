@@ -125,7 +125,7 @@
         deadlineDisplay: {
           type: Object,
           value: {
-            Early: 'limit',
+            Early: 'deadline',
             Normal: 'deadline',
             Late: 'deadline',
           },
@@ -197,6 +197,9 @@
         var deadlineType = this.deadlineDisplay[this.ticket.ticketType];
         if (Date.now() > new Date(this.ticket.deadline)) {
           return false;
+        }
+        if (this.ticket.limit === 0) {
+          return true;
         }
         return this.ticket.numberSold < this.ticket.limit;
       },

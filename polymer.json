@@ -8,13 +8,12 @@
   "fragments": [
     "src/lancie-home-page/lancie-home-page.html",
     "src/lancie-my-area/lancie-my-area.html",
-    "src/lancie-my-area/lancie-accept-ticket-transfer.html",
-    "src/lancie-my-area/lancie-success-ticket-transfer.html",
+    "src/lancie-ticket-transfer/lancie-ticket-transfer-accept.html",
+    "src/lancie-ticket-transfer/lancie-ticket-transfer-success.html",
     "src/lancie-ticket-page/lancie-ticket-page.html",
     "src/lancie-seatmap/lancie-seatmap.html",
     "src/lancie-rfid/lancie-rfid.html",
-    "src/lancie-ticket-page/lancie-ticket-profile-intercept.html",
-    "src/lancie-login/lancie-register-confirmation.html",
+    "src/lancie-login/lancie-register-confirm.html",
     "src/lancie-login/lancie-check-email.html",
     "src/lancie-contact/lancie-contact.html",
     "src/lancie-contact/lancie-contact-success.html",
@@ -23,8 +22,8 @@
     "src/lancie-construction.html",
     "src/lancie-password/lancie-password-reset.html",
     "src/lancie-password/lancie-password-reset-success.html",
-    "src/lancie-password/lancie-request-password-reset.html",
-    "src/lancie-password/lancie-request-password-reset-success.html"
+    "src/lancie-password/lancie-password-reset-request.html",
+    "src/lancie-password/lancie-password-reset-request-success.html"
   ],
   "includeDependencies": [
     "manifest.json",
