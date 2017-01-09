@@ -12,12 +12,26 @@
     <style>
     :host {
       display: block;
+      --min-card-width: 300px;
     }
 
     .card {
       margin: 8px;
-      min-width: 300px;
+      min-width: var(--min-card-width);
     }
+
+    .flex-1 {
+      flex: 1 1 var(--min-card-width);
+    }
+
+    .flex-2 {
+      flex: 2 1 var(--min-card-width);
+    }
+
+    .flex-3 {
+      flex: 3 1 var(--min-card-width);
+    }
+
     </style>
     <lancie-section type="primary full" header="My Area - {{user.profile.displayName}}">
       <div>
