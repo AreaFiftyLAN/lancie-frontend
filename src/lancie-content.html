@@ -136,7 +136,7 @@
         if (window.location.host.indexOf('localhost') >= 0 || window.location.host.indexOf('127.0.0.1') >= 0) {
           return page;
         }
-        if (['tickets', 'my-area', 'seatmap', 'shop'].indexOf(page) !== -1) {
+        if (['seatmap', 'shop'].indexOf(page) !== -1) {
           return 'construction';
         }
         return page;
