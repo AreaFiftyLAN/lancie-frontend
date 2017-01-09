@@ -36,19 +36,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <lancie-card heading="[[getHeading(registering)]]">
+    <lancie-card heading="[[_getAction(registering)]]">
       <div class="card-content">
-        <lancie-login-form id="loginForm" registering="[[registering]]"></lancie-login-form>
+        <lancie-login-form id="loginForm" registering="[[registering]]" on-enter="submit"></lancie-login-form>
       </div>
       <div class="card-actions">
-        <div hidden$="[[registering]]">
-          <paper-button class="btn btn-primary" raised on-tap="logIn">Log in!</paper-button>
-          <paper-button class="btn" raised on-tap="switchForm">Register</paper-button>
-        </div>
-        <div hidden$="[[!registering]]">
-          <paper-button class="btn btn-primary" raised on-tap="register">Register!</paper-button>
-          <paper-button class="btn" raised on-tap="switchForm">Back to log in</paper-button>
-        </div>
+        <paper-button class="btn btn-primary" raised on-tap="submit">[[_getAction(registering)]]</paper-button>
+        <paper-button class="btn" raised on-tap="switchForm">[[_getSwitchAction(registering)]]</paper-button>
+      </div>
     </lancie-card>
 
   </template>
@@ -70,25 +65,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.registering = !this.registering;
       },
 
+      submit: function() {
+        if (this.registering) {
+          this.register();
+        } else {
+          this.login();
+        }
+      },
+
       register: function() {
-        this.setBody();
         this.$.loginForm.tryRegister();
       },
 
-      logIn: function() {
-        this.setBody();
+      login: function() {
         this.$.loginForm.tryLogIn();
       },
 
-      setBody: function() {
-        this.$.loginForm.body = {
-          username: this.$.loginForm.username,
-          password: this.$.loginForm.password,
-        };
+      _getAction: function(registering) {
+        return registering ? 'Register' : 'Log In';
       },
 
-      getHeading: function(registering) {
-        return registering ? 'Register' : 'Log In';
+      _getSwitchAction: function(registering) {
+        return this._getAction(!registering);
       },
 
    });

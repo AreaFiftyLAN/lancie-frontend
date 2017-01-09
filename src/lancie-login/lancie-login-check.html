@@ -2,6 +2,7 @@
 <link rel="import" href="lancie-login-card.html">
 <link rel="import" href="lancie-ajax.html">
 <link rel="import" href="lancie-login-dialog.html">
+<link rel="import" href="../lancie-form/lancie-form.html">
 
 <dom-module id="lancie-login-check">
   <template>
@@ -16,6 +17,7 @@
     <lancie-login-dialog id="loginDialog" on-logged-in="storeUser"></lancie-login-dialog>
 
     <lancie-ajax id="ajax"></lancie-ajax>
+    <lancie-form id="form"></lancie-form>
 
     <slot id="contentContainer"></slot>
   </template>
@@ -57,10 +59,10 @@
 
         // Add eventlistener to catch login dialog open request
         this.addEventListener('login-dialog', function(e) {
-          this.$.loginDialog.open();
           if (!!e.detail.orderId) {
             this.$.loginDialog.orderId = e.detail.orderId;
           }
+          this.$.loginDialog.open();
         });
       },
 
@@ -79,6 +81,7 @@
       storeUser: function(e, detail) {
         this.fire('store-token', {token: detail.token});
         this.$.ajax.injectToken(detail.token);
+        this.$.form.injectToken(detail.token);
 
         this.user = detail.user;
         for (var i = 0; i < checks.length; i++) {
