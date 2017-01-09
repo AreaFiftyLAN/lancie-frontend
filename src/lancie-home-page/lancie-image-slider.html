@@ -69,14 +69,14 @@
               sizing="contain"></iron-image>
           <div class="text">3-5 March 2017</div>
         </div>
-        <div class="text">Buy your tickets now!</div>
-        <a href="https://www.facebook.com/media/set/?set=a.1149538975092338.1073741833.947682658611305&type=1&l=bd58b9d11d"><paper-material>Click here for Area FiftyLAN 2016 photos!</paper-material></a>
+        <div class="text">Early bird tickets available until 22-01</div>
+        <a href="/tickets"><paper-material>Buy your tickets here!</paper-material></a>
       </div>
       <div class="image-slider">
-        <template is="dom-repeat" items="{{images}}" index-as="index">
-          <iron-image preload fade src="{{item}}"
+        <template is="dom-repeat" items="[[images]]" index-as="index">
+          <iron-image preload fade src="[[item]]"
             height="500" alt="Slider image AreaFiftyLan 2017"
-            sizing="cover" class$="{{hide(current, index)}}"></iron-image>
+            sizing="cover" class$="[[hide(current, index)]]"></iron-image>
         </template>
       </div>
   </template>
