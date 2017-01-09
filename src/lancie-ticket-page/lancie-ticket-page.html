@@ -13,6 +13,10 @@ This code may only be used under the BSD style license found at https://github.c
 <dom-module id="lancie-ticket-page">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
+      :host {
+        --card-min-width: 300px;
+      }
+
       div {
         max-width: 1200px;
         margin: auto;
@@ -20,7 +24,7 @@ This code may only be used under the BSD style license found at https://github.c
 
       div > * {
         margin: 16px;
-        min-width: 300px;
+        min-width: var(--card-min-width);
       }
 
       lancie-ticket-basket {
@@ -38,6 +42,15 @@ This code may only be used under the BSD style license found at https://github.c
           margin: 16px auto;
         }
       }
+
+      /*
+      * Safari hack
+      * Makes flex wrapping work
+      */
+      .flex, .flex-1, .flex-2, .flex-3 {
+        flex-basis: var(--card-min-width);
+      }
+      /*End Safari hack*/
     </style>
 
     <lancie-order-storage id="orderStorage" on-order="storeStorageOrder"></lancie-order-storage>

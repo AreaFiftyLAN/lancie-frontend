@@ -12,25 +12,22 @@
     <style>
     :host {
       display: block;
-      --min-card-width: 300px;
+      --card-min-width: 300px;
     }
 
     .card {
       margin: 8px;
-      min-width: var(--min-card-width);
+      min-width: var(--card-min-width);
     }
 
-    .flex-1 {
-      flex: 1 1 var(--min-card-width);
+    /*
+     * Safari hack
+     * Makes flex wrapping work
+     */
+    .flex, .flex-1, .flex-2, .flex-3 {
+      flex-basis: var(--card-min-width);
     }
-
-    .flex-2 {
-      flex: 2 1 var(--min-card-width);
-    }
-
-    .flex-3 {
-      flex: 3 1 var(--min-card-width);
-    }
+    /*End Safari hack*/
 
     </style>
     <lancie-section type="primary full" header="My Area - {{user.profile.displayName}}">

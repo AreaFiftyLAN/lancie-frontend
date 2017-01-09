@@ -13,6 +13,7 @@
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         display: block;
+        --paper-input-min-width: 200px;
       }
 
       iron-icon {
@@ -21,7 +22,7 @@
       }
 
       paper-input, paper-dropdown-menu {
-        min-width: 200px;
+        min-width: var(--paper-input-min-width);
         margin-right: 50px;
       }
 
@@ -32,6 +33,15 @@
       .dropdown-content {
         min-width: 200px;
       }
+
+      /*
+      * Safari hack
+      * Makes flex wrapping work
+      */
+      .flex, .flex-1, .flex-2, .flex-3 {
+        flex-basis: var(--card-min-width);
+      }
+      /*End Safari hack*/
     </style>
 
     <lancie-form id="form" refurl="users/current/profile" on-response="onProfileUpdate" no-reset on-enter="validateAndSubmit">
