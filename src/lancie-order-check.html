@@ -62,7 +62,6 @@
         this.orderId = query.split('order=')[1];
         if (!!token && !!this.orderId) {
           this.$.ajaxConfirmOrder.generateRequest();
-          console.log('done');
         }
       },
 
