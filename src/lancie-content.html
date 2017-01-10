@@ -60,9 +60,13 @@
 
       <lancie-register-confirm data-route="register-confirm" data-path="lancie-login/lancie-register-confirm.html"></lancie-register-confirm>
 
-      <lancie-check-email data-route="check-email" data-path="lancie-login/lancie-check-email.html"></lancie-check-email>
+      <lancie-login-check user="{{user}}" data-route="order-check" data-path="lancie-order-check.html">
+        <template>
+          <lancie-order-check></lancie-order-check>
+        </template>
+      </lancie-login-check>
 
-      <lancie-order-check data-route="order-check" data-path="lancie-order-check.html"></lancie-order-check>
+      <lancie-check-email data-route="check-email" data-path="lancie-login/lancie-check-email.html"></lancie-check-email>
 
       <lancie-password-reset data-route="password-reset" data-path="lancie-password/lancie-password-reset.html"></lancie-password-reset>
 
