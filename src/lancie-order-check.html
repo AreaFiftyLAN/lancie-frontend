@@ -1,3 +1,4 @@
+<link rel="import" href="../bower_components/iron-location/iron-location.html">
 <link rel="import" href="lancie-section/lancie-section.html">
 <link rel="import" href="lancie-card.html">
 
@@ -8,25 +9,27 @@
         display: none !important;
       }
     </style>
-    <lancie-ajax id="ajaxConfirmOrder" refurl="orders/[[orderId]]/status" method="GET" handle-as="json" on-response="onResponse"></lancie-ajax>
+    <lancie-ajax id="ajaxConfirmOrder" token="{{token}}" refurl="orders/[[orderId]]/status" method="GET" handle-as="json" on-response="onResponse"></lancie-ajax>
+
+    <iron-location query="{{query}}"></iron-location>
 
     <lancie-card>
-      <div class="card-content" hidden$="{{!confirming}}">
+      <div class="card-content" hidden$="[[!confirming]]">
         <p>Hold on while we check the status of your order.</p>
       </div>
-      <div class="card-content" hidden$="{{!error}}">
-        <p>Hmm, there seemed to have gone something wrong. If you have paid for the tickets please <a href="/contact">send us an email</a>. We will then check what went wrong.</p>
+      <div class="card-content" hidden$="[[!error]]">
+        <p>Hmm, something may have gone wrong. If you have paid for the tickets, there is nothing to worry about. You could <a href="/contact">send us an email</a>. We will then check if you have received your tickets.</p>
         <a href="/">Head back to the homepage</a>
       </div>
-      <div class="card-content" hidden$="{{!success}}">
+      <div class="card-content" hidden$="[[!success]]">
         <p>Congratulations, your ticket(s) were successfully ordered and are now available in your area. Click my area below or in header to go to your area to manage your tickets and profile.</p>
         <a href="/my-area">My Area</a>
       </div>
-      <div class="card-content" hidden$="{{!cancelled}}">
+      <div class="card-content" hidden$="[[!cancelled]]">
         <p>Your order was cancelled. Please place a new order if you still want to buy tickets. Your previous order will be automatically removed. If you have questions, please <a href="/contact">send us an email</a>.</p>
         <a href="/">Head back to the homepage</a>
       </div>
-      <div hidden$="{{!waiting}}">
+      <div hidden$="[[!waiting]]">
         <p>You didn't finish your payment yet, or your order is still being processed. Please try again later. If this problem persists, please <a href="/contact">send us an email</a>, we will then check what went wrong.</p>
         <a href="/">Head back to the homepage</a>
       </div>
@@ -40,7 +43,12 @@
       is: 'lancie-order-check',
       properties: {
         orderId: String,
+        query: Object,
+        token: String,
       },
+      observers: [
+        'hasData(token, query)',
+      ],
 
       attached: function() {
         this.confirming = true;
@@ -48,12 +56,13 @@
         this.error = false;
         this.cancelled = false;
         this.waiting = false;
-        this.orderId = window.location.href.split('order=')[1];
-        if (!this.orderId) {
-          this.error = true;
-          this.confirming = false;
-        } else {
+      },
+
+      hasData: function(token, query) {
+        this.orderId = query.split('order=')[1];
+        if (!!token && !!this.orderId) {
           this.$.ajaxConfirmOrder.generateRequest();
+          console.log('done');
         }
       },
 
