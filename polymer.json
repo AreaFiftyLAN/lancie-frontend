@@ -1,7 +1,7 @@
 {
   "entrypoint": "index.html",
   "shell": "src/lancie-app.html",
-  "sourceGlobs": [
+  "sources": [
    "images-optimized/**/*",
    "scripts/*"
   ],
@@ -25,7 +25,7 @@
     "src/lancie-password/lancie-password-reset-request.html",
     "src/lancie-password/lancie-password-reset-request-success.html"
   ],
-  "includeDependencies": [
+  "extraDependencies": [
     "manifest.json",
     "favicon.ico",
     "robots.txt",

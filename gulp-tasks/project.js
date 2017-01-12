@@ -54,8 +54,7 @@ function rejoin() {
 // either bundled or unbundled. If this argument is omitted it will output both
 function merge(source, dependencies) {
   return function output() {
-    const mergedFiles = mergeStream(source(), dependencies())
-      .pipe(project.analyzer);
+    const mergedFiles = mergeStream(source(), dependencies());
     const bundleType = global.config.build.bundleType;
     let outputs = [];
 
@@ -113,8 +112,8 @@ function writeBundledServiceWorker() {
   return polymer.addServiceWorker({
     project: project,
     buildRoot: bundledPath,
-    swConfig: global.config.swPrecacheConfig,
-    serviceWorkerPath: global.config.serviceWorkerPath,
+    swPrecacheConfig: global.config.swPrecacheConfig,
+    path: global.config.serviceWorkerPath,
     bundled: true
   });
 }
@@ -124,8 +123,8 @@ function writeUnbundledServiceWorker() {
   return polymer.addServiceWorker({
     project: project,
     buildRoot: unbundledPath,
-    swConfig: global.config.swPrecacheConfig,
-    serviceWorkerPath: global.config.serviceWorkerPath
+    swPrecacheConfig: global.config.swPrecacheConfig,
+    path: global.config.serviceWorkerPath
   });
 }
 
