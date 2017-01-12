@@ -1,5 +1,4 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 
 <!--
 `lancie-dialog`
@@ -21,7 +20,7 @@ Dialog for the lancie frontends
         margin: auto;
         z-index: 11;
 
-        /*background-color: white;*/
+        background-color: white;
       }
 
       #actualDialog ::content h2 {
@@ -30,22 +29,22 @@ Dialog for the lancie frontends
         margin: 0;
         padding: 16px;
         font-size: 20px;
-        /*font-weight: normal;*/
+        font-weight: normal;
       }
 
       #actualDialog ::content .card-content {
-        /*padding: 16px;*/
+        padding: 16px;
       }
 
       #actualDialog ::content .buttons {
         border-top: 1px solid #e8e8e8;
 
-        /*position: relative;
+        position: relative;
         padding: 8px 8px 8px 24px;
         margin: 0;
 
         @apply(--layout-horizontal);
-        @apply(--layout-end-justified);*/
+        @apply(--layout-end-justified);
       }
 
       #backdrop {
@@ -62,11 +61,9 @@ Dialog for the lancie frontends
       }
 
     </style>
-    <paper-dialog id="actualDialog"> <!--
-                  entry-animation="scale-up-animation" 
-                  exit-animation="fade-out-animation"-->
+    <div id="actualDialog">
       <content></content>
-    </paper-dialog>
+    </div>
 
     <div id="backdrop" on-tap="close"></div>
   </template>
@@ -76,52 +73,32 @@ Dialog for the lancie frontends
 
      is: 'lancie-dialog',
 
-     ready: function() {
-       // Attach close function to paper-dialog 
-       this.$.actualDialog.close = this.close;
+     listeners: {
+       'tap': 'isDismissButton'
      },
 
-    //  behaviors: [
-    //     Polymer.PaperDialogBehavior,
-    //     Polymer.NeonAnimationRunnerBehavior
-    //   ],
-
-    //  listeners: {
-    //    'tap': 'isDismissButton'
-    //  },
-
-    // /**
-    //  * Find out if the tapped place was within the dismiss button
-    //  */
-    //  isDismissButton: function(event) {
-    //   // Search for the element with dialog-confirm or dialog-dismiss,
-    //   // from the root target until this (excluded).
-    //   var path = Polymer.dom(event).path;
-    //   for (var i = 0; i < path.indexOf(this); i++) {
-    //     var target = path[i];
-    //     if (target.hasAttribute && (target.hasAttribute('dialog-dismiss') )) {
-    //       this.close();
-    //       event.stopPropagation();
-    //       break;
-    //     }
-    //   }
-    // },
-
-    // _renderOpened: function() {
-    //   open();
-    // },
-
-    // _renderClosed: function() {
-    //   close();
-    // },
+    /**
+     * Find out if the tapped place was within the dismiss button
+     */
+     isDismissButton: function(event) {
+      // Search for the element with dialog-confirm or dialog-dismiss,
+      // from the root target until this (excluded).
+      var path = Polymer.dom(event).path;
+      for (var i = 0; i < path.indexOf(this); i++) {
+        var target = path[i];
+        if (target.hasAttribute && (target.hasAttribute('dialog-dismiss') )) {
+          this.close();
+          event.stopPropagation();
+          break;
+        }
+      }
+    },
 
       /**
      * Opens the lancie-dialog
      * @return {void}
      */
      open: function() {
-      //  this.$.actualDialog._renderOpened();
-      console.log(this);
        this.$.actualDialog.style.display = 'block';
        this.$.backdrop.style.display = 'block';
        this.$.backdrop.style.opacity = '0.6';
@@ -132,13 +109,11 @@ Dialog for the lancie frontends
      * @return {void}
      */
      close: function() {
-      //  this.$.actualDialog._renderClosed();
-      console.log(this);
-      // this = this.parentElement;
        this.$.actualDialog.style.display = 'none';
        this.$.backdrop.style.display = 'none';
        this.$.backdrop.style.opacity = '0.0';
-     },     
+     },
+     
 
     });
   </script>
