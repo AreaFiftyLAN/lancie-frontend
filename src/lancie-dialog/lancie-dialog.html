@@ -41,17 +41,25 @@ Dialog for the lancie frontends
         border-top: 1px solid #e8e8e8;
 
         position: relative;
-        padding: 8px 8px 8px 24px;
+        padding: 8px 24px;
         margin: 0;
 
         @apply(--layout-horizontal);
         @apply(--layout-end-justified);
       }
 
-      /*#actualDialog ::content .buttons paper-button {
-        color: #000000;
-        width: 200px;
-      }*/
+      #actualDialog ::content .buttons div {
+        width: 100%;
+      }
+
+      #actualDialog ::content .buttons .btn {
+        width: calc(50% - 12px);
+      }
+
+      #actualDialog ::content .buttons .btn-primary {
+        color: var(--secondary-color);
+        background: var(--primary-color);
+      }
 
       #backdrop {
         display: none;
