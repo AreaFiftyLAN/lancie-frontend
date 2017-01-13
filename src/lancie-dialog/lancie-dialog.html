@@ -27,12 +27,13 @@ Dialog for the lancie frontends
         background-color: var(--primary-color);
         color: var(--secondary-color);
         margin: 0;
-        padding: 16px;
         font-size: 20px;
         font-weight: normal;
       }
 
-      #actualDialog ::content .card-content {
+      #actualDialog ::content h2,
+      #actualDialog ::content .card-content,
+      #actualDialog ::content lancie-login-form {
         padding: 16px;
       }
 
@@ -46,6 +47,11 @@ Dialog for the lancie frontends
         @apply(--layout-horizontal);
         @apply(--layout-end-justified);
       }
+
+      /*#actualDialog ::content .buttons paper-button {
+        color: #000000;
+        width: 200px;
+      }*/
 
       #backdrop {
         display: none;

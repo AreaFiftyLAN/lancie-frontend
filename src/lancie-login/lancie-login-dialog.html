@@ -13,7 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 
 
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../lancie-dialog/lancie-dialog.html">
 <link rel="import" href="lancie-login-form.html">
 
 <dom-module id="lancie-login-dialog">
@@ -36,7 +36,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 0;
         padding: 24px;
         color: #ffe574;
-        background: #1a2b43;
+        /*background: #1a2b43;*/
       }
 
       lancie-login-form {
@@ -50,6 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .btn {
         color: #000000;
+        /*width: 100px;*/
       }
 
       .btn-primary {
@@ -58,7 +59,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="dialog">
       <h2>[[_getAction(registering)]]</h2>
       <lancie-login-form id="loginForm" registering="[[registering]]" order-id="[[orderId]]" on-enter="submit"></lancie-login-form>
 
@@ -66,7 +67,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-button class="btn btn-primary" raised on-tap="submit">[[_getAction(registering)]]</paper-button>
         <paper-button class="btn" raised on-tap="switchForm">[[_getSwitchAction(registering)]]</paper-button>
       </div>
-    </paper-dialog>
+    </lancie-dialog>
 
   </template>
   <script>
