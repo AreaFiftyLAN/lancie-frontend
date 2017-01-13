@@ -18,46 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="lancie-login-dialog">
   <template>
     <style></style>
-    <style>
-      :host {
-        display: block;
-      }
-
-      paper-dialog {
-        min-width: 500px;
-      }
-
-      paper-dialog > * {
-        margin: 0;
-      }
-
-      h2 {
-        margin: 0;
-        padding: 24px;
-        color: #ffe574;
-        /*background: #1a2b43;*/
-      }
-
-      lancie-login-form {
-        padding: 16px;
-      }
-
-      .dialog-actions {
-        border-top: 1px solid #e8e8e8;
-        padding: 4px 16px;
-      }
-
-      .btn {
-        color: #000000;
-        /*width: 100px;*/
-      }
-
-      .btn-primary {
-        color: #ffe574;
-        background: #1a2b43;
-      }
-    </style>
-
+    
     <lancie-dialog id="dialog">
       <h2>[[_getAction(registering)]]</h2>
       <lancie-login-form id="loginForm" registering="[[registering]]" order-id="[[orderId]]" on-enter="submit"></lancie-login-form>
