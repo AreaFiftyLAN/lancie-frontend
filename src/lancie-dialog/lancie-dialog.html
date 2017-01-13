@@ -78,10 +78,10 @@ Dialog for the lancie frontends
      },
 
     /**
-     * Find out if the tapped place was within the dismiss button
+     * Find out if the tapped target was the dismiss button
      */
      isDismissButton: function(event) {
-      // Search for the element with dialog-confirm or dialog-dismiss,
+      // Search for the element with dialog-dismiss,
       // from the root target until this (excluded).
       var path = Polymer.dom(event).path;
       for (var i = 0; i < path.indexOf(this); i++) {
