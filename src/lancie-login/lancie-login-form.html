@@ -96,7 +96,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             if (request.request.xhr.response.message.indexOf('disabled') > 0) {
               this.$.error.setError('Account not validated.');
             } else {
-              this.$.error.setError('Bad credentials.')
+              this.$.error.setError('Bad credentials.');
             }
           } else {
             this.$.error.setError('Server failed processing the request, please try refreshing the page.');
@@ -127,7 +127,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       headersFrom: function(token) {
         return {
-          "X-Auth-Token": token,
+          'X-Auth-Token': token,
         };
       },
 
