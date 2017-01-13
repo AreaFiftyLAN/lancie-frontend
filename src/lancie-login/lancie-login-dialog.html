@@ -56,17 +56,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.fire('navigate', e.detail);
           this.$.dialog.close();
         }.bind(this));
-
-        window.document.body.appendChild(this.$.dialog);
-        this.$.dialog.style['min-width'] = '500px';
-        var h2 = this.$.dialog.querySelector('h2');
-        h2.style.margin = '0';
-        h2.style.padding = '24px';
-        h2.style.color = '#ffe574';
-        h2.style.background = '#1a2b43';
-        var button = this.$.dialog.querySelector('.btn-primary');
-        button.style.background = '#1a2b43';
-        button.style.color = '#ffe574';
       },
 
       open: function() {
