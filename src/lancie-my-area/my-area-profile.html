@@ -180,12 +180,12 @@
 
       onPasswordUpdate: function(e, request) {
         if (request.succeeded) {
-          this.fire('toast', {text: 'Password updated.'})
+          this.fire('toast', {text: 'Password updated.'});
         } else {
           if (request.request.status === 403) {
-            this.fire('toast', {text: 'Wrong password.'})
+            this.fire('toast', {text: 'Wrong password.'});
           } else {
-            this.fire('toast', {text: 'Password update failed.'})
+            this.fire('toast', {text: 'Password update failed.'});
           }
         }
       },

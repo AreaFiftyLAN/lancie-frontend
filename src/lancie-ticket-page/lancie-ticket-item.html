@@ -194,7 +194,6 @@
       },
 
       _available: function(ticket) {
-        var deadlineType = this.deadlineDisplay[this.ticket.ticketType];
         if (Date.now() > new Date(this.ticket.deadline)) {
           return false;
         }
