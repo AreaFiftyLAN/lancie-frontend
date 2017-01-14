@@ -123,7 +123,6 @@
       this.addMemberMessage = '';
       this.memberUsername = '';
       this.$.addMemberDialog.open();
-      window.document.body.appendChild(this.$.addMemberDialog);
     },
     submitInviteMember: function() {
       this.$.error.clear();
@@ -151,7 +150,6 @@
     openTeamInvitesDialog: function() {
       this.$.ajaxGetTeamInvites.generateRequest();
       this.$.teamInvitesDialog.open();
-      window.document.body.appendChild(this.$.teamInvitesDialog);
     },
     _isSameUser: function(other, user) {
       return other.reference === user.reference;
