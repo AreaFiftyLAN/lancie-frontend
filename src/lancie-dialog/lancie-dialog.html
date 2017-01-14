@@ -4,7 +4,7 @@
 `lancie-dialog`
 Dialog for the lancie frontends
 
-@demo demo/index.html 
+@demo demo/index.html
 -->
 
 <dom-module id="lancie-dialog">
@@ -27,20 +27,17 @@ Dialog for the lancie frontends
         background-color: var(--primary-color);
         color: var(--secondary-color);
         margin: 0;
-        font-size: 20px;
-        font-weight: normal;
+        font-size: 24px;
+        font-weight: 400;
       }
 
       #actualDialog ::content h2,
-      #actualDialog ::content .card-content,
-      #actualDialog ::content lancie-login-form {
+      #actualDialog ::content .card-content {
         padding: 16px;
       }
 
       #actualDialog ::content .buttons {
         border-top: 1px solid #e8e8e8;
-
-        position: relative;
         padding: 8px 24px;
         margin: 0;
 
@@ -48,12 +45,9 @@ Dialog for the lancie frontends
         @apply(--layout-end-justified);
       }
 
-      #actualDialog ::content .buttons div {
-        width: 100%;
-      }
-
-      #actualDialog ::content .buttons .btn {
-        width: calc(50% - 12px);
+      #actualDialog ::content .full-width .btn {
+        margin: 0 4px;
+        width: calc(50% - 8px);
       }
 
       #actualDialog ::content .buttons .btn-primary {
@@ -71,7 +65,6 @@ Dialog for the lancie frontends
         background-color: black;
         opacity: 0;
         z-index: 10;
-        transition: opacity 6s;
       }
 
     </style>
@@ -83,10 +76,11 @@ Dialog for the lancie frontends
   </template>
 
   <script>
+  'use strict';
+
+  (function() {
     Polymer({
-
      is: 'lancie-dialog',
-
      listeners: {
        'tap': 'isDismissButton'
      },
@@ -115,7 +109,10 @@ Dialog for the lancie frontends
      open: function() {
        this.$.actualDialog.style.display = 'block';
        this.$.backdrop.style.display = 'block';
-       this.$.backdrop.style.opacity = '0.6';
+       this.$.backdrop.style.transition = 'opacity 0.1s linear';
+       this.async(function() {
+         this.$.backdrop.style.opacity = '0.6';
+       }, 1);
      },
 
      /**
@@ -124,11 +121,10 @@ Dialog for the lancie frontends
      */
      close: function() {
        this.$.actualDialog.style.display = 'none';
-       this.$.backdrop.style.display = 'none';
-       this.$.backdrop.style.opacity = '0.0';
+       this.$.backdrop.style.display = 'none';this.$.backdrop.style.opacity = '0.0';
      },
-     
 
     });
+  })();
   </script>
 </dom-module>
