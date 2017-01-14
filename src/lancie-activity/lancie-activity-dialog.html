@@ -9,32 +9,25 @@ This code may only be used under the BSD style license found at https://github.c
 
 <link rel="import" href="lancie-activity-content.html">
 <link rel="import" href="lancie-activity-sponsor.html">
+<link rel="import" href="../lancie-dialog/lancie-dialog.html">
 
 <dom-module id="lancie-activity-dialog">
   <template>
     <style>
       #lancieDialog {
-        display: none;
-        position: fixed;
-        width: 850px;
-        left: 0;
-        right: 0;
-        top: 100px;
-        bottom: 100px;
-        z-index: 11;
-        margin: auto;
+        --lancie-dialog-dialog: {
+          top: 10vh;
+        };
+
+        --lancie-dialog-card-content: {
+          padding: 0;
+        };
       }
 
       .dialog-header {
         background-color: #1a2b43;
-        color: #ffe574;
         display: flex;
         justify-content: space-between;
-        font-size: 150%;
-      }
-
-      .dialog-header div {
-        padding: 20px;
       }
 
       .dialog-header paper-icon-button {
@@ -46,7 +39,6 @@ This code may only be used under the BSD style license found at https://github.c
         flex-direction: row;
         overflow-y: scroll;
         color: #212121;
-        background-color: white;
         padding: 25px;
         height: 70vh;
       }
@@ -58,19 +50,6 @@ This code may only be used under the BSD style license found at https://github.c
       lancie-activity-sponsor {
         flex: 1;
         flex-basis: 150px;
-      }
-
-      #backdrop {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: black;
-        opacity: 0;
-        z-index: 10;
-        transition: opacity 6s;
       }
 
       @media (max-width: 600px) {
@@ -93,22 +72,23 @@ This code may only be used under the BSD style license found at https://github.c
       }
     </style>
 
+
     <div id="popup-button" on-tap="openDialog">
       <content></content>
     </div>
 
-    <div id="lancieDialog">
-      <div class="dialog-header">
-        <div><strong>[[data.sponsor.name]]</strong> <span>[[data.headerTitle]]</span></div>
-        <paper-icon-button icon="close" on-tap="closeDialog"></paper-icon-button>
+    <lancie-dialog id="lancieDialog">
+      <div class="card-content">
+        <div class="dialog-header">
+          <h2><strong>[[data.sponsor.name]]</strong> <span>[[data.headerTitle]]</span></h2>
+          <paper-icon-button icon="close" on-tap="closeDialog"></paper-icon-button>
+        </div>
+        <div class="dialog-content">
+          <lancie-activity-content data="[[data]]"></lancie-activity-content>
+          <lancie-activity-sponsor sponsor="[[data.sponsor]]" prizes="[[data.prizes]]"></lancie-activity-sponsor>
+        </div>
       </div>
-      <div class="dialog-content">
-        <lancie-activity-content data="[[data]]"></lancie-activity-content>
-        <lancie-activity-sponsor sponsor="[[data.sponsor]]" prizes="[[data.prizes]]"></lancie-activity-sponsor>
-      </div>
-    </div>
-
-    <div id="backdrop" on-tap="closeDialog"></div>
+    </lancie-dialog>
   </template>
 
   <script>
@@ -128,9 +108,7 @@ This code may only be used under the BSD style license found at https://github.c
      * @return {void}
      */
     openDialog: function() {
-      this.$.lancieDialog.style.display = 'block';
-      this.$.backdrop.style.display = 'block';
-      this.$.backdrop.style.opacity = '0.6';
+      this.$.lancieDialog.open();
     },
 
     /**
@@ -138,9 +116,7 @@ This code may only be used under the BSD style license found at https://github.c
      * @return {void}
      */
     closeDialog: function() {
-      this.$.lancieDialog.style.display = 'none';
-      this.$.backdrop.style.display = 'none';
-      this.$.backdrop.style.opacity = '0';
+      this.$.lancieDialog.close();
     },
   });
   </script>
