@@ -65,6 +65,7 @@ Dialog for the lancie frontends
         background-color: black;
         opacity: 0;
         z-index: 10;
+        transition: opacity 0.1s linear;
       }
 
     </style>
@@ -109,7 +110,6 @@ Dialog for the lancie frontends
       open: function() {
         this.$.actualDialog.style.display = 'block';
         this.$.backdrop.style.display = 'block';
-        this.$.backdrop.style.transition = 'opacity 0.1s linear';
         this.async(function() {
           this.$.backdrop.style.opacity = '0.6';
         }, 1);
