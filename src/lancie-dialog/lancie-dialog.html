@@ -13,7 +13,8 @@ Dialog for the lancie frontends
       #actualDialog {
         display: none;
         position: fixed;
-        width: 400px;
+        min-width: 400px;
+        max-width: 90vw;
         left: 0;
         right: 0;
         top: 30vh;
@@ -21,6 +22,8 @@ Dialog for the lancie frontends
         z-index: 11;
 
         background-color: white;
+
+        @apply(--lancie-dialog-dialog);
       }
 
       #actualDialog ::content h2 {
@@ -34,6 +37,10 @@ Dialog for the lancie frontends
       #actualDialog ::content h2,
       #actualDialog ::content .card-content {
         padding: 16px;
+      }
+
+      #actualDialog ::content .card-content {
+        @apply(--lancie-dialog-card-content);
       }
 
       #actualDialog ::content .buttons {
@@ -121,7 +128,8 @@ Dialog for the lancie frontends
       */
       close: function() {
         this.$.actualDialog.style.display = 'none';
-        this.$.backdrop.style.display = 'none';this.$.backdrop.style.opacity = '0.0';
+        this.$.backdrop.style.display = 'none';
+        this.$.backdrop.style.opacity = '0.0';
       }
     });
   })();

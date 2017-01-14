@@ -9,7 +9,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <link rel="import" href="../lancie-card.html">
@@ -37,12 +36,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: var(--secondary-color);
         background: var(--primary-color);
         margin: auto;
+        margin-bottom: 10px;
       }
     </style>
 
     <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
 
-    <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Fill in your profile</h2>
       <div class="card-content">
         <profile-edit-form id="form" user="{{user}}" on-response="checkSucceeded"></profile-edit-form>
@@ -50,7 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="card-actions">
         <paper-button class="btn btn-primary" raised on-tap="submit">Submit</paper-button>
       </div>
-    </paper-dialog>
+    </lancie-dialog>
 
   </template>
   <script>
@@ -67,8 +67,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.dialog.addEventListener('toast', function(e) {
           this.fire('toast', e.detail);
         }.bind(this));
-
-        window.document.body.appendChild(this.$.dialog);
       },
 
       open: function() {

@@ -1,7 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="lancie-terms-of-service-text.html">
 
 <dom-module id="lancie-terms-of-service">
@@ -10,18 +8,30 @@
       :host {
         display: block;
       }
+
+      lancie-dialog {
+        height: 80vh;
+
+        --lancie-dialog-dialog: {
+          top: 10vh;
+          height: 80vh;
+          width: 90vw;
+        };
+
+        --lancie-dialog-card-content: {
+          padding: 0;
+          height: 65vh;
+        };
+      }
     </style>
 
-    <paper-dialog id="termsOfService" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="termsOfService" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Terms and conditions</h2>
-      <paper-dialog-scrollable>
-        <lancie-terms-of-service-text></lancie-terms-of-service-text>
-      </paper-dialog-scrollable>
+      <lancie-terms-of-service-text class="card-content"></lancie-terms-of-service-text>
       <div class="buttons">
-        <paper-button dialog-dismiss on-tap="closeDialog">Cancel</paper-button>
-        <paper-button dialog-confirm on-tap="checkout">I agree</paper-button>
+        <content></content>
       </div>
-    </paper-dialog>
+    </lancie-dialog>
 
   </template>
   <script>
@@ -36,8 +46,11 @@
 
       open: function() {
         this.$.termsOfService.open();
-        window.document.body.appendChild(this.$.termsOfService);
       },
+
+      close: function() {
+        this.$.termsOfService.close();
+      }
     });
   })();
   </script>

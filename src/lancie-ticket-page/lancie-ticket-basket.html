@@ -83,7 +83,10 @@
 
     <lancie-profile-dialog id="profileDialog" user="{{user}}"></lancie-profile-dialog>
 
-    <lancie-terms-of-service id="termsOfService" checkout="[[checkout]]"></lancie-terms-of-service>
+    <lancie-terms-of-service id="termsOfService">
+      <paper-button on-tap="closeDialog">Cancel</paper-button>
+      <paper-button on-tap="checkout">I agree</paper-button>
+    </lancie-terms-of-service>
 
   </template>
   <script>
@@ -98,14 +101,6 @@
         type: Object,
         notify: true,
       },
-      checkout: {
-        type: Function,
-        value: function() {
-          return function() {
-            this.$.checkout.generateRequest();
-          }.bind(this);
-        },
-      },
       query: String,
     },
 
@@ -113,6 +108,14 @@
       if (this.query.indexOf('login') > -1 && !this.user) {
         this.loginDialog();
       }
+    },
+
+    checkout: function() {
+      this.$.checkout.generateRequest();
+    },
+
+    closeDialog: function() {
+      this.$.termsOfService.close();
     },
 
     loginDialog: function() {
