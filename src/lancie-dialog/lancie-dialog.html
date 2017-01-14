@@ -80,50 +80,49 @@ Dialog for the lancie frontends
 
   (function() {
     Polymer({
-     is: 'lancie-dialog',
-     listeners: {
-       'tap': 'isDismissButton'
-     },
-
-    /**
-     * Find out if the tapped target was the dismiss button
-     */
-     isDismissButton: function(event) {
-      // Search for the element with dialog-dismiss,
-      // from the root target until this (excluded).
-      var path = Polymer.dom(event).path;
-      for (var i = 0; i < path.indexOf(this); i++) {
-        var target = path[i];
-        if (target.hasAttribute && (target.hasAttribute('dialog-dismiss') )) {
-          this.close();
-          event.stopPropagation();
-          break;
-        }
-      }
-    },
+      is: 'lancie-dialog',
+      listeners: {
+        'tap': 'isDismissButton'
+      },
 
       /**
-     * Opens the lancie-dialog
-     * @return {void}
-     */
-     open: function() {
-       this.$.actualDialog.style.display = 'block';
-       this.$.backdrop.style.display = 'block';
-       this.$.backdrop.style.transition = 'opacity 0.1s linear';
-       this.async(function() {
-         this.$.backdrop.style.opacity = '0.6';
-       }, 1);
-     },
+      * Find out if the tapped target was the dismiss button
+      */
+      isDismissButton: function(event) {
+        // Search for the element with dialog-dismiss,
+        // from the root target until this (excluded).
+        var path = Polymer.dom(event).path;
+        for (var i = 0; i < path.indexOf(this); i++) {
+          var target = path[i];
+          if (target.hasAttribute && (target.hasAttribute('dialog-dismiss') )) {
+            this.close();
+            event.stopPropagation();
+            break;
+          }
+        }
+      },
 
-     /**
-     * Closes the lancie-dialog
-     * @return {void}
-     */
-     close: function() {
-       this.$.actualDialog.style.display = 'none';
-       this.$.backdrop.style.display = 'none';this.$.backdrop.style.opacity = '0.0';
-     },
+      /**
+       * Opens the lancie-dialog
+       * @return {void}
+       */
+      open: function() {
+        this.$.actualDialog.style.display = 'block';
+        this.$.backdrop.style.display = 'block';
+        this.$.backdrop.style.transition = 'opacity 0.1s linear';
+        this.async(function() {
+          this.$.backdrop.style.opacity = '0.6';
+        }, 1);
+      },
 
+      /**
+      * Closes the lancie-dialog
+      * @return {void}
+      */
+      close: function() {
+        this.$.actualDialog.style.display = 'none';
+        this.$.backdrop.style.display = 'none';this.$.backdrop.style.opacity = '0.0';
+      }
     });
   })();
   </script>
