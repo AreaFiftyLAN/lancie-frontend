@@ -18,12 +18,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="lancie-login-dialog">
   <template>
     <style></style>
-    
+
     <lancie-dialog id="dialog">
       <h2>[[_getAction(registering)]]</h2>
-      <lancie-login-form id="loginForm" registering="[[registering]]" order-id="[[orderId]]" on-enter="submit"></lancie-login-form>
+      <lancie-login-form class="card-content" id="loginForm" registering="[[registering]]" order-id="[[orderId]]" on-enter="submit"></lancie-login-form>
 
-      <div class="buttons dialog-actions">
+      <div class="buttons full-width">
         <paper-button class="btn btn-primary" raised on-tap="submit">[[_getAction(registering)]]</paper-button>
         <paper-button class="btn" raised on-tap="switchForm">[[_getSwitchAction(registering)]]</paper-button>
       </div>
