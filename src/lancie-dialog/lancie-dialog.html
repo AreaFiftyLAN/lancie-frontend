@@ -140,18 +140,28 @@ simply give it the `dialog-dismiss` attribute.
       is: 'lancie-dialog',
 
       ready: function() {
+        this.addDismissListeners();
+      },
+
+      addDismissListeners: function() {
         var host = this;
-        var dialogChildren = this.$.actualDialog.children;
-        for (var i = 0; i < dialogChildren.length; i++) {
-          var child = dialogChildren[i];
-          if (child.classList.contains('buttons')) {
-            var buttons = child.children;
-            for (var j = 0; j < buttons.length; j++) {
-              var button = buttons[j];
-              if (button.hasAttribute('dialog-dismiss')) {
-                button.addEventListener('tap', function() {host.close();});
-              }
+        this.walkTheDOM(this.$.actualDialog, function(node) {
+          if (typeof node.hasAttribute === 'function') {
+            if (node.hasAttribute('dialog-dismiss')) {
+              node.addEventListener('tap', function() {host.close();});
             }
+          }
+        });
+      },
+
+      // From: http://www.javascriptcookbook.com/article/Traversing-DOM-subtrees-with-a-recursive-walk-the-DOM-function/
+      walkTheDOM: function(node, func) {
+        if (func) {
+          func(node);
+          node = node.firstChild;
+          while (node) {
+            this.walkTheDOM(node, func);
+            node = node.nextSibling;
           }
         }
       },
