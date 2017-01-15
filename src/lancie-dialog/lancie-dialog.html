@@ -138,23 +138,20 @@ simply give it the `dialog-dismiss` attribute.
   (function() {
     Polymer({
       is: 'lancie-dialog',
-      listeners: {
-        'tap': 'isDismissButton'
-      },
 
-      /**
-      * Find out if the tapped target was the dismiss button
-      */
-      isDismissButton: function(event) {
-        // Search for the element with dialog-dismiss,
-        // from the root target until this (excluded).
-        var path = Polymer.dom(event).path;
-        for (var i = 0; i < path.indexOf(this); i++) {
-          var target = path[i];
-          if (target.hasAttribute && (target.hasAttribute('dialog-dismiss') )) {
-            this.close();
-            event.stopPropagation();
-            break;
+      ready: function() {
+        var host = this;
+        var dialogChildren = this.$.actualDialog.children;
+        for (var i = 0; i < dialogChildren.length; i++) {
+          var child = dialogChildren[i];
+          if (child.classList.contains('buttons')) {
+            var buttons = child.children;
+            for (var j = 0; j < buttons.length; j++) {
+              var button = buttons[j];
+              if (button.hasAttribute('dialog-dismiss')) {
+                button.addEventListener('tap', function() {host.close();});
+              }
+            }
           }
         }
       },
