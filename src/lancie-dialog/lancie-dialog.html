@@ -146,10 +146,8 @@ simply give it the `dialog-dismiss` attribute.
       addDismissListeners: function() {
         var host = this;
         this.walkTheDOM(this.$.actualDialog, function(node) {
-          if (typeof node.hasAttribute === 'function') {
-            if (node.hasAttribute('dialog-dismiss')) {
-              node.addEventListener('tap', function() {host.close();});
-            }
+          if (node.hasAttribute && node.hasAttribute('dialog-dismiss')) {
+             node.addEventListener('tap', function() {host.close();});
           }
         });
       },
