@@ -145,22 +145,9 @@ simply give it the `dialog-dismiss` attribute.
 
       addDismissListeners: function() {
         var host = this;
-        this.walkTheDOM(this.$.actualDialog, function(node) {
-          if (node.hasAttribute && node.hasAttribute('dialog-dismiss')) {
-             node.addEventListener('tap', function() {host.close();});
-          }
-        });
-      },
-
-      // From: http://www.javascriptcookbook.com/article/Traversing-DOM-subtrees-with-a-recursive-walk-the-DOM-function/
-      walkTheDOM: function(node, func) {
-        if (func) {
-          func(node);
-          node = node.firstChild;
-          while (node) {
-            this.walkTheDOM(node, func);
-            node = node.nextSibling;
-          }
+        var dismissEls = this.querySelectorAll('[dialog-dismiss]');
+        for (var i = 0; i < dismissEls.length; i++) {
+          dismissEls[i].addEventListener('tap', function() {host.close();});
         }
       },
 
