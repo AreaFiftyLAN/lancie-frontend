@@ -20,9 +20,12 @@ Dialog for the lancie frontends
         margin: auto;
         z-index: 11;
 
+        /* Does not work on .card-content for unkown reason */
+        overflow-y: scroll;
+
         background-color: white;
 
-        @apply(--lancie-dialog-dialog);
+        @apply(--lancie-dialog);
       }
 
       #actualDialog ::content h2 {
@@ -45,7 +48,6 @@ Dialog for the lancie frontends
       #actualDialog ::content .buttons {
         border-top: 1px solid #e8e8e8;
         padding: 8px 24px;
-        margin: 0;
 
         @apply(--layout-horizontal);
         @apply(--layout-end-justified);
@@ -72,6 +74,35 @@ Dialog for the lancie frontends
         opacity: 0;
         z-index: 10;
         transition: opacity 0.1s linear;
+      }
+
+      @media (max-width: 400px) {
+        #actualDialog {
+          width: 100%;
+          @apply(--lancie-dialog-max-width-400);
+        }
+      }
+
+      @media (max-width: 600px) {
+        #actualDialog {
+          @apply(--lancie-dialog-max-width-600);
+        }
+      }
+
+      @media (max-width: 800px) {
+        #actualDialog {
+          @apply(--lancie-dialog-max-width-800);
+        }
+      }
+
+      /* Wanted `@media (max-height: var(--lancie-dialog-max-height))`
+       * with `--lancie-dialog-max-height: calc(--app-toolbar-height * 10);`
+       * but no variable support in @media queries (yet)
+       */
+      @media (max-height: 640px) {
+        #actualDialog {
+          top: var(--app-toolbar-height);
+        }
       }
 
     </style>
