@@ -39,10 +39,6 @@ This code may only be used under the BSD style license found at https://github.c
         };
       }
 
-      /*#scrollWrapper {
-        padding: 0;
-      }*/
-
       .dialog-header {
         background-color: var(--primary-color);
         display: flex;
@@ -58,6 +54,7 @@ This code may only be used under the BSD style license found at https://github.c
         display: flex;
         flex-direction: row;
         overflow-y: scroll;
+        height: calc(100vh - var(--app-toolbar-height) - 170px);
         color: #212121;
       }
 
@@ -77,6 +74,12 @@ This code may only be used under the BSD style license found at https://github.c
       }
 
       @media (max-width: 800px) {
+        .card-content {
+          height: calc(100vh - var(--app-toolbar-height) - 88px);
+        }
+      }
+
+      @media (max-height: 640px) {
         .card-content {
           height: calc(100vh - var(--app-toolbar-height) - 88px);
         }
