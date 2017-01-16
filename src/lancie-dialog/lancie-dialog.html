@@ -4,6 +4,28 @@
 `lancie-dialog`
 Dialog for the lancie frontends
 
+This element is designed to give you a quick dialog with handy defaults,
+while at the same time being highly customizable.
+
+## Styling ##
+### Defaults ###
+To take advantage of the default styling you should use:
+`h2`            for the dialog header
+`.card-content` for the main content of the dialog
+`.buttons`      for the buttons at the bottom of the dialog
+
+### Customizaton ###
+For customization of your element you can set the following css mixins:
+`--lancie-dialog`               for style that should be applied to the whole dialog
+`--lancie-dialog-card-content`  for style that should override the default `.card-content` style
+`--lancie-dialog-max-width-400` `--lancie-dialog` applied at `max-width: 400px`
+`--lancie-dialog-max-width-600` `--lancie-dialog` applied at `max-width: 600px`
+`--lancie-dialog-max-width-800` `--lancie-dialog` applied at `max-width: 800px`
+
+## Functionality ##
+If you want an element (e.g. a button) to dismiss the dialog,
+simply give it the `dialog-dismiss` attribute.
+
 @demo demo/index.html
 -->
 
