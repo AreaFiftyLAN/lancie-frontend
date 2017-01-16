@@ -43,9 +43,6 @@ simply give it the `dialog-dismiss` attribute.
         margin: auto;
         z-index: 11;
 
-        /* Does not work on .card-content for unkown reason */
-        overflow-y: scroll;
-
         background-color: white;
 
         @apply(--lancie-dialog);
@@ -65,12 +62,14 @@ simply give it the `dialog-dismiss` attribute.
       }
 
       #actualDialog ::content .card-content {
+        background-color: white;
         @apply(--lancie-dialog-card-content);
       }
 
       #actualDialog ::content .buttons {
         border-top: 1px solid #e8e8e8;
         padding: 8px 24px;
+        background-color: white;
 
         @apply(--layout-horizontal);
         @apply(--layout-end-justified);
@@ -106,6 +105,10 @@ simply give it the `dialog-dismiss` attribute.
         #actualDialog {
           @apply(--lancie-dialog-max-width-800);
         }
+
+        .card-content {
+          @apply(--lancie-dialog-card-content-max-width-800);
+        }
       }
 
       /* Wanted `@media (max-height: var(--lancie-dialog-max-height))`
@@ -113,6 +116,12 @@ simply give it the `dialog-dismiss` attribute.
        * but no variable support in @media queries (yet)
        */
       @media (max-height: 640px) {
+        #actualDialog {
+          @apply(--lancie-dialog-max-height-640);
+        }
+      }
+
+      @media (max-height: 213px) {
         #actualDialog {
           top: var(--app-toolbar-height);
         }
