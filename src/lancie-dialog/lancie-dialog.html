@@ -13,6 +13,7 @@ To take advantage of the default styling you should use:
 `h2`            for the dialog header
 `.card-content` for the main content of the dialog
 `.buttons`      for the buttons at the bottom of the dialog
+`.
 
 ### Customizaton ###
 For customization of your element you can set the following css mixins:
@@ -73,16 +74,6 @@ simply give it the `dialog-dismiss` attribute.
 
         @apply(--layout-horizontal);
         @apply(--layout-end-justified);
-      }
-
-      #actualDialog ::content .full-width .btn {
-        margin: 0 4px;
-        width: calc(50% - 8px);
-      }
-
-      #actualDialog ::content .buttons .btn-primary {
-        color: var(--secondary-color);
-        background: var(--primary-color);
       }
 
       #backdrop {
