@@ -14,36 +14,50 @@ This code may only be used under the BSD style license found at https://github.c
 <dom-module id="lancie-activity-dialog">
   <template>
     <style>
-      #lancieDialog {
-        --lancie-dialog: {
-          top: 10vh;
-          width: 90vw;
-        };
-        
-        --lancie-dialog-max-width-800: {
+      :host {
+        --lancie-activity-dialog-fullscreen: {
           top: var(--app-toolbar-height);
           bottom: 0;
           width: 100%;
         };
+      }
+
+      lancie-dialog {
+
+        --lancie-dialog: {
+          top: 10vh;
+          bottom: 170px;
+          width: 90vw;
+        };
+        
+        --lancie-dialog-max-width-800: {
+          @apply(--lancie-activity-dialog-fullscreen);
+        };
 
         --lancie-dialog-max-height-640: {
-          top: var(--app-toolbar-height);
+          @apply(--lancie-activity-dialog-fullscreen);
         };
       }
 
+      /*#scrollWrapper {
+        padding: 0;
+      }*/
+
       .dialog-header {
-        background-color: #1a2b43;
+        background-color: var(--primary-color);
         display: flex;
         justify-content: space-between;
       }
 
       .dialog-header paper-icon-button {
+        color: var(--secondary-color);
         margin: 8px;
       }
 
       .card-content {
         display: flex;
         flex-direction: row;
+        overflow-y: scroll;
         color: #212121;
       }
 
@@ -59,6 +73,12 @@ This code may only be used under the BSD style license found at https://github.c
       @media (max-width: 600px) {
         .card-content {
           flex-direction: column;
+        }
+      }
+
+      @media (max-width: 800px) {
+        .card-content {
+          height: calc(100vh - var(--app-toolbar-height) - 88px);
         }
       }
     </style>
