@@ -6,23 +6,30 @@
   <template>
     <style>
       :host {
-        display: block;
+        --lancie-terms-of-service-fullscreen: {
+          top: var(--app-toolbar-height);
+          bottom: 150px;
+          width: 100%;
+        };
       }
 
       lancie-dialog {
-        height: 80vh;
 
-        --lancie-dialog-dialog: {
+        --lancie-dialog: {
           top: 10vh;
-          height: 80vh;
+          bottom: 170px;
           width: 90vw;
         };
+        
+        --lancie-dialog-max-width-800: {
+          @apply(--lancie-terms-of-service-fullscreen);
+        };
 
-        --lancie-dialog-card-content: {
-          padding: 0;
-          height: 65vh;
+        --lancie-dialog-max-height-640: {
+          @apply(--lancie-terms-of-service-fullscreen);
         };
       }
+      
     </style>
 
     <lancie-dialog id="termsOfService" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
