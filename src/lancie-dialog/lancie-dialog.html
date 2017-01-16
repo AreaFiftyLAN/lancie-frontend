@@ -105,10 +105,6 @@ simply give it the `dialog-dismiss` attribute.
         #actualDialog {
           @apply(--lancie-dialog-max-width-800);
         }
-
-        .card-content {
-          @apply(--lancie-dialog-card-content-max-width-800);
-        }
       }
 
       /* Wanted `@media (max-height: var(--lancie-dialog-max-height))`
@@ -124,6 +120,7 @@ simply give it the `dialog-dismiss` attribute.
       @media (max-height: 213px) {
         #actualDialog {
           top: var(--app-toolbar-height);
+          @apply(--lancie-dialog-max-height-213);
         }
       }
 
