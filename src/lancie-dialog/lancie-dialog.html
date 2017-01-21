@@ -147,8 +147,8 @@ simply give it the `dialog-dismiss` attribute.
         var host = this;
         var dismissEls = this.querySelectorAll('[dialog-dismiss]');
         for (var i = 0; i < dismissEls.length; i++) {
-          var dismissEl = dismissEls[i];
-          dismissEl.addEventListener('tap', function() { host.close(); });
+          dismissEls[i].addEventListener('tap',
+            function() { host.close(); });
         }
       },
 
