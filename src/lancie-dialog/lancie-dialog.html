@@ -144,9 +144,10 @@ simply give it the `dialog-dismiss` attribute.
       },
 
       addDismissListeners: function() {
+        var dialog = this;
         this.querySelectorAll('[dialog-dismiss]').forEach(function(button) {
           button.addEventListener('tap', function() {
-            host.close();
+            dialog.close();
           });
         });
       },
