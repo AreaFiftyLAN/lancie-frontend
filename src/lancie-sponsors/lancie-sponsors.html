@@ -9,19 +9,29 @@
       :host {
         display: block;
         width: 100%;
+        --logo-width: 250px;
       }
 
       .main-sponsors img {
         margin-right: 32px;
-        min-width: 200px;
+        width: var(--logo-width);
       }
 
       img {
-        max-width: 250px;
+        /*max-width: 250px;*/
         object-fit: contain;
         vertical-align: middle;
         margin: 10px 6px;
       }
+      
+      /*
+       * Safari hack
+       * Makes flex wrapping work
+       */
+      .flex, .flex-1, .flex-2, .flex-3, .flex-4 {
+        flex-basis: var(--logo-width);
+      }
+      /*End Safari hack*/
     </style>
 
     <div id="grid" class="layout horizontal wrap flex">
