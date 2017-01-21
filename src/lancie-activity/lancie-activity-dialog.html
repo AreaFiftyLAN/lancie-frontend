@@ -93,7 +93,7 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-dialog id="lancieDialog">
       <div class="dialog-header">
         <h2><strong>[[data.sponsor.name]]</strong> <span>[[data.headerTitle]]</span></h2>
-        <paper-icon-button icon="close" on-tap="closeDialog"></paper-icon-button>
+        <paper-icon-button icon="close" dialog-dismiss></paper-icon-button>
       </div>
       <div class="card-content">
         <lancie-activity-content data="[[data]]"></lancie-activity-content>
@@ -120,15 +120,7 @@ This code may only be used under the BSD style license found at https://github.c
      */
     openDialog: function() {
       this.$.lancieDialog.open();
-    },
-
-    /**
-     * Closes the lancie-dialog
-     * @return {void}
-     */
-    closeDialog: function() {
-      this.$.lancieDialog.close();
-    },
+    }
   });
   </script>
 </dom-module>
