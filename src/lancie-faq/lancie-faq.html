@@ -15,35 +15,55 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
       }
+
+      .container {
+        margin: 24px 0;
+      }
+
+      .question {
+        font-size: 20px;
+        font-weight: 400;
+        margin-bottom: 4px;
+      }
     </style>
 
-    <iron-ajax auto url="{{json}}" handle-as="json" last-response="{{faq}}" debounce-duration="300"></iron-ajax>
+    <iron-ajax auto url="[[json]]" on-response="onFaq" on-error="hide" debounce-duration="300"></iron-ajax>
 
-    <div>
-      <template is="dom-repeat" items="[[faq]]" as="item">
-        <h3 id="question">{{item.question}}</h3>
-        <p id="answer">{{item.answer}}</p>
-      </template>
-    </div>
+    <template is="dom-repeat" items="[[faq]]">
+      <div class="container">
+        <div class="question">[[item.question]]</div>
+        <span>[[item.answer]]</span>
+      </div>
+    </template>
 
   </template>
-
   <script>
+    'use strict';
     (function() {
-        'use strict';
-        Polymer({
-          is: 'lancie-faq',
-          properties: {
-            faq: {
-              type: Array,
-              value: [],
-              notify: true
-            },
-            json: {
-              notify: true
-            }
+      Polymer({
+        is: 'lancie-faq',
+        properties: {
+          faq: {
+            type: Array,
+            value: [],
+          },
+          json: String,
+        },
+
+        onFaq: function(e, request) {
+          if (request.succeeded) {
+            this.faq = request.response;
           }
-        });
+          this.onError();
+        },
+
+        onError: function() {
+          this.faq = [{
+            question: 'There are no frequently asked questions yet.',
+            answer: 'If you have a question, <a href=\"/contact\">feel free to ask us</a>!',
+          }];
+        },
+      });
     })();
   </script>
 </dom-module>
