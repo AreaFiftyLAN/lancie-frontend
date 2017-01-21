@@ -27,7 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <iron-ajax auto url="[[json]]" on-response="onFaq" on-error="hide" debounce-duration="300"></iron-ajax>
+    <iron-ajax auto url="[[json]]" on-response="onFaq" on-error="onError" debounce-duration="300"></iron-ajax>
 
     <template is="dom-repeat" items="[[faq]]">
       <div class="container">
@@ -54,7 +54,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           if (request.succeeded) {
             this.faq = request.response;
           }
-          this.onError();
         },
 
         onError: function() {
