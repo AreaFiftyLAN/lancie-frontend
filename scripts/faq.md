@@ -8,7 +8,7 @@ No, there is not. If you are younger than 18, you should be able to present any 
 If you would like to advertise your upcoming event or sponsor at Area FiftyLAN, you must have permission from the organisation. Any questions regarding this subject can be sent to [us](/contact).
 
 ### Am I allowed to bring my own food to the event?
-During the event, up to three meals per day will be provided by the organisation (breakfast, lunch and dinner on Saturday and breakfast and lunch on Sunday). These meals are included in the price of the ticket, so you will not be charged extra. Outside these meals, you can bring limited food and drinks of your own. If you order any food, stay alert for any delivery people to arrive! Any deliveries not claimed will be taken by us, to keep the delivery people from waiting.
+During the event, up to three meals per day will be provided by the organisation (breakfast, lunch and dinner on Saturday and breakfast and lunch on Sunday). These meals are included in the price of the ticket, so you will not be charged extra. Outside these meals, you can bring limited food and drinks of your own. If you order any food, stay alert for any delivery people to arrive! Any deliveries not claimed will be taken by us to keep the delivery people from waiting.
 
 ### How does the pickup service work?
 If you purchase the pickup service option and live within 7.5 km from the event, we will pick up your computer and monitor and deliver it to the event. Please keep in mind that you are responsible for packaging and protecting your belongings beforehand, so please put your belongings in the boxes they came in and secure them firmly in place!
