@@ -19,14 +19,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       display: block;
     }
 
-    .container {
-      margin: 24px 0;
-    }
-
-    .question {
-      font-size: 20px;
-      font-weight: 400;
-      margin-bottom: 4px;
+    .markdown-html a {
+      color: rgba(255, 255, 255, 0.87);
     }
   </style>
 
@@ -34,9 +28,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     auto
     url="[[markdown]]"
     handle-as="text"
-    last-response="{{text}}"></iron-ajax>
+    on-response="onResponse"
+    on-error="onError"></iron-ajax>
 
-  <marked-element markdown="{{text}}">
+  <marked-element markdown="[[text]]">
     <div class="markdown-html"></div>
   </marked-element>
 
@@ -49,6 +44,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'lancie-faq',
       properties: {
         text: String,
+      },
+
+      onResponse: function (e, request) {
+          if (request.succeeded) {
+              this.text = request.response;
+          }
+      },
+
+      onError: function () {
+          this.text = "There are no frequently asked questions yet. If you have a question, feel free to [ask us](/contact)!";
       }
     });
   })();
