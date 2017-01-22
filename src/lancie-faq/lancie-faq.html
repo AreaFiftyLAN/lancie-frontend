@@ -8,6 +8,10 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+
 <dom-module id="lancie-faq">
 <template>
   <style>
@@ -26,9 +30,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
   </style>
 
-  <iron-ajax auto url="[[json]]" on-response="onFaq" on-error="onError" debounce-duration="300"></iron-ajax>
+  <iron-ajax
+    auto
+    url="[[markdown]]"
+    handle-as="text"
+    last-response="{{text}}"></iron-ajax>
 
-  <div id="faq"></div>
+  <marked-element markdown="{{text}}">
+    <div class="markdown-html"></div>
+  </marked-element>
 
 </template>
 <script>
@@ -38,36 +48,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'lancie-faq',
       properties: {
-        json: String,
-      },
-
-      onFaq: function(e, request) {
-        if (request.succeeded) {
-          this.buildFaq(request.response);
-        }
-      },
-
-      onError: function() {
-        this.buildFaq([{
-          question: 'There are no frequently asked questions yet.',
-          answer: 'If you have a question, <a href=\"/contact\">feel free to ask us</a>!',
-        }]);
-      },
-
-      buildFaq: function(questions) {
-        questions.forEach(function (item) {
-          var container = document.createElement('div');
-          var question = document.createElement('div');
-          var answer = document.createElement('span');
-          container.appendChild(question);
-          container.appendChild(answer);
-          container.className = 'container';
-          question.className = 'question';
-          question.innerHTML = item.question;
-          answer.innerHTML = item.answer;
-          this.$.faq.appendChild(container);
-        }.bind(this));
-      },
+        text: String,
+      }
     });
   })();
 </script>
