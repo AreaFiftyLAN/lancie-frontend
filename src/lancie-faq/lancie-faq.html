@@ -1,0 +1,61 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+
+<dom-module id="lancie-faq">
+<template>
+  <style>
+    :host {
+      display: block;
+    }
+
+    .markdown-html a {
+      color: rgba(255, 255, 255, 0.87);
+    }
+  </style>
+
+  <iron-ajax
+    auto
+    url="[[markdown]]"
+    handle-as="text"
+    on-response="onResponse"
+    on-error="onError"></iron-ajax>
+
+  <marked-element markdown="[[text]]">
+    <div class="markdown-html"></div>
+  </marked-element>
+
+</template>
+<script>
+  'use strict';
+
+  (function () {
+    Polymer({
+      is: 'lancie-faq',
+      properties: {
+        text: String,
+      },
+
+      onResponse: function (e, request) {
+          if (request.succeeded) {
+              this.text = request.response;
+          }
+      },
+
+      onError: function () {
+          this.text = "There are no frequently asked questions yet. If you have a question, feel free to [ask us](/contact)!";
+      }
+    });
+  })();
+</script>
+</dom-module>

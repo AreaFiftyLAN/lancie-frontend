@@ -79,12 +79,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     </style>
     <iron-media-query query="max-width: 530px" query-matches="{{small}}"></iron-media-query>
-    <div class$="{{_setType(type)}}">
+    <div class$="[[_setType(type)]]">
       <div class="content">
-        <template is="dom-if" if="{{header}}">
-          <h1>{{header}}</h1>
-        </template>
-        <div class$="{{_setOrientation(small)}}">
+        <h1>[[header]]</h1>
+        <div class$="[[_setOrientation(small)]]">
           <content></content>
         </div>
       </div>

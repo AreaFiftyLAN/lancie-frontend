@@ -18,6 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../lancie-commission/lancie-commission.html">
 <link rel="import" href="../lancie-sponsors/lancie-sponsors.html">
 <link rel="import" href="../lancie-timeline/lancie-timeline.html">
+<link rel="import" href="../lancie-faq/lancie-faq.html">
 <link rel="import" href="lancie-image-slider.html">
 
 <dom-module id="lancie-home-page">
@@ -26,13 +27,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       display: block;
     }
 
+    [hidden] {
+      display: none !important;
+    }
+
     iron-image {
       width: 100vw;
       height: 600px;
     }
 
-    a {
-      color: #eeecec;
+    lancie-image-slider {
+      width: 100%;
+      color: white;
     }
 
     google-map {
@@ -47,9 +53,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
   </style>
   <template>
-    <lancie-section type="secondary full no-padding">
-      <lancie-image-slider></lancie-image-slider>
-    </lancie-section>
+    <lancie-image-slider></lancie-image-slider>
 
     <lancie-section type="primary" header="Partners &amp; Sponsors">
       <lancie-sponsors></lancie-sponsors>
@@ -115,7 +119,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
     </lancie-section>
 
-    <lancie-section type="secondary" header="Organize your own tournament!">
+    <lancie-section type="primary" header="Organize your own tournament!">
       <div>
         <iron-ajax
            auto
@@ -129,6 +133,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <lancie-activities json="scripts/unofficial-tournaments.json?ver=1.4"></lancie-activities>
         -->
       </div>
+    </lancie-section>
+
+    <lancie-section type="secondary" header="Frequently Asked Questions">
+      <lancie-faq markdown="scripts/faq.md?ver=1.0"></lancie-faq>
     </lancie-section>
 
     <lancie-section header="3rd LANcie of W.I.S.V. 'Christiaan Huygens'">
