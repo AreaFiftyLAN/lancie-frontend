@@ -26,6 +26,7 @@
     "src/lancie-password/lancie-password-reset-request-success.html"
   ],
   "extraDependencies": [
+    ".htaccess",
     "manifest.json",
     "favicon.ico",
     "robots.txt",
