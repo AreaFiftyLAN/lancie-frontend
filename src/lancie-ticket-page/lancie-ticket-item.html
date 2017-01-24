@@ -209,6 +209,7 @@
         }
         var deadlineType = this.deadlineDisplay[ticket.ticketType];
         if (deadlineType === 'deadline') {
+          this.ticket.deadline = this.ticket.deadline + "Z";
           return 'Available until: ' + new Date(this.ticket.deadline).toLocaleString('nl', {hour12: false, timeZone: 'UTC',});
         } else if (deadlineType === 'limit') {
           return 'Only ' + (ticket.limit - ticket.numberSold) + ' left!';
