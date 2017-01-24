@@ -209,6 +209,10 @@
         }
         var deadlineType = this.deadlineDisplay[ticket.ticketType];
         if (deadlineType === 'deadline') {
+          // This is needed to make sure all browsers interpret the time as UTC
+          // ISO 8601 specifies that date/time literals without time zone information
+          // should be interpreted as local time, while ES5.1 specifies it should
+          // be interpreted as UTC.
           this.ticket.deadline = this.ticket.deadline + "Z";
           return 'Available until: ' + new Date(this.ticket.deadline).toLocaleString('nl', {hour12: false, timeZone: 'UTC',});
         } else if (deadlineType === 'limit') {
