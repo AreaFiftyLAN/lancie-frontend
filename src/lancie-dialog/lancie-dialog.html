@@ -168,9 +168,11 @@ simply give it the `dialog-dismiss` attribute.
       * @return {void}
       */
       close: function() {
+        setTimeout(function() {
         this.$.actualDialog.style.display = 'none';
         this.$.backdrop.style.display = 'none';
         this.$.backdrop.style.opacity = '0.0';
+        }.bind(this), 130);
       },
 
       _viewChanged: function() {
