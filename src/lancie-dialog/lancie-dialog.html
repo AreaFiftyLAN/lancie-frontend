@@ -107,6 +107,12 @@ simply give it the `dialog-dismiss` attribute.
         }
       }
 
+      @media (min-width: 1000px) {
+        #actualDialog {
+          @apply(--lancie-dialog-min-width-1000);
+        }
+      }
+
       /* Wanted `@media (max-height: var(--lancie-dialog-max-height))`
        * with `--lancie-dialog-max-height: calc(--app-toolbar-height * 10);`
        * but no variable support in @media queries (yet)
