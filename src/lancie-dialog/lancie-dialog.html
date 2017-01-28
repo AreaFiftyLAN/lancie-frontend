@@ -1,4 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
 
 <!--
 `lancie-dialog`
@@ -18,7 +20,6 @@ To take advantage of the default styling you should use:
 ### Customizaton ###
 For customization of your element you can set the following css mixins:
 `--lancie-dialog`               for style that should be applied to the whole dialog
-`--lancie-dialog-card-content`  for style that should override the default `.card-content` style
 `--lancie-dialog-max-width-400` `--lancie-dialog` applied at `max-width: 400px`
 `--lancie-dialog-max-width-600` `--lancie-dialog` applied at `max-width: 600px`
 `--lancie-dialog-max-width-800` `--lancie-dialog` applied at `max-width: 800px`
@@ -46,6 +47,10 @@ simply give it the `dialog-dismiss` attribute.
         background-color: white;
 
         @apply(--lancie-dialog);
+
+        width: var(--lancie-dialog-width);
+        top: var(--lancie-dialog-top);
+        bottom: var(--lancie-dialog-bottom);
       }
 
       #actualDialog ::content h2 {
@@ -63,7 +68,6 @@ simply give it the `dialog-dismiss` attribute.
 
       #actualDialog ::content .card-content {
         background-color: white;
-        @apply(--lancie-dialog-card-content);
       }
 
       #actualDialog ::content .buttons {
@@ -91,46 +95,24 @@ simply give it the `dialog-dismiss` attribute.
       @media (max-width: 400px) {
         #actualDialog {
           width: 100%;
-          @apply(--lancie-dialog-max-width-400);
-        }
-      }
-
-      @media (max-width: 600px) {
-        #actualDialog {
-          @apply(--lancie-dialog-max-width-600);
-        }
-      }
-
-      @media (max-width: 800px) {
-        #actualDialog {
-          @apply(--lancie-dialog-max-width-800);
-        }
-      }
-
-      @media (min-width: 1000px) {
-        #actualDialog {
-          @apply(--lancie-dialog-min-width-1000);
-        }
-      }
-
-      /* Wanted `@media (max-height: var(--lancie-dialog-max-height))`
-       * with `--lancie-dialog-max-height: calc(--app-toolbar-height * 10);`
-       * but no variable support in @media queries (yet)
-       */
-      @media (max-height: 640px) {
-        #actualDialog {
-          @apply(--lancie-dialog-max-height-640);
         }
       }
 
       @media (max-height: 213px) {
         #actualDialog {
           top: var(--app-toolbar-height);
-          @apply(--lancie-dialog-max-height-213);
         }
       }
 
     </style>
+
+    <iron-media-query query="(max-width:400px)"  query-matches="{{mobile}}"></iron-media-query>
+    <iron-media-query query="(max-width:600px)"  query-matches="{{small}}"></iron-media-query>
+    <iron-media-query query="(max-width:800px)"  query-matches="{{medium}}"></iron-media-query>
+    <iron-media-query query="(min-width:1000px)" query-matches="{{wide}}"></iron-media-query>
+    <iron-media-query query="(max-height:213px)" query-matches="{{short}}"></iron-media-query>
+    <iron-media-query query="(max-height:640px)" query-matches="{{long}}"></iron-media-query>
+
     <div id="actualDialog">
       <content></content>
     </div>
@@ -144,6 +126,15 @@ simply give it the `dialog-dismiss` attribute.
   (function() {
     Polymer({
       is: 'lancie-dialog',
+
+      observers: [
+        '_viewChanged(mobile)',
+        '_viewChanged(small)',
+        '_viewChanged(medium)',
+        '_viewChanged(wide)',
+        '_viewChanged(short)',
+        '_viewChanged(long)'
+      ],
 
       ready: function() {
         this.addDismissListeners();
@@ -178,6 +169,10 @@ simply give it the `dialog-dismiss` attribute.
         this.$.actualDialog.style.display = 'none';
         this.$.backdrop.style.display = 'none';
         this.$.backdrop.style.opacity = '0.0';
+      },
+
+      _viewChanged: function(param) {
+        this.updateStyles();
       }
     });
   })();

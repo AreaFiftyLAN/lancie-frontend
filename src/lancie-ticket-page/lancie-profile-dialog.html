@@ -29,11 +29,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         top: 10vh;
         bottom: calc(var(--lancie-dialog-bottom-offset) + 20px);
       };
+    }
 
-      --lancie-dialog-max-height-640: {
-        top: var(--app-toolbar-height);
-        bottom: var(--lancie-dialog-bottom-offset);
-      };
+    /* Wanted `@media (max-height: var(--lancie-dialog-max-height))`
+      * with `--lancie-dialog-max-height: calc(--app-toolbar-height * 10);`
+      * but no variable support in @media queries (yet)
+      */
+    @media (max-height: 640px) {
+      lancie-dialog {
+        --lancie-dialog-top: var(--app-toolbar-height);
+        --lancie-dialog-bottom: var(--lancie-dialog-bottom-offset);
+      }
     }
 
     .card-content {

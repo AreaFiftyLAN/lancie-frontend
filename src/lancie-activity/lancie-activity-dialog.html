@@ -17,12 +17,6 @@ This code may only be used under the BSD style license found at https://github.c
       :host {
         /* offset to get bottom really at bottom */
         --lancie-dialog-bottom-offset: 88px;
-
-        --lancie-activity-dialog-fullscreen: {
-          top: var(--app-toolbar-height);
-          bottom: var(--lancie-dialog-bottom-offset);
-          width: 100%;
-        };
       }
 
       lancie-dialog {
@@ -30,18 +24,6 @@ This code may only be used under the BSD style license found at https://github.c
           top: 10vh;
           bottom: calc(var(--lancie-dialog-bottom-offset) + 4vh);
           width: 90vw;
-        };
-        
-        --lancie-dialog-max-width-800: {
-          @apply(--lancie-activity-dialog-fullscreen);
-        };
-
-        --lancie-dialog-min-width-1000: {
-          width: 900px;
-        }
-
-        --lancie-dialog-max-height-640: {
-          @apply(--lancie-activity-dialog-fullscreen);
         };
       }
 
@@ -85,6 +67,32 @@ This code may only be used under the BSD style license found at https://github.c
 
           /* doesn't entirely do the job in Safari :/ */
           height: auto;
+        }
+      }
+
+      @media (max-width: 800px) {
+        lancie-dialog {
+          --lancie-dialog-top: var(--app-toolbar-height);
+          --lancie-dialog-bottom: var(--lancie-dialog-bottom-offset);
+          --lancie-dialog-width: 100%;
+        }
+      }
+
+      @media (min-width: 1000px) {
+        lancie-dialog {
+          --lancie-dialog-width: 900px;
+        }
+      }
+
+      /* Wanted `@media (max-height: var(--lancie-dialog-max-height))`
+       * with `--lancie-dialog-max-height: calc(--app-toolbar-height * 10);`
+       * but no variable support in @media queries (yet)
+       */
+      @media (max-height: 640px) {
+        lancie-dialog {
+          --lancie-dialog-top: var(--app-toolbar-height);
+          --lancie-dialog-bottom: var(--lancie-dialog-bottom-offset);
+          --lancie-dialog-width: 100%;
         }
       }
     </style>
