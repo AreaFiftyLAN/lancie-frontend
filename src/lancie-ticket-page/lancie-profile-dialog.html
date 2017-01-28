@@ -18,26 +18,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="lancie-profile-dialog">
   <template>
-    <style include="iron-flex iron-flex-alignment">
-      :host {
-        display: block;
-      }
+    <style>
+    :host {
+      /* offset to get bottom really at bottom */
+      --lancie-dialog-bottom-offset: 150px;
+    }
 
-      [hidden] {
-        display: none !important;
-      }
+    lancie-dialog {
+      --lancie-dialog: {
+        top: 10vh;
+        bottom: calc(var(--lancie-dialog-bottom-offset) + 20px);
+      };
 
-      .card-actions {
-        text-align: center;
-      }
+      --lancie-dialog-max-height-640: {
+        top: var(--app-toolbar-height);
+        bottom: var(--lancie-dialog-bottom-offset);
+      };
+    }
 
-      paper-button {
-        width: 90%;
-        color: var(--secondary-color);
-        background: var(--primary-color);
-        margin: auto;
-        margin-bottom: 10px;
-      }
+    .card-content {
+      height: 100%;
+    }
+
+    profile-edit-form {
+      height: 100%;
+      overflow-y: auto;
+    }
+
     </style>
 
     <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
