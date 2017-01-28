@@ -12,17 +12,16 @@ while at the same time being highly customizable.
 ## Styling ##
 ### Defaults ###
 To take advantage of the default styling you should use:
-`h2`            for the dialog header
+`h2`              for the dialog header
 `.dialog-content` for the main content of the dialog
-`.dialog-actions`      for the buttons at the bottom of the dialog
-`.
+`.dialog-actions` for the buttons at the bottom of the dialog
 
 ### Customizaton ###
-For customization of your element you can set the following css mixins:
-`--lancie-dialog`               for style that should be applied to the whole dialog
-`--lancie-dialog-max-width-400` `--lancie-dialog` applied at `max-width: 400px`
-`--lancie-dialog-max-width-600` `--lancie-dialog` applied at `max-width: 600px`
-`--lancie-dialog-max-width-800` `--lancie-dialog` applied at `max-width: 800px`
+For customization of your element you can set the following css vars/mixins:
+`--lancie-dialog`        for style that should be applied to the whole dialog
+`--lancie-dialog-width`  for setting the width in a media query  (outside of a media query you can just use --lancie-dialog)
+`--lancie-dialog-top`    for setting the top in a media query    (outside of a media query you can just use --lancie-dialog)
+`--lancie-dialog-bottom` for setting the bottom in a media query (outside of a media query you can just use --lancie-dialog)
 
 ## Functionality ##
 If you want an element (e.g. a button) to dismiss the dialog,
