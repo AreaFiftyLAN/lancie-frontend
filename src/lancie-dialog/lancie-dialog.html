@@ -91,7 +91,8 @@ simply give it the `dialog-dismiss` attribute.
         transition: opacity 0.1s linear;
       }
 
-      @media (max-width: 400px) {
+      /* dialog width + (2 * margin) */
+      @media (max-width: 432px) {
         #actualDialog {
           width: calc(100% - 2 * 16px);
           width: var(--lancie-dialog-width);
@@ -108,7 +109,7 @@ simply give it the `dialog-dismiss` attribute.
 
     </style>
 
-    <iron-media-query query="(max-width:400px)"  query-matches="{{mobile}}"></iron-media-query>
+    <iron-media-query query="(max-width:432px)"  query-matches="{{mobile}}"></iron-media-query>
     <iron-media-query query="(max-width:600px)"  query-matches="{{small}}"></iron-media-query>
     <iron-media-query query="(max-width:800px)"  query-matches="{{medium}}"></iron-media-query>
     <iron-media-query query="(max-height:213px)" query-matches="{{short}}"></iron-media-query>
