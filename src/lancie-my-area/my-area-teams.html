@@ -81,7 +81,7 @@
     </paper-card>
     <!-- Dialogs -->
     <!-- Create Team Dialog -->
-    <lancie-dialog id="createTeamDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="createTeamDialog">
       <h2>Create a Team</h2>
       <div class="dialog-content">
         <lancie-error id="error"></lancie-error>
@@ -93,7 +93,7 @@
       </div>
     </lancie-dialog>
     <!-- Personal Invites Overview Dialog -->
-    <lancie-dialog id="personalInvitesDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="personalInvitesDialog">
       <h2>Your personal invites</h2>
       <div class="dialog-content">
         <template is="dom-if" if="{{personalInvites.length}}">

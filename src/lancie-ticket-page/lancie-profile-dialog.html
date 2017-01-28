@@ -55,7 +55,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
 
-    <lancie-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="dialog">
       <h2>Fill in your profile</h2>
       <div class="dialog-content">
         <profile-edit-form id="form" user="{{user}}" on-response="checkSucceeded"></profile-edit-form>

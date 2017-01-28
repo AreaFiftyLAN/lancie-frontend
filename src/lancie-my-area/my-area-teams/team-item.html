@@ -71,7 +71,7 @@
     </template>
 
     <!-- Invite a Member dialog -->
-    <lancie-dialog id="addMemberDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="addMemberDialog">
       <h2>Add a team member</h2>
       <div class="dialog-content">
         <lancie-error id="error"></lancie-error>
@@ -84,7 +84,7 @@
     </lancie-dialog>
 
     <!-- Team Invite Overview Dialog -->
-    <lancie-dialog id="teamInvitesDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="teamInvitesDialog">
       <h2>Pending invites for {{team.teamName}}</h2>
       <div class="dialog-content">
         <template is="dom-if" if="{{teamInvites.length}}">
