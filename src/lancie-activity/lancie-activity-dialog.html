@@ -38,7 +38,7 @@ This code may only be used under the BSD style license found at https://github.c
         margin: 8px;
       }
 
-      .card-content {
+      .dialog-content {
         display: flex;
         flex-direction: row;
         height: 100%;
@@ -57,7 +57,7 @@ This code may only be used under the BSD style license found at https://github.c
       }
 
       @media (max-width: 600px) {
-        .card-content {
+        .dialog-content {
           flex-direction: column;
           overflow-y: auto;
         }
@@ -107,7 +107,7 @@ This code may only be used under the BSD style license found at https://github.c
         <h2><strong>[[data.sponsor.name]]</strong> <span>[[data.headerTitle]]</span></h2>
         <paper-icon-button icon="close" dialog-dismiss></paper-icon-button>
       </div>
-      <div class="card-content">
+      <div class="dialog-content">
         <lancie-activity-content data="[[data]]"></lancie-activity-content>
         <lancie-activity-sponsor sponsor="[[data.sponsor]]" prizes="[[data.prizes]]"></lancie-activity-sponsor>
       </div>

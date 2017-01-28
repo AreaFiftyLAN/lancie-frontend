@@ -73,7 +73,7 @@
     <!-- Invite a Member dialog -->
     <lancie-dialog id="addMemberDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Add a team member</h2>
-      <div class="card-content">
+      <div class="dialog-content">
         <lancie-error id="error"></lancie-error>
         <paper-input label="Email" type="text" value="{{memberUsername}}"></paper-input>
       </div>
@@ -86,7 +86,7 @@
     <!-- Team Invite Overview Dialog -->
     <lancie-dialog id="teamInvitesDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <h2>Pending invites for {{team.teamName}}</h2>
-      <div class="card-content">
+      <div class="dialog-content">
         <template is="dom-if" if="{{teamInvites.length}}">
           <template is="dom-repeat" items="{{teamInvites}}">
             <my-area-teams-invite invite="{{item}}" team on-invite-change="refreshInvites"></my-area-teams-invite>
