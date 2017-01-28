@@ -55,12 +55,13 @@ This code may only be used under the BSD style license found at https://github.c
       .card-content {
         display: flex;
         flex-direction: row;
-        overflow-y: scroll;
         height: 100%;
         color: #212121;
       }
 
       lancie-activity-content {
+        height: 100%;
+        overflow-y: auto;
         flex: 3;
       }
 
@@ -72,6 +73,14 @@ This code may only be used under the BSD style license found at https://github.c
       @media (max-width: 600px) {
         .card-content {
           flex-direction: column;
+          overflow-y: auto;
+        }
+
+        lancie-activity-content {
+          overflow-y: visible;
+
+          /* doesn't entirely do the job in Safari :/ */
+          height: auto;
         }
       }
     </style>
