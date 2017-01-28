@@ -17,6 +17,10 @@ This code may only be used under the BSD style license found at https://github.c
       padding: 32px;
     }
 
+    [hidden] {
+      display: none !important;
+    }
+
     .seatmap-row {
       padding: 16px;
     }
@@ -35,6 +39,7 @@ This code may only be used under the BSD style license found at https://github.c
 
     <lancie-ajax auto id="ajaxGetAllSeats" refurl="seats" on-response="onGetAllSeats"></lancie-ajax>
     <lancie-ajax auto id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-response="onGetTeamTickets"></lancie-ajax>
+    <lancie-ajax id="ajaxReserveSeat" method="POST" on-response="onReserveSeat"></lancie-ajax>
 
     <paper-input label="Search user" value="{{filterUser}}"></paper-input>
     <div class="layout horizontal" on-reserve-seat="refreshSeats">
@@ -49,7 +54,7 @@ This code may only be used under the BSD style license found at https://github.c
           </div>
         </template>
       </div>
-      <div class="layout seats flex-3 seatgroup vertical">
+      <div class="layout seats flex-2 seatgroup vertical">
         <template is="dom-repeat" items='["F", "G", "H", "I", "J"]'>
           <div class="layout flex horizontal seatmap-row">
             <lancie-seat-group class="layout flex vertical" filter="{{filterUser}}"  group="{{item}}" seats="{{_getSeatGroup(seats, item)}}" tickets="{{tickets}}" user="{{user}}" fixed="{{fixed}}"></lancie-seat-group>
@@ -61,6 +66,28 @@ This code may only be used under the BSD style license found at https://github.c
         <img src="/images-optimized/seatmap/lounge.png">
       </div>
     </div>
+
+    <lancie-dialog id="seatDialog">
+      <h2>Seat reservation</h2>
+      <div class="dialog-content">
+        <lancie-error id="error"></lancie-error>
+        <div hidden$="{{!_checkExists(tickets)}}">
+          Select the user to reserve this seat for:
+          <paper-listbox id="listbox">
+            <template is="dom-repeat" items="{{tickets}}">
+              <paper-item ticket="{{item.id}}">{{item.owner.profile.displayName}}</paper-item>
+            </template>
+          </paper-listbox>
+        </div>
+        <div hidden$="{{_checkExists(tickets)}}">
+          You need at least one ticket to reserve a seat!
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <paper-button dialog-dismiss>Close</paper-button>
+        <paper-button on-tap="reserveSeat" hidden$="{{!_checkExists(tickets)}}">Reserve seat</paper-button>
+      </div>
+    </lancie-dialog>
 
     <paper-toast id="reserveSeatSuccessToast" text="Seat reservation successfull!" duration="3000"></paper-toast>
     <paper-toast id="getAllSeatsErrorToast" text="Something went wrong, please refresh the page!" duration="3000"></paper-toast>
@@ -79,6 +106,7 @@ This code may only be used under the BSD style license found at https://github.c
             return [];
           }
         },
+        seat: Object,
         tickets: {
           type: Array,
           value: function() {
@@ -89,6 +117,9 @@ This code may only be used under the BSD style license found at https://github.c
           type: Boolean,
           notify: true
         }
+      },
+      listeners: {
+        'openDialog': 'open'
       },
       refreshSeats: function() {
         this.$.reserveSeatSuccessToast.show();
@@ -115,9 +146,43 @@ This code may only be used under the BSD style license found at https://github.c
           this.$.getAllTicketsErrorToast.show();
         }
       },
+      reserveSeat: function() {
+        this.$.error.clear();
+        if (!this.$.listbox.selectedItem) {
+          this.$.error.setError('Please select a user.');
+          return;
+        }
+        this.$.ajaxReserveSeat.params = {
+          'ticketId': this.$.listbox.selectedItem.ticket
+        };
+        this.$.ajaxReserveSeat.refurl = 'seats/' + this.seat.seatGroup + '/' + this.seat.seatNumber;
+        this.$.ajaxReserveSeat.generateRequest();
+        this.$.seatDialog.close();
+      },
+      onReserveSeat: function(e, response) {
+        if (response.succeeded) {
+          this.$.listbox.selected = undefined;
+          this.fire('reserve-seat');
+        } else {
+          this.reservationError = true;
+          if (response.request.status === 409) {
+            this.$.error.setError('Seat is already taken.');
+          } else {
+            this.$.error.setError('Something went wrong, please refresh and try again.');
+          }
+        }
+      },
+      open: function(listenerEvent) {
+        console.log(listenerEvent);
+        this.seat = listenerEvent.detail;
+        this.$.seatDialog.open();
+      },
       _getSeatGroup: function(seats, group) {
         return seats[group];
-      }
+      },
+      _checkExists: function(tickets) {
+        return tickets.length > 0;
+      },
     });
   })();
   </script>
