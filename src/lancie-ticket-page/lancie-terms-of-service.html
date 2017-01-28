@@ -26,6 +26,13 @@
         }
       }
 
+      @media (max-width: 400px) {
+        lancie-dialog {
+          --lancie-dialog-width: 100%;
+          --lancie-dialog-margin: 0;
+        }
+      }
+
       /* Wanted `@media (max-height: var(--lancie-dialog-max-height))`
        * with `--lancie-dialog-max-height: calc(--app-toolbar-height * 10);`
        * but no variable support in @media queries (yet)

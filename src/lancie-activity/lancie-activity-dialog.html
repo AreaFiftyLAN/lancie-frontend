@@ -56,6 +56,13 @@ This code may only be used under the BSD style license found at https://github.c
         flex-basis: 150px;
       }
 
+      @media (max-width: 400px) {
+        lancie-dialog {
+          --lancie-dialog-width: 100%;
+          --lancie-dialog-margin: 0;
+        }
+      }
+
       @media (max-width: 600px) {
         .dialog-content {
           flex-direction: column;
