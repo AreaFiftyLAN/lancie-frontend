@@ -15,9 +15,12 @@ This code may only be used under the BSD style license found at https://github.c
   <template>
     <style>
       :host {
+        /* offset to get bottom really at bottom */
+        --lancie-dialog-bottom-offset: 88px;
+
         --lancie-activity-dialog-fullscreen: {
           top: var(--app-toolbar-height);
-          bottom: 0;
+          bottom: var(--lancie-dialog-bottom-offset);
           width: 100%;
         };
       }
@@ -25,7 +28,7 @@ This code may only be used under the BSD style license found at https://github.c
       lancie-dialog {
         --lancie-dialog: {
           top: 10vh;
-          bottom: 170px;
+          bottom: calc(var(--lancie-dialog-bottom-offset) + 4vh);
           width: 90vw;
         };
         
@@ -53,7 +56,7 @@ This code may only be used under the BSD style license found at https://github.c
         display: flex;
         flex-direction: row;
         overflow-y: scroll;
-        height: calc(100vh - var(--app-toolbar-height) - 170px);
+        height: 100%;
         color: #212121;
       }
 
@@ -69,18 +72,6 @@ This code may only be used under the BSD style license found at https://github.c
       @media (max-width: 600px) {
         .card-content {
           flex-direction: column;
-        }
-      }
-
-      @media (max-width: 800px) {
-        .card-content {
-          height: calc(100vh - var(--app-toolbar-height) - 88px);
-        }
-      }
-
-      @media (max-height: 640px) {
-        .card-content {
-          height: calc(100vh - var(--app-toolbar-height) - 88px);
         }
       }
     </style>
