@@ -42,7 +42,7 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-ajax id="ajaxReserveSeat" method="POST" on-response="onReserveSeat"></lancie-ajax>
 
     <paper-input label="Search user" value="{{filterUser}}"></paper-input>
-    <div class="layout horizontal" on-reserve-seat="refreshSeats">
+    <div class="layout horizontal">
       <div>
        <img src="/images-optimized/seatmap/stage.png">
       </div>
@@ -162,7 +162,7 @@ This code may only be used under the BSD style license found at https://github.c
       onReserveSeat: function(e, response) {
         if (response.succeeded) {
           this.$.listbox.selected = undefined;
-          this.fire('reserve-seat');
+          this.refreshSeats();
         } else {
           this.reservationError = true;
           if (response.request.status === 409) {
