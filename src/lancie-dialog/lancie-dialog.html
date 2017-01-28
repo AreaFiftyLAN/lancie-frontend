@@ -93,7 +93,8 @@ simply give it the `dialog-dismiss` attribute.
 
       @media (max-width: 400px) {
         #actualDialog {
-          width: 100%;
+          width: calc(100% - 2 * 16px);
+          margin: 16px;
         }
       }
 
