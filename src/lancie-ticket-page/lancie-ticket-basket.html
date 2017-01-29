@@ -21,10 +21,11 @@
       font-weight: 100;
     }
 
-    paper-button {
+    paper-card paper-button {
       background: var(--primary-color);
       color: var(--secondary-color);
       width: 100%;
+      margin: 0 auto;
     }
 
     @media(max-width: 600px) {
@@ -39,10 +40,6 @@
 
     small {
       margin-top: 4px;
-    }
-
-    paper-button {
-      margin: 0 auto;
     }
   </style>
 
@@ -83,7 +80,10 @@
 
     <lancie-profile-dialog id="profileDialog" user="{{user}}"></lancie-profile-dialog>
 
-    <lancie-terms-of-service id="termsOfService" checkout="[[checkout]]"></lancie-terms-of-service>
+    <lancie-terms-of-service id="termsOfService">
+      <paper-button on-tap="closeDialog">Cancel</paper-button>
+      <paper-button on-tap="checkout">Agree</paper-button>
+    </lancie-terms-of-service>
 
   </template>
   <script>
@@ -98,14 +98,6 @@
         type: Object,
         notify: true,
       },
-      checkout: {
-        type: Function,
-        value: function() {
-          return function() {
-            this.$.checkout.generateRequest();
-          }.bind(this);
-        },
-      },
       query: String,
     },
 
@@ -113,6 +105,14 @@
       if (this.query.indexOf('login') > -1 && !this.user) {
         this.loginDialog();
       }
+    },
+
+    checkout: function() {
+      this.$.checkout.generateRequest();
+    },
+
+    closeDialog: function() {
+      this.$.termsOfService.close();
     },
 
     loginDialog: function() {

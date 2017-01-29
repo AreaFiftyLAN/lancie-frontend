@@ -81,21 +81,21 @@
     </paper-card>
     <!-- Dialogs -->
     <!-- Create Team Dialog -->
-    <lancie-dialog id="createTeamDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="createTeamDialog">
       <h2>Create a Team</h2>
-      <div class="card-content">
+      <div class="dialog-content">
         <lancie-error id="error"></lancie-error>
         <paper-input label="Team name" type="text" value="{{teamName}}"></paper-input>
       </div>
-      <div class="buttons">
-        <paper-button raised dialog-dismiss>Cancel</paper-button>
-        <paper-button raised on-tap="submitCreateTeam">Create</paper-button>
+      <div class="dialog-actions">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button on-tap="submitCreateTeam">Create</paper-button>
       </div>
     </lancie-dialog>
     <!-- Personal Invites Overview Dialog -->
-    <lancie-dialog id="personalInvitesDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="personalInvitesDialog">
       <h2>Your personal invites</h2>
-      <div class="card-content">
+      <div class="dialog-content">
         <template is="dom-if" if="{{personalInvites.length}}">
           <template is="dom-repeat" items="{{personalInvites}}">
             <my-area-teams-invite invite="{{item}}" personal on-invite-change="refreshInvites"></my-area-teams-invite>
@@ -105,8 +105,8 @@
           <p>You don't have any open invites!</p>
         </template>
       </div>
-      <div class="buttons">
-        <paper-button raised dialog-dismiss>Close</paper-button>
+      <div class="dialog-actions">
+        <paper-button dialog-dismiss>Close</paper-button>
       </div>
     </lancie-dialog>
   </template>
@@ -134,12 +134,10 @@
     openCreateTeamDialog: function() {
       this.teamName = '';
       this.$.createTeamDialog.open();
-      window.document.body.appendChild(this.$.createTeamDialog);
     },
 
     openPersonalInvitesDialog: function() {
       this.$.personalInvitesDialog.open();
-      window.document.body.appendChild(this.$.personalInvitesDialog);
     },
 
     submitCreateTeam: function() {

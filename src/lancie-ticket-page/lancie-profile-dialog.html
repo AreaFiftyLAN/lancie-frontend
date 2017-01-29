@@ -9,7 +9,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <link rel="import" href="../lancie-card.html">
@@ -19,38 +18,52 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="lancie-profile-dialog">
   <template>
-    <style include="iron-flex iron-flex-alignment">
-      :host {
-        display: block;
-      }
+    <style>
+    :host {
+      /* offset to get bottom really at bottom */
+      --lancie-dialog-bottom-offset: 150px;
+    }
 
-      [hidden] {
-        display: none !important;
-      }
+    lancie-dialog {
+      --lancie-dialog: {
+        top: 10vh;
+        bottom: calc(var(--lancie-dialog-bottom-offset) + 20px);
+      };
+    }
 
-      .card-actions {
-        text-align: center;
+    /* Wanted `@media (max-height: var(--lancie-dialog-max-height))`
+      * with `--lancie-dialog-max-height: calc(--app-toolbar-height * 10);`
+      * but no variable support in @media queries (yet)
+      */
+    @media (max-height: 640px) {
+      lancie-dialog {
+        --lancie-dialog-top: var(--app-toolbar-height);
+        --lancie-dialog-bottom: var(--lancie-dialog-bottom-offset);
       }
+    }
 
-      paper-button {
-        width: 90%;
-        color: var(--secondary-color);
-        background: var(--primary-color);
-        margin: auto;
-      }
+    .dialog-content {
+      height: 100%;
+    }
+
+    profile-edit-form {
+      height: 100%;
+      overflow-y: auto;
+    }
+
     </style>
 
     <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
 
-    <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="dialog">
       <h2>Fill in your profile</h2>
-      <div class="card-content">
+      <div class="dialog-content">
         <profile-edit-form id="form" user="{{user}}" on-response="checkSucceeded"></profile-edit-form>
       </div>
-      <div class="card-actions">
-        <paper-button class="btn btn-primary" raised on-tap="submit">Submit</paper-button>
+      <div class="dialog-actions">
+        <paper-button class="btn btn-primary" on-tap="submit">Submit</paper-button>
       </div>
-    </paper-dialog>
+    </lancie-dialog>
 
   </template>
   <script>
@@ -67,8 +80,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.dialog.addEventListener('toast', function(e) {
           this.fire('toast', e.detail);
         }.bind(this));
-
-        window.document.body.appendChild(this.$.dialog);
       },
 
       open: function() {

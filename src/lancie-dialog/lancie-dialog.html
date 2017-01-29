@@ -1,72 +1,182 @@
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+
+
+<!--
+`lancie-dialog`
+Dialog for the lancie frontends
+
+This element is designed to give you a quick dialog with handy defaults,
+while at the same time being highly customizable.
+
+## Styling ##
+### Defaults ###
+To take advantage of the default styling you should use:
+`h2`              for the dialog header
+`.dialog-content` for the main content of the dialog
+`.dialog-actions` for the buttons at the bottom of the dialog
+
+### Customizaton ###
+For customization of your element you can set the following css vars/mixins:
+`--lancie-dialog`        for style that should be applied to the whole dialog
+`--lancie-dialog-width`  for setting the width in a media query  (outside of a media query you can just use --lancie-dialog)
+`--lancie-dialog-top`    for setting the top in a media query    (outside of a media query you can just use --lancie-dialog)
+`--lancie-dialog-bottom` for setting the bottom in a media query (outside of a media query you can just use --lancie-dialog)
+
+## Functionality ##
+If you want an element (e.g. a button) to dismiss the dialog,
+simply give it the `dialog-dismiss` attribute.
+
+@demo demo/index.html
+-->
 
 <dom-module id="lancie-dialog">
   <template>
-    <style include="paper-dialog-shared-styles"></style>
     <style>
-    :host > ::content > * {
-      margin-top: 0;
-      padding: 0 24px;
-      font-size: 16px;
-    }
+      #actualDialog {
+        display: none;
+        position: fixed;
+        width: 400px;
+        left: 0;
+        right: 0;
+        top: 30vh;
+        margin: auto;
+        z-index: 11;
 
-    :host > ::content > *:first-child {
-      margin-top: 0;
-    }
+        background-color: white;
 
-    :host > ::content > h2 {
-      background-color: var(--primary-color);
-      color: var(--secondary-color);
-      margin: 0;
-      padding: 16px 16px;
-      font-size: 20px;
-    }
+        @apply(--lancie-dialog);
 
-    :host > ::content > .card-content {
-      padding: 16px;
-    }
+        width: var(--lancie-dialog-width);
+        top: var(--lancie-dialog-top);
+        bottom: var(--lancie-dialog-bottom);
+      }
 
-    :host > ::content > .buttons {
-      border-top: 1px solid #e8e8e8;
-      color: var(--primary-color);
-    }
+      #actualDialog ::content h2 {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+        margin: 0;
+        font-size: 24px;
+        font-weight: 400;
+      }
+
+      #actualDialog ::content h2,
+      #actualDialog ::content .dialog-content {
+        padding: 16px;
+      }
+
+      #actualDialog ::content .dialog-content {
+        background-color: white;
+      }
+
+      #actualDialog ::content .dialog-actions {
+        border-top: 1px solid #e8e8e8;
+        padding: 8px 24px;
+        background-color: white;
+
+        @apply(--layout-horizontal);
+        @apply(--layout-end-justified);
+      }
+
+      #backdrop {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: black;
+        opacity: 0;
+        z-index: 10;
+        transition: opacity 0.1s linear;
+      }
+
+      /* dialog width + (2 * margin) */
+      @media (max-width: 432px) {
+        #actualDialog {
+          width: calc(100% - 2 * 16px);
+          width: var(--lancie-dialog-width);
+          margin: 16px;
+          margin: var(--lancie-dialog-margin);
+        }
+      }
+
+      @media (max-height: 213px) {
+        #actualDialog {
+          top: var(--app-toolbar-height);
+        }
+      }
+
     </style>
-    <content></content>
-  </template>
-  <script>
-  (function() {
-    'use strict';
 
+    <iron-media-query query="(max-width:432px)"  query-matches="{{mobile}}"></iron-media-query>
+    <iron-media-query query="(max-width:600px)"  query-matches="{{small}}"></iron-media-query>
+    <iron-media-query query="(max-width:800px)"  query-matches="{{medium}}"></iron-media-query>
+    <iron-media-query query="(max-height:213px)" query-matches="{{short}}"></iron-media-query>
+    <iron-media-query query="(max-height:640px)" query-matches="{{long}}"></iron-media-query>
+
+    <div id="actualDialog">
+      <content></content>
+    </div>
+
+    <div id="backdrop" on-tap="close"></div>
+  </template>
+
+  <script>
+  'use strict';
+
+  (function() {
     Polymer({
       is: 'lancie-dialog',
 
-      behaviors: [
-        Polymer.PaperDialogBehavior,
-        Polymer.NeonAnimationRunnerBehavior
+      observers: [
+        '_viewChanged(mobile)',
+        '_viewChanged(small)',
+        '_viewChanged(medium)',
+        '_viewChanged(wide)',
+        '_viewChanged(short)',
+        '_viewChanged(long)'
       ],
-      listeners: {
-        'neon-animation-finish': '_onNeonAnimationFinish'
+
+      ready: function() {
+        this.addDismissListeners();
       },
-      _renderOpened: function() {
-        this.cancelAnimation();
-        if (this.withBackdrop) {
-          this.backdropElement.open();
-        }
-        this.playAnimation('entry');
+
+      addDismissListeners: function() {
+        var dialog = this;
+        this.querySelectorAll('[dialog-dismiss]').forEach(function(button) {
+          button.addEventListener('tap', function() {
+            dialog.close();
+          });
+        });
       },
-      _renderClosed: function() {
-        this.cancelAnimation();
-        if (this.withBackdrop) {
-          this.backdropElement.close();
-        }
-        this.playAnimation('exit');
+
+      /**
+       * Opens the lancie-dialog
+       * @return {void}
+       */
+      open: function() {
+        this.$.actualDialog.style.display = 'block';
+        this.$.backdrop.style.display = 'block';
+        this.async(function() {
+          this.$.backdrop.style.opacity = '0.6';
+        }, 1);
       },
-      _onNeonAnimationFinish: function() {
-        if (this.opened) {
-          this._finishRenderOpened();
-        } else {
-          this._finishRenderClosed();
-        }
+
+      /**
+      * Closes the lancie-dialog
+      * @return {void}
+      */
+      close: function() {
+        setTimeout(function() {
+          this.$.actualDialog.style.display = 'none';
+          this.$.backdrop.style.display = 'none';
+          this.$.backdrop.style.opacity = '0.0';
+        }.bind(this), 130);
+      },
+
+      _viewChanged: function() {
+        this.updateStyles();
       }
     });
   })();

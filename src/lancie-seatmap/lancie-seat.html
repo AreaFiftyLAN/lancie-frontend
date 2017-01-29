@@ -58,9 +58,9 @@ This code may only be used under the BSD style license found at https://github.c
       <paper-tooltip for="seat" animationDelay="0">{{_getTooltipText(seat)}}</paper-tooltip>
     </div>
 
-    <lancie-dialog id="seatDialog" entry-animation="scale-up-animation" with-backdrop>
+    <lancie-dialog id="seatDialog">
       <h2>Seat reservation</h2>
-      <div class="card-content">
+      <div class="dialog-content">
         <lancie-error id="error"></lancie-error>
         <div hidden$="{{!_checkExists(tickets)}}">
           Select the user to reserve this seat for:
@@ -74,9 +74,9 @@ This code may only be used under the BSD style license found at https://github.c
           You need at least one ticket to reserve a seat!
         </div>
       </div>
-      <div class="buttons">
-        <paper-button raised dialog-dismiss>Close</paper-button>
-        <paper-button on-tap="reserveSeat" hidden$="{{!_checkExists(tickets)}}" raised>Reserve seat</paper-button>
+      <div class="dialog-actions">
+        <paper-button dialog-dismiss>Close</paper-button>
+        <paper-button on-tap="reserveSeat" hidden$="{{!_checkExists(tickets)}}">Reserve seat</paper-button>
       </div>
     </lancie-dialog>
   </template>
@@ -114,7 +114,6 @@ This code may only be used under the BSD style license found at https://github.c
           return;
         }
         this.$.seatDialog.open();
-        window.document.body.appendChild(this.$.seatDialog);
       },
       reserveSeat: function() {
         this.$.error.clear();

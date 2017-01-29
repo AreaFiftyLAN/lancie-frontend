@@ -5,7 +5,6 @@
 <link rel="import" href="../../../bower_components/iron-icons/social-icons.html">
 
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../../bower_components/paper-item/paper-item-body.html">
@@ -72,22 +71,22 @@
     </template>
 
     <!-- Invite a Member dialog -->
-    <lancie-dialog id="addMemberDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="addMemberDialog">
       <h2>Add a team member</h2>
-      <div class="card-content">
+      <div class="dialog-content">
         <lancie-error id="error"></lancie-error>
         <paper-input label="Email" type="text" value="{{memberUsername}}"></paper-input>
       </div>
-      <div class="buttons">
-        <paper-button raised dialog-dismiss>Cancel</paper-button>
-        <paper-button raised on-tap="submitInviteMember">Invite</paper-button>
+      <div class="dialog-actions">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button on-tap="submitInviteMember">Invite</paper-button>
       </div>
     </lancie-dialog>
 
     <!-- Team Invite Overview Dialog -->
-    <lancie-dialog id="teamInvitesDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="teamInvitesDialog">
       <h2>Pending invites for {{team.teamName}}</h2>
-      <div class="card-content">
+      <div class="dialog-content">
         <template is="dom-if" if="{{teamInvites.length}}">
           <template is="dom-repeat" items="{{teamInvites}}">
             <my-area-teams-invite invite="{{item}}" team on-invite-change="refreshInvites"></my-area-teams-invite>
@@ -97,8 +96,8 @@
           <p>There are no pending invites for this team!</p>
         </template>
       </div>
-      <div class="buttons">
-        <paper-button raised dialog-dismiss>Close</paper-button>
+      <div class="dialog-actions">
+        <paper-button dialog-dismiss>Close</paper-button>
       </div>
     </lancie-dialog>
 
@@ -124,7 +123,6 @@
       this.addMemberMessage = '';
       this.memberUsername = '';
       this.$.addMemberDialog.open();
-      window.document.body.appendChild(this.$.addMemberDialog);
     },
     submitInviteMember: function() {
       this.$.error.clear();
@@ -152,7 +150,6 @@
     openTeamInvitesDialog: function() {
       this.$.ajaxGetTeamInvites.generateRequest();
       this.$.teamInvitesDialog.open();
-      window.document.body.appendChild(this.$.teamInvitesDialog);
     },
     _isSameUser: function(other, user) {
       return other.reference === user.reference;

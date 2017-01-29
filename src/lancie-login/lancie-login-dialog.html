@@ -12,61 +12,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 
-
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../lancie-dialog/lancie-dialog.html">
 <link rel="import" href="lancie-login-form.html">
 
 <dom-module id="lancie-login-dialog">
   <template>
-    <style include="iron-flex iron-flex-alignment"></style>
     <style>
-      :host {
-        display: block;
+      paper-button {
+        width: 50%;
       }
-
-      paper-dialog {
-        min-width: 500px;
-      }
-
-      paper-dialog > * {
-        margin: 0;
-      }
-
-      h2 {
-        margin: 0;
-        padding: 24px;
-        color: #ffe574;
-        background: #1a2b43;
-      }
-
-      lancie-login-form {
-        padding: 16px;
-      }
-
-      .dialog-actions {
-        border-top: 1px solid #e8e8e8;
-        padding: 4px 16px;
-      }
-
-      .btn {
-        color: #000000;
-      }
-
+      
       .btn-primary {
-        color: #ffe574;
-        background: #1a2b43;
+        color: var(--secondary-color);
+        background: var(--primary-color);
       }
     </style>
 
-    <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <lancie-dialog id="dialog">
       <h2>[[_getAction(registering)]]</h2>
-      <lancie-login-form id="loginForm" registering="[[registering]]" order-id="[[orderId]]" on-enter="submit"></lancie-login-form>
+      <lancie-login-form class="dialog-content" id="loginForm" registering="[[registering]]" order-id="[[orderId]]" on-enter="submit"></lancie-login-form>
 
-      <div class="buttons dialog-actions">
-        <paper-button class="btn btn-primary" raised on-tap="submit">[[_getAction(registering)]]</paper-button>
-        <paper-button class="btn" raised on-tap="switchForm">[[_getSwitchAction(registering)]]</paper-button>
+      <div class="dialog-actions">
+        <paper-button class="btn-primary" raised on-tap="submit">[[_getAction(registering)]]</paper-button>
+        <paper-button raised on-tap="switchForm">[[_getSwitchAction(registering)]]</paper-button>
       </div>
-    </paper-dialog>
+    </lancie-dialog>
 
   </template>
   <script>
@@ -95,17 +65,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.fire('navigate', e.detail);
           this.$.dialog.close();
         }.bind(this));
-
-        window.document.body.appendChild(this.$.dialog);
-        this.$.dialog.style['min-width'] = '500px';
-        var h2 = this.$.dialog.querySelector('h2');
-        h2.style.margin = '0';
-        h2.style.padding = '24px';
-        h2.style.color = '#ffe574';
-        h2.style.background = '#1a2b43';
-        var button = this.$.dialog.querySelector('.btn-primary');
-        button.style.background = '#1a2b43';
-        button.style.color = '#ffe574';
       },
 
       open: function() {

@@ -9,49 +9,45 @@ This code may only be used under the BSD style license found at https://github.c
 
 <link rel="import" href="lancie-activity-content.html">
 <link rel="import" href="lancie-activity-sponsor.html">
+<link rel="import" href="../lancie-dialog/lancie-dialog.html">
 
 <dom-module id="lancie-activity-dialog">
   <template>
     <style>
-      #lancieDialog {
-        display: none;
-        position: fixed;
-        width: 850px;
-        left: 0;
-        right: 0;
-        top: 100px;
-        bottom: 100px;
-        z-index: 11;
-        margin: auto;
+      :host {
+        /* offset to get bottom really at bottom */
+        --lancie-dialog-bottom-offset: 88px;
+      }
+
+      lancie-dialog {
+        --lancie-dialog: {
+          top: 10vh;
+          bottom: calc(var(--lancie-dialog-bottom-offset) + 4vh);
+          width: 800px;
+        };
       }
 
       .dialog-header {
-        background-color: #1a2b43;
-        color: #ffe574;
+        background-color: var(--primary-color);
         display: flex;
         justify-content: space-between;
-        font-size: 150%;
-      }
-
-      .dialog-header div {
-        padding: 20px;
       }
 
       .dialog-header paper-icon-button {
+        color: var(--secondary-color);
         margin: 8px;
       }
 
       .dialog-content {
         display: flex;
         flex-direction: row;
-        overflow-y: scroll;
+        height: 100%;
         color: #212121;
-        background-color: white;
-        padding: 25px;
-        height: 70vh;
       }
 
       lancie-activity-content {
+        height: 100%;
+        overflow-y: auto;
         flex: 3;
       }
 
@@ -60,55 +56,63 @@ This code may only be used under the BSD style license found at https://github.c
         flex-basis: 150px;
       }
 
-      #backdrop {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: black;
-        opacity: 0;
-        z-index: 10;
-        transition: opacity 6s;
+      @media (max-width: 432px) {
+        lancie-dialog {
+          --lancie-dialog-width: 100%;
+          --lancie-dialog-margin: 0;
+        }
       }
 
       @media (max-width: 600px) {
         .dialog-content {
           flex-direction: column;
+          overflow-y: auto;
+        }
+
+        lancie-activity-content {
+          overflow-y: visible;
+
+          /* doesn't entirely do the job in Safari :/ */
+          height: auto;
         }
       }
 
-      @media (max-width: 850px) {
-        #lancieDialog {
-          width: 100%;
-          top: 64px;
-          bottom: 0;
-          height: calc(100vh - 64px);
+      @media (max-width: 800px) {
+        lancie-dialog {
+          --lancie-dialog-top: var(--app-toolbar-height);
+          --lancie-dialog-bottom: var(--lancie-dialog-bottom-offset);
+          --lancie-dialog-width: 100%;
         }
+      }
 
-        .dialog-content {
-          height: calc(100vh - 64px - 88px);
+      /* Wanted `@media (max-height: var(--lancie-dialog-max-height))`
+       * with `--lancie-dialog-max-height: calc(--app-toolbar-height * 10);`
+       * but no variable support in @media queries (yet)
+       */
+      @media (max-height: 640px) {
+        lancie-dialog {
+          --lancie-dialog-top: var(--app-toolbar-height);
+          --lancie-dialog-bottom: var(--lancie-dialog-bottom-offset);
+          --lancie-dialog-width: 100%;
         }
       }
     </style>
+
 
     <div id="popup-button" on-tap="openDialog">
       <content></content>
     </div>
 
-    <div id="lancieDialog">
+    <lancie-dialog id="lancieDialog">
       <div class="dialog-header">
-        <div><strong>[[data.sponsor.name]]</strong> <span>[[data.headerTitle]]</span></div>
-        <paper-icon-button icon="close" on-tap="closeDialog"></paper-icon-button>
+        <h2><strong>[[data.sponsor.name]]</strong> <span>[[data.headerTitle]]</span></h2>
+        <paper-icon-button icon="close" dialog-dismiss></paper-icon-button>
       </div>
       <div class="dialog-content">
         <lancie-activity-content data="[[data]]"></lancie-activity-content>
         <lancie-activity-sponsor sponsor="[[data.sponsor]]" prizes="[[data.prizes]]"></lancie-activity-sponsor>
       </div>
-    </div>
-
-    <div id="backdrop" on-tap="closeDialog"></div>
+    </lancie-dialog>
   </template>
 
   <script>
@@ -124,24 +128,12 @@ This code may only be used under the BSD style license found at https://github.c
     },
 
     /**
-     * Opens the paper-dialog
+     * Opens the lancie-dialog
      * @return {void}
      */
     openDialog: function() {
-      this.$.lancieDialog.style.display = 'block';
-      this.$.backdrop.style.display = 'block';
-      this.$.backdrop.style.opacity = '0.6';
-    },
-
-    /**
-     * Closes the paper-dialog
-     * @return {void}
-     */
-    closeDialog: function() {
-      this.$.lancieDialog.style.display = 'none';
-      this.$.backdrop.style.display = 'none';
-      this.$.backdrop.style.opacity = '0';
-    },
+      this.$.lancieDialog.open();
+    }
   });
   </script>
 </dom-module>

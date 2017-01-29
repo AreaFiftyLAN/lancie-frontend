@@ -2,11 +2,9 @@
 <link rel="import" href="my-area-ticket-item.html">
 
 <link rel="import" href="../lancie-login/lancie-ajax.html">
-<link rel="import" href="../lancie-ticket-page/lancie-terms-of-service-text.html">
+<link rel="import" href="../lancie-ticket-page/lancie-terms-of-service.html">
 
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
@@ -75,15 +73,9 @@
       </div>
     </paper-card>
 
-    <paper-dialog id="termsAndConditions" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
-      <h2>Terms and conditions</h2>
-      <paper-dialog-scrollable>
-        <lancie-terms-of-service-text></lancie-terms-of-service-text>
-      </paper-dialog-scrollable>
-      <div class="buttons">
-        <paper-button dialog-dismiss>Close</paper-button>
-      </div>
-    </paper-dialog>
+    <lancie-terms-of-service id="termsOfService">
+      <paper-button on-tap="closeDialog">Close</paper-button>
+    </lancie-terms-of-service>
 
     <paper-toast id="ticketTransferTokensRetrievalError" text="Unable to check for open ticket transfers!" duration="3000"></paper-toast>
   </template>
@@ -116,8 +108,7 @@
       this.fire('navigate', {page: 'tickets'});
     },
     showTermsAndConditions: function() {
-      this.$.termsAndConditions.open();
-      window.document.body.appendChild(this.$.termsAndConditions);
+      this.$.termsOfService.open();
     },
     storeOrders: function(event, request) {
       this.orders = request.response.length > 0 ? request.response : false;
@@ -145,6 +136,10 @@
     getIcon: function(binding) {
       return binding ? 'icons:check' : 'icons:clear';
     },
+
+    closeDialog: function() {
+      this.$.termsOfService.close();
+    }
   });
   </script>
 </dom-module>
