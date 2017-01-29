@@ -53,8 +53,6 @@
     }
     </style>
 
-    <iron-ajax auto url="{{json}}" handle-as="json" last-response="{{activities}}" debounce-duration="300"></iron-ajax>
-
     <div class="layout vertical">
       <paper-card image="" elevation="1" animated-shadow="false">
         <div class="card-header">
@@ -244,14 +242,6 @@
     Polymer({
       is: 'lancie-timeline',
       properties: {
-        activities: {
-          type: Array,
-          value: [],
-          notify: true
-        },
-        json: {
-          notify: true
-        },
         selected: {
           type: Number,
           value: 0
