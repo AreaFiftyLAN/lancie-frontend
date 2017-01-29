@@ -173,7 +173,7 @@ This code may only be used under the BSD style license found at https://github.c
         }
       },
       open: function(listenerEvent) {
-        this.seat = listenerEvent.detail;
+        this.seat = listenerEvent.detail.seat;
         this.$.seatDialog.open();
       },
       _getSeatGroup: function(seats, group) {

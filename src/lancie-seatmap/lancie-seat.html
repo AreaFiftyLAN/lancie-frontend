@@ -85,7 +85,7 @@ This code may only be used under the BSD style license found at https://github.c
         if (this.seat.taken) {
           return;
         }
-        this.fire('openDialog', this.seat);
+        this.fire('openDialog', {'seat': this.seat});
       },
       _calculateClass: function(user, teamTickets, seat, filter) {
         if (!seat.taken) {
