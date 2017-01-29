@@ -209,7 +209,12 @@
         }
         var deadlineType = this.deadlineDisplay[ticket.ticketType];
         if (deadlineType === 'deadline') {
-          return 'Available until: ' + new Date(this.ticket.deadline).toLocaleString('nl', {hour12: false, timeZone: 'UTC',});
+          // The + "Z" is needed to make sure all browsers interpret the time as UTC
+          // ISO 8601 specifies that date/time literals without time zone information
+          // should be interpreted as local time, while ES5.1 specifies it should
+          // be interpreted as UTC.
+          return 'Available until: ' + new Date(this.ticket.deadline + "Z")
+            .toLocaleString('nl', {hour12: false, timeZone: 'UTC'});
         } else if (deadlineType === 'limit') {
           return 'Only ' + (ticket.limit - ticket.numberSold) + ' left!';
         } else {
