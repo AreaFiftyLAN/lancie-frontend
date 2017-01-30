@@ -2,6 +2,7 @@
 
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 
 <dom-module id="lancie-timeline">
   <template>
@@ -51,8 +52,6 @@
       line-height: 16px;
     }
     </style>
-
-    <iron-ajax auto url="{{json}}" handle-as="json" last-response="{{activities}}" debounce-duration="300"></iron-ajax>
 
     <div class="layout vertical">
       <paper-card image="" elevation="1" animated-shadow="false">
@@ -243,14 +242,6 @@
     Polymer({
       is: 'lancie-timeline',
       properties: {
-        activities: {
-          type: Array,
-          value: [],
-          notify: true
-        },
-        json: {
-          notify: true
-        },
         selected: {
           type: Number,
           value: 0
