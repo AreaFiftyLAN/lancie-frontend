@@ -41,7 +41,7 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-ajax auto id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-response="onGetTeamTickets"></lancie-ajax>
     <lancie-ajax id="ajaxReserveSeat" method="POST" on-response="onReserveSeat"></lancie-ajax>
 
-    <paper-input label="Search user" value="{{filterUser}}"></paper-input>
+    <paper-input label="Search user" value="[[filterUser]]"></paper-input>
     <div class="layout horizontal">
       <div>
        <img src="/images-optimized/seatmap/stage.png">
@@ -49,16 +49,16 @@ This code may only be used under the BSD style license found at https://github.c
       <div class="layout seats flex-2 seatgroup vertical">
         <template is="dom-repeat" items='["A", "B", "C", "D", "E"]'>
           <div class="layout flex horizontal seatmap-row">
-            <div class="grouplabel layout center center-justified horizontal">{{item}}</div>
-            <lancie-seat-group class="layout flex vertical" filter="{{filterUser}}" group="{{item}}" seats="{{_getSeatGroup(seats, item)}}" tickets="{{tickets}}" user="{{user}}" fixed="{{fixed}}"></lancie-seat-group>
+            <div class="grouplabel layout center center-justified horizontal">[[item]]</div>
+            <lancie-seat-group class="layout flex vertical" filter="[[filterUser]]" group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
           </div>
         </template>
       </div>
       <div class="layout seats flex-2 seatgroup vertical">
         <template is="dom-repeat" items='["F", "G", "H", "I", "J"]'>
           <div class="layout flex horizontal seatmap-row">
-            <lancie-seat-group class="layout flex vertical" filter="{{filterUser}}"  group="{{item}}" seats="{{_getSeatGroup(seats, item)}}" tickets="{{tickets}}" user="{{user}}" fixed="{{fixed}}"></lancie-seat-group>
-            <div class="grouplabel layout center center-justified horizontal">{{item}}</div>
+            <lancie-seat-group class="layout flex vertical" filter="[[filterUser]]"  group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
+            <div class="grouplabel layout center center-justified horizontal">[[item]]</div>
           </div>
         </template>
       </div>
@@ -71,21 +71,21 @@ This code may only be used under the BSD style license found at https://github.c
       <h2>Seat reservation</h2>
       <div class="dialog-content">
         <lancie-error id="error"></lancie-error>
-        <div hidden$="{{!_checkExists(tickets)}}">
+        <div hidden$="[[!_checkExists(tickets)]]">
           Select the user to reserve this seat for:
           <paper-listbox id="listbox">
-            <template is="dom-repeat" items="{{tickets}}">
-              <paper-item ticket="{{item.id}}">{{item.owner.profile.displayName}}</paper-item>
+            <template is="dom-repeat" items="[[tickets]]">
+              <paper-item ticket="[[item.id]]">[[item.owner.profile.displayName]]</paper-item>
             </template>
           </paper-listbox>
         </div>
-        <div hidden$="{{_checkExists(tickets)}}">
+        <div hidden$="[[_checkExists(tickets)]]">
           You need at least one ticket to reserve a seat!
         </div>
       </div>
       <div class="dialog-actions">
         <paper-button dialog-dismiss>Close</paper-button>
-        <paper-button on-tap="reserveSeat" hidden$="{{!_checkExists(tickets)}}">Reserve seat</paper-button>
+        <paper-button on-tap="reserveSeat" hidden$="[[!_checkExists(tickets)]]">Reserve seat</paper-button>
       </div>
     </lancie-dialog>
 
@@ -106,7 +106,7 @@ This code may only be used under the BSD style license found at https://github.c
             return [];
           }
         },
-        seat: Object,
+        seatToReserve: Object,
         tickets: {
           type: Array,
           value: function() {
@@ -155,25 +155,25 @@ This code may only be used under the BSD style license found at https://github.c
         this.$.ajaxReserveSeat.params = {
           'ticketId': this.$.listbox.selectedItem.ticket
         };
-        this.$.ajaxReserveSeat.refurl = 'seats/' + this.seat.seatGroup + '/' + this.seat.seatNumber;
+        this.$.ajaxReserveSeat.refurl = 'seats/' + this.seatToReserve.seatGroup + '/' + this.seatToReserve.seatNumber;
         this.$.ajaxReserveSeat.generateRequest();
         this.$.seatDialog.close();
       },
-      onReserveSeat: function(e, response) {
-        if (response.succeeded) {
+      onReserveSeat: function(e, request) {
+        if (request.succeeded) {
           this.$.listbox.selected = undefined;
           this.refreshSeats();
         } else {
           this.reservationError = true;
-          if (response.request.status === 409) {
+          if (request.request.status === 409) {
             this.$.error.setError('Seat is already taken.');
           } else {
             this.$.error.setError('Something went wrong, please refresh and try again.');
           }
         }
       },
-      open: function(listenerEvent) {
-        this.seat = listenerEvent.detail.seat;
+      open: function(event) {
+        this.seatToReserve = event.detail.seatToReserve;
         this.$.seatDialog.open();
       },
       _getSeatGroup: function(seats, group) {
