@@ -121,10 +121,7 @@ This code may only be used under the BSD style license found at https://github.c
           this.$.error.setError('Please select a user.');
           return;
         }
-        this.$.ajaxReserveSeat.params = {
-          'ticketId': this.$.listbox.selectedItem.ticket
-        };
-        this.$.ajaxReserveSeat.refurl = 'seats/' + this.seat.seatGroup + '/' + this.seat.seatNumber;
+        this.$.ajaxReserveSeat.refurl = 'seats/' + this.seat.seatGroup + '/' + this.seat.seatNumber + '/' + this.$.listbox.selectedItem.ticket;
         this.$.ajaxReserveSeat.generateRequest();
         this.$.seatDialog.close();
       },
