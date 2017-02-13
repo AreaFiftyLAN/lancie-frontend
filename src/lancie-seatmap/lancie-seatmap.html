@@ -119,7 +119,7 @@ This code may only be used under the BSD style license found at https://github.c
         }
       },
       listeners: {
-        'openDialog': 'open'
+        'requestSeatReserve': 'open'
       },
       refreshSeats: function() {
         this.$.reserveSeatSuccessToast.show();
@@ -152,10 +152,7 @@ This code may only be used under the BSD style license found at https://github.c
           this.$.error.setError('Please select a user.');
           return;
         }
-        this.$.ajaxReserveSeat.params = {
-          'ticketId': this.$.listbox.selectedItem.ticket
-        };
-        this.$.ajaxReserveSeat.refurl = 'seats/' + this.seatToReserve.seatGroup + '/' + this.seatToReserve.seatNumber;
+        this.$.ajaxReserveSeat.refurl = 'seats/' + this.seatToReserve.seatGroup + '/' + this.seatToReserve.seatNumber + '/' + this.$.listbox.selectedItem.ticket;
         this.$.ajaxReserveSeat.generateRequest();
         this.$.seatDialog.close();
       },
@@ -164,7 +161,6 @@ This code may only be used under the BSD style license found at https://github.c
           this.$.listbox.selected = undefined;
           this.refreshSeats();
         } else {
-          this.reservationError = true;
           if (request.request.status === 409) {
             this.$.error.setError('Seat is already taken.');
           } else {
