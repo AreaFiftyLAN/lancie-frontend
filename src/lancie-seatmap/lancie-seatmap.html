@@ -26,7 +26,7 @@ This code may only be used under the BSD style license found at https://github.c
     }
 
     .grouplabel {
-      width: 64px;
+      width: 100%;
       color: var(--secondary-color);
       font-size: 32px;
       font-weight: bold;
@@ -34,6 +34,27 @@ This code may only be used under the BSD style license found at https://github.c
       box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
                   0 1px 5px 0 rgba(0, 0, 0, 0.12),
                   0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+
+    .seats {
+      height: 60vh;
+    }
+
+    .lounge {
+      height:500px;
+      width:30vw;
+    }
+
+    .stage {
+      height:300px;
+      width:20vw;
+      margin-top:200px
+    }
+
+    .entrance {
+      height:300px;
+      width:10vw;
+      margin-top:200px;
     }
     </style>
 
@@ -43,23 +64,23 @@ This code may only be used under the BSD style license found at https://github.c
 
     <paper-input label="Search user" value="[[filterUser]]"></paper-input>
     <div class="layout vertical">
-      <div class="layout seats flex-2 seatgroup horizontal" style="height:60vh">
+      <div class="layout seats flex-2 seatgroup horizontal">
         <template is="dom-repeat" items='["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]'>
           <div class="layout flex vertical seatmap-row">
-            <div class="grouplabel layout center center-justified horizontal" style="width:100%">[[item]]</div>
+            <div class="grouplabel layout center center-justified horizontal">[[item]]</div>
             <lancie-seat-group class="layout flex horizontal" filter="[[filterUser]]" group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
           </div>
         </template>
       </div>
-      <div class="layout horizontal" style="width:50vw;">
+      <div class="layout horizontal">
         <div>
-          <img src="/images-optimized/seatmap/lounge.png" style="height:500px; width:30vw;">
+          <img src="/images-optimized/seatmap/lounge.png" class="lounge">
         </div>
         <div>
-          <img src="/images-optimized/seatmap/stage.png" style="height:300px; width:20vw; margin-top:200px">
+          <img src="/images-optimized/seatmap/stage.png" class="stage">
         </div>
         <div>
-          <img src="/images-optimized/seatmap/entrance.png" style="height:300px; width:10vw; margin-top:200px">
+          <img src="/images-optimized/seatmap/entrance.png" class="entrance">
         </div>
       </div>
     </div>
