@@ -42,28 +42,25 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-ajax id="ajaxReserveSeat" method="POST" on-response="onReserveSeat"></lancie-ajax>
 
     <paper-input label="Search user" value="[[filterUser]]"></paper-input>
-    <div class="layout horizontal">
-      <div>
-       <img src="/images-optimized/seatmap/stage.png">
-      </div>
-      <div class="layout seats flex-2 seatgroup vertical">
-        <template is="dom-repeat" items='["A", "B", "C", "D", "E"]'>
-          <div class="layout flex horizontal seatmap-row">
-            <div class="grouplabel layout center center-justified horizontal">[[item]]</div>
-            <lancie-seat-group class="layout flex vertical" filter="[[filterUser]]" group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
+    <div class="layout vertical">
+      <div class="layout seats flex-2 seatgroup horizontal" style="height:60vh">
+        <template is="dom-repeat" items='["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]'>
+          <div class="layout flex vertical seatmap-row">
+            <div class="grouplabel layout center center-justified horizontal" style="width:100%">[[item]]</div>
+            <lancie-seat-group class="layout flex horizontal" filter="[[filterUser]]" group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
           </div>
         </template>
       </div>
-      <div class="layout seats flex-2 seatgroup vertical">
-        <template is="dom-repeat" items='["F", "G", "H", "I", "J"]'>
-          <div class="layout flex horizontal seatmap-row">
-            <lancie-seat-group class="layout flex vertical" filter="[[filterUser]]"  group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
-            <div class="grouplabel layout center center-justified horizontal">[[item]]</div>
-          </div>
-        </template>
-      </div>
-      <div>
-        <img src="/images-optimized/seatmap/lounge.png">
+      <div class="layout horizontal" style="width:50vw;">
+        <div>
+          <img src="/images-optimized/seatmap/lounge.png" style="height:500px; width:30vw;">
+        </div>
+        <div>
+          <img src="/images-optimized/seatmap/stage.png" style="height:300px; width:20vw; margin-top:200px">
+        </div>
+        <div>
+          <img src="/images-optimized/seatmap/entrance.png" style="height:300px; width:10vw; margin-top:200px">
+        </div>
       </div>
     </div>
 
