@@ -4,6 +4,7 @@ Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All ri
 This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
 -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../lancie-login/lancie-ajax.html">
 <link rel="import" href="lancie-seat-group.html">
 <link rel="import" href="lancie-seat.html">
 
@@ -26,7 +27,7 @@ This code may only be used under the BSD style license found at https://github.c
     }
 
     .grouplabel {
-      width: 64px;
+      width: 100%;
       color: var(--secondary-color);
       font-size: 32px;
       font-weight: bold;
@@ -35,6 +36,30 @@ This code may only be used under the BSD style license found at https://github.c
                   0 1px 5px 0 rgba(0, 0, 0, 0.12),
                   0 3px 1px -2px rgba(0, 0, 0, 0.2);
     }
+
+    .seats {
+      height: 60vh;
+    }
+
+    .lounge {
+      height: 500px;
+      width: 30vw;
+      padding-right: 2px;
+    }
+
+    .stage {
+      height: 300px;
+      width: 20vw;
+      margin-top: 200px;
+      padding-right: 2px;
+    }
+
+    .entrance {
+      height: 300px;
+      width: 10vw;
+      margin-top: 200px;
+      padding-right: 2px;
+    }
     </style>
 
     <lancie-ajax auto id="ajaxGetAllSeats" refurl="seats" on-response="onGetAllSeats"></lancie-ajax>
@@ -42,28 +67,25 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-ajax id="ajaxReserveSeat" method="POST" on-response="onReserveSeat"></lancie-ajax>
 
     <paper-input label="Search user" value="[[filterUser]]"></paper-input>
-    <div class="layout horizontal">
-      <div>
-       <img src="/images-optimized/seatmap/stage.png">
-      </div>
-      <div class="layout seats flex-2 seatgroup vertical">
-        <template is="dom-repeat" items='["A", "B", "C", "D", "E"]'>
-          <div class="layout flex horizontal seatmap-row">
+    <div class="layout vertical">
+      <div class="layout seats flex-2 seatgroup horizontal">
+        <template is="dom-repeat" items='["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]'>
+          <div class="layout flex vertical seatmap-row">
             <div class="grouplabel layout center center-justified horizontal">[[item]]</div>
-            <lancie-seat-group class="layout flex vertical" filter="[[filterUser]]" group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
+            <lancie-seat-group class="layout flex horizontal" filter="[[filterUser]]" group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
           </div>
         </template>
       </div>
-      <div class="layout seats flex-2 seatgroup vertical">
-        <template is="dom-repeat" items='["F", "G", "H", "I", "J"]'>
-          <div class="layout flex horizontal seatmap-row">
-            <lancie-seat-group class="layout flex vertical" filter="[[filterUser]]"  group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
-            <div class="grouplabel layout center center-justified horizontal">[[item]]</div>
-          </div>
-        </template>
-      </div>
-      <div>
-        <img src="/images-optimized/seatmap/lounge.png">
+      <div class="layout horizontal">
+        <div>
+          <img src="/images-optimized/seatmap/lounge.png" class="lounge">
+        </div>
+        <div>
+          <img src="/images-optimized/seatmap/stage.png" class="stage">
+        </div>
+        <div>
+          <img src="/images-optimized/seatmap/entrance.png" class="entrance">
+        </div>
       </div>
     </div>
 
