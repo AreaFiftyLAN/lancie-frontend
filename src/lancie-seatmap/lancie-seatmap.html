@@ -60,6 +60,11 @@ This code may only be used under the BSD style license found at https://github.c
       margin-top: 200px;
       padding-right: 2px;
     }
+
+    #listbox {
+      overflow-y: auto;
+      max-height: 40vh;
+    }
     </style>
 
     <lancie-ajax auto id="ajaxGetAllSeats" refurl="seats" on-response="onGetAllSeats"></lancie-ajax>
