@@ -9,6 +9,7 @@
     "gulp-html-minifier": "^0.1.8",
     "gulp-if": "^2.0.1",
     "gulp-jshint": "^2.0.2",
+    "gulp-replace": "^0.5.4",
     "gulp-style-modules": "^0.1.0",
     "gulp-uglify": "^2.0.0",
     "jshint": "^2.9.1",
