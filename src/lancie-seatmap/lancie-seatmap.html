@@ -71,7 +71,7 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-ajax auto id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-response="onGetTeamTickets"></lancie-ajax>
     <lancie-ajax id="ajaxReserveSeat" method="POST" on-response="onReserveSeat"></lancie-ajax>
 
-    <paper-input label="Search user" value="[[filterUser]]"></paper-input>
+    <paper-input label="Search user" value="{{filterUser}}"></paper-input>
     <div class="layout vertical">
       <div class="layout seats flex-2 seatgroup horizontal">
         <template is="dom-repeat" items='["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]'>
