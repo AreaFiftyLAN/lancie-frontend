@@ -17,7 +17,6 @@ const gulpif = require('gulp-if');
 const uglify = require('gulp-uglify');
 const cssSlam = require('css-slam').gulp;
 const htmlMinifier = require('gulp-html-minifier');
-const replace = require('gulp-replace');
 const jshint = require('gulp-jshint');
 const superagent = require('superagent');
 const fs = require('fs-extra');
@@ -82,7 +81,6 @@ function source() {
       .pipe(gulpif(/\.js$/, uglify()))
       .pipe(gulpif(/\.css$/, cssSlam()))
       .pipe(gulpif(/\.html$/, cssSlam()))
-      .pipe(gulpif(/\.html$/, replace('api/v1/', 'https://api.areafiftylan.nl/api/v1/')))
       .pipe(gulpif(/\.html$/, minify()))
       .pipe(project.rejoin());
 }
@@ -96,7 +94,6 @@ function dependencies() {
       .pipe(gulpif(/\.js$/, uglify()))
       .pipe(gulpif(/\.css$/, cssSlam()))
       .pipe(gulpif(/\.html$/, cssSlam()))
-      .pipe(gulpif(/\.html$/, replace('api/v1/', 'https://api.areafiftylan.nl/api/v1/')))
       .pipe(gulpif(/\.html$/, minify()))
       .pipe(project.rejoin());
 }

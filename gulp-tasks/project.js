@@ -12,6 +12,8 @@
 
 const path = require('path');
 const gulp = require('gulp');
+const gulpif = require('gulp-if');
+const gulpreplace = require('gulp-replace');
 const mergeStream = require('merge-stream');
 const polymer = require('polymer-build');
 
@@ -74,6 +76,7 @@ function merge(source, dependencies) {
 function writeBundledOutput(stream) {
   return new Promise(resolve => {
     stream.pipe(project.bundler)
+      .pipe(gulpif(/\.html$/, gulpreplace('/api/v1', 'https://api.areafiftylan.nl/api/v1')))
       .pipe(gulp.dest(bundledPath))
       .on('end', resolve);
   });
@@ -83,7 +86,9 @@ function writeBundledOutput(stream) {
 // use HTTP/2 server push
 function writeUnbundledOutput(stream) {
   return new Promise(resolve => {
-    stream.pipe(gulp.dest(unbundledPath))
+    stream
+      .pipe(gulpif(/\.html$/, gulpreplace('/api/v1', 'https://api.areafiftylan.nl/api/v1')))
+      .pipe(gulp.dest(unbundledPath))
       .on('end', resolve);
   });
 }
