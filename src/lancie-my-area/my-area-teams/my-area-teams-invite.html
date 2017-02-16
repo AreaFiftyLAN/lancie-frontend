@@ -7,7 +7,7 @@
 <link rel="import" href="../../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../../bower_components/paper-toast/paper-toast.html">
-<link rel="import" href="../../lancie-login/lancie-ajax.html">
+<link rel="import" href="../../../bower_components/lancie-ajax/lancie-ajax.html">
 <dom-module id="my-area-teams-invite">
   <template>
     <lancie-ajax id="ajaxAcceptInvite" refurl="teams/invites" method="POST" handle-as="json" body="{{invite.token}}" on-response="onAcceptInvite"></lancie-ajax>
