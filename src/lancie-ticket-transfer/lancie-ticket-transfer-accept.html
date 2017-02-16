@@ -13,22 +13,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
-<link rel="import" href="../lancie-ticket-page/lancie-terms-of-service-text.html">
+<link rel="import" href="../lancie-ticket-page/lancie-terms-of-service.html">
 
 
 <dom-module id="lancie-ticket-transfer-accept">
   <template>
     <style>
-      paper-button {
+      .transfer {
         width: 100%;
       }
 
       [hidden] {
         display: none !important;
-      }
-
-      .actions {
-        text-align: center;
       }
     </style>
     <lancie-ajax id="ajaxConfirmTicketTransfer" refurl="tickets/transfer" method="PUT" on-response="onAcceptTicketTransfer"></lancie-ajax>
@@ -38,7 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <p>A ticket has been sent to you. Click below to claim your ticket!</p>
       </div>
       <div class="card-actions" hidden$="{{!info}}">
-        <paper-button on-tap="openDialog">Claim ticket</paper-button>
+        <paper-button class="transfer" on-tap="openDialog">Claim ticket</paper-button>
       </div>
 
       <div class="card-content" hidden$="{{!transferring}}">
@@ -52,14 +48,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
     </lancie-card>
 
-    <lancie-dialog id="termsofservice">
-      <h2>Terms and conditions</h2>
-      <lancie-terms-of-service-text class="dialog-content"></lancie-terms-of-service-text>
-      <div class="dialog-actions">
-        <paper-button dialog-dismiss>Cancel</paper-button>
-        <paper-button dialog-confirm on-tap="tryAcceptTicketTransfer">I agree to the terms of service</paper-button>
-      </div>
-    </lancie-dialog>
+    <lancie-terms-of-service id="termsOfService">
+      <paper-button dialog-dismiss>Cancel</paper-button>
+      <paper-button on-tap="tryAcceptTicketTransfer">Agree</paper-button>
+    </lancie-terms-of-service>
+
   </template>
   <script>
   'use strict';
@@ -80,7 +73,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.token = window.location.href.split('token=')[1];
       },
       openDialog: function() {
-        this.$.termsofservice.toggle();
+        this.$.termsOfService.open();
       },
       tryAcceptTicketTransfer: function() {
         this.info = false;
