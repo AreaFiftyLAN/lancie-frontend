@@ -15,7 +15,8 @@
     "iron-lazy-pages": "TimvdLippe/iron-lazy-pages#2.0-preview",
     "lancie-dialog": "AreaFiftyLAN/lancie-dialog",
     "lancie-ajax": "AreaFiftyLAN/lancie-ajax",
-    "lancie-form": "AreaFiftyLAN/lancie-form"
+    "lancie-form": "AreaFiftyLAN/lancie-form",
+    "lancie-error": "AreaFiftyLAN/lancie-error"
   },
   "devDependencies": {
     "web-component-tester": "*",
