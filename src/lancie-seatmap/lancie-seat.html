@@ -98,13 +98,13 @@ This code may only be used under the BSD style license found at https://github.c
           return 'red';
         }
         if (!this.fixed && user.reference === seat.ticket.owner.reference) {
-          return 'yellow';
+          return 'green';
         }
         var teamMembers = teamTickets.map(function(ticket) {
           return ticket.owner.reference;
         });
         if (!this.fixed && teamMembers.includes(seat.ticket.owner.reference)) {
-          return 'green';
+          return 'yellow';
         }
         return 'red';
       },
