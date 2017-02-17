@@ -27,7 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: none !important;
       }
     </style>
-    <lancie-ajax id="ajaxConfirmTicketTransfer" refurl="tickets/transfer" method="PUT" on-response="onAcceptTicketTransfer"></lancie-ajax>
+    <lancie-ajax id="ajaxConfirmTicketTransfer" refurl="tickets/transfer" method="PUT" on-lancie-ajax="onAcceptTicketTransfer"></lancie-ajax>
 
     <lancie-card>
       <div class="card-content" hidden$="{{!info}}">

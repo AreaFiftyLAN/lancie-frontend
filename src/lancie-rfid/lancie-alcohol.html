@@ -31,8 +31,8 @@ This code may only be used under the BSD style license found at https://github.c
       }
     </style>
 
-    <lancie-ajax id="getTicketIdByRfid" refurl="rfid/{{rfid}}/ticketId" on-response="onLoadTicketId"></lancie-ajax>
-    <lancie-ajax id="getConsumptionsByTicketId" refurl="consumptions/{{ticket}}" on-response="onGetConsumptionsByTicketId"></lancie-ajax>
+    <lancie-ajax id="getTicketIdByRfid" refurl="rfid/{{rfid}}/ticketId" on-lancie-ajax="onLoadTicketId"></lancie-ajax>
+    <lancie-ajax id="getConsumptionsByTicketId" refurl="consumptions/{{ticket}}" on-lancie-ajax="onGetConsumptionsByTicketId"></lancie-ajax>
 
     <paper-input id="rfid" label="RFID" value="{{rfid}}" on-keyDown="_requestTicket"></paper-input>
     <div>

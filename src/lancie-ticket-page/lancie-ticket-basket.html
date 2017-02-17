@@ -45,8 +45,8 @@
 
     <iron-location query="{{query}}"></iron-location>
 
-    <lancie-ajax id="removeTicket" method="DELETE" on-response="onRemoveTicket"></lancie-ajax>
-    <lancie-ajax id="checkout" refurl="orders/[[basket.id]]/checkout" method="POST" on-response="onCheckout"></lancie-ajax>
+    <lancie-ajax id="removeTicket" method="DELETE" on-lancie-ajax="onRemoveTicket"></lancie-ajax>
+    <lancie-ajax id="checkout" refurl="orders/[[basket.id]]/checkout" method="POST" on-lancie-ajax="onCheckout"></lancie-ajax>
 
     <paper-card heading="Order" on-remove-ticket="removeTicket">
       <template is="dom-if" if="[[!_hasTickets(basket.tickets)]]">

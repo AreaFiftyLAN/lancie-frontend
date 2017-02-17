@@ -10,8 +10,8 @@
 <link rel="import" href="../../../bower_components/lancie-ajax/lancie-ajax.html">
 <dom-module id="my-area-teams-invite">
   <template>
-    <lancie-ajax id="ajaxAcceptInvite" refurl="teams/invites" method="POST" handle-as="json" body="{{invite.token}}" on-response="onAcceptInvite"></lancie-ajax>
-    <lancie-ajax id="ajaxCancelInvite" refurl="teams/invites" method="DELETE" handle-as="json" body="{{invite.token}}" on-response="onCancelInvite"></lancie-ajax>
+    <lancie-ajax id="ajaxAcceptInvite" refurl="teams/invites" method="POST" handle-as="json" body="{{invite.token}}" on-lancie-ajax="onAcceptInvite"></lancie-ajax>
+    <lancie-ajax id="ajaxCancelInvite" refurl="teams/invites" method="DELETE" handle-as="json" body="{{invite.token}}" on-lancie-ajax="onCancelInvite"></lancie-ajax>
     <style include="iron-flex iron-flex-alignment"></style>
     <style>
     :host {
@@ -21,11 +21,11 @@
     .team {
       margin-right: 20px;
     }
-    
+
     paper-card {
       width: 100%;
     }
-    
+
     paper-tooltip {
       --paper-tooltip-background: #1A2B43;
       --paper-tooltip-text-color: #FEE474;
@@ -34,7 +34,7 @@
     #acceptInviteButton {
       --iron-icon-fill-color: #4CAF50;
     }
-    
+
     #cancelInviteButton {
       --iron-icon-fill-color: #F44336;
     }

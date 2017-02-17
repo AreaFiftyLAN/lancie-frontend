@@ -31,8 +31,8 @@
     }
     </style>
 
-    <lancie-ajax id="ajaxSetupTicketTransfer" refurl="tickets/transfer/[[ticket.id]]" method="POST" body="[[username]]" on-response="onSetupTicketTransfer"></lancie-ajax>
-    <lancie-ajax id="ajaxCancelTicketTransfer" refurl="tickets/transfer" method="DELETE" body="[[ticket.token]]" on-response="onCancelTicketTransfer"></lancie-ajax>
+    <lancie-ajax id="ajaxSetupTicketTransfer" refurl="tickets/transfer/[[ticket.id]]" method="POST" body="[[username]]" on-lancie-ajax="onSetupTicketTransfer"></lancie-ajax>
+    <lancie-ajax id="ajaxCancelTicketTransfer" refurl="tickets/transfer" method="DELETE" body="[[ticket.token]]" on-lancie-ajax="onCancelTicketTransfer"></lancie-ajax>
 
     <hr>
     <lancie-order-item id="ticketItem" ticket="{{ticket}}" class="flex">

@@ -14,7 +14,7 @@
     "app-storage": "PolymerElements/app-storage#^0.9.8",
     "iron-lazy-pages": "TimvdLippe/iron-lazy-pages#2.0-preview",
     "lancie-dialog": "AreaFiftyLAN/lancie-dialog",
-    "lancie-ajax": "AreaFiftyLAN/lancie-ajax",
+    "lancie-ajax": "AreaFiftyLAN/lancie-ajax#^1.0.1",
     "lancie-form": "AreaFiftyLAN/lancie-form",
     "lancie-error": "AreaFiftyLAN/lancie-error"
   },
