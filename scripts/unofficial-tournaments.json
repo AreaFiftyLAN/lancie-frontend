@@ -1,21 +1,19 @@
 [
   {
     "title": "MC",
-    "subtitle": "FFA",
+    "subtitle": "Hunger Games & Race For The Wool",
     "headerTitle": "Minecraft",
     "description": "Minecraft is a sandbox video game created by Swedish programmer Markus 'Notch' Persson and later developed and published by Mojang. The creative and building aspects of Minecraft enable players to build constructions out of textured cubes in a 3D procedurally generated world. Other activities in the game include exploration, resource gathering, crafting, and combat. Multiple gameplay modes are available, including survival mode where the player must acquire resources to build the world and maintain health, a creative mode where players have unlimited resources to build with and the ability to fly, an adventure mode where players can play custom maps created by other players, and a spectator mode where players can fly around and clip through blocks, but cannot place or destroy any.\n\n# Rules\nT.B.A.",
     "backgroundImagePath": "images-optimized/unofficial/minecraft.jpg",
     "sponsor": {
-      "name": "Topicus",
-      "imagePath": "/images-optimized/logos/Topicus_Logo.svg",
-      "website": "http://www.topicusfinance.nl/"
+      "name": "",
+      "imagePath": "/images-optimized/unofficial/minecraft.jpg",
+      "website": "#"
     },
     "prizes": [
-      "Fitbit Flex",
-      "Philips Speaker (SBA3011, SoundShooter) + Squid Mini Powerbank",
-      "Monopoly Deventer Editie"
+      "None"
     ],
-    "format": "FFA",
+    "format": "Hunger Games & Race For The Wool",
     "startingDateTime": {
       "monthValue": 6,
       "month": "June",
@@ -49,7 +47,7 @@
       "website": "#"
     },
     "prizes": [
-      "T.B.A."
+      "None"
     ],
     "format": "Texas Hold'm",
     "startingDateTime": {
@@ -73,42 +71,6 @@
     "footer": false
   },
   {
-    "title": "SC 2",
-    "subtitle": "1 v 1",
-    "headerTitle": "Starcraft II",
-    "description": "StarCraft II: Wings of Liberty is a military science fiction real-time strategy video game developed and released by Blizzard Entertainment for Microsoft Windows and Mac OS X. A sequel to the award-winning 1998 video game StarCraft and its expansion set Brood War, the game was released worldwide on July 27, 2010. It is split into three installments: the base game with the subtitle Wings of Liberty, an expansion pack Heart of the Swarm, and a stand-alone expansion pack Legacy of the Void.\n\n# Schedule\n## Saturday:\nStart 21:00\n\n# Rules\n## 1 Format:\nSingle elimination in a 1v1. All rounds will be bo3 except for the final which will be bo5.\n\n## 2 Game and Server settings \nServers will be hosted by Battle.net",
-    "backgroundImagePath": "images-optimized/unofficial/starcraft.jpg",
-    "sponsor": {
-      "name": "",
-      "imagePath": "images-optimized/unofficial/starcraft-logo.png",
-      "website": "#"
-    },
-    "prizes": [
-      "None"
-    ],
-    "format": "1 vs 1",
-    "startingDateTime": {
-      "monthValue": 6,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
-    ],
-    "footer": false
-  },
-  {
     "title": "Achtung",
     "subtitle": "1 v 1",
     "headerTitle": "Achtung die Kurve",
@@ -120,7 +82,7 @@
       "website": "http://curvefever.com/"
     },
     "prizes": [
-      "T.B.A."
+      "None"
     ],
     "format": "1 vs 1",
     "startingDateTime": {
@@ -177,185 +139,6 @@
     "platform": [
       "PC",
       "Mac"
-    ],
-    "footer": false
-  },
-  {
-    "title": "TF2",
-    "subtitle": "6 v 6",
-    "headerTitle": "Team Fortress 2",
-    "description": "Team Fortress 2 is a team-based first-person shooter multiplayer video game. In Team Fortress 2, players join one of two teams comprising nine character classes, battling in a variety of game modes including capture the flag and king of the hill. Nine distinct classes provide a broad range of tactical abilities and personalities. Hats are welcome.\n\n# 1. Schedule\nThe tournament will start on 21:00 on Saturday. The duration of the tournament can vary depending on the amount of teams. Games will take a maximum of 1 hour and semi-finals and finals can take up to 2 hours.\n\n# 2. Rules\n## 2.1 Gamemode and Class Limits\nThe competition will play 6 versus 6. The limit on Medic, Heavy, Engineer, Sniper, Pyro and Demoman is 1, as for Soldier, Scout and Spy the limit is 2. Each round uses a time limit of 10 minutes.\nTeams will play on 5-control-points maps.\n\n## 2.2 Win Condition\n### 2.2.1 Standard Games\nIn order to win a game a team must win 3 rounds on a single map. (best-out-of 5)\n\n### 2.2.2 Semi-finals and Final\nIn order to win a game a team must win 2 rounds on 2 different maps. If a team wins 2 rounds on the first map the map will be changed, when the same team wins another 2 rounds they will win the game.\nWhen they don't, a third map will be played to determine the winner. If this leads to a tie, teams play an extra round to determine a winner.\n\n## 2.3 Maps\nThe following 5 maps will be played:\n* cp_badlands\n* cp_snakewater_final1\n* cp_gullywash_final1\n* cp_process_final\n* cp_granary_pro_b10\n\nThe first map a team plays is random. If multiple maps are played the loser of the first map gets to pick the second map, and the loser of the second map gets to pick the third if necessary.\n\n## 2.4 Weapons and Reskins\nAn overview of allowed and banned weapons can be found on [whitelist.tf](http://whitelist.tf/etf2l_6v6_s23)\nPlease take in consideration that prohibited weapons, taunts and other items are automatically banned on the server. Weapons released during the season are also banned until explicitly stated otherwise. Reskins are allowed.\n\n## 2.5 Taunts\nOnly default weapon taunts and taunts with fixed durations are allowed. For details, check the [whitelist.tf](http://whitelist.tf/etf2l_6v6_s23) link above.\n\n## 2.6 Cosmetics\nCosmetic items are allowed, including unusual items. The Bombinomicon is banned.\n\n## 2.7 Pausing\nIf you need to pause, you must clearly request a pause and give a reason for it (for example: “Pause please, player drop”). The other team is then required to pause at the first appropriate time (e.g. not in the middle of a push). \nTeams must pause within 15 seconds of being asked and teams are required to contact an administrator providing the reason of the pause.\nNot responding to a pause request will lead to the forfeit of the round in question, or, in extreme cases with repeated offense, a disqualification. \nThe game can be paused by typing \"pause\" in console. You can also bind this command to a key. You may not resume the game under any circumstances without giving proper warning to the other team or contacting an administrator.\n\n# 3. Custom Game Files\n## 3.1 Configs and Scripts\nThe use of FPS configs is allowed. Scripts that allow a player to perform an action in-game that he would not be able to execute without the script, or scripts that purposefully disrupt the player hitbox are banned. \nScripts that freeze or glitch the player model (e.g. in mid-air to be less predictable) to make it harder to hit are also banned. If you are unsure about using a specific scripts please contact the admins before your game starts.\n\n## 3.2 HUDs\nPlayers are allowed to use custom game HUDs.\n\n# 4. Communication\n\n## 4.1 Score Submission\nOutcomes of games are submitted using Area50LAN's tournament software, more information will be available during the event.\n\n## 4.2 Problems and Question\nIf any issues occur or if you have questions, please contact an administrator. Contact TwinkleSpark (http://steamcommunity.com/id/TwinkleSpark) at seat G4 or FlyingMacaroni at seat G5.\n",
-    "backgroundImagePath": "images-optimized/unofficial/TF2.jpg",
-    "sponsor": {
-      "name": "TransIP",
-      "imagePath": "images-optimized/logos/transip_logo.png",
-      "website": "https://www.transip.nl/"
-    },
-    "prizes": [
-      "Discovery RC Quadcopter with HD Camera"
-    ],
-    "format": "6 vs 6",
-    "startingDateTime": {
-      "monthValue": 6,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
-    ],
-    "footer": false
-  },
-  {
-    "title": "ORCT2",
-    "subtitle": "T.B.A.",
-    "headerTitle": "Open Roller Coaster Tycoon 2",
-    "description": "The OpenRCT2 project recreates the classic hit RollerCoaster Tycoon 2 into open-source code, expanding the game with new features, fixing original bugs and raising game limits. Several notable improvements over RCT2 are: Multiplayer co-op, a handy cheat menu and language support.\n\nDevelopment started on April 2nd 2014 by Ted 'IntelOrca' John. Thanks to numerous contributions from others the OpenRCT2 project is making great progress.\nAn installation of RollerCoaster Tycoon 2 is required in order to play. RCT2, with expansions, is cheap nowadays and can be bought from G2A, GOG and Steam.\n\n### Setup\nT.B.A.",
-    "backgroundImagePath": "images-optimized/unofficial/rct2.png",
-    "sponsor": {
-      "name": "",
-      "imagePath": "images-optimized/unofficial/rct2_logo.png",
-      "website": "https://openrct2.org/"
-    },
-    "prizes": [
-      "None"
-    ],
-    "format": "1 vs 1",
-    "startingDateTime": {
-      "monthValue": 8,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
-    ],
-    "footer": false
-  },
-  {
-    "title": "MK",
-    "subtitle": "1 v 1",
-    "headerTitle": "Mario Kart: Double Dash!!",
-    "description": "Double Dash!! challenges Mario series player characters to race against each other on Mario-themed tracks. One player drives the kart, and the other uses items. Players can switch at any time. There are 20 characters to select from in total, each of which with a special item, and with eleven characters being new to the series.\n\n# Schedule\n## Friday:\nStart: 21:30. \nEnd: Depending on number of players.\n\n# Rules\n## 1 Format:\nElimination rounds: 4 players in split screen. First to win 2 races, proceeds to the next round.\n\nQuarter finales: 1v1 elimination. First player to win 2 races, proceed to semi finales.\n\nSemi finales: 1v1 elimination. First player to win 2 races, proceed to finale.\n\nFinale: 1v1 elimination. First player to win 2 races, wins.\n\n## Console\nMario Kart Double Dash will be played on a the Nintendo Gamecube. Consoles and controllers will be provided.",
-    "backgroundImagePath": "images-optimized/unofficial/mkdd.jpg",
-    "sponsor": {
-      "name": "",
-      "imagePath": "images-optimized/unofficial/mkdd.jpg",
-      "website": "#"
-    },
-    "prizes": [
-      "None"
-    ],
-    "format": "1 vs 1",
-    "startingDateTime": {
-      "monthValue": 8,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 3,
-      "dayOfWeek": "Friday",
-      "dayOfYear": 236,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
-    ],
-    "footer": false
-  },
-  {
-    "title": "OW",
-    "subtitle": "6 v 6",
-    "headerTitle": "Overwatch",
-    "description": "Overwatch features squad-base combat with two opposing teams of six players each. Players choose one of several hero characters, each with their own unique abilities and role classes. The four character roles include: offense characters with high speed and attack but low defense, defense characters meant to form choke points for enemies, support characters that provide buffs and debuffs for their allies and enemies respectively (such as healing or speed alterations), and tank characters that have a large amount of armor and hit points to withstand enemy attacks and draw fire away from teammates. Players can switch between characters in-game following deaths or by returning to their home base, which is encouraged by the game's overall design. The game's maps are inspired by real-world locations; the first three maps unveiled (\"King's Row\", \"Hanamura\", \"Temple of Anubis\") are inspired by London, Japan, and the ruins of Ancient Egypt, respectively.\n\n# Schedule\n## Friday:\nStart: 20:00.\n\nEnd: Depending on number of players.\n\nUsually 7-10 minutes per game.\n\n# Rules\n## 1 Format:\n\n16 teams: best of 1 \n\n8 teams: best of 3\n\n4 teams: best of 3\n\n2 temas: best of 3\n\n## Console\nOverwatch will be played on your PC. You will play with your team on your own pc. Area FiftyLAN does not provide any hardware.",
-    "backgroundImagePath": "images-optimized/unofficial/overwatch.jpg",
-    "sponsor": {
-      "name": "",
-      "imagePath": "images-optimized/unofficial/overwatch_logo.png",
-      "website": "https://eu.battle.net/shop/en/product/overwatch-origins"
-    },
-    "prizes": [
-      "None"
-    ],
-    "format": "1 vs 1",
-    "startingDateTime": {
-      "monthValue": 8,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 3,
-      "dayOfWeek": "Friday",
-      "dayOfYear": 236,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
-    ],
-    "footer": false
-  },
-  {
-    "title": "SMBM",
-    "subtitle": "1 v 1",
-    "headerTitle": "Super Smash Bros. Melee",
-    "description": "Super Smash Bros. Melee is the nostalgic fighting game for the Nintendo Gamecube. Pick your favourite character and fight against your opponent!\n\n# Schedule\n## Sunday:\nStart 09:30\n\n# Rules\n## 1 Format:\nSingle elimination in a 1v1. Each game is a stock match with each player having 3 lives. All rounds will be bo1 except for the final which will be bo3.",
-    "backgroundImagePath": "images-optimized/unofficial/smash.jpg",
-    "sponsor": {
-      "name": "",
-      "imagePath": "images-optimized/unofficial/smash_logo.png",
-      "website": "http://www.smashbros.com/en-uk/"
-    },
-    "prizes": [
-      "None"
-    ],
-    "format": "1 vs 1",
-    "startingDateTime": {
-      "monthValue": 8,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 5,
-      "dayOfWeek": "Sunday",
-      "dayOfYear": 238,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "Gamecube"
     ],
     "footer": false
   }
