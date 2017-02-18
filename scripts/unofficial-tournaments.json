@@ -144,9 +144,9 @@
   },
   {
     "title": "Cthulhu Wars",
-    "subtitle": "",
-    "headerTitle": "Cthulhu Wars",
-    "description": "Cthulhu Wars is a dice-driven strategy boardgame for 5 players in which you take control of alien races and gods taken from the Cthulhu mythos created by H. P. Lovecraft. The game takes place on a map of Earth. Each player control of one of five factions lead by a major ruinous god: The Great Cthulhu, Nyarlathotep the Crawling Chaos, Shub-Niggurath the Black Goat, Tsathoggua the Sleeper, and the King in Yellow. Each faction has a very individual playstyle, thus the game is highly asymmetric while still being extremely well-balanced. Cthulhu Wars uses impressive large-scale miniatures, and we’ll be playing a customized hand-painted version of the game.",
+    "subtitle": "and others",
+    "headerTitle": "Cthulhu Wars and other board games",
+    "description": "Cthulhu Wars is a dice-driven strategy boardgame for 5 players in which you take control of alien races and gods taken from the Cthulhu mythos created by H. P. Lovecraft. The game takes place on a map of Earth. Each player control of one of five factions lead by a major ruinous god: The Great Cthulhu, Nyarlathotep the Crawling Chaos, Shub-Niggurath the Black Goat, Tsathoggua the Sleeper, and the King in Yellow. Each faction has a very individual playstyle, thus the game is highly asymmetric while still being extremely well-balanced. Cthulhu Wars uses impressive large-scale miniatures, and we’ll be playing a customized hand-painted version of the game. You can find more information here: [hyperlink]",
     "backgroundImagePath": "images-optimized/unofficial/boardgames.jpg",
     "sponsor": {
       "name": "",
@@ -173,8 +173,6 @@
     },
     "rulePath": "T.B.A.",
     "platform": [
-      "PC",
-      "Mac"
     ],
     "footer": false
   }
