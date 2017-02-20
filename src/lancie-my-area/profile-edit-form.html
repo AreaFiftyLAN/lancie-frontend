@@ -44,7 +44,7 @@
       /*End Safari hack*/
     </style>
 
-    <lancie-form id="form" refurl="users/current/profile" on-response="onProfileUpdate" no-reset on-enter="validateAndSubmit">
+    <lancie-form id="form" refurl="users/current/profile" on-response="onProfileUpdate" no-reset on-enter="fireSubmitEvent">
       <div class="layout horizontal center">
         <iron-icon icon="icons:account-circle" item-icon></iron-icon>
         <div class="layout horizontal wrap flex">
@@ -120,6 +120,10 @@
           this.profile = user.profile;
         }
       },
+
+      fireSubmitEvent: function () {
+          this.fire('profile-form-submit');
+      }
 
     });
   })();
