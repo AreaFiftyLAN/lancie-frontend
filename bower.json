@@ -13,13 +13,13 @@
     "app-route": "polymerelements/app-route#^0.9.2",
     "app-storage": "PolymerElements/app-storage#^0.9.8",
     "iron-lazy-pages": "TimvdLippe/iron-lazy-pages#2.0-preview",
-    "lancie-dialog": "AreaFiftyLAN/lancie-dialog^1.0.0",
+    "lancie-dialog": "AreaFiftyLAN/lancie-dialog#^1.0.0",
     "lancie-ajax": "AreaFiftyLAN/lancie-ajax#^1.0.1",
-    "lancie-form": "AreaFiftyLAN/lancie-form^1.0.0",
-    "lancie-error": "AreaFiftyLAN/lancie-error^1.0.0",
-    "lancie-login-dialog": "AreaFiftyLAN/lancie-login-dialog^1.0.0",
-    "lancie-login-card": "AreaFiftyLAN/lancie-login-card^1.0.0",
-    "lancie-card": "AreaFiftyLAN/lancie-card^1.0.0"
+    "lancie-form": "AreaFiftyLAN/lancie-form#^1.0.0",
+    "lancie-error": "AreaFiftyLAN/lancie-error#^1.0.0",
+    "lancie-login-dialog": "AreaFiftyLAN/lancie-login-dialog#^1.0.0",
+    "lancie-login-card": "AreaFiftyLAN/lancie-login-card#^1.0.0",
+    "lancie-card": "AreaFiftyLAN/lancie-card#^1.0.0"
   },
   "devDependencies": {
     "web-component-tester": "*",
