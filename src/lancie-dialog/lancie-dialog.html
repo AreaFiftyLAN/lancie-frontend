@@ -143,8 +143,10 @@ simply give it the `dialog-dismiss` attribute.
       },
 
       addDismissListeners: function() {
-        // Start: Very dirty Microsoft hack: "fix" for lack of ForEach on NodeList in Edge and IE
-        if(window.navigator.userAgent.indexOf("Edge") > -1 || window.navigator.userAgent.indexOf("Trident") > -1){
+        // Start: Very dirty Microsoft hack: "fix" for lack of ForEach on NodeList in Edge, IE and firefox because of < 48
+        if(window.navigator.userAgent.indexOf("Edge")    > -1 ||
+           window.navigator.userAgent.indexOf("Trident") > -1 ||
+           window.navigator.userAgent.indexOf("Firefox") > -1) {
           NodeList.prototype.forEach = Array.prototype.forEach;
         }
         // End: Very dirty Microsoft hack
