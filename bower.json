@@ -20,7 +20,7 @@
     "lancie-login-dialog": "AreaFiftyLAN/lancie-login-dialog#^1.0.0",
     "lancie-login-card": "AreaFiftyLAN/lancie-login-card#^1.0.0",
     "lancie-card": "AreaFiftyLAN/lancie-card#^1.0.0",
-    "lancie-passwords": "AreaFiftyLAN/lancie-login-form#^1.0.2"
+    "lancie-passwords": "AreaFiftyLAN/lancie-login-form#^1.0.3"
   },
   "devDependencies": {
     "web-component-tester": "*",
