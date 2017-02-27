@@ -7,7 +7,7 @@ const HtmlCustomElementReferenceScanner = require('polymer-analyzer/lib/html/htm
 const dom5 = require('dom5');
 const fragments = require('../polymer.json').fragments;
 
-let analyzer = new Analyzer({
+const analyzer = new Analyzer({
   urlLoader: new FSUrlLoader('./'),
   urlResolver: new PackageUrlResolver(),
   scanners: new Map([['html', [new HtmlCustomElementReferenceScanner()]]])
@@ -22,6 +22,7 @@ module.exports = () => new Promise((resolve, reject) => {
         const childLocation = dom5.getAttribute(astNode, 'data-path');
         if (!fragments.find(e => e === `src/${childLocation}`)) {
           reject(`Could not find fragment "src/${childLocation}" in polymer.json!`);
+          return;
         }
       }
     }
