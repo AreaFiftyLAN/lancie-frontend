@@ -23,9 +23,8 @@
     }
     </style>
 
-    <lancie-ajax auto id="ajaxGetSeat" refurl="users/current/seat" on-response="onGetSeat"></lancie-ajax>
-    <lancie-ajax id="ajaxGetAllSeats" refurl="seats" on-response="onGetAllSeats"></lancie-ajax>
-    <lancie-ajax id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-response="onGetTeamTickets"></lancie-ajax>
+    <lancie-ajax id="ajaxGetAllSeats" refurl="seats" on-lancie-ajax="onGetAllSeats"></lancie-ajax>
+    <lancie-ajax auto id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-lancie-ajax="onGetTeamTickets"></lancie-ajax>
 
     <paper-card heading="Seat" elevation="1" animated-shadow="true">
         <div class="card-content">
@@ -68,48 +67,39 @@
           }
         }
       },
+
       onGetAllSeats: function(e, request) {
         if (request.succeeded) {
-          var seats = [];
-          var seatmapObject = request.response.seatmap;
-          var seatmapKeys = Object.keys(seatmapObject);
-          for (var i = 0; i < seatmapKeys.length; i++) {
-              var seatGroup = seatmapObject[seatmapKeys[i]];
-              for (var j = 0; j < seatGroup.length; j++) {
-                  if (seatGroup[j].ticket && this.teamMembers.includes(seatGroup[j].ticket.owner.profile.displayName)) {
-                      seats.push(seatGroup[j]);
-                  }
-              }
+          var seatmap = request.response.seatmap;
+          for (var group in seatmap) {
+            this.seats = this.seats.concat(seatmap[group].filter(function(seat) {
+              if (!seat.ticket || !seat.ticket.owner.profile.displayName) return false;
+              return this.teamMembers.includes(seat.ticket.owner.profile.displayName);
+            }.bind(this)));
           }
-          this.seats = seats;
-        } else {
+       } else {
           this.fire('refreshToast');
         }
       },
+
       onGetTeamTickets: function(e, request) {
         if (request.succeeded) {
-          this.$.ajaxGetAllSeats.generateRequest();
-          this.teamMembers = request.response.map(function (ticket) {
+          this.teamMembers = request.response.map(function(ticket) {
             return ticket.owner.profile.displayName;
           });
+          this.$.ajaxGetAllSeats.generateRequest();
         } else {
           this.fire('refreshToast');
         }
       },
-      onGetSeat: function(e, request) {
-        if (request.succeeded) {
-          this.seats.push(request.response);
-          this.$.ajaxGetTeamTickets.generateRequest();
-        } else {
-          this.fire('refreshToast');
-        }
-      },
+
       reserveSeat: function() {
         this.fire('navigate', {page: 'seatmap'});
       },
+
       refreshSeats: function() {
         this.$.ajaxGetSeat.generateRequest();
-      }
+      },
     });
   })();
   </script>
