@@ -70,6 +70,7 @@
 
       onGetAllSeats: function(e, request) {
         if (request.succeeded) {
+          this.seats = [];
           var seatmap = request.response.seatmap;
           for (var group in seatmap) {
             this.seats = this.seats.concat(seatmap[group].filter(function(seat) {
@@ -100,7 +101,7 @@
       },
 
       refreshSeats: function() {
-        this.$.ajaxGetSeat.generateRequest();
+        this.$.ajaxGetTeamTickets.generateRequest();
       },
     });
   })();
