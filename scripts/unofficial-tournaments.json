@@ -181,7 +181,7 @@
     "title": "FoxPWN",
     "subtitle": "Hacking CTF",
     "headerTitle": "FoxPWN CTF Challenge",
-    "description": "In the FoxPWN Capture-The-Flag challenge, you're tasked with hacking a number of vulnerable machines in order to get the flags!\nYou'll need real security tools to find the vulnerabilties and hack the machines. It doesn't matter if you have no experience, the challenge is perfect to get started in the world of security and we'll help you to get started. \n\nThis unoffiial activity is organized by a participant, while the challenge environment is provided by Fox-IT. They will also provide some prizes for the top 3 hackers!\n# Rules\n1. Only scan the provided IP range! Using the tools on the regular network is strictly prohibited\n2. Don't break the machines, only go for the flag. Keep it fair!",
+    "description": "In the FoxPWN Capture-The-Flag challenge, you're tasked with hacking a number of vulnerable machines in order to get the flags!\nYou'll need real security tools to find the vulnerabilities and hack the machines. It doesn't matter if you have no experience, the challenge is perfect to get started in the world of security and we'll help you to get started. \n\nThis unofficial activity is organized by a participant, while the challenge environment is provided by Fox-IT. They will also provide some prizes for the top 3 hackers!\n# Rules\n1. Only scan the provided IP range! Using the tools on the regular network is strictly prohibited\n2. Don't break the machines, only go for the flag. Keep it fair!",
     "backgroundImagePath": "images-optimized/unofficial/foxpwn.jpg",
     "sponsor": {
       "name": "Fox-IT",
