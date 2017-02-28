@@ -11,9 +11,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
-<link rel="import" href="../lancie-card.html">
-<link rel="import" href="../lancie-login/lancie-ajax.html">
-<link rel="import" href="../lancie-error/lancie-error.html">
+<link rel="import" href="../../bower_components/lancie-card/lancie-card.html">
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
+<link rel="import" href="../../bower_components/lancie-error/lancie-error.html">
 <link rel="import" href="../lancie-my-area/profile-edit-form.html">
 
 <dom-module id="lancie-profile-dialog">
@@ -53,7 +53,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </style>
 
-    <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-response="onProfileUpdate"></lancie-ajax>
+    <lancie-ajax id="ajaxUpdateProfile" refurl="users/current/profile" method="POST" on-lancie-ajax="onProfileUpdate"></lancie-ajax>
 
     <lancie-dialog id="dialog">
       <h2>Fill in your profile</h2>

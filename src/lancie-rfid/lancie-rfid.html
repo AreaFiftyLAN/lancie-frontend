@@ -13,7 +13,7 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 
-<link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 
 <dom-module id="lancie-rfid">
   <template>
@@ -52,8 +52,8 @@ This code may only be used under the BSD style license found at https://github.c
       }
     </style>
 
-    <lancie-ajax auto refurl="tickets" on-response="onLoadTickets"></lancie-ajax>
-    <lancie-ajax id="ajaxBindRfid" refurl="rfid" method="POST" on-response="onBindRfid"></lancie-ajax>
+    <lancie-ajax auto refurl="tickets" on-lancie-ajax="onLoadTickets"></lancie-ajax>
+    <lancie-ajax id="ajaxBindRfid" refurl="rfid" method="POST" on-lancie-ajax="onBindRfid"></lancie-ajax>
 
     <div class="layout vertical">
       <paper-card elevation="1" animated-shadow="false">

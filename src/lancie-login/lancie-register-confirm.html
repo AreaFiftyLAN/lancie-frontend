@@ -9,8 +9,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/iron-location/iron-location.html">
-<link rel="import" href="../lancie-card.html">
-<link rel="import" href="lancie-ajax.html">
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
+<link rel="import" href="../../bower_components/lancie-card/lancie-card.html">
 
 <dom-module id="lancie-register-confirm">
   <template>
@@ -19,7 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: none !important;
       }
     </style>
-    <lancie-ajax id="ajaxConfirmRegistration" refurl="confirmRegistration?[[query]]" method="GET" handle-as="json" on-response="onConfirmRegistration"></lancie-ajax>
+    <lancie-ajax id="ajaxConfirmRegistration" refurl="confirmRegistration?[[query]]" method="GET" handle-as="json" on-lancie-ajax="onConfirmRegistration"></lancie-ajax>
 
     <iron-location query="{{query}}"></iron-location>
 

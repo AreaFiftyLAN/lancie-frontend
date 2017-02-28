@@ -8,8 +8,8 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../lancie-card.html">
-<link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="../../bower_components/lancie-card/lancie-card.html">
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/scale-up-animation.html">
 <link rel="import" href="../../bower_components/neon-animation/animations/fade-out-animation.html">
@@ -27,7 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: none !important;
       }
     </style>
-    <lancie-ajax id="ajaxConfirmTicketTransfer" refurl="tickets/transfer" method="PUT" on-response="onAcceptTicketTransfer"></lancie-ajax>
+    <lancie-ajax id="ajaxConfirmTicketTransfer" refurl="tickets/transfer" method="PUT" on-lancie-ajax="onAcceptTicketTransfer"></lancie-ajax>
 
     <lancie-card>
       <div class="card-content" hidden$="{{!info}}">

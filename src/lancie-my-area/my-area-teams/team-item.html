@@ -12,9 +12,9 @@
 <link rel="import" href="../../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../../bower_components/paper-tooltip/paper-tooltip.html">
 
-<link rel="import" href="../../lancie-login/lancie-ajax.html">
-<link rel="import" href="../../lancie-error/lancie-error.html">
-<link rel="import" href="../../lancie-dialog/lancie-dialog.html">
+<link rel="import" href="../../../bower_components/lancie-ajax/lancie-ajax.html">
+<link rel="import" href="../../../bower_components/lancie-error/lancie-error.html">
+<link rel="import" href="../../../bower_components/lancie-dialog/lancie-dialog.html">
 
 <link rel="import" href="team-member-item.html">
 <link rel="import" href="my-area-teams-invite.html">
@@ -46,8 +46,8 @@
       font-size: 14px;
     }
     </style>
-    <lancie-ajax id="ajaxInviteMember" refurl="teams/{{team.id}}/invites" method="POST" handle-as="json" on-response="onInviteMember"></lancie-ajax>
-    <lancie-ajax id="ajaxGetTeamInvites" refurl="teams/{{team.id}}/invites" method="GET" handle-as="json" on-response="storeTeamInvites"></lancie-ajax>
+    <lancie-ajax id="ajaxInviteMember" refurl="teams/{{team.id}}/invites" method="POST" handle-as="json" on-lancie-ajax="onInviteMember"></lancie-ajax>
+    <lancie-ajax id="ajaxGetTeamInvites" refurl="teams/{{team.id}}/invites" method="GET" handle-as="json" on-lancie-ajax="storeTeamInvites"></lancie-ajax>
 
     <paper-item class="team-info">
       <paper-item-body class="layout horizontal center">

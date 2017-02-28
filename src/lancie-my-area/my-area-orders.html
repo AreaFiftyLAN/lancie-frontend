@@ -1,7 +1,7 @@
 <link rel="import" href="my-area-order-item.html">
 <link rel="import" href="my-area-ticket-item.html">
 
-<link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../lancie-ticket-page/lancie-terms-of-service.html">
 
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
@@ -36,9 +36,9 @@
     }
     </style>
 
-    <lancie-ajax auto id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-response="storeOrders"></lancie-ajax>
-    <lancie-ajax auto id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-response="storeTickets"></lancie-ajax>
-    <lancie-ajax id="ajaxTokens" refurl="tickets/tokens" method="GET" handle-as="json" on-response="storeTokens"></lancie-ajax>
+    <lancie-ajax auto id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-lancie-ajax="storeOrders"></lancie-ajax>
+    <lancie-ajax auto id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-lancie-ajax="storeTickets"></lancie-ajax>
+    <lancie-ajax id="ajaxTokens" refurl="tickets/tokens" method="GET" handle-as="json" on-lancie-ajax="storeTokens"></lancie-ajax>
 
     <paper-card class="layout vertical flex">
       <div class="title-text">Orders</div>

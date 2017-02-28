@@ -5,7 +5,7 @@
 <link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 
-<link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 
 <dom-module id="lancie-ticket-item">
   <template>
@@ -84,7 +84,7 @@
       }
     </style>
 
-    <lancie-ajax id="addTicket" method="POST" on-response="onAddTicket"></lancie-ajax>
+    <lancie-ajax id="addTicket" method="POST" on-lancie-ajax="onAddTicket"></lancie-ajax>
 
     <paper-material class$="[[_getClasses(color, available)]]">
       <span class="name">[[ticket.text]]</span>

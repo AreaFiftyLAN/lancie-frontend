@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/iron-location/iron-location.html">
 <link rel="import" href="lancie-section/lancie-section.html">
-<link rel="import" href="lancie-card.html">
+<link rel="import" href="../bower_components/lancie-card/lancie-card.html">
 
 <dom-module id="lancie-order-check">
   <template>
@@ -9,7 +9,7 @@
         display: none !important;
       }
     </style>
-    <lancie-ajax id="ajaxConfirmOrder" token="{{token}}" refurl="orders/[[orderId]]/status" on-response="onResponse"></lancie-ajax>
+    <lancie-ajax id="ajaxConfirmOrder" token="{{token}}" refurl="orders/[[orderId]]/status" on-lancie-ajax="onResponse"></lancie-ajax>
 
     <iron-location query="{{query}}"></iron-location>
 

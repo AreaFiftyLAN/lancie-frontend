@@ -10,7 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-storage/app-localstorage/app-localstorage-document.html">
-<link rel="import" href="../lancie-login/lancie-ajax.html">
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 
 
 <dom-module id="lancie-order-storage">
@@ -21,7 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <lancie-ajax
       id="openOrder"
       refurl="orders/[[orderId.id]]"
-      on-response="onOrder"></lancie-ajax>
+      on-lancie-ajax="onOrder"></lancie-ajax>
 
   </template>
   <script>

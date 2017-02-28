@@ -13,9 +13,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../lancie-card.html">
-<link rel="import" href="../lancie-login/lancie-ajax.html">
-<link rel="import" href="../lancie-error/lancie-error.html">
+<link rel="import" href="../../bower_components/lancie-card/lancie-card.html">
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
+<link rel="import" href="../../bower_components/lancie-error/lancie-error.html">
 
 <dom-module id="lancie-contact">
   <template>
@@ -38,7 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <lancie-ajax id="ajaxContact" refurl="mail/contact" method="POST" on-response="onContact"></lancie-ajax>
+    <lancie-ajax id="ajaxContact" refurl="mail/contact" method="POST" on-lancie-ajax="onContact"></lancie-ajax>
 
     <lancie-card heading="Send us an email!">
       <div class="card-content">

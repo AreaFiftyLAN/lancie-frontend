@@ -9,8 +9,8 @@
 <link rel="import" href="../../../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../../bower_components/paper-toast/paper-toast.html">
 
-<link rel="import" href="../../lancie-login/lancie-ajax.html">
-<link rel="import" href="../../lancie-dialog/lancie-dialog.html">
+<link rel="import" href="../../../bower_components/lancie-ajax/lancie-ajax.html">
+<link rel="import" href="../../../bower_components/lancie-dialog/lancie-dialog.html">
 
 <dom-module id="team-member-item">
   <template>
@@ -24,7 +24,7 @@
       margin-left: 16px;
     }
     </style>
-    <lancie-ajax id="ajaxRemoveMember" refurl="teams/{{team.id}}/members" method="DELETE" handle-as="json" body="{{member.username}}" on-response="onRemoveMember"></lancie-ajax>
+    <lancie-ajax id="ajaxRemoveMember" refurl="teams/{{team.id}}/members" method="DELETE" handle-as="json" body="{{member.username}}" on-lancie-ajax="onRemoveMember"></lancie-ajax>
     <paper-item>
       <paper-item-body class="layout horizontal center member-icon">
         <iron-icon icon="social:person" item-icon></iron-icon>
