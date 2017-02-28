@@ -7,11 +7,11 @@
     "backgroundImagePath": "images-optimized/activities/rl.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "images-optimized/activities/tba.png",
-      "website": ""
+      "imagePath": "images-optimized/activities/rl.jpg",
+      "website": "https://www.rocketleague.com"
     },
     "prizes": [
-      "TBA"
+      "3x Steam Controller"
     ]
   },
   {
@@ -22,11 +22,12 @@
     "backgroundImagePath": "images-optimized/activities/lol.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "images-optimized/activities/tba.png",
-      "website": ""
+      "imagePath": "images-optimized/activities/lol.jpg",
+      "website": "https://www.leagueoflegends.com"
     },
     "prizes": [
-      "TBA"
+      "5x Logitech G502 Proteus Spectrum RGB mouse",
+      "5x Steelseries QcK mouse pad"
     ]
   },
   {
@@ -52,11 +53,13 @@
     "backgroundImagePath": "images-optimized/activities/hs.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "images-optimized/activities/tba.png",
+      "imagePath": "images-optimized/activities/hs.jpg",
       "website": "http://eu.battle.net/hearthstone/en/"
     },
     "prizes": [
-      "TBA"
+      "Crucial MX300 512GB SSD",
+      "Crucial MX300 275GB SSD",
+      "Kingston HyperX FURY 120GB SSD"
     ]
   },
   {
