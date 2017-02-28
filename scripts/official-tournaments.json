@@ -81,12 +81,14 @@
     "description": "A free game in the truest sense of the word, TrackMania Nations Forever lets you drive at mind-blowing speeds on fun and spectacular tracks in solo and multiplayer modes. TrackMania Nations Forever offers a new \"Forever\" version of the Stadium environment, a solid solo mode and 65 brand new, progressively challenging tracks. TrackMania Nations Forever will unite an even larger number of players than the original Nations thanks to its engaging multiplayer modes, innovative online functions and revolutionary interactivity between players.\n\n# Schedule #\nFriday:\n - cup 1: 20:00 – 20:30 (already with break)\n - Quarter finals: 20:30 - 21:00\n - Semi final: 21:00 – 21:30\n - Final 21:30 – 22:00\n\n# Rules #\n## 1. Tournament Format ##\nThe tournament is a single elimination.\n## 2. Match Format ##\nAll matches will be played in time attack mode: each player has 5 min to set the fastest time on a track. Each match consists of 4 tracks after each track a player is awarded point(yet to be determined how much)\nIn cup 1 the top 20 goes on, after that the bottom half gets eliminated after each match.\n## 3. Technical Issues ##\nIf a player disconnects from the game due to technical reasons and are not able to rejoin during a track, their current time counts for that track. If they are able to rejoin they will continue racing as if nothing happened.\n## 4. Behavior and Conduct ##\n1. If a participant commits violent acts, or threatens to commit violent acts, against any other player in the Tournament, any admin, or any spectators of the Tournament, he or she may be disqualified from the Tournament.\n2. If a participant behaves in any unsportsmanlike way it is possible, to the sole discretion of the administrators they will receive a penalty.\n3. It is a players responsibility to be on time for their matches, if they are late they will suffer a penalty either losing a game after 10 minutes, or the entire match after 20 minutes as to not delay the entire tournament. A player is required to inform the tournament staff if they are late for a match, if not they will be dropped from the tournament.\n4. Coaching is not allowed during a match.\n\n## 5. Tournament Eligibility ##\nAnyone Area FiftyLAN judges may have a conflict of interest may be disallowed to participate.\n## 6. Penalties ##\nDepending on the situation a player could be penalized in any of the following ways:\n1. Penalized a game in a match (eg. losing a track)\n2. Penalized a match (eg. forfeiting a match, or being eliminated from the tournament)\n3. Disqualified from the tournament entirely\n\n## 7. Drop out ##\nIf a player decides to drop out of the tournament they are required to contact the admin team and sign a drop out sheet for confirmation. Once a player has dropped out of the tournament they will not be able to rejoin.",
     "backgroundImagePath": "images-optimized/activities/trackmania.jpg",
     "sponsor": {
-      "name": "",
-      "imagePath": "images-optimized/activities/tba.png",
-      "website": "http://trackmaniaforever.com/"
+      "name": "Nutanix",
+      "imagePath": "images-optimized/logos/nutanix.png",
+      "website": "https://www.nutanix.com"
     },
     "prizes": [
-      "TBA"
+      "RC Buggy",
+      "RC Buggy",
+      "Mini RC Monster Truck"
     ]
   }
 ]
