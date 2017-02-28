@@ -7,8 +7,7 @@
 
 <dom-module id="my-area-seat">
   <template>
-    <style include="iron-flex iron-flex-alignment"></style>
-    <style>
+    <style include="iron-flex iron-flex-alignment">
     :host {
       display: block;
     }
@@ -28,15 +27,15 @@
 
     <paper-card heading="Seat" elevation="1" animated-shadow="true">
         <div class="card-content">
-          <template is="dom-if" if="{{seats.length}}">
-            <template is="dom-repeat" items="{{seats}}" index-as="index">
+          <template is="dom-if" if="[[seats.length]]">
+            <template is="dom-repeat" items="[[seats]]" index-as="index">
               <paper-item class="layout horizontal">
-                <div class="flex">{{item.ticket.owner.profile.displayName}}</div>
-                <div>{{item.seatGroup}}{{item.seatNumber}}</div>
+                <div class="flex">[[item.ticket.owner.profile.displayName]]</div>
+                <div>[[item.seatGroup]][[item.seatNumber]]</div>
               </paper-item>
             </template>
           </template>
-          <template is="dom-if" if="{{!seats.length}}">
+          <template is="dom-if" if="[[!seats.length]]">
             Reserve your seat now!
           </template>
         </div>
@@ -49,8 +48,9 @@
       </paper-card>
   </template>
   <script>
-  'use strict';
   (function() {
+
+    'use strict';
     Polymer({
       is: 'my-area-seat',
       properties: {
@@ -73,7 +73,9 @@
           var seatmap = request.response.seatmap;
           for (var group in seatmap) {
             this.seats = this.seats.concat(seatmap[group].filter(function(seat) {
-              if (!seat.ticket || !seat.ticket.owner.profile.displayName) return false;
+              if (!seat.ticket || !seat.ticket.owner.profile.displayName) {
+                return false;
+              }
               return this.teamMembers.includes(seat.ticket.owner.profile.displayName);
             }.bind(this)));
           }
