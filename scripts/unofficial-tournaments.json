@@ -213,5 +213,45 @@
       "Kali Linux"
     ],
     "footer": false
+  },
+  {
+      "title": "8-Bits Retro-Gaming",
+      "subtitle": "",
+      "headerTitle": "8-Bits Retro-Gaming",
+      "description": "This 8-bits retro gaming competition will take place the whole weekend. We'll be playing a classic on an old Atari game console. If you submit your score to the organisation you take place in the competition and make a chance to win one of the awesome eight prizes.",
+      "backgroundImagePath": "images-optimized/logos/jigsaw.png",
+      "sponsor": {
+        "name": "Jigsaw",
+        "imagePath": "images-optimized/logos/jigsaw.png",
+        "website": "http://www.jigsaw.nl"
+      },
+      "prizes": [
+        "Asus Strix Tactic Pro Keyboard",
+        "Logitec G G430",
+        "Mega Bombox Touchspeaker",
+        "RockStar hoofdtelefoonsplitser",
+        "Schermreiniging",
+        "Touchscreen handschoenen",
+        "Biertje en Snicker",
+        "Biertje"
+      ],
+      "format": "FFA",
+      "startingDateTime": {
+        "monthValue": 3,
+        "month": "March",
+        "year": 2017,
+        "dayOfMonth": 4,
+        "dayOfWeek": "Saturday",
+        "dayOfYear": 237,
+        "nano": 876000000,
+        "second": 36,
+        "chronology": {
+          "id": "ISO",
+          "calendarType": "iso8601"
+        }
+      },
+      "platform": [
+        "Atari"
+      ]
   }
 ]
