@@ -219,10 +219,10 @@
       "subtitle": "",
       "headerTitle": "8-Bits Retro-Gaming",
       "description": "This 8-bits retro gaming competition will take place the whole weekend. We'll be playing a classic on an old Atari game console. If you submit your score to the organisation you take place in the competition and have a chance to win one of the awesome eight prizes.",
-      "backgroundImagePath": "images-optimized/logos/jigsaw.png",
+      "backgroundImagePath": "images-optimized/logos/jigsaw_cleaner_logo.png",
       "sponsor": {
         "name": "Jigsaw",
-        "imagePath": "images-optimized/logos/jigsaw.png",
+        "imagePath": "images-optimized/logos/jigsaw_cleaner_logo.png",
         "website": "http://www.jigsaw.nl"
       },
       "prizes": [
