@@ -126,8 +126,6 @@
           </app-toolbar>
         </app-header>
 
-        <div id="contentContainer"></div>
-
         <content></content>
 
       </app-header-layout>
@@ -146,25 +144,6 @@
         type: Object,
         notify: true
       }
-    },
-
-    listeners: {
-      'iron-resize': '_fixHeader'
-    },
-
-    // Header layout modifies the height of the app-header after iron-resize.
-    // To not create a gap between the content and the header, reset the margin-top
-    // of the content container to correctly flow again.
-    _fixHeader: function() {
-      if (!this.isAttached) {
-        // In shadow dom, the header is incorrectly positioned. Force the content
-        // container to adjust temporarily.
-        if (Polymer.Settings.hasShadow) {
-          this.$.contentContainer.style['margin-top'] = '64px';
-        }
-        return;
-      }
-      this.$.contentContainer.style['margin-top'] = 0;
     },
 
     _closeDrawer: function() {
