@@ -40,6 +40,7 @@
 
       paper-tab[link] a {
         text-decoration: none;
+        text-transform: uppercase;
         color: var(--secondary-color);
         font-size: 16px;
         font-weight: 400;
@@ -93,7 +94,7 @@
       </app-drawer>
 
       <app-header-layout fullbleed>
-        <app-header reveals effects="waterfall">
+        <app-header reveals="[[!wideLayout]]" fixed="[[wideLayout]]" effects="waterfall">
 
           <!-- Nav on mobile: side nav menu -->
           <app-toolbar class="layout horizontal center-center">
