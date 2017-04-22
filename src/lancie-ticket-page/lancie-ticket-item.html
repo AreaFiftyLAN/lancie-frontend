@@ -86,7 +86,7 @@
 
     <lancie-ajax id="addTicket" method="POST" on-lancie-ajax="onAddTicket"></lancie-ajax>
 
-    <paper-material class$="[[_getClasses(color, available)]]">
+    <paper-material class$="[[_getClasses(color, available)]]" hidden$="[[!available]]">
       <span class="name">[[ticket.text]]</span>
       <span class="price">&euro; [[totalString]]</span>
       <span class="deadline">[[_deadline(ticket, available)]]</span>
