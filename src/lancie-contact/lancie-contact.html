@@ -11,7 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
-<link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html">
+<!-- <link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html"> -->
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/lancie-card/lancie-card.html">
 <link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
@@ -44,7 +44,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="card-content">
         <lancie-error id="error"></lancie-error>
 
-        <gold-email-input id="email" label="Your email address" value="{{email}}" error-message="Email should be valid." auto-validate></gold-email-input>
+        <!-- <gold-email-input id="email" label="Your email address" value="{{email}}" error-message="Email should be valid." auto-validate></gold-email-input> -->
         <paper-input id="subject" label="Subject" value="{{subject}}" minlength="5" maxlength="100" error-message="Subject too short." auto-validate></paper-input>
         <paper-textarea id="message" label="Message" value="{{message}}" placeholder="Enter your message here." rows="4" minlength="100" error-message="Message too short." auto-validate></paper-textarea>
       </div>
@@ -60,6 +60,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'lancie-contact',
       properties: {
+        email: String,
+        subject: String,
+        message: String
       },
 
       tryContact: function() {

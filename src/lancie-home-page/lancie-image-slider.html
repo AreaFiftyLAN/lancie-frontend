@@ -56,7 +56,7 @@
       .text a {
         color: var(--secondary-color);
       }
-      
+
       paper-material {
         background-color: var(--secondary-color);
         color: var(--primary-color);
@@ -93,8 +93,14 @@
   'use strict';
     Polymer({
       is: 'lancie-image-slider',
+      properties: {
+        images: Array,
+        current: {
+          type: Number,
+          value: 0
+        }
+      },
       ready: function() {
-        this.current = 0;
         this.images = [1,2,3,4,5].map(function(i) {
           return 'images-optimized/slider/slider' + i + '.jpg';
         });

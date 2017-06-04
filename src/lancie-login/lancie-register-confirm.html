@@ -55,13 +55,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         search: String,
         nextAction: String,
         query: String,
+        confirming: {
+          type: Boolean,
+          value: true
+        },
+        success: {
+          type: Boolean,
+          value: false
+        },
+        error: {
+          type: Boolean,
+          value: false
+        },
+        tokenTwice: {
+          type: Boolean,
+          value: false
+        }
       },
 
       attached: function() {
-        this.confirming = true;
-        this.success = false;
-        this.error = false;
-        this.tokenTwice = false;
         this.nextAction = (this.query.indexOf('orderId') > -1) ? 'tickets?login' : 'my-area';
         this.tryConfirmRegistration();
       },

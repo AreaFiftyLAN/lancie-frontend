@@ -1,6 +1,7 @@
 <link rel="import" href="../bower_components/iron-location/iron-location.html">
 <link rel="import" href="lancie-section/lancie-section.html">
 <link rel="import" href="../bower_components/lancie-card/lancie-card.html">
+<link rel="import" href="../bower_components/lancie-ajax/lancie-ajax.html">
 
 <dom-module id="lancie-order-check">
   <template>
@@ -45,18 +46,30 @@
         orderId: String,
         query: Object,
         token: String,
+        confirming: {
+          type: Boolean,
+          value: true
+        },
+        success: {
+          type: Boolean,
+          value: false
+        },
+        error: {
+          type: Boolean,
+          value: false
+        },
+        cancelled: {
+          type: Boolean,
+          value: false
+        },
+        waiting: {
+          type: Boolean,
+          value: false
+        }
       },
       observers: [
         'hasData(token, query)',
       ],
-
-      attached: function() {
-        this.confirming = true;
-        this.success = false;
-        this.error = false;
-        this.cancelled = false;
-        this.waiting = false;
-      },
 
       hasData: function(token, query) {
         this.orderId = query.split('order=')[1];

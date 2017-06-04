@@ -44,16 +44,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'lancie-faq',
       properties: {
         text: String,
+        markdown: String
       },
 
       onResponse: function (e, request) {
-          if (request.succeeded) {
-              this.text = request.response;
-          }
+        if (request.succeeded) {
+          this.text = request.response;
+        }
       },
 
       onError: function () {
-          this.text = "There are no frequently asked questions yet. If you have a question, feel free to [ask us](/contact)!";
+        this.text = "There are no frequently asked questions yet. If you have a question, feel free to [ask us](/contact)!";
       }
     });
   })();

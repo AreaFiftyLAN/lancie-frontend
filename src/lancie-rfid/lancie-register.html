@@ -75,7 +75,7 @@ This code may only be used under the BSD style license found at https://github.c
       <paper-input id="selectUser" label="Naam" value="{{searchString}}" on-keydown="_selectItem"></paper-input>
       <paper-listbox id="userListbox" class="dropdown-content" on-keydown="_selectItem">
         <template is="dom-repeat" items="{{tickets}}" filter="{{computeFilter(searchString)}}">
-          <paper-item ticket="{{item.id}}">{{item.owner.profile.firstName}} {{item.owner.profile.lastName}} {{_isChMember(item.chMember)}}</paper-item>
+          <paper-item data-ticket$="{{item.id}}">{{item.owner.profile.firstName}} {{item.owner.profile.lastName}} {{_isChMember(item.chMember)}}</paper-item>
         </template>
       </paper-listbox>
       <paper-checkbox id="alcohol" class="red">
@@ -123,9 +123,9 @@ This code may only be used under the BSD style license found at https://github.c
         }
 
         if (!this.$.userListbox.focusedItem && this.$.userListbox.children.length === 2) {
-          this.ticketId = this.$.userListbox.children[0].ticket;
+          this.ticketId = this.$.userListbox.children[0].dataset.ticket;
         } else if (this.$.userListbox.focusedItem) {
-          this.ticketId = this.$.userListbox.focusedItem.ticket;
+          this.ticketId = this.$.userListbox.focusedItem.dataset.ticket;
         } else {
           this.ticketId = undefined;
         }

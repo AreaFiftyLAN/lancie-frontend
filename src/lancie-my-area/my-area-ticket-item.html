@@ -1,5 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
@@ -8,6 +10,7 @@
 
 <link rel="import" href="../../bower_components/lancie-dialog/lancie-dialog.html">
 <link rel="import" href="../../bower_components/lancie-error/lancie-error.html">
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="my-area-orders/lancie-order-item.html">
 
 <dom-module id="my-area-ticket-item">
@@ -46,7 +49,7 @@
       <h2>Set up ticket transfer</h2>
       <div class="dialog-content">
         <lancie-error id="error"></lancie-error>
-        <gold-email-input id="username" label="Email" name="Username" value="{{username}}" error-message="Email should be valid." required autofocus on-blur="validate()"></gold-email-input>
+        <!-- <gold-email-input id="username" label="Email" name="Username" value="{{username}}" error-message="Email should be valid." required autofocus on-blur="validate()"></gold-email-input> -->
       </div>
       <div class="dialog-actions">
         <paper-button dialog-dismiss>Cancel</paper-button>
