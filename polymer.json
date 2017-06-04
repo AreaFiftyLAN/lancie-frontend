@@ -1,4 +1,7 @@
 {
+  "lint": {
+    "rules": ["polymer-2"]
+  },
   "entrypoint": "index.html",
   "shell": "src/lancie-app.html",
   "sources": [
