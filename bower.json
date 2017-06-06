@@ -5,7 +5,7 @@
     "google-map": "GoogleWebComponents/google-map#2.0-preview",
     "polymer": "polymer/polymer#^2.0.0",
     "wisvch-footer": "wisvch/wisvch-footer#2.0-preview",
-    "iron-lazy-pages": "TimvdLippe/iron-lazy-pages#2.0-preview",
+    "iron-lazy-pages": "TimvdLippe/iron-lazy-pages#^2.0.0",
     "lancie-dialog": "AreaFiftyLAN/lancie-dialog#2.0-preview",
     "lancie-ajax": "AreaFiftyLAN/lancie-ajax#2.0-preview",
     "lancie-form": "AreaFiftyLAN/lancie-form#2.0-preview",
