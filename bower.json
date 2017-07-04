@@ -8,7 +8,7 @@
     "iron-lazy-pages": "TimvdLippe/iron-lazy-pages#^2.0.0",
     "lancie-dialog": "AreaFiftyLAN/lancie-dialog#2.0-preview",
     "lancie-ajax": "AreaFiftyLAN/lancie-ajax#2.0-preview",
-    "lancie-form": "AreaFiftyLAN/lancie-form#2.0-preview",
+    "lancie-form": "AreaFiftyLAN/lancie-form#^2.0.0",
     "lancie-error": "AreaFiftyLAN/lancie-error#2.0-preview  ",
     "lancie-login-dialog": "AreaFiftyLAN/lancie-login-dialog#2.0-preview",
     "lancie-login-card": "AreaFiftyLAN/lancie-login-card#2.0-preview",
