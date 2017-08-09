@@ -4,7 +4,7 @@ module.exports = {
     '/manifest.json',
     '/images-optimized/**',
     '/src/**',
-    '/bower_components/webcomponentsjs/webcomponents-lite.min.j'
+    '/bower_components/webcomponentsjs/webcomponents-loader.js'
   ],
   navigateFallback: '/index.html',
   runtimeCaching: [{
