@@ -5,6 +5,10 @@ This code may only be used under the BSD style license found at https://github.c
 -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+
+<link rel="import" href="../../bower_components/lancie-login-card/lancie-login-card.html">
 
 <link rel="import" href="lancie-tickets.html">
 <link rel="import" href="lancie-ticket-basket.html">
@@ -13,8 +17,19 @@ This code may only be used under the BSD style license found at https://github.c
 <dom-module id="lancie-ticket-page">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
-      :host {
+       :host {
         --card-min-width: 300px;
+      }
+
+
+      paper-tab {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+        --paper-tabs-content: {
+          @apply --layout-horizontal;
+          @apply --layout-center-center;
+          font-size: 16px;
+        }
       }
 
       div {
@@ -22,7 +37,7 @@ This code may only be used under the BSD style license found at https://github.c
         margin: auto;
       }
 
-      div > * {
+      div>* {
         margin: 16px;
         min-width: var(--card-min-width);
       }
@@ -32,7 +47,7 @@ This code may only be used under the BSD style license found at https://github.c
       }
 
       @media(max-width: 599px) {
-        div > * {
+        div>* {
           margin: 0;
         }
       }
@@ -42,12 +57,15 @@ This code may only be used under the BSD style license found at https://github.c
           margin: 16px auto;
         }
       }
-
       /*
       * Safari hack
       * Makes flex wrapping work
       */
-      .flex, .flex-1, .flex-2, .flex-3 {
+
+      .flex,
+      .flex-1,
+      .flex-2,
+      .flex-3 {
         flex-basis: var(--card-min-width);
       }
       /*End Safari hack*/
@@ -59,14 +77,34 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-ajax id="ajaxCoupleOrder" refurl="orders/[[basket.id]]/assign" method="POST" on-lancie-ajax="onCoupleOrder"></lancie-ajax>
     <lancie-ajax auto-fire refurl="users/current/orders/open" method="GET" on-lancie-ajax="onOpenOrder"></lancie-ajax>
 
-    <div class="layout horizontal wrap" on-set-basket="storeBasket">
+    <paper-tabs selected="{{selected}}" autoselect>
+      <paper-tab>Tickets</paper-tab>
+      <paper-tab>Login</paper-tab>
+      <paper-tab>Profile</paper-tab>
+      <paper-tab>Payment</paper-tab>
+    </paper-tabs>
 
-      <lancie-tickets class="flex-3" tickets="[[availableTickets]]" basket="[[basket]]"></lancie-tickets>
-
-      <lancie-ticket-basket class="flex-2" basket="[[basket]]" user="{{user}}"></lancie-ticket-basket>
-
-    </div>
-
+    <iron-pages selected="{{selected}}">
+      <div class="layout horizontal wrap" on-set-basket="storeBasket">
+        <lancie-tickets class="flex-3" tickets="[[availableTickets]]" basket="[[basket]]"></lancie-tickets>
+        <lancie-ticket-basket class="flex-2" basket="[[basket]]" user="{{user}}"></lancie-ticket-basket>
+      </div>
+      <div>
+        <lancie-login-card id="loginForm" on-logged-in="storeUser"></lancie-login-card>
+      </div>
+      <div>
+        <h2>Fill in your profile</h2>
+        <div class="dialog-content">
+          <profile-edit-form id="form" user="{{user}}" on-response="checkSucceeded"></profile-edit-form>
+        </div>
+        <div class="dialog-actions">
+          <paper-button class="btn btn-primary" on-tap="submit">Submit</paper-button>
+        </div>
+      </div>
+      <div>
+        <lancie-terms-of-service-text class="dialog-content"></lancie-terms-of-service-text>
+      </div>
+    </iron-pages>
   </template>
   <script>
     'use strict';
@@ -85,6 +123,10 @@ This code may only be used under the BSD style license found at https://github.c
             type: Object,
             value: [],
           },
+          selected: {
+            type: Object,
+            value: 0
+          }
         },
         observers: [
           '_assignOrder(user, basket)'
@@ -106,7 +148,7 @@ This code may only be used under the BSD style license found at https://github.c
           this.set('basket', e.detail.basket);
         },
 
-        storeStorageOrder: function(e) {
+        storeStorageOrder: function (e) {
           if (!this.basket.id) {
             this.basket = e.detail;
           }
@@ -130,13 +172,13 @@ This code may only be used under the BSD style license found at https://github.c
             this.$.orderStorage.removeStorage();
           } else {
             if (request.status === 409) {
-              this.fire('toast', {text: 'Unable to couple the order to your account. Order is already linked.'});
+              this.fire('toast', { text: 'Unable to couple the order to your account. Order is already linked.' });
               this.$.orderStorage.removeStorage();
               this.set('basket.tickets', []);
             } else {
               this.basket.status = 'ANONYMOUS';
               this.$.orderStorage.storeOrderId(this.basket.id);
-              this.fire('toast', {text: 'Unable to couple the order to your account. Try refreshing the page.'});
+              this.fire('toast', { text: 'Unable to couple the order to your account. Try refreshing the page.' });
             }
           }
         },
