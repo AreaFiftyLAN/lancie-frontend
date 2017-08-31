@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
@@ -54,7 +55,7 @@
           <paper-input label="Last Name" name="lastName" type="text" value="{{profile.lastName}}" class="flex" required></paper-input>
           <paper-input label="Display Name" name="displayName" type="text" value="{{profile.displayName}}" required></paper-input>
           <paper-dropdown-menu class="flex" label="Gender" name="gender" required>
-            <paper-listbox class="dropdown-content" selected="{{user.profile.gender}}" attr-for-selected="data-value">
+            <paper-listbox class="dropdown-content" slot="dropdown-content" selected="{{user.profile.gender}}" attr-for-selected="data-value">
               <paper-item data-value="MALE">MALE</paper-item>
               <paper-item data-value="FEMALE">FEMALE</paper-item>
             </paper-listbox>
