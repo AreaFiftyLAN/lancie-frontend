@@ -2,15 +2,15 @@
   "name": "lancie-frontend",
   "private": true,
   "dependencies": {
-    "google-map": "GoogleWebComponents/google-map#2.0-preview",
+    "google-map": "GoogleWebComponents/google-map#^2.0.0",
     "polymer": "polymer/polymer#^2.0.0",
     "wisvch-footer": "wisvch/wisvch-footer#2.0-preview",
     "iron-lazy-pages": "TimvdLippe/iron-lazy-pages#^2.0.0",
-    "lancie-dialog": "AreaFiftyLAN/lancie-dialog#2.0-preview",
+    "lancie-dialog": "AreaFiftyLAN/lancie-dialog#^2.0.0",
     "lancie-ajax": "AreaFiftyLAN/lancie-ajax#^2.0.0",
     "lancie-form": "AreaFiftyLAN/lancie-form#^2.0.0",
-    "lancie-error": "AreaFiftyLAN/lancie-error#2.0-preview  ",
-    "lancie-login-dialog": "AreaFiftyLAN/lancie-login-dialog#2.0-preview",
+    "lancie-error": "AreaFiftyLAN/lancie-error#2.0-preview",
+    "lancie-login-dialog": "AreaFiftyLAN/lancie-login-dialog#^2.0.0",
     "lancie-login-card": "AreaFiftyLAN/lancie-login-card#^2.0.0",
     "lancie-card": "AreaFiftyLAN/lancie-card#^2.0.0",
     "lancie-login-form": "AreaFiftyLAN/lancie-login-form#^2.0.0",
@@ -43,8 +43,5 @@
   "devDependencies": {
     "web-component-tester": "6.0.0",
     "test-fixture": "PolymerElements/test-fixture#3.0.0-rc.1"
-  },
-  "resolutions": {
-    "lancie-login-form": "^2.0.0"
   }
 }
