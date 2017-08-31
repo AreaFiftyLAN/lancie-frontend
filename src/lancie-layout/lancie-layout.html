@@ -6,10 +6,11 @@
 
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
-<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 
 <link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
@@ -83,13 +84,13 @@
         <app-toolbar></app-toolbar>
 
         <!-- Nav on mobile: side nav menu -->
-        <paper-menu selected="{{route.page}}" attr-for-selected="data-route">
+        <paper-listbox selected="{{route.page}}" attr-for-selected="data-route">
           <paper-item data-route="" on-tap="_closeDrawer"><a href="/">Home</a></paper-item>
           <paper-item data-route="tickets" on-tap="_closeDrawer"><a href="/tickets">Tickets</a></paper-item>
           <paper-item data-route="my-area" on-tap="_closeDrawer"><a href="/my-area">My Area</a></paper-item>
           <paper-item data-route="seatmap" on-tap="_closeDrawer"><a href="/seatmap">Seatmap</a></paper-item>
           <paper-item data-route="shop" on-tap="_closeDrawer"><a href="/shop">Shop</a></paper-item>
-        </paper-menu>
+        </paper-listbox>
       </app-drawer>
 
       <app-header-layout fullbleed>
@@ -126,7 +127,7 @@
           </app-toolbar>
         </app-header>
 
-        <content></content>
+        <slot></slot>
 
       </app-header-layout>
     </app-drawer-layout>

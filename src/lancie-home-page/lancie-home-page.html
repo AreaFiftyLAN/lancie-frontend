@@ -22,7 +22,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="lancie-image-slider.html">
 
 <dom-module id="lancie-home-page">
-  <style>
+  <template>
+    <style>
     :host {
       display: block;
     }
@@ -51,8 +52,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       width: 100%;
       display: block;
     }
-  </style>
-  <template>
+    </style>
     <lancie-image-slider></lancie-image-slider>
 
     <lancie-section type="primary" header="Partners &amp; Sponsors">
@@ -159,7 +159,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         last-response="{{googleMapsToken}}"></iron-ajax>
       <template is="dom-if" if="{{googleMapsToken}}" restamp="true">
         <google-map latitude="51.995694" longitude="4.373950" zoom="14" disable-zoom fit-to-markers draggable="false" api-key="{{googleMapsToken.message}}">
-          <google-map-marker latitude="51.995694" longitude="4.373950" draggable="true" title="Area FiftyLAN"></google-map-marker>
+          <google-map-marker slot="markers" latitude="51.995694" longitude="4.373950" draggable="true" title="Area FiftyLAN"></google-map-marker>
         </google-map>
       </template>
     </lancie-section>

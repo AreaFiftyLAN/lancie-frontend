@@ -1,56 +1,40 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="../../bower_components/lancie-dialog/lancie-dialog.html">
 <link rel="import" href="lancie-terms-of-service-text.html">
 
 <dom-module id="lancie-terms-of-service">
   <template>
     <style>
-      :host {
-        /* offset to get bottom really at bottom */
-        --lancie-dialog-bottom-offset: 150px;
-      }
-
       lancie-dialog {
-        --lancie-dialog: {
-          top: 10vh;
-          bottom: 170px;
-          width: 800px;
-        };
-      }
-
-      @media (max-width: 800px) {
-        lancie-dialog {
-          --lancie-dialog-top: var(--app-toolbar-height);
-          --lancie-dialog-bottom: var(--lancie-dialog-bottom-offset);
-          --lancie-dialog-width: 100%;
+        --lancie-actual-dialog: {
+          height: 90%;
+          width: 80%;
         }
       }
 
-      @media (max-width: 432px) {
-        lancie-dialog {
-          --lancie-dialog-width: 100%;
-          --lancie-dialog-margin: 0;
-        }
+      .dialog-content {
+        flex: 1;
+        height: 0%; /* Ayy Lmao */
       }
-
-      /* Wanted `@media (max-height: var(--lancie-dialog-max-height))`
-       * with `--lancie-dialog-max-height: calc(--app-toolbar-height * 10);`
-       * but no variable support in @media queries (yet)
-       */
-      @media (max-height: 640px) {
+      
+      @media (max-width: 600px) {
         lancie-dialog {
-          --lancie-dialog-top: var(--app-toolbar-height);
-          --lancie-dialog-bottom: var(--lancie-dialog-bottom-offset);
-          --lancie-dialog-width: 100%;
+          --lancie-actual-dialog: {
+            height: 100%;
+            width: 100%;
+          }
         }
       }
     </style>
 
     <lancie-dialog id="termsOfService">
       <h2>Terms and conditions</h2>
-      <lancie-terms-of-service-text class="dialog-content"></lancie-terms-of-service-text>
+      <div class="dialog-content">
+        <lancie-terms-of-service-text></lancie-terms-of-service-text>
+      </div>
       <div class="dialog-actions">
-        <content></content>
+        <slot></slot>
       </div>
     </lancie-dialog>
 
