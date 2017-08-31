@@ -14,17 +14,11 @@ This code may only be used under the BSD style license found at https://github.c
 <dom-module id="lancie-activity-dialog">
   <template>
     <style>
-      :host {
-        /* offset to get bottom really at bottom */
-        --lancie-dialog-bottom-offset: 5vh;
-      }
-
       lancie-dialog {
-        --lancie-dialog: {
-          top: 42px;
-          bottom: var(--lancie-dialog-bottom-offset);
-          width: 95vw;
-        };
+        --lancie-actual-dialog: {
+          height: 90%;
+          width: 80%;
+        }
       }
 
       .dialog-header {
@@ -45,7 +39,6 @@ This code may only be used under the BSD style license found at https://github.c
 
       .dialog-content {
         display: flex;
-        margin: 10px 5px 0 15px;
         flex-direction: row;
         height: 90%;
         color: #212121;
@@ -63,13 +56,7 @@ This code may only be used under the BSD style license found at https://github.c
         margin: 20px 0 0 5px;
       }
 
-      @media (max-width: 432px) {
-        lancie-dialog {
-          --lancie-dialog-width: 100%;
-          --lancie-dialog-margin: 0;
-        }
-      }
-
+      
       @media (max-width: 600px) {
         .dialog-content {
           flex-direction: column;
@@ -82,29 +69,12 @@ This code may only be used under the BSD style license found at https://github.c
           /* doesn't entirely do the job in Safari :/ */
           height: auto;
         }
-      }
 
-      @media (max-width: 800px) {
         lancie-dialog {
-          --lancie-dialog-top: var(--app-toolbar-height);
-          --lancie-dialog-bottom: var(--lancie-dialog-bottom-offset);
-          --lancie-dialog-width: 100%;
-        }
-      }
-
-      /* Wanted `@media (max-height: var(--lancie-dialog-max-height))`
-       * with `--lancie-dialog-max-height: calc(--app-toolbar-height * 10);`
-       * but no variable support in @media queries (yet)
-       */
-      @media (max-height: 640px) {
-        lancie-dialog {
-          --lancie-dialog-top: var(--app-toolbar-height);
-          --lancie-dialog-bottom: var(--lancie-dialog-bottom-offset);
-          --lancie-dialog-width: 100%;
-        }
-
-        .dialog-content {
-          height: 85%;
+          --lancie-actual-dialog: {
+            height: 100%;
+            width: 100%;
+          }
         }
       }
     </style>
