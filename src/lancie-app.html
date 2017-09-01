@@ -15,13 +15,22 @@
         --app-toolbar-height: 64px;
       }
 
+      .container {
+        padding-top: 64px;
+        height: calc(100% - 64px);
+        display: flex;
+        flex-direction: column;
+      }
+
       lancie-content {
         @apply(--layout-flex);
       }
     </style>
     <lancie-layout route="{{route}}">
-      <lancie-content page="{{route}}"></lancie-content>
-      <lancie-footer></lancie-footer>
+      <div class="container">
+        <lancie-content page="{{route}}"></lancie-content>
+        <lancie-footer></lancie-footer>
+      </div>
     </lancie-layout>
   </template>
   <script>
