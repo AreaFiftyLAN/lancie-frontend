@@ -6,6 +6,7 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="lancie-seat-group.html">
 <link rel="import" href="lancie-seat.html">
 
@@ -66,6 +67,10 @@ This code may only be used under the BSD style license found at https://github.c
       overflow-y: auto;
       max-height: 40vh;
     }
+
+    .seatmap {
+      overflow: auto;
+    }
     </style>
 
     <lancie-ajax auto id="ajaxGetAllSeats" refurl="seats" on-lancie-ajax="onGetAllSeats"></lancie-ajax>
@@ -73,7 +78,7 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-ajax id="ajaxReserveSeat" method="POST" on-lancie-ajax="onReserveSeat"></lancie-ajax>
 
     <paper-input label="Search user" value="{{filterUser}}"></paper-input>
-    <div class="layout vertical">
+    <div class="seatmap layout vertical">
       <div class="layout seats flex-2 seatgroup horizontal">
         <template is="dom-repeat" items='["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]'>
           <div class="layout flex vertical seatmap-row">
