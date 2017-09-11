@@ -12,7 +12,6 @@
     <style>
     :host {
       display: block;
-      /*color: #fff;*/
     }
 
     paper-tabs {
@@ -27,6 +26,10 @@
       background: #eeeeee;
     }
 
+    .page {
+      overflow: auto;
+    }
+
     table {
       table-layout: fixed;
       width: 100%;
@@ -34,17 +37,18 @@
 
     .timeslots {
       background: #e5e5e5;
-      padding: 8px 16px;
+      padding: 8px;
       text-align: center;
     }
 
-    .timeslots .timeslot-friday {
-      width: 150px;
-    }
-
     .timeblock {
-      padding: 8px 16px;
+      padding: 8px;
       background: #fff;
+      overflow: hidden;
+    }
+    
+    td {
+      width: 150px;
     }
 
     .timeblock .time-header {
@@ -66,7 +70,7 @@
         </div>
         <div class="card-content">
           <iron-pages selected="{{selected}}">
-            <div>
+            <div class="page">
               <table>
                 <tbody>
                   <tr>
@@ -82,7 +86,7 @@
                   </tr>
                   <tr>
                     <td colspan="2"></td>
-                    <td class="timeblock" colspan="2">
+                    <td class="timeblock" colspan="3">
                       <div class="time-header">20:00-22:00</div>
                       <div>TM:NF Tournament</div>
                     </td>
@@ -97,7 +101,7 @@
                 </tbody>
               </table>
             </div>
-            <div>
+            <div class="page">
               <table>
                 <tbody>
                   <tr>
@@ -159,7 +163,7 @@
                 </tbody>
               </table>
             </div>
-            <div>
+            <div class="page">
               <table>
                 <tbody>
                   <tr>
