@@ -5,7 +5,7 @@ const FSUrlLoader = require('polymer-analyzer/lib/url-loader/fs-url-loader').FSU
 const PackageUrlResolver = require('polymer-analyzer/lib/url-loader/package-url-resolver').PackageUrlResolver;
 const HtmlCustomElementReferenceScanner = require('polymer-analyzer/lib/html/html-element-reference-scanner').HtmlCustomElementReferenceScanner;
 const dom5 = require('dom5');
-const fragments = require('../polymer.json').fragments;
+const fragments = require('./polymer.json').fragments;
 
 const analyzer = new Analyzer({
   urlLoader: new FSUrlLoader('./'),

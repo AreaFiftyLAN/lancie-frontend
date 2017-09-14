@@ -41,7 +41,7 @@
     "app-storage": "PolymerElements/app-storage#^2.0.1"
   },
   "devDependencies": {
-    "web-component-tester": "6.0.0",
-    "test-fixture": "PolymerElements/test-fixture#3.0.0-rc.1"
+    "web-component-tester": "*",
+    "test-fixture": "PolymerElements/test-fixture#^3.0.0"
   }
 }
