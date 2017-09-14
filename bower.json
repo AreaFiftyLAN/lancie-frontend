@@ -2,6 +2,8 @@
   "name": "lancie-frontend",
   "private": true,
   "dependencies": {
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
+    "web-animations-js": "web-animations/web-animations-js#^2.2.2",
     "google-map": "GoogleWebComponents/google-map#^2.0.0",
     "polymer": "polymer/polymer#^2.0.0",
     "wisvch-footer": "wisvch/wisvch-footer#2.0-preview",
