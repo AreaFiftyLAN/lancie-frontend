@@ -1,8 +1,8 @@
-FROM nginx:alpine
-
-WORKDIR /tmp/app
+FROM node:8 AS builder
+WORKDIR /src
 ADD . ./
+RUN docker/dockerbuild.sh
 
-COPY nginx_server.conf /etc/nginx/conf.d/default.conf
-
-RUN sh ./build.sh
+FROM nginx:mainline
+COPY docker/nginx_server.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /src/build /srv/www

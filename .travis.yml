@@ -1,14 +1,12 @@
-language: node_js
-node_js:
-  - '6'
-before_script:
-  - 'yarn global add bower'
-  - 'bower install'
-  - 'yarn run build ensure-lazy-fragments'
-script: "yarn run build"
-cache:
-  yarn: true
-  directories:
-    - node_modules
+services:
+- docker
+# At least Docker 17.05 is needed for multi-stage builds, so upgrade
+before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y install docker-ce
+script:
+- docker build -t lancie-frontend .
 notifications:
-  email: false
+email: false

@@ -20,7 +20,8 @@
     "polymer-analyzer": "^2.0.0-alpha.28",
     "polymer-build": "^2.0.0",
     "polyserve": "0.20.0",
-    "superagent": "^3.2.1"
+    "superagent": "^3.2.1",
+    "gulp-imagemin": "^3.3.0"
   },
   "scripts": {
     "build": "node ./node_modules/gulp/bin/gulp.js",
