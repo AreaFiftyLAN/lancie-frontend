@@ -16,7 +16,7 @@ const gulpif = require('gulp-if');
 const mergeStream = require('merge-stream');
 const polymerBuild = require('polymer-build');
 const gulpreplace = require('gulp-replace');
-const uglify = require('gulp-babili');
+const uglify = require('gulp-babel-minify');
 const cssSlam = require('css-slam').gulp;
 const htmlMinifier = require('gulp-html-minifier');
 
