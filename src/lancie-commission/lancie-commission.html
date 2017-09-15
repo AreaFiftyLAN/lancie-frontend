@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
@@ -64,19 +65,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
     </style>
+
+    <lancie-ajax id="ajaxCommittee" refurl="web/committee" on-response="onCommittee"></lancie-ajax>
+
+    <iron-media-query query="max-width: 950px" query-matches="{{small}}"></iron-media-query>
+    <iron-media-query query="max-width: 600px" query-matches="{{smalldevice}}"></iron-media-query>
+
     <div class="layout horizontal wrap">
-      <iron-media-query query="max-width: 950px" query-matches="{{small}}"></iron-media-query>
-      <iron-media-query query="max-width: 600px" query-matches="{{smalldevice}}"></iron-media-query>
-
-      <lancie-ajax id="ajaxCommission" refUrl="/web/committee" handle-as="json" last-response="{{commission}}"></lancie-ajax>
-
       <div class$="{{_computeSmall('textual', small)}}">
-        <p>The LANcie is the newest and coolest committee of W.I.S.V ‘Christiaan Huygens’. This
-          club of superheroes
-          will ensure that you will never forget this gaming event. The LANcie does not bite and is not afraid of
-          questions or a good conversation about gaming, food, UTP cables or networks. From the start to finish of
-          this adventure we will assist you. With classified regards, the LANcie!</p>
-
+        <p>The LANcie is the newest and coolest committee of W.I.S.V ‘Christiaan Huygens’. This club of superheroes will ensure that will never forget this gaming event. The LANcie does not bite and is not afraid of questions or a good conversation about gaming, food, UTP cables or networks. From the start to finish of this adventure we will assist you. With classified regards, the LANcie!</p>
         <p>If you have any questions, please send an email with our <a href="/contact">contact form</a></p>
       </div>
       <div class$="{{_computeSmall('visual', small)}}">
@@ -87,10 +84,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
       </div>
     </div>
-  </template>
 
+  </template>
   <script>
+  (function() {
   'use strict';
+
     Polymer({
       is: 'lancie-commission',
       properties: {
@@ -99,18 +98,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: []
         }
       },
+
+      attached: function() {
+        this.$.ajaxCommittee.generateRequest();
+      },
+
+      onCommittee: function(e, request) {
+        if (request.succeeded) {
+          this.commission = request.response.object;
+        }
+      },
+
       _computeSmall: function(clazz, isSmall) {
         return clazz + (isSmall ? ' small' : '');
       },
+
       _computeSmallDevice: function(isSmall) {
         return isSmall ? 'small-device' : '';
       },
+
       _computeSort: function(a, b) {
         if (a.position === b.position) {
           return 0;
         }
-        return a.position > b.position ? -1 : 1;
+        return a.position > b.position ? 1 : -1;
       }
     });
+  })();
   </script>
 </dom-module>

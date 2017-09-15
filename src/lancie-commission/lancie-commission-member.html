@@ -5,6 +5,8 @@
 <link rel="import" href="../../bower_components/iron-icons/editor-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../bower_components/iron-icons/maps-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/hardware-icons.html">
+<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 
 <dom-module id="lancie-commission-member">
@@ -49,16 +51,20 @@
     </style>
 
     <iron-media-query query="max-width: 530px" query-matches="{{small}}"></iron-media-query>
+
     <paper-material elevation="1" class$="[[_computeClass(small)]]">
-        <iron-icon icon="[[commissioner.icon]]"></iron-icon>
-        <div class="member-desc layout flex self-center">
-            <h2>[[commissioner.name]]</h2>
-            <h3>[[commissioner.function]]</h3>
-        </div>
+      <iron-icon icon="[[commissioner.icon]]"></iron-icon>
+      <div class="member-desc layout flex self-center">
+        <h2>[[commissioner.name]]</h2>
+        <h3>[[commissioner.function]]</h3>
+      </div>
     </paper-material>
+
   </template>
   <script>
+  (function() {
   'use strict';
+
   Polymer({
     is: 'lancie-commission-member',
     properties: {
@@ -77,5 +83,6 @@
       return clazz;
     },
   });
+  })();
   </script>
 </dom-module>
