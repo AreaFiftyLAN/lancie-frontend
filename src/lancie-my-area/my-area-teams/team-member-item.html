@@ -7,7 +7,6 @@
 <link rel="import" href="../../../bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../../bower_components/paper-tooltip/paper-tooltip.html">
-<link rel="import" href="../../../bower_components/paper-toast/paper-toast.html">
 
 <link rel="import" href="../../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../../bower_components/lancie-dialog/lancie-dialog.html">
@@ -16,74 +15,62 @@
   <template>
     <style include="iron-flex iron-flex-alignment"></style>
     <style>
-    :host {
-      display: block;
-    }
+      :host {
+        display: block;
+      }
 
-    .member-info {
-      margin-left: 16px;
-    }
+      .member-info {
+        margin-left: 16px;
+      }
     </style>
-    <lancie-ajax id="ajaxRemoveMember" refurl="teams/{{team.id}}/members" method="DELETE" handle-as="json" body="{{member.username}}" on-lancie-ajax="onRemoveMember"></lancie-ajax>
+    <lancie-ajax id="ajaxRemoveMember" refurl="teams/[[team.id]]/members" method="DELETE" handle-as="json" body="[[member.email]]" on-lancie-ajax="onRemoveMember"></lancie-ajax>
+
     <paper-item>
       <paper-item-body class="layout horizontal center member-icon">
         <iron-icon icon="social:person" item-icon></iron-icon>
-        <div class="flex member-info">{{member.profile.displayName}}</div>
-        <template is="dom-if" if="{{isCaptain}}">
-          <paper-icon-button id="removeMemberButton" icon="icons:clear" on-tap="openRemoveMemberDialog" disabled={{isCurrentUser}}>
-          </paper-icon-button>
-          <paper-tooltip for="removeMemberButton" offset="0" animation-delay="1">Remove from team</paper-tooltip>
-        </template>
-        <template is="dom-if" if="{{_displaySelfRemove(isCaptain, isCurrentUser)}}">
-          <paper-icon-button id="removeMemberButton" icon="icons:clear" on-tap="openRemoveMemberDialog">
-          </paper-icon-button>
-          <paper-tooltip for="removeMemberButton" offset="0" animation-delay="1">Remove from team</paper-tooltip>
-        </template>
+        <div class="flex member-info">[[member.profile.displayName]]</div>
+        <paper-icon-button id="removeMemberButton" icon="icons:clear" on-tap="openRemoveMemberDialog" disabled="[[!canRemoveMember]]"></paper-icon-button>
+        <paper-tooltip for="removeMemberButton" offset="0" animation-delay="1">Remove from team</paper-tooltip>
       </paper-item-body>
     </paper-item>
+
     <!-- Invite a Member dialog -->
     <lancie-dialog id="removeMemberDialog">
       <h2>Remove a team member</h2>
-      <div class="dialog-content">{{removeMemberMessage}}</div>
+      <div class="dialog-content">You are about to remove [[member.profile.displayName]] from this team. Are you sure?</div>
       <div class="dialog-actions">
         <paper-button dialog-dismiss>Cancel</paper-button>
         <paper-button on-tap="submitDeleteUser">Remove</paper-button>
       </div>
     </lancie-dialog>
-    <paper-toast id="memberRemoveToast" text="User successfully removed!" duration="3000"></paper-toast>
+
   </template>
   <script>
+  (function() {
   'use strict';
+
   Polymer({
     is: 'team-member-item',
     properties: {
       member: Object,
       team: Object,
-      isCurrentUser: Boolean,
-      isCaptain: Boolean,
+      canRemoveMember: Boolean,
       removeMemberMessage: String
     },
     openRemoveMemberDialog: function() {
-      if (this.isCaptain) {
-        this.removeMemberMessage = 'You are about to remove ' + this.member.profile.displayName + ' from your team. Are you sure?';
-      } else {
-        this.removeMemberMessage = 'You are about to remove yourself from Team ' + this.team.teamName + '. Are you sure?';
-      }
       this.$.removeMemberDialog.open();
     },
     submitDeleteUser: function() {
       this.$.ajaxRemoveMember.generateRequest();
     },
-    onRemoveMember: function(e, r) {
-      if (r.succeeded) {
+    onRemoveMember: function(event, request) {
+      if (request.succeeded) {
         this.$.removeMemberDialog.close();
-        this.$.memberRemoveToast.show();
+        this.fire('toast', {text: "User successfully removed!"});
         this.fire('remove-member');
       }
     },
-    _displaySelfRemove: function(isCaptain, isCurrentUser) {
-      return !isCaptain && isCurrentUser;
-    }
   });
+  })();
   </script>
 </dom-module>

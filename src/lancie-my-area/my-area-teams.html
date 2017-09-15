@@ -60,12 +60,12 @@
     </style>
     <paper-card class="layout vertical flex" heading="Teams" elevation="1" animated-shadow="true">
       <div class="card-content">
-        <template is="dom-if" if="{{!teams.length}}">
+        <template is="dom-if" if="[[!teams.length]]">
           You're not in a team yet!
         </template>
-        <template is="dom-if" if="{{teams.length}}">
-          <template is="dom-repeat" items="{{teams}}">
-            <team-item team="{{item}}" user="{{user}}" on-remove-member="refreshTeams"></team-item>
+        <template is="dom-if" if="[[teams.length]]">
+          <template is="dom-repeat" items="[[teams]]">
+            <team-item team="[[item]]" user="[[user]]" on-remove-member="refreshTeams"></team-item>
           </template>
         </template>
       </div>
@@ -74,11 +74,12 @@
         <paper-tooltip for="new-team" offset="0" animation-delay="1">Create a new team</paper-tooltip>
         <paper-icon-button id="teamInviteButton" icon="icons:inbox" on-tap="openPersonalInvitesDialog"></paper-icon-button>
         <paper-tooltip for="teamInviteButton" offset="0" animation-delay="1">View your open invites</paper-tooltip>
-        <template is="dom-if" if="{{personalInvites.length}}">
-          <paper-badge for="teamInviteButton" label="{{personalInvites.length}}"></paper-badge>
+        <template is="dom-if" if="[[personalInvites.length]]">
+          <paper-badge for="teamInviteButton" label="[[personalInvites.length]]"></paper-badge>
         </template>
       </div>
     </paper-card>
+
     <!-- Dialogs -->
     <!-- Create Team Dialog -->
     <lancie-dialog id="createTeamDialog">
@@ -92,16 +93,17 @@
         <paper-button on-tap="submitCreateTeam">Create</paper-button>
       </div>
     </lancie-dialog>
+
     <!-- Personal Invites Overview Dialog -->
     <lancie-dialog id="personalInvitesDialog">
       <h2>Your personal invites</h2>
       <div class="dialog-content">
-        <template is="dom-if" if="{{personalInvites.length}}">
-          <template is="dom-repeat" items="{{personalInvites}}">
-            <my-area-teams-invite invite="{{item}}" personal on-invite-change="refreshInvites"></my-area-teams-invite>
+        <template is="dom-if" if="[[personalInvites.length]]">
+          <template is="dom-repeat" items="[[personalInvites]]">
+            <my-area-teams-invite invite="[[item]]" personal on-invite-change="refreshInvites"></my-area-teams-invite>
           </template>
         </template>
-        <template is="dom-if" if="{{!personalInvites.length}}">
+        <template is="dom-if" if="[[!personalInvites.length]]">
           <p>You don't have any open invites!</p>
         </template>
       </div>
@@ -111,7 +113,9 @@
     </lancie-dialog>
   </template>
   <script>
+  (function() {
   'use strict';
+
   Polymer({
     is: 'my-area-teams',
     properties: {
@@ -144,7 +148,7 @@
       this.$.error.clear();
       this.$.ajaxCreateTeam.body = {
         teamName: this.teamName,
-        captainUsername: this.user.username
+        captainEmail: this.user.username
       };
       this.$.ajaxCreateTeam.generateRequest();
     },
@@ -164,5 +168,6 @@
       }
     }
   });
+  })();
   </script>
 </dom-module>
