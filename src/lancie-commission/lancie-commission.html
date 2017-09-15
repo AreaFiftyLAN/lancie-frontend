@@ -82,7 +82,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class$="{{_computeSmall('visual', small)}}">
         <div class="layout horizontal wrap start-justified">
           <template is="dom-repeat" items="[[commission]]" as="commissioner" sort="_computeSort">
-            <lancie-commission-member commissioner="{{commissioner}}" class$="{{_computeSmallDevice(smalldevice)}}"></lancie-commission-member>
+            <lancie-commission-member commissioner="[[commissioner]]" class$="[[_computeSmallDevice(smalldevice)]]"></lancie-commission-member>
           </template>
         </div>
       </div>
