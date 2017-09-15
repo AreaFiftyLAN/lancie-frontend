@@ -62,27 +62,20 @@
 
   </template>
   <script>
-  (function() {
-  'use strict';
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'lancie-commission-member',
+        properties: {
+          commissioner: {
+            type: Object
+          }
+        },
 
-  Polymer({
-    is: 'lancie-commission-member',
-    properties: {
-      commissioner: {
-        type: Object
-      }
-    },
-
-    _computeClass: function(small) {
-      var clazz = 'layout horizontal commission-member stretch ';
-
-      if (small) {
-        clazz += 'small-device';
-      }
-
-      return clazz;
-    },
-  });
-  })();
+        _computeClass: function(small) {
+          return 'layout horizontal commission-member stretch' + (small ? ' small-device' : '');
+        },
+      });
+    })();
   </script>
 </dom-module>

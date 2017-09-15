@@ -66,7 +66,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <lancie-ajax id="ajaxCommittee" refurl="web/committee" on-response="onCommittee"></lancie-ajax>
+    <lancie-ajax
+      id="ajaxCommittee"
+      refurl="web/committee"
+      handle-as="json"
+      on-response="onCommittee"></lancie-ajax>
 
     <iron-media-query query="max-width: 950px" query-matches="{{small}}"></iron-media-query>
     <iron-media-query query="max-width: 600px" query-matches="{{smalldevice}}"></iron-media-query>
@@ -87,43 +91,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   </template>
   <script>
-  (function() {
-  'use strict';
+    (function() {
+      'use strict';
+      Polymer({
+        is: 'lancie-commission',
+        properties: {
+          commission: {
+            type: Array,
+            value: []
+          }
+        },
 
-    Polymer({
-      is: 'lancie-commission',
-      properties: {
-        commission: {
-          type: Array,
-          value: []
+        attached: function() {
+          this.$.ajaxCommittee.generateRequest();
+        },
+
+        onCommittee: function(e, request) {
+          if (request.succeeded) {
+            this.commission = request.response.object;
+          }
+        },
+
+        _computeSmall: function(clazz, isSmall) {
+          return clazz + (isSmall ? ' small' : '');
+        },
+
+        _computeSmallDevice: function(isSmall) {
+          return isSmall ? 'small-device' : '';
+        },
+
+        _computeSort: function(a, b) {
+          if (a.position === b.position) {
+            return 0;
+          }
+          return a.position > b.position ? 1 : -1;
         }
-      },
-
-      attached: function() {
-        this.$.ajaxCommittee.generateRequest();
-      },
-
-      onCommittee: function(e, request) {
-        if (request.succeeded) {
-          this.commission = request.response.object;
-        }
-      },
-
-      _computeSmall: function(clazz, isSmall) {
-        return clazz + (isSmall ? ' small' : '');
-      },
-
-      _computeSmallDevice: function(isSmall) {
-        return isSmall ? 'small-device' : '';
-      },
-
-      _computeSort: function(a, b) {
-        if (a.position === b.position) {
-          return 0;
-        }
-        return a.position > b.position ? 1 : -1;
-      }
-    });
-  })();
+      });
+    })();
   </script>
 </dom-module>
