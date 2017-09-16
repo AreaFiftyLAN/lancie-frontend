@@ -23,39 +23,40 @@
   <template>
     <style include="iron-flex iron-flex-alignment"></style>
     <style>
-    :host {
-      display: block;
-    }
+      :host {
+        display: block;
+      }
 
-    [hidden] {
-      display: none !important;
-    }
+      [hidden] {
+        display: none !important;
+      }
 
-    .team-info {
-      background: #eee;
-      padding: 3px 10px;
-    }
+      .team-info {
+        background: #eee;
+        padding: 3px 10px;
+      }
 
-    .team-header {
-      font-size: 18px;
-      font-weight: 400;
-    }
+      .team-header {
+        font-size: 18px;
+        font-weight: 400;
+      }
 
-    .team-captain {
-      color: #757575;
-      font-size: 14px;
-    }
+      .team-captain {
+        color: #757575;
+        font-size: 14px;
+      }
     </style>
-    <lancie-ajax id="ajaxInviteMember" refurl="teams/{{team.id}}/invites" method="POST" handle-as="json" on-lancie-ajax="onInviteMember"></lancie-ajax>
-    <lancie-ajax id="ajaxGetTeamInvites" refurl="teams/{{team.id}}/invites" method="GET" handle-as="json" on-lancie-ajax="storeTeamInvites"></lancie-ajax>
+
+    <lancie-ajax id="ajaxInviteMember" refurl="teams/[[team.id]]/invites" method="POST" handle-as="json" on-lancie-ajax="onInviteMember"></lancie-ajax>
+    <lancie-ajax id="ajaxGetTeamInvites" refurl="teams/[[team.id]]/invites" method="GET" handle-as="json" on-lancie-ajax="storeTeamInvites"></lancie-ajax>
 
     <paper-item class="team-info">
       <paper-item-body class="layout horizontal center">
         <div class="team-header flex">
-          <div class="team-name">{{team.teamName}}</div>
-          <span class="team-captain"><b>Captain: </b>{{team.captain.profile.displayName}}</span>
+          <div class="team-name">[[team.teamName]]</div>
+          <span class="team-captain"><b>Captain: </b>[[team.captain.profile.displayName]]</span>
         </div>
-        <template is="dom-if" if="{{_isSameUser(team.captain, user)}}">
+        <template is="dom-if" if="[[_isSameUser(team.captain, user)]]">
           <div class="team-header">
             <paper-icon-button id="addMemberButton" icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
             <paper-tooltip offset="0" for="addMemberButton" animation-delay="1">Invite a member</paper-tooltip>
@@ -65,9 +66,8 @@
         </template>
       </paper-item-body>
     </paper-item>
-    <template is="dom-repeat" items="{{team.members}}" as="member">
-      <team-member-item is-current-user="{{_isSameUser(member, user)}}" is-captain="{{_isSameUser(team.captain, user)}}" member="{{member}}" team={{team}}>
-      </team-member-item>
+    <template is="dom-repeat" items="[[team.members]]" as="member">
+      <team-member-item can-remove-member="[[_canRemove(member, team)]]" member="[[member]]" team="[[team]]"></team-member-item>
     </template>
 
     <!-- Invite a Member dialog -->
@@ -85,14 +85,14 @@
 
     <!-- Team Invite Overview Dialog -->
     <lancie-dialog id="teamInvitesDialog">
-      <h2>Pending invites for {{team.teamName}}</h2>
+      <h2>Pending invites for [[team.teamName]]</h2>
       <div class="dialog-content">
-        <template is="dom-if" if="{{teamInvites.length}}">
-          <template is="dom-repeat" items="{{teamInvites}}">
-            <my-area-teams-invite invite="{{item}}" team on-invite-change="refreshInvites"></my-area-teams-invite>
+        <template is="dom-if" if="[[teamInvites.length]]">
+          <template is="dom-repeat" items="[[teamInvites]]">
+            <my-area-teams-invite invite="[[item]]" team on-invite-change="refreshInvites"></my-area-teams-invite>
           </template>
         </template>
-        <template is="dom-if" if="{{!teamInvites.length}}">
+        <template is="dom-if" if="[[!teamInvites.length]]">
           <p>There are no pending invites for this team!</p>
         </template>
       </div>
@@ -101,18 +101,17 @@
       </div>
     </lancie-dialog>
 
-    <paper-toast id="memberInviteSuccessToast" text="User successfully invited!" duration="3000"></paper-toast>
   </template>
   <script>
+  (function() {
   'use strict';
+
   Polymer({
     is: 'team-item',
     properties: {
       team: Object,
       user: Object,
       teamInvites: Array,
-      isCurrentUser: Boolean,
-      isCaptain: Boolean,
       memberUsername: String,
     },
 
@@ -151,9 +150,22 @@
       this.$.ajaxGetTeamInvites.generateRequest();
       this.$.teamInvitesDialog.open();
     },
-    _isSameUser: function(other, user) {
-      return other.reference === user.reference;
+    _canRemove: function(member, team) {
+      if (this.user.email === team.captain.email) {
+        if (member.email !== team.captain.email) {
+          return true;
+        } else if (team.members.length === 1) {
+          return true;
+        }
+      } else if (this.user.email === member.email) {
+        return true;
+      }
+      return false;
+    },
+    _isSameUser: function(user1, user2) {
+      return user1.reference === user2.reference;
     }
   });
+  })();
   </script>
 </dom-module>
