@@ -6,14 +6,19 @@
 
 <link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="lancie-ticket-basket-item.html">
-<link rel="import" href="lancie-terms-of-service.html">
-<link rel="import" href="lancie-profile-dialog.html">
 
 <dom-module id="lancie-ticket-basket">
   <template>
   <style include="iron-flex iron-flex-alignment">
-    paper-card {
+    :host {
+      display: flex;
+      flex-direction: column;
       width: 100%;
+      flex: 2
+    }
+
+    .tickets {
+      flex: 1;
     }
 
     .price {
@@ -21,11 +26,15 @@
       font-weight: 100;
     }
 
-    paper-card paper-button {
+    paper-button {
       background: var(--primary-color);
       color: var(--secondary-color);
       width: 100%;
       margin: 0 auto;
+    }
+
+    h2 {
+      margin-top: 8px;
     }
 
     @media(max-width: 600px) {
@@ -48,48 +57,40 @@
     <lancie-ajax id="removeTicket" method="DELETE" on-lancie-ajax="onRemoveTicket"></lancie-ajax>
     <lancie-ajax id="checkout" refurl="orders/[[basket.id]]/checkout" method="POST" on-lancie-ajax="onCheckout"></lancie-ajax>
 
-    <paper-card heading="Order" on-remove-ticket="removeTicket">
-      <template is="dom-if" if="[[!_hasTickets(basket.tickets)]]">
-        <div class="card-content">
-          <p>You have no tickets in your order.</p>
-          <p hidden="[[user]]">Please <a href="" on-tap="loginDialog">log in</a> to continue a previous order.</p>
-        </div>
-      </template>
+    <h2>Order</h2>
+    <template is="dom-if" if="[[!_hasTickets(basket.tickets)]]">
+      <div class="card-content">
+        <p>You have no tickets in your order.</p>
+        <p hidden="[[user]]">Please <a href="" on-tap="loginDialog">log in</a> to continue a previous order.</p>
+      </div>
+    </template>
 
-      <template is="dom-if" if="[[_hasTickets(basket.tickets)]]">
-        <div class="card-content">
-          <template is="dom-repeat" items="[[basket.tickets]]" sort="_sortBasket">
-            <lancie-ticket-basket-item ticket="[[item]]"></lancie-ticket-basket-item>
-          </template>
+    <template is="dom-if" if="[[_hasTickets(basket.tickets)]]">
+      <div class="tickets" on-remove-ticket="removeTicket">
+        <template is="dom-repeat" items="[[basket.tickets]]" sort="_sortBasket">
+          <lancie-ticket-basket-item ticket="[[item]]"></lancie-ticket-basket-item>
+        </template>
+      </div>
+      <div class="layout vertical">
+        <div class="layout horizontal">
+          <span class="flex price">Total: </span>
+          <span class="price">&euro; [[_formatPrice(basket.amount)]]</span>
         </div>
-        <div class="card-actions layout vertical">
-          <div class="layout horizontal">
-            <span class="flex price">Total: </span>
-            <span class="price">&euro; [[_formatPrice(basket.amount)]]</span>
-          </div>
-          <ul>
-            <li>Pickup radius is 7.5Km</li>
-            <li>Under 18 years, you must be able to provide parental approval</li>
-          </ul>
-          <paper-button hidden$="[[_userAssigned(basket)]]" on-tap="loginDialog">Continue</paper-button>
-          <paper-button hidden$="[[!_userAssigned(basket)]]" on-tap="tryCheckout">Checkout</paper-button>
-          <small hidden$="[[!_userAssigned(basket)]]">Note: Every ticket added to this order will be reserved and you will have 15 minutes to pay. Tickets will be released after this period if not paid.</small>
-        </div>
-      </template>
-    </paper-card>
-
-    <lancie-profile-dialog id="profileDialog" user="{{user}}"></lancie-profile-dialog>
-
-    <lancie-terms-of-service id="termsOfService">
-      <paper-button on-tap="closeDialog">Cancel</paper-button>
-      <paper-button on-tap="checkout">Agree</paper-button>
-    </lancie-terms-of-service>
+        <ul>
+          <li>Pickup radius is 7.5Km</li>
+          <li>Under 18 years, you must be able to provide parental approval</li>
+        </ul>
+        <paper-button hidden$="[[_userAssigned(basket)]]" on-tap="loginDialog">Continue</paper-button>
+        <paper-button hidden$="[[!_userAssigned(basket)]]" on-tap="tryCheckout">Checkout</paper-button>
+        <small hidden$="[[!_userAssigned(basket)]]">Note: Every ticket added to this order will be reserved and you will have 15 minutes to pay. Tickets will be released after this period if not paid.</small>
+      </div>
+    </template>
 
   </template>
   <script>
+  (function() {
   'use strict';
 
-  (function() {
   Polymer({
     is: 'lancie-ticket-basket',
     properties: {
