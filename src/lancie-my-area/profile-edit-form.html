@@ -104,10 +104,15 @@
         return this.$.form.validateAndSubmit();
       },
 
+      validate: function() {
+        return this.$.form.validate();
+      },
+
       onProfileUpdate: function(e, request) {
         if (request.succeeded) {
           this.set('user.profile', request.response.object);
           this.fire('toast', {text: 'Profile updated successfully.'});
+          this.fire('profile-submitted');
         } else {
           if (request.request.status === 409) {
             this.fire('toast', {text: 'Displayname already in use.'});

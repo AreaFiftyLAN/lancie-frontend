@@ -61,7 +61,6 @@
     <template is="dom-if" if="[[!_hasTickets(basket.tickets)]]">
       <div class="card-content">
         <p>You have no tickets in your order.</p>
-        <p hidden="[[user]]">Please <a href="" on-tap="loginDialog">log in</a> to continue a previous order.</p>
       </div>
     </template>
 
@@ -80,8 +79,7 @@
           <li>Pickup radius is 7.5Km</li>
           <li>Under 18 years, you must be able to provide parental approval</li>
         </ul>
-        <paper-button hidden$="[[_userAssigned(basket)]]" on-tap="loginDialog">Continue</paper-button>
-        <paper-button hidden$="[[!_userAssigned(basket)]]" on-tap="tryCheckout">Checkout</paper-button>
+        <paper-button on-tap="tryCheckout">Checkout</paper-button>
         <small hidden$="[[!_userAssigned(basket)]]">Note: Every ticket added to this order will be reserved and you will have 15 minutes to pay. Tickets will be released after this period if not paid.</small>
       </div>
     </template>
@@ -121,11 +119,7 @@
     },
 
     tryCheckout: function() {
-      if (!this.$.profileDialog.allFilledIn(this.user)) {
-        this.$.profileDialog.open();
-      } else {
-        this.$.termsOfService.open();
-      }
+      this.fire('next');
     },
 
     onCheckout: function(e, request) {

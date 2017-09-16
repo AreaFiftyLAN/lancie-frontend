@@ -10,7 +10,6 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 
-<link rel="import" href="../../bower_components/lancie-login-card/lancie-login-card.html">
 <link rel="import" href="../../bower_components/paper-styles/element-styles/paper-material-styles.html">
 
 <link rel="import" href="lancie-tickets.html">
@@ -18,6 +17,7 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="lancie-terms-of-service-text.html">
 <link rel="import" href="../lancie-my-area/profile-edit-form.html">
 <link rel="import" href="../lancie-storage/lancie-order-storage.html">
+<link rel="import" href="../lancie-login/lancie-login.html">
 
 <dom-module id="lancie-ticket-page">
   <template>
@@ -25,6 +25,7 @@ This code may only be used under the BSD style license found at https://github.c
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
         display: block;
+        padding: 16px;
       }
 
       paper-tab {
@@ -44,22 +45,19 @@ This code may only be used under the BSD style license found at https://github.c
         --paper-progress-container-color: var(--primary-color);
       }
 
-      iron-pages {
-        padding: 16px;
-      }
-
       .paper-material {
         background-color: white;
         max-width: 1200px;
         margin: 0 auto;
       }
 
-      .paper-material > * {
-        margin: 8px;
+      iron-pages {
+        padding: 16px;
       }
 
-      .profile, .terms {
-        padding: 8px;
+      .actions {
+        display: flex;
+        justify-content: space-between;
       }
       
       /*
@@ -82,35 +80,41 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-ajax id="ajaxCoupleOrder" refurl="orders/[[basket.id]]/assign" method="POST" on-lancie-ajax="onCoupleOrder"></lancie-ajax>
     <lancie-ajax auto-fire refurl="users/current/orders/open" method="GET" on-lancie-ajax="onOpenOrder"></lancie-ajax>
 
-    <paper-tabs selected="{{selected}}" autoselect on-tap="">
-      <paper-tab>Tickets</paper-tab>
-      <paper-tab>Login</paper-tab>
-      <paper-tab>Profile</paper-tab>
-      <paper-tab>Payment</paper-tab>
-    </paper-tabs>
-    <paper-progress min="-1" value="[[selected]]" max="3"></paper-progress>
+    <div class="paper-material" elevation="1" on-next="next">
+      <paper-tabs id="step" selected="{{selected}}">
+        <paper-tab disabled>Tickets</paper-tab>
+        <paper-tab disabled>Login</paper-tab>
+        <paper-tab disabled>Profile</paper-tab>
+        <paper-tab disabled>Payment</paper-tab>
+      </paper-tabs>
+      <paper-progress min="-1" value="[[selected]]" max="3"></paper-progress>
 
-    <iron-pages selected="[[selected]]">
-      <div class="paper-material layout horizontal wrap" elevation="1" on-set-basket="storeBasket">
-        <lancie-tickets class="flex-3" tickets="[[availableTickets]]" basket="[[basket]]"></lancie-tickets>
-        <lancie-ticket-basket class="flex-2" basket="[[basket]]" user="{{user}}"></lancie-ticket-basket>
-      </div>
-      <lancie-login-card id="loginForm" on-logged-in="storeUser"></lancie-login-card>
-      <div class="paper-material profile" elevation="1">
-        <h2>Fill in your profile</h2>
-        <profile-edit-form id="form" user="{{user}}" on-response="checkSucceeded"></profile-edit-form>
-        <div>
-          <paper-button class="btn btn-primary" on-tap="submit">Submit</paper-button>
+      <iron-pages selected="[[selected]]">
+        <div class="layout horizontal wrap" on-set-basket="storeBasket">
+          <lancie-tickets class="flex-3" tickets="[[availableTickets]]" basket="[[basket]]"></lancie-tickets>
+          <lancie-ticket-basket class="flex-2" basket="[[basket]]" user="{{user}}"></lancie-ticket-basket>
         </div>
-      </div>
-      <div class="paper-material terms" elevation="1">
-        <h2>Terms and conditions</h2>
-        <lancie-terms-of-service-text></lancie-terms-of-service-text>
+
+        <lancie-login on-logged-in="storeUser"></lancie-login>
+
         <div>
-          <paper-button class="btn btn-primary" on-tap="acceptTC">Agree</paper-button>
+          <h2>Fill in your profile</h2>
+          <profile-edit-form id="profileForm" user="{{user}}" on-profile-submitted="next"></profile-edit-form>
+          <div>
+            <paper-button class="btn btn-primary" on-tap="submitProfile">Submit</paper-button>
+          </div>
         </div>
-      </div>
-    </iron-pages>
+
+        <div>
+          <h2>Terms and conditions</h2>
+          <lancie-terms-of-service-text></lancie-terms-of-service-text>
+          <div>
+            <paper-button class="btn btn-primary" on-tap="">Agree</paper-button>
+          </div>
+        </div>
+      </iron-pages>
+          </div>
+
   </template>
   <script>
   (function () {
@@ -137,6 +141,29 @@ This code may only be used under the BSD style license found at https://github.c
     observers: [
       '_assignOrder(user, basket)'
     ],
+
+    next: function() {
+      if (this.selected === 0) {
+        if (!this.user) {
+          this.$.step.selectNext();
+        } else if (!this.$.profileForm.validate()) {
+          this.selected = 2;
+        } else {
+          this.selected = 3;
+        }
+      }
+    },
+
+    previous: function() {
+      if (this.selected === 0) {
+        return;
+      }
+      this.$.step.selectPrevious();
+    },
+
+    submitProfile: function() {
+      this.$.profileForm.validateAndSubmit();
+    },
 
     ready: function () {
       this.$.ajaxAvailable.generateRequest();
