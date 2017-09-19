@@ -18,22 +18,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     :host {
       display: block;
     }
-
-    .markdown-html a {
-      color: rgba(255, 255, 255, 0.87);
-    }
   </style>
 
-  <iron-ajax
-    auto
-    url="[[markdown]]"
-    handle-as="text"
+  <lancie-ajax
+    id="ajaxFaq"
+    refurl="/web/faq"
+    handle-as="json"
     on-response="onResponse"
-    on-error="onError"></iron-ajax>
+  ></lancie-ajax>
 
-  <marked-element markdown="[[text]]">
-    <div class="markdown-html"></div>
-  </marked-element>
+  <template is="dom-repeat" items="[[faq]]" as="faqitem">
+    <h3>[[faqitem.question]]</h3>
+    <a>[[faqitem.answer]]</a>
+  </template>
 
 </template>
 <script>
@@ -43,18 +40,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'lancie-faq',
       properties: {
-        text: String,
-        markdown: String
+        faq: {
+          type: Array,
+          value: [
+            {
+              "question": "There are no frequently asked questions yet. If you have a question, feel free to ask us!",
+              "answer": ""
+            }
+          ]
+        }
+      },
+
+      attached: function() {
+        this.$.ajaxFaq.generateRequest();
       },
 
       onResponse: function (e, request) {
         if (request.succeeded) {
-          this.text = request.response;
+          this.faq = request.response.object;
         }
-      },
-
-      onError: function () {
-        this.text = 'There are no frequently asked questions yet. If you have a question, feel free to [ask us](/contact)!';
       }
     });
   })();
