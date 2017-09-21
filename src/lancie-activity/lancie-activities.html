@@ -33,9 +33,11 @@ This code may only be used under the BSD style license found at https://github.c
     </style>
 
     <lancie-ajax
+      auto-fire
+      skip-token
       id="ajaxActivities"
       refurl="web/tournament"
-      on-response="onResponse"
+      on-lancie-ajax="onResponse"
     ></lancie-ajax>
 
     <div id="container" class="layout horizontal wrap start-justified">
@@ -55,10 +57,6 @@ This code may only be used under the BSD style license found at https://github.c
           value: "OFFICIAL"
         },
         activities: Array,
-      },
-
-      attached: function () {
-        this.$.ajaxActivities.generateRequest();
       },
 
       onResponse: function (e, request) {
