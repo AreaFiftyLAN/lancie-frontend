@@ -10,7 +10,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/app-storage/app-localstorage/app-localstorage-document.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
 <link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/lancie-form/lancie-form.html">
@@ -20,12 +19,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <app-localstorage-document id="storage" key="auth" data="{{auth}}" session-only></app-localstorage-document>
 
-    <iron-ajax
-    id="currentUser"
-    url="/api/v1/users/current"
-    method="GET"
-    handle-as="json"
-    on-response="onCurrentUser"></iron-ajax>
+    <lancie-ajax
+      auto-fire
+      id="currentUser"
+      refurl="/users/current"
+      on-response="onCurrentUser"
+    ></lancie-ajax>
 
     <lancie-ajax id="ajax"></lancie-ajax>
     <lancie-form id="form"></lancie-form>
