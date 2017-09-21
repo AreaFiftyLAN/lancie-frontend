@@ -47,13 +47,12 @@
         line-height: 1em;
         font-weight: 100;
       }
-    }
     </style>
 
     <iron-media-query query="max-width: 530px" query-matches="{{small}}"></iron-media-query>
 
     <paper-material elevation="1" class$="[[_computeClass(small)]]">
-      <iron-icon icon="[[commissioner.icon]]"></iron-icon>
+      <iron-icon icon="[[_getMemberIcon(commissioner.position)]]"></iron-icon>
       <div class="member-desc layout flex self-center">
         <h2>[[commissioner.name]]</h2>
         <h3>[[commissioner.function]]</h3>
@@ -75,6 +74,27 @@
         _computeClass: function(small) {
           return 'layout horizontal commission-member stretch' + (small ? ' small-device' : '');
         },
+
+        _getMemberIcon: function(position) {
+          switch (position){
+            case 1:
+              return 'icons:gavel'; break;
+            case 2:
+              return 'icons:chrome-reader-mode'; break;
+            case 3:
+              return 'editor:attach-money'; break;
+            case 4:
+              return 'social:notifications'; break;
+            case 5:
+              return 'maps:local-shipping'; break;
+            case 6:
+              return 'icons:settings'; break;
+            case 7:
+              return 'icons:announcement'; break;
+            default:
+              return 'icons:error'
+          }
+        }
       });
     })();
   </script>
