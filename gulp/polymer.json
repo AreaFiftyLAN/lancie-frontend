@@ -15,7 +15,6 @@
     "src/lancie-ticket-transfer/lancie-ticket-transfer-success.html",
     "src/lancie-ticket-page/lancie-ticket-page.html",
     "src/lancie-seatmap/lancie-seatmap.html",
-    "src/lancie-rfid/lancie-rfid.html",
     "src/lancie-login/lancie-register-confirm.html",
     "src/lancie-login/lancie-check-email.html",
     "src/lancie-contact/lancie-contact.html",
