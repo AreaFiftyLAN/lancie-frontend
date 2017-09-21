@@ -42,10 +42,11 @@
     </style>
 
     <lancie-ajax
+      auto-fire
+      skip-token
       id="ajaxSponsor"
-      refurl="/web/sponsor"
-      handle-as="json"
-      on-response="onResponse"
+      refurl="web/sponsor"
+      on-lancie-ajax="onResponse"
     ></lancie-ajax>
 
     <div id="grid" class="layout horizontal wrap flex">
@@ -85,10 +86,6 @@
           presenters: Array,
           premiums: Array,
           normals: Array
-        },
-
-        attached: function () {
-          this.$.ajaxSponsor.generateRequest();
         },
 
         onResponse: function (e, request) {
