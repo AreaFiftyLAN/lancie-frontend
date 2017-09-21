@@ -9,8 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/google-map/google-map.html">
 <link rel="import" href="../../bower_components/google-map/google-map-marker.html">
 <link rel="import" href="../lancie-section/lancie-section.html">
@@ -122,17 +121,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <lancie-section type="primary" header="Organize your own tournament!">
       <div>
-        <iron-ajax
-           auto
-           url="{{markdownUrl}}"
-           handle-as="text"
-           last-response="{{markdown}}"></iron-ajax>
-        <marked-element markdown="{{markdown}}">
-          <div class="markdown-html"></div>
-        </marked-element>
+        <p>Is your favorite game not listed as a tournament? No problem! We offer you the possibility to become a game<br>
+          master! For this, we would like to receive a proposal for your tournament. Your proposal should contain the<br>
+          following information.</p>
+        <ul>
+          <li>Which game you want to host</li>
+          <li>Game format (Free-for all, 5 vs 5, 1 vs 1, etc)</li>
+          <li>Tournament structure (Qualifiers, rounds and a final, or a single round)</li>
+          <li>Winner criteria (How is the winner chosen?)</li>
+          <li>Expected duration (4 hours for the entire tournament, or does it span multiple days?)</li>
+          <li>Required resources (Do you need our server, or host your own?)</li>
+          <li>Contact information</li>
+        </ul>
+        <p><a href="/contact">Send us an email</a> with all these details and we will get back to you!</p>
+        <p>Official tournaments have priority, which means your tournament should be flexible enough be held at any
+          point during the weekend. We prefer short compact tournaments, but don’t let that stop you from proposing an
+          amazing multi-day event. There is no limit to the duration of the tournament, but the format should be taken
+          into account. A truly competitive tournament should not take more than a morning or afternoon, while a casual
+          long term tournaments can span multiple days.</p>
+        <p>We will review your proposal, and when accepted, we’ll appoint you as responsible person to run this<br>
+          tournament. This means the entire organisation of the tournament will be up to you. Your tournament will be<br>
+          placed on the website. but we can not offer any extra support for your tournament during the event.</p>
 
         <lancie-activities json="scripts/unofficial-tournaments.json?ver=1.2"></lancie-activities>
-
       </div>
     </lancie-section>
 
@@ -152,11 +163,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </lancie-section>
 
     <lancie-section type="google-maps-section primary full no-padding">
-      <iron-ajax
-        auto
-        url="/api/v1/web/properties/googlemapskey"
-        handle-as="json"
-        last-response="{{googleMapsToken}}"></iron-ajax>
+      <lancie-ajax
+        auto-fire
+        skip-token
+        refurl="web/properties/googlemapskey"
+        last-response="{{googleMapsToken}}"></lancie-ajax>
       <template is="dom-if" if="{{googleMapsToken}}" restamp="true">
         <google-map latitude="51.995694" longitude="4.373950" zoom="14" disable-zoom fit-to-markers draggable="false" api-key="{{googleMapsToken.message}}">
           <google-map-marker slot="markers" latitude="51.995694" longitude="4.373950" draggable="true" title="Area FiftyLAN"></google-map-marker>

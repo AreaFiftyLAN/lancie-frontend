@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <dom-module id="my-area-discord">
   <template>
     <style include="iron-flex iron-flex-alignment"></style>
@@ -36,7 +36,13 @@
       margin-bottom: 10px;
     }
     </style>
-    <iron-ajax auto url="https://discordapp.com/api/servers/146690066541051904/widget.json" handle-as="json" last-response="{{discordWidget}}"></iron-ajax>
+    <lancie-ajax
+      auto-fire
+      skip-token
+      absoluteurl="https://discordapp.com/api/servers/146690066541051904/widget.json"
+      last-response="{{discordWidget}}"
+    ></lancie-ajax>
+
     <paper-card elevation="1" animated-shadow="true" image="/images-optimized/lancie/discord.png">
       <div class="card-content">
         <div class="block">
