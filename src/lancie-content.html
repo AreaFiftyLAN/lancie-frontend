@@ -95,7 +95,6 @@
 
       ready: function() {
         this.addEventListener('store-token', function(e) {
-          console.log('storing token');
           this.$.auth.storeToken(e.detail.token);
         }.bind(this));
         this.addEventListener('navigate', function(e) {

@@ -59,15 +59,12 @@
         ready() {
           super.ready();
           checks.push((newUser) => {
-            console.log('loading user');
             this.user = newUser;
           });
         }
 
         _canAccess(user, nologin) {
-          console.log('checking', this.stamped, nologin, user);
           if (!this.stamped && (nologin || (user && user !== ''))) {
-            console.log('stamping');
             let template = this.querySelector('template');
             let TemplateClass = Polymer.Templatize.templatize(template, this, {});
             var instance = new TemplateClass({user: null});
