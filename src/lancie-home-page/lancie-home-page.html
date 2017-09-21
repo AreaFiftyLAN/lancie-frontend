@@ -9,7 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/marked-element/marked-element.html">
 <link rel="import" href="../../bower_components/google-map/google-map.html">
 <link rel="import" href="../../bower_components/google-map/google-map-marker.html">
@@ -122,11 +122,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <lancie-section type="primary" header="Organize your own tournament!">
       <div>
-        <iron-ajax
-           auto
-           url="{{markdownUrl}}"
+        <lancie-ajax
+           auto-fire
+           skip-token
+           refurl="{{markdownUrl}}"
            handle-as="text"
-           last-response="{{markdown}}"></iron-ajax>
+           last-response="{{markdown}}"></lancie-ajax>
         <marked-element markdown="{{markdown}}">
           <div class="markdown-html"></div>
         </marked-element>
@@ -152,11 +153,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </lancie-section>
 
     <lancie-section type="google-maps-section primary full no-padding">
-      <iron-ajax
-        auto
-        url="/api/v1/web/properties/googlemapskey"
+      <lancie-ajax
+        auto-fire
+        skip-token
+        refurl="/api/v1/web/properties/googlemapskey"
         handle-as="json"
-        last-response="{{googleMapsToken}}"></iron-ajax>
+        last-response="{{googleMapsToken}}"></lancie-ajax>
       <template is="dom-if" if="{{googleMapsToken}}" restamp="true">
         <google-map latitude="51.995694" longitude="4.373950" zoom="14" disable-zoom fit-to-markers draggable="false" api-key="{{googleMapsToken.message}}">
           <google-map-marker slot="markers" latitude="51.995694" longitude="4.373950" draggable="true" title="Area FiftyLAN"></google-map-marker>

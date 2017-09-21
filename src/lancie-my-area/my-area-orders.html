@@ -36,8 +36,8 @@
     }
     </style>
 
-    <lancie-ajax auto id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-lancie-ajax="storeOrders"></lancie-ajax>
-    <lancie-ajax auto id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-lancie-ajax="storeTickets"></lancie-ajax>
+    <lancie-ajax auto-fire id="ajaxOrders" refurl="users/current/orders" handle-as="json" on-lancie-ajax="storeOrders"></lancie-ajax>
+    <lancie-ajax auto-fire id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-lancie-ajax="storeTickets"></lancie-ajax>
     <lancie-ajax id="ajaxTokens" refurl="tickets/tokens" method="GET" handle-as="json" on-lancie-ajax="storeTokens"></lancie-ajax>
 
     <paper-card class="layout vertical flex">

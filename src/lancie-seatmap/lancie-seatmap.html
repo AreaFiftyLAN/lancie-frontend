@@ -73,8 +73,8 @@ This code may only be used under the BSD style license found at https://github.c
     }
     </style>
 
-    <lancie-ajax auto id="ajaxGetAllSeats" refurl="seats" on-lancie-ajax="onGetAllSeats"></lancie-ajax>
-    <lancie-ajax auto id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-lancie-ajax="onGetTeamTickets"></lancie-ajax>
+    <lancie-ajax auto-fire id="ajaxGetAllSeats" refurl="seats" on-lancie-ajax="onGetAllSeats"></lancie-ajax>
+    <lancie-ajax auto-fire id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-lancie-ajax="onGetTeamTickets"></lancie-ajax>
     <lancie-ajax id="ajaxReserveSeat" method="POST" on-lancie-ajax="onReserveSeat"></lancie-ajax>
 
     <paper-input label="Search user" value="{{filterUser}}"></paper-input>
