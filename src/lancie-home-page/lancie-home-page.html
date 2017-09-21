@@ -166,7 +166,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <lancie-ajax
         auto-fire
         skip-token
-        refurl="/web/properties/googlemapskey"
+        refurl="web/properties/googlemapskey"
         last-response="{{googleMapsToken}}"></lancie-ajax>
       <template is="dom-if" if="{{googleMapsToken}}" restamp="true">
         <google-map latitude="51.995694" longitude="4.373950" zoom="14" disable-zoom fit-to-markers draggable="false" api-key="{{googleMapsToken.message}}">
