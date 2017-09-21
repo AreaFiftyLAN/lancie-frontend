@@ -8,63 +8,67 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/marked-element/marked-element.html">
 
 <dom-module id="lancie-faq">
-<template>
-  <style>
-    :host {
-      display: block;
-    }
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
 
-    h3 {
-      margin-bottom: 4px;
-    }
-  </style>
+      h3 {
+        margin-bottom: 4px;
+      }
+    </style>
 
-  <lancie-ajax
-    id="ajaxFaq"
-    refurl="/web/faq"
-    handle-as="json"
-    on-response="onResponse"
-  ></lancie-ajax>
+    <lancie-ajax
+      id="ajaxFaq"
+      refurl="/web/faq"
+      handle-as="json"
+      on-response="onResponse"
+    ></lancie-ajax>
 
-  <template is="dom-repeat" items="[[faq]]" as="faqitem">
-    <h3>[[faqitem.question]]</h3>
-    [[faqitem.answer]]
+    <template is="dom-repeat" items="[[faq]]" as="faqitem">
+      <h3>[[faqitem.question]]</h3>
+      [[faqitem.answer]]
+    </template>
+
   </template>
-
-</template>
-<script>
-  'use strict';
-
-  (function () {
-    Polymer({
-      is: 'lancie-faq',
-      properties: {
-        faq: {
-          type: Array,
-          value: [
-            {
-              "question": "There are no frequently asked questions yet. If you have a question, feel free to ask us!",
-              "answer": ""
-            }
-          ]
+  <script>
+    'use strict';
+    (function () {
+      class LancieFaq extends Polymer.Element {
+        static get is() {
+          return 'lancie-faq';
         }
-      },
 
-      attached: function() {
-        this.$.ajaxFaq.generateRequest();
-      },
+        static get properties() {
+          return {
+            faq: {
+              type: Array,
+              value: [{
+                  'question': 'There are no frequently asked questions yet. If you have a question, feel free to ask us!',
+                  'answer': ''
+              }]
+            }
+          }
+        }
 
-      onResponse: function (e, request) {
-        if (request.succeeded) {
-          this.faq = request.response.object;
+        attached() {
+          this.$.ajaxFaq.generateRequest();
+        }
+
+        onResponse(e, request) {
+          if (request.succeeded) {
+            this.faq = request.response.object;
+          }
         }
       }
-    });
-  })();
-</script>
+      customElements.define(LancieFaq.is, LancieFaq);
+    })();
+  </script>
 </dom-module>
