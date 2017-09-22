@@ -16,7 +16,7 @@
     <lancie-ajax id="ajax"></lancie-ajax>
     <lancie-form id="form"></lancie-form>
 
-    <slot id="contentContainer"></slot>
+    <slot id="slot"></slot>
   </template>
   <script>
     'use strict';
@@ -43,10 +43,6 @@
               type: Boolean,
               value: false
             },
-            stamped: {
-              type: Boolean,
-              value: false,
-            },
           };
         }
 
@@ -64,15 +60,13 @@
         }
 
         _canAccess(user, nologin) {
-          if (!this.stamped && (nologin || (user && user !== ''))) {
-            let template = this.querySelector('template');
+          if (nologin || (user && user !== '')) {
+            let template = this.$.slot.assignedNodes().find((element) => element.nodeName === 'TEMPLATE');
             let TemplateClass = Polymer.Templatize.templatize(template, this, {});
-            var instance = new TemplateClass({user: null});
+            var instance = new TemplateClass({user: user});
 
             this.$.loginForm.style.display = 'none';
             this.shadowRoot.appendChild(instance.root);
-            instance.user = user;
-            this.stamped = true;
           }
         }
 
