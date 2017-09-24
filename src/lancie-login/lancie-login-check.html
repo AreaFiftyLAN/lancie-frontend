@@ -20,7 +20,6 @@
   </template>
   <script>
     'use strict';
-    var user = '';
 
     (function () {
       var checks = [];
@@ -35,38 +34,57 @@
             user: {
               type: Object,
               notify: true,
-              value() {
-                return user;
-              },
             },
             nologin: {
               type: Boolean,
               value: false
+            },
+            templateInstance: {
+              type: Object,
+              value: {},
+            },
+            callbackFunction: {
+              type: Function,
             },
           };
         }
 
         static get observers() {
           return [
-            '_canAccess(user, nologin)'
+            '_canAccess(instance, user, nologin)'
           ];
         }
 
-        ready() {
-          super.ready();
-          checks.push((newUser) => {
+        connectedCallback() {
+          super.connectedCallback();
+          this.callbackFunction = checks.push((newUser) => {
             this.user = newUser;
           });
         }
+        
+        disconnectedCallback() {
+          super.disconnectedCallback();
+          checks.splice(checks.indexOf(this.callbackFunction), 1);
+        }
 
-        _canAccess(user, nologin) {
-          if (nologin || (user && user !== '')) {
+        _canAccess(instance, user, nologin) {
+          // console.log(user);
+          if (!instance && (nologin || (user && user !== ''))) {
             let template = this.$.slot.assignedNodes().find((element) => element.nodeName === 'TEMPLATE');
-            let TemplateClass = Polymer.Templatize.templatize(template, this, {});
-            var instance = new TemplateClass({user: user});
+            let TemplateClass = Polymer.Templatize.templatize(template, this, {
+              forwardHostProp(prop, value) {
+                if(this.__instance) {
+                  this.__instance.forwardHostProp(prop, value);
+                }
+              },
+              instanceProps: {
+                user: true,
+              }});
+            this.instance = new TemplateClass({user: user});
 
             this.$.loginForm.style.display = 'none';
-            this.shadowRoot.appendChild(instance.root);
+            this.shadowRoot.appendChild(this.instance.root);
+          } else if (!!instance) {
           }
         }
 

@@ -69,6 +69,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // If the request fails, no further action is required. The token has expired and is no longer valid. The user is required to log in as usual.
         if (request.succeeded) {
           if (request.response.message === 'Not logged in') {
+            this.auth = {};
             return;
           }
           this.$.ajax.injectToken(this.auth.token);
@@ -83,11 +84,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _changed: function(auth) {
         var token = this.getToken();
         if (this.initial && token && !this.user) {
-          this.$.currentUser.headers = {
-            'X-Auth-Token': token,
-          };
-          this.$.currentUser.generateRequest();
+          this.$.currentUser.token = token;
           this.initial = false;
+          this.$.currentUser.generateRequest();
         }
       },
 
