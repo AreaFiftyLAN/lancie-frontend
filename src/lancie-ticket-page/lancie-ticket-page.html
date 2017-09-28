@@ -95,11 +95,11 @@ This code may only be used under the BSD style license found at https://github.c
           <lancie-ticket-basket class="flex-2" basket="[[basket]]" user="{{user}}"></lancie-ticket-basket>
         </div>
 
-        <lancie-login on-logged-in="storeUser"></lancie-login>
+        <lancie-login on-logged-in="next"></lancie-login>
 
         <div>
           <h2>Fill in your profile</h2>
-          <profile-edit-form id="profileForm" user="{{user}}" on-profile-submitted="next"></profile-edit-form>
+          <profile-edit-form id="profileForm" user="{{user}}" on-profile-form-submit="next"></profile-edit-form>
           <div>
             <paper-button class="btn btn-primary" on-tap="submitProfile">Submit</paper-button>
           </div>
@@ -107,13 +107,13 @@ This code may only be used under the BSD style license found at https://github.c
 
         <div>
           <h2>Terms and conditions</h2>
-          <lancie-terms-of-service-text></lancie-terms-of-service-text>
+          <!-- <lancie-terms-of-service-text></lancie-terms-of-service-text> -->
           <div>
             <paper-button class="btn btn-primary" on-tap="">Agree</paper-button>
           </div>
         </div>
       </iron-pages>
-          </div>
+    </div>
 
   </template>
   <script>
@@ -143,14 +143,12 @@ This code may only be used under the BSD style license found at https://github.c
     ],
 
     next: function() {
-      if (this.selected === 0) {
-        if (!this.user) {
-          this.$.step.selectNext();
-        } else if (!this.$.profileForm.validate()) {
-          this.selected = 2;
-        } else {
-          this.selected = 3;
-        }
+      if (!this.user) {
+        this.selected = 1;
+      } else if (!this.$.profileForm.validate()) {
+        this.selected = 2;
+      } else if (this.user && this.$.profileForm.validate()) {
+        this.selected = 3;
       }
     },
 
