@@ -55,7 +55,6 @@
     <iron-location query="{{query}}"></iron-location>
 
     <lancie-ajax id="removeTicket" method="DELETE" on-lancie-ajax="onRemoveTicket"></lancie-ajax>
-    <lancie-ajax id="checkout" refurl="orders/[[basket.id]]/checkout" method="POST" on-lancie-ajax="onCheckout"></lancie-ajax>
 
     <h2>Order</h2>
     <template is="dom-if" if="[[!_hasTickets(basket.tickets)]]">
@@ -120,15 +119,6 @@
 
     tryCheckout: function() {
       this.fire('next');
-    },
-
-    onCheckout: function(e, request) {
-      if (request.succeeded) {
-        // This sets the url to the mollie address of the order.
-        window.location.href = request.response.object;
-      } else {
-        this.fire('refreshToast');
-      }
     },
 
     removeTicket: function(e, ticketId) {

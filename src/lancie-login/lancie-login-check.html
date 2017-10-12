@@ -85,6 +85,8 @@
 
         this.$.loginForm.style.display = 'none';
         this.shadowRoot.appendChild(this.instance.root);
+      } else if (user) {
+        this.instance.user = user;
       }
     }
 
