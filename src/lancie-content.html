@@ -40,7 +40,7 @@
 
       <lancie-ticket-transfer-success data-route="transfer-success" data-path="lancie-ticket-transfer/lancie-ticket-transfer-success.html"></lancie-ticket-transfer-success>
 
-      <lancie-login-check user="{{user}}" data-route="tickets" data-path="lancie-ticket-page/lancie-ticket-page.html">
+      <lancie-login-check user="{{user}}" data-route="tickets" data-path="lancie-ticket-page/lancie-ticket-page.html" nologin>
         <template>
           <lancie-ticket-page user="{{user}}"></lancie-ticket-page>
         </template>
@@ -86,7 +86,10 @@
     Polymer({
       is: 'lancie-content',
       properties: {
-        user: Object,
+        user: {
+          type: Object,
+          notify: true,
+        },
         page: {
           type: Object,
           notify: true

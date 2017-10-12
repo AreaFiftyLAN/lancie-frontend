@@ -1,111 +1,104 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/lancie-login-card/lancie-login-card.html">
-<link rel="import" href="../../bower_components/lancie-login-dialog/lancie-login-dialog.html">
 <link rel="import" href="../../bower_components/lancie-form/lancie-form.html">
 
 <dom-module id="lancie-login-check">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
+<template>
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
 
-    <lancie-login-card id="loginForm" on-logged-in="storeUser"></lancie-login-card>
+  <lancie-login-card id="loginForm"></lancie-login-card>
 
-    <lancie-login-dialog id="loginDialog" on-logged-in="storeUser"></lancie-login-dialog>
+  <lancie-ajax id="ajax"></lancie-ajax>
+  <lancie-form id="form"></lancie-form>
 
-    <lancie-ajax id="ajax"></lancie-ajax>
-    <lancie-form id="form"></lancie-form>
+  <slot id="slot"></slot>
+</template>
+<script>
+(function () {
+'use strict';
 
-    <slot id="contentContainer"></slot>
-  </template>
-  <script>
-  'use strict';
-  var user = '';
+  var checks = [];
 
-  (function() {
+  class LancieLoginCheck extends Polymer.Element {
+    static get is() {
+      return 'lancie-login-check';
+    }
 
-    var checks = [];
-
-    Polymer({
-      is: 'lancie-login-check',
-
-      behaviors: [Polymer.Templatizer],
-
-      properties: {
+    static get properties() {
+      return {
         user: {
           type: Object,
           notify: true,
-          value: function() {
-            return user;
-          }
         },
         nologin: {
           type: Boolean,
           value: false
         },
-      },
+        instance: Object,
+        callbackFunction: Function,
+      };
+    }
 
-      observers: [
-        '_canAccess(user, nologin)'
-      ],
+    static get observers() {
+      return [
+        '_canAccess(instance, user, nologin)'
+      ];
+    }
 
-      ready: function() {
-        checks.push(function(newUser) {
-          this.user = newUser;
-        }.bind(this));
+    connectedCallback() {
+      super.connectedCallback();
+      this.callbackFunction = checks.push((newUser) => {
+        this.user = newUser;
+      });
+    }
+    
+    disconnectedCallback() {
+      super.disconnectedCallback();
+      checks.splice(checks.indexOf(this.callbackFunction), 1);
+    }
 
-        // Add eventlistener to catch login dialog open request
-        this.addEventListener('login-dialog', function(e) {
-          if (!!e.detail.orderId) {
-            this.$.loginDialog.orderId = e.detail.orderId;
-          }
-          this.$.loginDialog.open();
-        });
-      },
+    constructor() {
+      super();
+      this.addEventListener('logged-in', e => {this.storeUser(e, e.detail);});
+    }
 
-      _canAccess: function(user, nologin) {
-        if (!this.stamped && (nologin || (user && user !== ''))) {
-          var nodes = this.getContentChildren('#contentContainer');
-          var template = nodes[0].nodeName.toLowerCase() === 'template' ? nodes[0] : nodes[1];
-          this.templatize(template);
-          this._instance = this.stamp({});
-          Polymer.dom(this.root).appendChild(this._instance.root);
-          this.$.loginForm.style.display = 'none';
-          this.stamped = true;
-        }
-      },
+    _canAccess(instance, user, nologin) {
+      if (!instance && (nologin || (user && user !== ''))) {
+        let template = this.$.slot.assignedNodes().find((element) => element.nodeName.toLowerCase() === 'template');
+        let TemplateClass = Polymer.Templatize.templatize(template, this, {
+          forwardHostProp(prop, value) {
+            if(this.instance) {
+              this.instance.forwardHostProp(prop, value);
+            }
+          },
+          instanceProps: {
+            user: true,
+          }});
+        this.instance = new TemplateClass({user: user});
 
-      storeUser: function(e, detail) {
-        this.fire('store-token', {token: detail.token});
-        this.$.ajax.injectToken(detail.token);
-        this.$.form.injectToken(detail.token);
-
-        this.user = detail.user;
-        for (var i = 0; i < checks.length; i++) {
-          checks[i](this.user);
-        }
-      },
-
-      // Implements extension point from Templatizer mixin
-      // Called as side-effect of a host property change, responsible for
-      // notifying parent.<prop> path change on instance
-      _forwardParentProp: function(prop, value) {
-        if (this._instance) {
-          this._instance.__setProperty(prop, value, true);
-        }
-      },
-      // Implements extension point from Templatizer
-      // Called as side-effect of a host path change, responsible for
-      // notifying parent.<path> path change on each row
-      _forwardParentPath: function(path, value) {
-        if (this._instance) {
-          this._instance._notifyPath(path, value, true);
-        }
+        this.$.loginForm.style.display = 'none';
+        this.shadowRoot.appendChild(this.instance.root);
       }
-    });
-  })();
-  </script>
+    }
+
+    storeUser(e, detail) {
+      this.dispatchEvent(new CustomEvent('store-token', {detail: {token: detail.token}, bubbles: true, composed: true}));
+      this.$.ajax.injectToken(detail.token);
+      this.$.form.injectToken(detail.token);
+
+      this.user = detail.user;
+      for (var i = 0; i < checks.length; i++) {
+        checks[i](this.user);
+      }
+    }
+  }
+
+  customElements.define(LancieLoginCheck.is, LancieLoginCheck);
+})();
+</script>
 </dom-module>
