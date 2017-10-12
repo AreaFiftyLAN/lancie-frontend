@@ -30,13 +30,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 0;
       }
 
-      .btn {
+      paper-button {
         width: calc(50% - 15px);
+        margin-top: 4px;
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
       }
 
-      .btn-primary {
-        color: var(--secondary-color);
-        background: var(--primary-color);
+      .actions {
+        text-align: center;
       }
     </style>
 
@@ -44,9 +46,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="card-content">
         <lancie-login-form id="loginForm" registering="[[registering]]" on-enter="submit"></lancie-login-form>
       </div>
-      <div class="cardactions">
-        <paper-button class="btn btn-primary" raised on-tap="submit">[[_getAction(registering)]]</paper-button>
-        <paper-button class="btn" raised on-tap="switchForm">[[_getSwitchAction(registering)]]</paper-button>
+      <div class="actions">
+        <paper-button raised on-tap="switchForm">Change to [[_getSwitchAction(registering)]]</paper-button>
       </div>
     </lancie-card>
 
