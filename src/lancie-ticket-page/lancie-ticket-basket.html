@@ -1,6 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/iron-location/iron-location.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
@@ -52,8 +51,6 @@
     }
   </style>
 
-    <iron-location query="{{query}}"></iron-location>
-
     <lancie-ajax id="removeTicket" method="DELETE" on-lancie-ajax="onRemoveTicket"></lancie-ajax>
 
     <h2>Order</h2>
@@ -78,7 +75,6 @@
           <li>Pickup radius is 7.5Km</li>
           <li>Under 18 years, you must be able to provide parental approval</li>
         </ul>
-        <paper-button on-tap="tryCheckout">Checkout</paper-button>
         <small hidden$="[[!_userAssigned(basket)]]">Note: Every ticket added to this order will be reserved and you will have 15 minutes to pay. Tickets will be released after this period if not paid.</small>
       </div>
     </template>
@@ -96,29 +92,6 @@
         type: Object,
         notify: true,
       },
-      query: String,
-    },
-
-    attached: function() {
-      if (this.query.indexOf('login') > -1 && !this.user) {
-        this.loginDialog();
-      }
-    },
-
-    checkout: function() {
-      this.$.checkout.generateRequest();
-    },
-
-    closeDialog: function() {
-      this.$.termsOfService.close();
-    },
-
-    loginDialog: function() {
-      this.fire('login-dialog', {orderId: this.basket.id});
-    },
-
-    tryCheckout: function() {
-      this.fire('next');
     },
 
     removeTicket: function(e, ticketId) {
