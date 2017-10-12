@@ -4,96 +4,101 @@
 <link rel="import" href="../../bower_components/lancie-form/lancie-form.html">
 
 <dom-module id="lancie-login-check">
-  <template>
-    <style>
-      :host {
-        display: block;
+<template>
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <lancie-login-card id="loginForm"></lancie-login-card>
+
+  <lancie-ajax id="ajax"></lancie-ajax>
+  <lancie-form id="form"></lancie-form>
+
+  <slot id="slot"></slot>
+</template>
+<script>
+(function () {
+'use strict';
+
+  var checks = [];
+
+  class LancieLoginCheck extends Polymer.Element {
+    static get is() {
+      return 'lancie-login-check';
+    }
+
+    static get properties() {
+      return {
+        user: {
+          type: Object,
+          notify: true,
+        },
+        nologin: {
+          type: Boolean,
+          value: false
+        },
+        instance: Object,
+        callbackFunction: Function,
+      };
+    }
+
+    static get observers() {
+      return [
+        '_canAccess(instance, user, nologin)'
+      ];
+    }
+
+    connectedCallback() {
+      super.connectedCallback();
+      this.callbackFunction = checks.push((newUser) => {
+        this.user = newUser;
+      });
+    }
+    
+    disconnectedCallback() {
+      super.disconnectedCallback();
+      checks.splice(checks.indexOf(this.callbackFunction), 1);
+    }
+
+    constructor() {
+      super();
+      this.addEventListener('logged-in', e => {this.storeUser(e, e.detail)});
+    }
+
+    _canAccess(instance, user, nologin) {
+      if (!instance && (nologin || (user && user !== ''))) {
+        let template = this.$.slot.assignedNodes().find((element) => element.nodeName.toLowerCase() === 'template');
+        let TemplateClass = Polymer.Templatize.templatize(template, this, {
+          forwardHostProp(prop, value) {
+            if(this.instance) {
+              this.instance.forwardHostProp(prop, value);
+            }
+          },
+          instanceProps: {
+            user: true,
+          }});
+        this.instance = new TemplateClass({user: user});
+
+        this.$.loginForm.style.display = 'none';
+        this.shadowRoot.appendChild(this.instance.root);
       }
-    </style>
+    }
 
-    <lancie-login-card id="loginForm" on-logged-in="storeUser"></lancie-login-card>
+    storeUser(e, detail) {
+      this.dispatchEvent(new CustomEvent('store-token', {detail: {token: detail.token}, bubbles: true, composed: true}));
+      this.$.ajax.injectToken(detail.token);
+      this.$.form.injectToken(detail.token);
 
-    <lancie-ajax id="ajax"></lancie-ajax>
-    <lancie-form id="form"></lancie-form>
-
-    <slot id="slot"></slot>
-  </template>
-  <script>
-    'use strict';
-
-    (function () {
-      var checks = [];
-
-      class LancieLoginCheck extends Polymer.Element {
-        static get is() {
-          return 'lancie-login-check';
-        }
-
-        static get properties() {
-          return {
-            user: {
-              type: Object,
-              notify: true,
-            },
-            nologin: {
-              type: Boolean,
-              value: false
-            },
-            instance: Object,
-            callbackFunction: Function,
-          };
-        }
-
-        static get observers() {
-          return [
-            '_canAccess(instance, user, nologin)'
-          ];
-        }
-
-       connectedCallback() {
-          super.connectedCallback();
-          this.callbackFunction = checks.push((newUser) => {
-            this.user = newUser;
-          });
-        }
-        
-        disconnectedCallback() {
-          super.disconnectedCallback();
-          checks.splice(checks.indexOf(this.callbackFunction), 1);
-        }
-
-        _canAccess(instance, user, nologin) {
-          if (!instance && (nologin || (user && user !== ''))) {
-            let template = this.$.slot.assignedNodes().find((element) => element.nodeName === 'TEMPLATE');
-            let TemplateClass = Polymer.Templatize.templatize(template, this, {
-              forwardHostProp(prop, value) {
-                if(this.instance) {
-                  this.instance.forwardHostProp(prop, value);
-                }
-              },
-              instanceProps: {
-                user: true,
-              }});
-            this.instance = new TemplateClass({user: user});
-
-            this.$.loginForm.style.display = 'none';
-            this.shadowRoot.appendChild(this.instance.root);
-          }
-        }
-
-        storeUser(e, detail) {
-          this.dispatchEvent(new CustomEvent('store-token', {detail: {token: detail.token}, bubbles: true, composed: true}));
-          this.$.ajax.injectToken(detail.token);
-          this.$.form.injectToken(detail.token);
-
-          this.user = detail.user;
-          for (var i = 0; i < checks.length; i++) {
-            checks[i](this.user);
-          }
-        }
+      this.user = detail.user;
+      for (var i = 0; i < checks.length; i++) {
+        checks[i](this.user);
       }
+    }
+  }
 
-      customElements.define(LancieLoginCheck.is, LancieLoginCheck);
-    })();
-  </script>
+  customElements.define(LancieLoginCheck.is, LancieLoginCheck);
+})();
+</script>
 </dom-module>
