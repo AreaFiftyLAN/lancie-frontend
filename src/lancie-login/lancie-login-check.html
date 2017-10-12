@@ -64,7 +64,7 @@
 
     constructor() {
       super();
-      this.addEventListener('logged-in', e => {this.storeUser(e, e.detail)});
+      this.addEventListener('logged-in', e => {this.storeUser(e, e.detail);});
     }
 
     _canAccess(instance, user, nologin) {
