@@ -19,6 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../lancie-faq/lancie-faq.html">
 <link rel="import" href="../lancie-facebook/lancie-facebook.html">
 <link rel="import" href="lancie-image-slider.html">
+<link rel="import" href="lancie-subscribe-mail-form.html">
 
 <dom-module id="lancie-home-page">
   <template>
@@ -80,9 +81,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <lancie-image-slider></lancie-image-slider>
 
-    <lancie-section type="primary" header="Partners &amp; Sponsors">
-      <lancie-sponsors></lancie-sponsors>
+    <lancie-section type="primary" header="Stay up to date!">
+      <div>
+        Enter your E-Mail here to be notified when the tickets are for sale!
+        <lancie-subscribe-mail-form></lancie-subscribe-mail-form>
+      </div>
     </lancie-section>
+
+    <!--<lancie-section type="primary" header="Partners &amp; Sponsors">
+      <lancie-sponsors></lancie-sponsors>
+    </lancie-section>-->
 
     <lancie-section type="secondary" header="Area FiftyLAN">
       <div class="intro-container">
