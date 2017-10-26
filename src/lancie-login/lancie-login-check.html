@@ -76,6 +76,9 @@
               this.instance.forwardHostProp(prop, value);
             }
           },
+          notifyInstanceProp(instance, property, value) {
+            this.notifyPath(property);
+          },
           instanceProps: {
             user: true,
           }});
