@@ -1,7 +1,9 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 
+<link rel="import" href="../../bower_components/lancie-error/lancie-error.html">
 <link rel="import" href="../../bower_components/lancie-form/lancie-form.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
@@ -16,16 +18,27 @@
       lancie-form.mail-input iron-icon {
         margin-right: 12px;
       }
+
+      lancie-error.lancie-info {
+        border-left: 4px solid var(--primary-color);
+        background: var(--paper-light-blue-50);
+        color: var(--primary-color);
+      }
+
+      [hidden] {
+        display: none !important;
+      }
     </style>
 
-    <lancie-ajax id="ajaxMailSubscribe" refurl="??"></lancie-ajax>
-
-    <lancie-form id="mailForm" refurl="" class="mail-input">
-      <paper-input label="E-Mail" name="mail" class="mail-input" value="{{mail}}">
+    <lancie-form id="mailForm" refurl="subscriptions" method="POST" class="mail-input" on-response="_onResponse">
+      <lancie-error id="mailFormError"></lancie-error>
+      <!-- Can be replaced with lancie-alert later on -->
+      <lancie-error id="mailFormInfo" class="lancie-info"></lancie-error>
+      <paper-input label="E-Mail" name="email" class="mail-input" value="{{email}}">
         <iron-icon icon="mail" slot="prefix"></iron-icon>
         <paper-icon-button slot="suffix" on-tap="clearInput" icon="clear" alt="clear" title="Clear"></paper-icon-button>
       </paper-input>
-      <paper-button disabled="[[!mail]]" on-tap="handleSubmit">Sign up</paper-button>
+      <paper-button disabled="[[!email]]" on-tap="handleSubmit">Sign up</paper-button>
     </lancie-form>
   </template>
 
@@ -36,14 +49,30 @@
       Polymer({
         is: 'lancie-subscribe-mail-form',
         properties: {
-          mail: {
+          email: {
             type: String,
             value: null
           }
         },
 
         handleSubmit: function() {
-          alert("This is not implemented yet");
+          this.$.mailForm.validateAndSubmit();
+          this.$.mailFormError.clear();
+          this.$.mailFormInfo.clear();
+        },
+
+        _onResponse: function(event, request) {
+            console.log(event, request);
+          if (request.succeeded) {
+            this.clearInput();
+            this.$.mailFormError.clear();
+            this.$.mailFormInfo.setError("Thank you for signing up!");
+          } else {
+            this.$.mailFormError.setError(
+              !!request.request.response.message ? request.request.response.message : 'Oops! Something has gone wrong. Please refresh and try again.'
+            );
+            this.$.mailFormInfo.clear();
+          }
         },
 
         clearInput: function() {
