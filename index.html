@@ -65,6 +65,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       background-color: var(--primary-color);
       height: var(--app-toolbar-height);
       justify-content: space-between;
+      display: flex;
+      align-items: center;
+    }
+
+    app-drawer {
+      display: none;
     }
 
     iron-selector a {
@@ -73,7 +79,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       align-items: center;
       padding-left: 16px;
     }
-    iron-selector a.iron-selected {
+    .navigation-drawer a.iron-selected {
       font-weight: bold;
     }
 
@@ -89,7 +95,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       color: inherit;
     }
 
-    paper-tab[link] a {
+    .navigation-tabs a {
       text-decoration: none;
       color: var(--secondary-color);
       font-size: 16px;
@@ -100,6 +106,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       display: flex;
       align-items: center;
+    }
+    .navigation-tabs a.iron-selected {
+      border-bottom: 2px solid var(--secondary-color);
     }
 
     img {
@@ -112,12 +121,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       width: 48px;
     }
 
-    paper-tabs {
+    .navigation-tabs {
       min-height: 100%;
-
-      --paper-tabs-selection-bar: {
-        height: 4px;
-      };
+      display: flex;
     }
 
     .menu-button {
@@ -125,7 +131,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     @media (max-width: 800px) {
-      paper-tabs {
+      .navigation-tabs {
         display: none;
       }
 
@@ -136,18 +142,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </style>
 
   <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-
-  <link rel="import" href="bower_components/polymer/polymer.html">
-  <link rel="import" href="bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
-  <link rel="import" href="bower_components/app-layout/app-header-layout/app-header-layout.html">
-  <link rel="import" href="bower_components/app-layout/app-header/app-header.html">
-  <link rel="import" href="bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
-  <link rel="import" href="bower_components/app-layout/app-drawer/app-drawer.html">
-  <link rel="import" href="bower_components/app-layout/app-toolbar/app-toolbar.html">
-  <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
-  <link rel="import" href="bower_components/paper-tabs/paper-tab.html">
-  <!-- TODO: Generate custom icon set -->
-  <link rel="import" href="bower_components/iron-icons/iron-icons.html">
 </head>
 
 <body>
@@ -160,16 +154,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- force-narrow prevents the drawer from ever being displayed in persistent mode -->
   <app-drawer-layout force-narrow fullbleed>
     <app-drawer slot="drawer" id="drawer">
-      <app-toolbar></app-toolbar>
-
-      <!-- Nav on mobile: side nav menu -->
-      <iron-selector data-close-drawer attr-for-selected="data-route">
-        <a data-route="" href="/">Home</a>
-        <a data-route="tickets" href="/tickets">Tickets</a>
-        <a data-route="my-area" href="/my-area">My Area</a>
-        <a data-route="seatmap" href="/seatmap">Seatmap</a>
-        <a data-route="shop" href="/shop">Shop</a>
-      </iron-selector>
+      <nav>
+        <!-- Nav on mobile: side nav menu -->
+        <iron-selector class="navigation-drawer" attr-for-selected="data-route">
+          <a data-route="" href="/">Home</a>
+          <a data-route="tickets" href="/tickets">Tickets</a>
+          <a data-route="my-area" href="/my-area">My Area</a>
+          <a data-route="seatmap" href="/seatmap">Seatmap</a>
+          <a data-route="shop" href="/shop">Shop</a>
+        </iron-selector>
+      </nav>
     </app-drawer>
 
     <app-header-layout fullbleed>
@@ -183,24 +177,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <img height="32" width="200" src="images-optimized/lancie/logo_without_date.png" />
           </a>
 
-          <paper-tabs attr-for-selected="data-route">
-            <paper-tab data-route="" link>
-              <a href="/">Home</a>
-            </paper-tab>
-            <paper-tab data-route="tickets" link>
-              <a href="/tickets">Tickets</a>
-            </paper-tab>
-            <paper-tab data-route="my-area" link>
-              <a href="/my-area">My Area</a>
-            </paper-tab>
-            <paper-tab data-route="seatmap" link>
-              <a href="/seatmap">Seatmap</a>
-            </paper-tab>
-            <paper-tab data-route="shop" link>
-              <a href="/shop">Shop</a>
-            </paper-tab>
-          </paper-tabs>
-
+          <nav>
+            <iron-selector class="navigation-tabs" attr-for-selected="data-route">
+              <a data-route="" href="/">Home</a>
+              <a data-route="tickets" href="/tickets">Tickets</a>
+              <a data-route="my-area" href="/my-area">My Area</a>
+              <a data-route="seatmap" href="/seatmap">Seatmap</a>
+              <a data-route="shop" href="/shop">Shop</a>
+            </iron-selector>
+          </nav>
         </app-toolbar>
       </app-header>
 
@@ -318,7 +303,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
       appRoute.addEventListener('data-changed', (e) => {
         ironLazyPages.selected = e.detail.value.page;
-        drawer.close();
+        drawer.close && drawer.close();
         for (const selector of selectors) {
           selector.selected = e.detail.value.page;
         }
@@ -328,6 +313,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       const linkElement = document.createElement('link');
       linkElement.rel = 'import';
       linkElement.href = 'src/index-imports.html';
+      linkElement.onload = function() {
+        customElements.whenDefined('app-drawer').then(() => {
+          drawer.style.display = 'block';
+        });
+      }
       document.head.appendChild(linkElement);
 
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -337,10 +327,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ga('create', 'UA-60209049-1', 'auto');
       ga('send', 'pageview');
     })();
-  // _closeDrawer: function() {
-  //   this.$.drawer.close();
-  // },
-  //
   </script>
 </body>
 
