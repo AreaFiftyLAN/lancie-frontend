@@ -1,15 +1,28 @@
-<link rel="import" href="lancie-content.html">
-<link rel="import" href="lancie-layout/lancie-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 
-<link rel="import" href="lancie-footer/lancie-footer.html">
-<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
+
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/wisvch-footer/wisvch-footer.html">
+
+<link rel="import" href="lancie-content.html">
 
 <dom-module id="lancie-app">
   <template>
-    <style include="iron-flex iron-flex-alignment"></style>
     <style>
       :host {
         display: block;
+        color: black;
         --primary-color: #1a2b43;
         --secondary-color: #ffe574;
         --app-toolbar-height: 64px;
@@ -18,18 +31,137 @@
       lancie-content {
         @apply(--layout-flex);
       }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      app-toolbar {
+        background-color: var(--primary-color);
+        height: var(--app-toolbar-height);
+        justify-content: space-between;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      paper-tab[link] a {
+        text-decoration: none;
+        color: var(--secondary-color);
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        min-height: 48px;
+        padding: 0 16px;
+
+        display: flex;
+        align-items: center;
+      }
+
+      iron-image {
+        height: 40px;
+        width: 200px;
+        margin-left: 16px;
+      }
+
+      paper-icon-button {
+        color: var(--secondary-color);
+        height: 48px;
+        width: 48px;
+      }
+
+      paper-tabs {
+        min-height: 100%;
+
+        --paper-tabs-selection-bar: {
+          height: 4px;
+        };
+      }
+
+      app-header {
+        width: 100%;
+      }
+
+      .menu-button {
+        display: none;
+      }
+
+      @media (max-width: 800px) {
+        paper-tabs {
+          display: none;
+        }
+
+        .menu-button {
+          display: block;
+        }
+      }
     </style>
-    <lancie-layout route="{{route}}">
-      <lancie-content page="{{route}}"></lancie-content>
-      <lancie-footer></lancie-footer>
-    </lancie-layout>
+
+    <!-- force-narrow prevents the drawer from ever being displayed in persistent mode -->
+    <app-drawer-layout force-narrow fullbleed>
+      <app-drawer slot="drawer" id="drawer">
+        <app-toolbar></app-toolbar>
+
+        <!-- Nav on mobile: side nav menu -->
+        <paper-listbox selected="{{route.page}}" attr-for-selected="data-route" on-tap="_closeDrawer">
+          <paper-item data-route=""><a href="/">Home</a></paper-item>
+          <paper-item data-route="tickets"><a href="/tickets">Tickets</a></paper-item>
+          <paper-item data-route="my-area"><a href="/my-area">My Area</a></paper-item>
+          <paper-item data-route="seatmap"><a href="/seatmap">Seatmap</a></paper-item>
+          <paper-item data-route="shop"><a href="/shop">Shop</a></paper-item>
+        </paper-listbox>
+      </app-drawer>
+
+      <app-header-layout fullbleed>
+        <app-header fixed effects="waterfall">
+
+          <!-- Nav on mobile: side nav menu -->
+          <app-toolbar>
+            <paper-icon-button class="menu-button" icon="menu" drawer-toggle></paper-icon-button>
+
+            <a href="/">
+            <iron-image class="logo-frontpage" preload fade sizing="contain" id="toolbar-header"
+  position="left" src="../../images-optimized/lancie/logo_without_date.png"></iron-image></a>
+
+            <paper-tabs selected="{{route.page}}" attr-for-selected="data-route">
+              <paper-tab data-route="" link>
+                <a href="/">Home</a>
+              </paper-tab>
+              <paper-tab data-route="tickets" link>
+                <a href="/tickets">Tickets</a>
+              </paper-tab>
+              <paper-tab data-route="my-area" link>
+                <a href="/my-area">My Area</a>
+              </paper-tab>
+              <paper-tab data-route="seatmap" link>
+                <a href="/seatmap">Seatmap</a>
+              </paper-tab>
+              <paper-tab data-route="shop" link>
+                <a href="/shop">Shop</a>
+              </paper-tab>
+            </paper-tabs>
+
+          </app-toolbar>
+        </app-header>
+
+        <lancie-content page="{{route}}"></lancie-content>
+        <lancie-section type="secondary">
+          <wisvch-footer></wisvch-footer>
+        </lancie-section>
+      </app-header-layout>
+    </app-drawer-layout>
   </template>
   <script>
   (function() {
     'use strict';
 
     Polymer({
-      is: 'lancie-app'
+      is: 'lancie-app',
+      _closeDrawer: function() {
+        this.$.drawer.close();
+      }
     });
   })();
   </script>
