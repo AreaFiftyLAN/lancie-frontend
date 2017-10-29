@@ -16,6 +16,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <title>Elements Test Runner</title>
     <meta charset="UTF-8">
 
+    <script>
+      WCT = {
+        mochaOptions: {
+          timeout: 60000,
+        },
+      };
+    </script>
+
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../bower_components/web-component-tester/browser.js"></script>
   </head>
@@ -23,9 +31,67 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <body>
 
     <script>
-      WCT.loadSuites([]);
-    </script>
+      let suites = [
+        'unit/lancie-contact/lancie-contact.html',
+      ];
 
+      // http://eddmann.com/posts/cartesian-product-in-javascript/
+      function flatten(arr) {
+        return [].concat.apply([], arr);
+      }
+
+      function product(sets) {
+        return sets.reduce(function(acc, set) {
+          return flatten(acc.map(function(x) {
+            return set.map(function(y) {
+              return x.concat(y);
+            });
+          }));
+        }, [[]]);
+      }
+
+      function combinations(suites, flags) {
+        return product(flags).reduce(function(list, f) {
+          f = f.filter(function(i) {
+            return i;
+          }).join('&');
+          return list.concat(suites.map(function(s) {
+            return s + (f ? '?' + f : '');
+          }));
+        }, []);
+      }
+
+      function addUrlOption(previous, next) {
+        previous = previous || '';
+        next = next || '';
+        return previous + (previous ? '&' : '') + next;
+      }
+
+      // test shadowdom/custom elements polyfills together
+      // prefering both if possible.
+      let matrix = [''];
+      let webcomponents = '';
+      if (window.customElements) {
+        webcomponents = 'wc-ce=true';
+      }
+      // if native is available, make sure to test polyfill
+      if (Element.prototype.attachShadow && Node.prototype.getRootNode) {
+        webcomponents = addUrlOption(webcomponents, 'wc-shadydom=true');
+      }
+      // ce + sd becomes a single test iteration.
+      if (webcomponents) {
+        matrix.push(webcomponents);
+      }
+      // economize testing by testing css shimming
+      // only against 1 environment (native or polyfill).
+      if (window.CSS && CSS.supports && CSS.supports('box-shadow', '0 0 0 var(--foo)')) {
+        var last = matrix[matrix.length - 1];
+        matrix.push(addUrlOption(last, 'wc-shimcssproperties=true'));
+      }
+      suites = combinations(suites, [matrix]);
+      console.log('Testing suites:\n\t' + suites.join('\n\t'));
+      WCT.loadSuites(suites);
+    </script>
 
   </body>
 

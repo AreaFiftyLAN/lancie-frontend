@@ -1,0 +1,61 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>lancie-contact</title>
+
+  <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../../bower_components/web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../../../src/lancie-contact/lancie-contact.html">
+</head>
+<body>
+
+<test-fixture id="basic">
+  <template>
+    <lancie-contact></lancie-contact>
+  </template>
+</test-fixture>
+
+<script>
+  suite('lancie-contact tests', function() {
+    let lancieContact, email, subject, message;
+    let server;
+
+    setup(function() {
+      lancieContact = fixture('basic');
+
+      email = 'user@mail.com';
+      subject = 'Testing lancie contact';
+      message = 'Testing lancie contact...';
+
+      lancieContact.email = email;
+      lancieContact.subject = subject;
+      // make sure message is long enough by repeating it a couple of times
+      lancieContact.message = new Array(10).join(message);
+    });
+
+    test('instantiation works', function() {
+      assert.equal(lancieContact.is, 'lancie-contact');
+    });
+
+    test('request fired', function(done) {
+      this.timeout(500);
+      lancieContact.addEventListener('lancie-ajax', () => {
+        done();
+      });
+
+      lancieContact.shadowRoot.querySelector('paper-button').click();
+    });
+
+    //TODO
+    test('invalid mail', function() {
+      lancieContact.email = email.replace('@', '');
+      assert.isFalse(lancieContact.validateContact());
+    });
+
+  });
+</script>
+</body>
+</html>
