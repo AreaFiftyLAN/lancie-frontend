@@ -56,38 +56,282 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       color: #333;
       background-color: #eeecec;
       margin: 0;
+      --primary-color: #1a2b43;
+      --secondary-color: #ffe574;
+      --app-toolbar-height: 64px;
     }
 
-    .placeholder-header {
-      height: 64px;
-      background-color: #1a2b43;
+    app-toolbar {
+      background-color: var(--primary-color);
+      height: var(--app-toolbar-height);
+      justify-content: space-between;
+      display: flex;
+      align-items: center;
     }
 
-    .placeholder-slider {
-      height: 500px;
+    app-drawer {
+      display: none;
+    }
+
+    iron-selector a {
+      display: flex;
+      height: 48px;
+      align-items: center;
+      padding-left: 16px;
+    }
+    .navigation-drawer a.iron-selected {
+      font-weight: bold;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .navigation-tabs {
+      height: 100%;
+    }
+
+    .navigation-tabs iron-selector {
+      min-height: 100%;
+      display: flex;
+    }
+
+    .navigation-tabs a {
+      text-decoration: none;
+      color: var(--secondary-color);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      min-height: 48px;
+      padding: 0 16px;
+      height: inherit;
+      display: flex;
+      align-items: center;
+    }
+    .navigation-tabs a.iron-selected {
+      border-bottom: 2px solid var(--secondary-color);
+    }
+
+    img {
+      margin-left: 16px;
+    }
+
+    paper-icon-button {
+      color: var(--secondary-color);
+      height: 48px;
+      width: 48px;
+    }
+
+    .menu-button {
+      display: none;
+    }
+
+    @media (max-width: 800px) {
+      .navigation-tabs {
+        display: none;
+      }
+
+      .menu-button {
+        display: block;
+      }
     }
   </style>
 
   <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-
-  <script>
-  'use strict';
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-60209049-1', 'auto');
-  ga('send', 'pageview');
-  </script>
-
-  <link rel="import" href="src/lancie-app.html" async />
 </head>
 
-<body class="fullbleed layout vertical">
-  <lancie-app>
-    <div class="placeholder-header"></div>
-    <div class="placeholder-slider"></div>
-  </lancie-app>
+<body>
+  <lancie-auth-storage></lancie-auth-storage>
+  <paper-toast></paper-toast>
+
+  <app-location></app-location>
+  <app-route pattern="/:page"></app-route>
+
+  <!-- force-narrow prevents the drawer from ever being displayed in persistent mode -->
+  <app-drawer-layout force-narrow fullbleed>
+    <app-drawer slot="drawer" id="drawer">
+      <nav>
+        <!-- Nav on mobile: side nav menu -->
+        <iron-selector class="navigation-drawer" attr-for-selected="data-route">
+          <a data-route="" href="/">Home</a>
+          <a data-route="tickets" href="/tickets">Tickets</a>
+          <a data-route="my-area" href="/my-area">My Area</a>
+          <a data-route="seatmap" href="/seatmap">Seatmap</a>
+          <a data-route="shop" href="/shop">Shop</a>
+        </iron-selector>
+      </nav>
+    </app-drawer>
+
+    <app-header-layout fullbleed>
+      <app-header fixed effects="waterfall">
+
+        <!-- Nav on mobile: side nav menu -->
+        <app-toolbar>
+          <paper-icon-button class="menu-button" icon="menu" drawer-toggle></paper-icon-button>
+
+          <a href="/">
+            <img height="32" width="200" src="images-optimized/lancie/logo_without_date.png" />
+          </a>
+
+          <nav class="navigation-tabs">
+            <iron-selector attr-for-selected="data-route">
+              <a data-route="" href="/">Home</a>
+              <a data-route="tickets" href="/tickets">Tickets</a>
+              <a data-route="my-area" href="/my-area">My Area</a>
+              <a data-route="seatmap" href="/seatmap">Seatmap</a>
+              <a data-route="shop" href="/shop">Shop</a>
+            </iron-selector>
+          </nav>
+        </app-toolbar>
+      </app-header>
+
+      <main>
+        <iron-lazy-pages attr-for-selected="data-route" fallback-selection="404">
+
+          <lancie-home-page data-route="" data-path="src/lancie-home-page/lancie-home-page.html"></lancie-home-page>
+
+          <lancie-login-check data-requires-user data-route="my-area" data-path="src/lancie-my-area/lancie-my-area.html">
+            <template>
+              <lancie-my-area data-requires-user></lancie-my-area>
+            </template>
+          </lancie-login-check>
+
+          <lancie-login-check data-requires-user data-route="transfer-accept" data-path="src/lancie-ticket-transfer/lancie-ticket-transfer-accept.html">
+            <template>
+              <lancie-ticket-transfer-accept></lancie-ticket-transfer-accept>
+            </template>
+          </lancie-login-check>
+
+          <lancie-ticket-transfer-success data-route="transfer-success" data-path="src/lancie-ticket-transfer/lancie-ticket-transfer-success.html"></lancie-ticket-transfer-success>
+
+          <lancie-login-check data-requires-user data-route="tickets" data-path="src/lancie-ticket-page/lancie-ticket-page.html" nologin>
+            <template>
+              <lancie-ticket-page data-requires-user></lancie-ticket-page>
+            </template>
+          </lancie-login-check>
+
+          <lancie-login-check data-requires-user data-route="seatmap" data-path="src/lancie-seatmap/lancie-seatmap.html">
+            <template>
+              <lancie-seatmap data-requires-user></lancie-seatmap>
+            </template>
+          </lancie-login-check>
+
+          <lancie-register-confirm data-route="register-confirm" data-path="src/lancie-login/lancie-register-confirm.html"></lancie-register-confirm>
+
+          <lancie-login-check data-requires-user data-route="order-check" data-path="src/lancie-order-check.html">
+            <template>
+              <lancie-order-check></lancie-order-check>
+            </template>
+          </lancie-login-check>
+
+          <lancie-check-email data-route="check-email" data-path="src/lancie-login/lancie-check-email.html"></lancie-check-email>
+
+          <lancie-password-reset data-route="password-reset" data-path="src/lancie-password/lancie-password-reset.html"></lancie-password-reset>
+
+          <lancie-password-reset-success data-route="password-reset-success" data-path="src/lancie-password/lancie-password-reset-success.html"></lancie-password-reset-success>
+
+          <lancie-password-reset-request data-route="password-reset-request" data-path="src/lancie-password/lancie-password-reset-request.html"></lancie-password-reset-request>
+
+          <lancie-password-reset-request-success data-route="password-reset-request-success" data-path="src/lancie-password/lancie-password-reset-request-success.html"></lancie-password-reset-request-success>
+
+          <lancie-contact data-route="contact" data-path="src/lancie-contact/lancie-contact.html"></lancie-contact>
+
+          <lancie-contact-success data-route="contact-success" data-path="src/lancie-contact/lancie-contact-success.html"></lancie-contact-success>
+
+          <lancie-construction data-route="construction" data-path="src/lancie-construction.html"></lancie-construction>
+
+          <lancie-404 data-route="404" data-path="src/lancie-404.html"></lancie-404>
+        </iron-lazy-pages>
+        <lancie-section type="secondary">
+          <wisvch-footer></wisvch-footer>
+        </lancie-section>
+      </main>
+    </app-header-layout>
+  </app-drawer-layout>
+
+  <script>
+    'use strict';
+    (() => {
+      const requireUsers = document.querySelectorAll('data-requires-user');
+      const selectors = document.querySelectorAll('iron-selector, paper-tabs');
+      const drawer = document.querySelector('app-drawer');
+      const paperToast = document.querySelector('paper-toast');
+      const authStorage = document.querySelector('lancie-auth-storage');
+      const appLocation = document.querySelector('app-location');
+      const appRoute = document.querySelector('app-route');
+      const ironLazyPages = document.querySelector('iron-lazy-pages');
+
+      function showToast(properties) {
+        if (paperToast.opened) {
+          paperToast.close();
+          setTimeout(() => {
+            paperToast.show(properties);
+          }, 100);
+        } else {
+          paperToast.show(properties);
+        }
+      }
+      document.addEventListener('toast', (e) => {
+        showToast(e.detail);
+      });
+      document.addEventListener('refreshToast', (e) => {
+        showToast({text: 'Unable to connect to server. Try refreshing the page.'});
+      });
+
+      function updateUserBindings(user) {
+        for (const el of requireUsers) {
+          el.user = user;
+        }
+      }
+      document.addEventListener('store-token', (e) => {
+        authStorage.storeToken(e.detail.token);
+        updateUserBindings(e.detail.user);
+      });
+      authStorage.addEventListener('user-changed', (e) => {
+        updateUserBindings(e.detail.value);
+      });
+
+      appLocation.addEventListener('route-changed', (e) => {
+        appRoute.route = e.detail.value;
+      });
+      appRoute.addEventListener('route-changed', (e) => {
+        appLocation.route = e.detail.value;
+      });
+      appRoute.addEventListener('data-changed', (e) => {
+        ironLazyPages.selected = e.detail.value.page;
+        drawer.close && drawer.close();
+        for (const selector of selectors) {
+          selector.selected = e.detail.value.page;
+        }
+      });
+
+      // We can't use async import, as that screws up the loading mechanism :(
+      const linkElement = document.createElement('link');
+      linkElement.rel = 'import';
+      linkElement.href = 'src/index-imports.html';
+      linkElement.onload = function() {
+        customElements.whenDefined('app-drawer').then(() => {
+          drawer.style.display = 'block';
+        });
+      }
+      document.head.appendChild(linkElement);
+
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-60209049-1', 'auto');
+      ga('send', 'pageview');
+    })();
+  </script>
 </body>
 
 </html>
