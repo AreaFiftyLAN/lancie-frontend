@@ -7,13 +7,12 @@
     "fs-extra": "^4.0.1",
     "glob": "^7.1.1",
     "gulp": "gulpjs/gulp#4.0",
-    "gulp-babel-minify": "^0.2.0",
     "gulp-html-minifier": "^0.1.8",
     "gulp-if": "^2.0.1",
-    "gulp-imagemin": "^3.3.0",
     "gulp-jshint": "^2.0.2",
     "gulp-replace": "^0.6.1",
     "gulp-style-modules": "^0.1.0",
+    "gulp-babel-minify": "^0.2.0",
     "jshint": "^2.9.1",
     "jshint-stylish": "^2.0.0",
     "merge-stream": "^1.0.0",
@@ -21,7 +20,8 @@
     "polymer-analyzer": "^2.0.0-alpha.28",
     "polymer-build": "^2.0.0",
     "polyserve": "0.20.0",
-    "superagent": "^3.2.1"
+    "superagent": "^3.2.1",
+    "gulp-imagemin": "^3.3.0"
   },
   "scripts": {
     "build": "node ./node_modules/gulp/bin/gulp.js",

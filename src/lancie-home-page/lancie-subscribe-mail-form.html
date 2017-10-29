@@ -49,10 +49,7 @@
       Polymer({
         is: 'lancie-subscribe-mail-form',
         properties: {
-          email: {
-            type: String,
-            value: null
-          }
+          email: String
         },
 
         handleSubmit: function() {
@@ -62,16 +59,13 @@
         },
 
         _onResponse: function(event, request) {
-            console.log(event, request);
           if (request.succeeded) {
             this.clearInput();
-            this.$.mailFormError.clear();
             this.$.mailFormInfo.setError("Thank you for signing up!");
           } else {
             this.$.mailFormError.setError(
               !!request.request.response.message ? request.request.response.message : 'Oops! Something has gone wrong. Please refresh and try again.'
             );
-            this.$.mailFormInfo.clear();
           }
         },
 
