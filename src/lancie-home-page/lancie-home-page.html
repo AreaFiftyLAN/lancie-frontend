@@ -52,6 +52,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       display: block;
     }
     </style>
+
+    <lancie-ajax
+      auto-fire
+      skip-token
+      refurl="web/properties/googlemapskey"
+      last-response="{{googleMapsToken}}">
+    </lancie-ajax>
+
     <lancie-image-slider></lancie-image-slider>
 
     <lancie-section type="primary" header="Partners &amp; Sponsors">
@@ -162,18 +170,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
     </lancie-section>
 
-    <lancie-section type="google-maps-section primary full no-padding">
-      <lancie-ajax
-        auto-fire
-        skip-token
-        refurl="web/properties/googlemapskey"
-        last-response="{{googleMapsToken}}"></lancie-ajax>
-      <template is="dom-if" if="{{googleMapsToken}}" restamp="true">
-        <google-map latitude="51.995694" longitude="4.373950" zoom="14" disable-zoom fit-to-markers draggable="false" api-key="{{googleMapsToken.message}}">
-          <google-map-marker slot="markers" latitude="51.995694" longitude="4.373950" draggable="true" title="Area FiftyLAN"></google-map-marker>
-        </google-map>
-      </template>
-    </lancie-section>
+    <template is="dom-if" if="{{googleMapsToken}}" restamp="true">
+      <div class="google-maps-section">
+      <google-map latitude="51.995694" longitude="4.373950" zoom="14" disable-zoom fit-to-markers draggable="false" api-key="{{googleMapsToken.message}}">
+        <google-map-marker slot="markers" latitude="51.995694" longitude="4.373950" draggable="true" title="Area FiftyLAN"></google-map-marker>
+      </google-map>
+      </div>
+    </template>
+
   </template>
 </dom-module>
 <script>
