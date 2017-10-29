@@ -3,7 +3,7 @@
     "rules": ["polymer-2"]
   },
   "entrypoint": "index.html",
-  "shell": "src/lancie-app.html",
+  "shell": "src/index-imports.html",
   "sources": [
    "images-optimized/**/*",
    "scripts/*"
