@@ -95,6 +95,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       color: inherit;
     }
 
+    .navigation-tabs {
+      height: 100%;
+    }
+
+    .navigation-tabs iron-selector {
+      min-height: 100%;
+      display: flex;
+    }
+
     .navigation-tabs a {
       text-decoration: none;
       color: var(--secondary-color);
@@ -103,7 +112,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       line-height: 24px;
       min-height: 48px;
       padding: 0 16px;
-
+      height: inherit;
       display: flex;
       align-items: center;
     }
@@ -119,11 +128,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       color: var(--secondary-color);
       height: 48px;
       width: 48px;
-    }
-
-    .navigation-tabs {
-      min-height: 100%;
-      display: flex;
     }
 
     .menu-button {
@@ -177,8 +181,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <img height="32" width="200" src="images-optimized/lancie/logo_without_date.png" />
           </a>
 
-          <nav>
-            <iron-selector class="navigation-tabs" attr-for-selected="data-route">
+          <nav class="navigation-tabs">
+            <iron-selector attr-for-selected="data-route">
               <a data-route="" href="/">Home</a>
               <a data-route="tickets" href="/tickets">Tickets</a>
               <a data-route="my-area" href="/my-area">My Area</a>
