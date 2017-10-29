@@ -13,16 +13,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <head>
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    <title>Elements Test Runner</title>
+    <title>LANcie Test Runner</title>
     <meta charset="UTF-8">
-
-    <script>
-      WCT = {
-        mochaOptions: {
-          timeout: 60000,
-        },
-      };
-    </script>
 
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../bower_components/web-component-tester/browser.js"></script>
@@ -34,6 +26,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       let suites = [
         'unit/lancie-contact/lancie-contact.html',
       ];
+
+      // Runner setup inspired by the Polymer library: https://github.com/Polymer/polymer/blob/master/test/runner.html
 
       // http://eddmann.com/posts/cartesian-product-in-javascript/
       function flatten(arr) {
