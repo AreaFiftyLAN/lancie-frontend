@@ -18,7 +18,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../lancie-sponsors/lancie-sponsors.html">
 <link rel="import" href="../lancie-timeline/lancie-timeline.html">
 <link rel="import" href="../lancie-faq/lancie-faq.html">
-<link rel="import" href="lancie-image-slider.html">
 
 <dom-module id="lancie-home-page">
   <template>
@@ -36,11 +35,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         height: 600px;
       }
 
-      lancie-image-slider {
-        width: 100%;
-        color: white;
-      }
-
       google-map {
         height: 400px;
         width: 100%;
@@ -53,46 +47,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
+    <slot></slot>
+
     <lancie-ajax
       auto-fire
       skip-token
       refurl="web/properties/googlemapskey"
       last-response="{{googleMapsToken}}">
     </lancie-ajax>
-
-    <lancie-image-slider></lancie-image-slider>
-
-    <lancie-section type="primary" header="Partners &amp; Sponsors">
-      <lancie-sponsors></lancie-sponsors>
-    </lancie-section>
-
-    <lancie-section type="secondary" header="Area FiftyLAN">
-      <div>
-        <p>
-          Area FiftyLAN is the hottest gaming event of the TU Delft. This spectacular
-          all-weekend event, from 3 till 5 March 2017, will be organized by the study
-          association of mathematics and computer science 'Christiaan Huygens' in
-          cooperation with Unit Sports &amp; Culture, TU Delft. All students are welcome
-          to bring their PC's or laptops to play their favorite games with their fellow
-          students and friends. You decide what to play! There will be exciting
-          competitive tournaments like Rocket League, CS:GO, Hearthstone, League
-          of Legends, Overwatch and TrackMania: Nations Forever. If you're not into
-          competitive gaming however, no problem! You can play all the games you
-          want, whether that's The Sims, Age of Empires 2, Rollercoaster Tycoon or
-          Minecraft, you decide!
-        </p>
-        <p>
-          That is not all! There will be plenty to do offline as well. Pokermasters can
-          also show off in this event, you can try your hand at laser gaming and you
-          can test your wit in a pop-up escape room. In the Launch Area, you'll find
-          pinball machines, airhockey tables, football tables and various retro gaming
-          consoles. An overview of things you can do besides gaming can be found
-          below.
-        </p>
-
-        <!-- <lancie-activities json="scripts/activity.json"></lancie-activities> -->
-      </div>
-    </lancie-section>
 
     <lancie-section type="primary" header="What do you get?">
       <div>
