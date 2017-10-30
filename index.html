@@ -139,7 +139,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * has not finished lazy loading the custom elements definition, we have
      * to force the content being shown.
      */
-    .home-page.iron-selected {
+    body:not(.no-home-page) .home-page.iron-selected {
       display: block !important;
     }
 
@@ -433,6 +433,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       linkElement.onload = function() {
         customElements.whenDefined('app-drawer').then(() => {
           drawer.style.display = 'block';
+        });
+        customElements.whenDefined('lancie-home-page').then(() => {
+          document.body.classList.remove('no-home-page');
         });
       };
       document.head.appendChild(linkElement);
