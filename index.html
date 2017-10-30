@@ -143,6 +143,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       display: block !important;
     }
 
+    body.no-home-page .home-page {
+      display: none;
+    }
+
     .img-container {
       position: relative;
       width: 100%;
@@ -161,6 +165,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       max-width: 1032px;
       margin: 0 auto;
       padding: 16px;
+    }
+
+    .section div {
+      letter-spacing: 1px;
+      font-weight: 300;
+      line-height: 24px;
     }
 
     .section h2 {
@@ -203,6 +213,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 
 <body>
+  <script>
+    /**
+    * NOTE(timvdlippe): We want the homepage to paint before JS loads, but if it turns out that
+    * another page is requested, we don't want to FOUC homepage content.
+    */
+    if (window.location.pathname !== '/') {
+      document.body.classList.add('no-home-page');
+    }
+  </script>
   <lancie-auth-storage></lancie-auth-storage>
   <paper-toast></paper-toast>
 
