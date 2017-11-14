@@ -32,11 +32,17 @@ This code may only be used under the BSD style license found at https://github.c
       }
     </style>
 
-    <iron-ajax auto url="{{json}}" handle-as="json" last-response="{{activities}}" debounce-duration="300"></iron-ajax>
+    <lancie-ajax
+      auto-fire
+      skip-token
+      id="ajaxActivities"
+      refurl="web/tournament"
+      on-lancie-ajax="onResponse"
+    ></lancie-ajax>
 
     <div id="container" class="layout horizontal wrap start-justified">
       <template is="dom-repeat" items="[[activities]]" as="activity">
-        <lancie-activity class="lancie-block" data="{{activity}}"></lancie-activity>
+        <lancie-activity class="lancie-block" data="[[activity]]"></lancie-activity>
       </template>
     </div>
 
@@ -46,17 +52,18 @@ This code may only be used under the BSD style license found at https://github.c
     Polymer({
       is: 'lancie-activities',
       properties: {
-        data: {
-          type: Array,
-          value: []
+        tournamentType: {
+          type: String,
+          value: "OFFICIAL"
         },
-        activities: {
-          type: Array,
-          value: [],
-          notify: true
-        },
-        json: {
-          notify: true
+        activities: Array,
+      },
+
+      onResponse: function (e, request) {
+        if (request.succeeded) {
+          this.activities = request.response.object.filter(function(tournament) {
+            return tournament.type === this.tournamentType;
+          }.bind(this))
         }
       }
     });
