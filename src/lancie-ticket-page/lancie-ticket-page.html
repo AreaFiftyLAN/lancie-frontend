@@ -72,6 +72,12 @@ This code may only be used under the BSD style license found at https://github.c
         pointer-events: none;
       }
 
+      @media(max-width: 500px) {
+        :host{
+          padding: 0;
+        }
+      }
+
       /*
       * Safari hack
       * Makes flex wrapping work
@@ -231,7 +237,9 @@ This code may only be used under the BSD style license found at https://github.c
       if (request.succeeded) {
         this.basket = request.response.object;
         this.$.orderStorage.removeStorage();
-        this.selectTab(2);
+        if (this.selected === 1) {
+          this.selectTab(2);
+        }
       } else {
         if (request.status === 409) {
           this.fire('toast', { text: 'Unable to couple the order to your account. Order is already linked.' });

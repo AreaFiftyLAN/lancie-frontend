@@ -200,7 +200,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <lancie-login-check data-requires-user data-route="my-area" data-path="src/lancie-my-area/lancie-my-area.html">
             <template>
-              <lancie-my-area data-requires-user></lancie-my-area>
+              <lancie-my-area user="[[user]]"></lancie-my-area>
             </template>
           </lancie-login-check>
 
@@ -214,13 +214,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <lancie-login-check data-requires-user data-route="tickets" data-path="src/lancie-ticket-page/lancie-ticket-page.html" nologin>
             <template>
-              <lancie-ticket-page data-requires-user></lancie-ticket-page>
+              <lancie-ticket-page user="[[user]]"></lancie-ticket-page>
             </template>
           </lancie-login-check>
 
           <lancie-login-check data-requires-user data-route="seatmap" data-path="src/lancie-seatmap/lancie-seatmap.html">
             <template>
-              <lancie-seatmap data-requires-user></lancie-seatmap>
+              <lancie-seatmap user="[[user]]"></lancie-seatmap>
             </template>
           </lancie-login-check>
 
@@ -260,7 +260,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     'use strict';
     (() => {
-      const requireUsers = document.querySelectorAll('data-requires-user');
+      const requireUsers = document.querySelectorAll('[data-requires-user]');
       const selectors = document.querySelectorAll('iron-selector, paper-tabs');
       const drawer = document.querySelector('app-drawer');
       const paperToast = document.querySelector('paper-toast');
