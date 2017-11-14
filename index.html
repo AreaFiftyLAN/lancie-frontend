@@ -282,6 +282,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       document.addEventListener('toast', (e) => {
         showToast(e.detail);
       });
+      document.addEventListener('navigate', (e) => {
+        appLocation.path = e.detail.page;
+      });
       document.addEventListener('refreshToast', (e) => {
         showToast({text: 'Unable to connect to server. Try refreshing the page.'});
       });
