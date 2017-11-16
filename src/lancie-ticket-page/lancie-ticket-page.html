@@ -9,6 +9,7 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-location/iron-location.html">
 
 <link rel="import" href="../../bower_components/paper-styles/element-styles/paper-material-styles.html">
 
@@ -92,6 +93,8 @@ This code may only be used under the BSD style license found at https://github.c
       /*End Safari hack*/
     </style>
 
+    <iron-location query="{{query}}"></iron-location>
+
     <lancie-order-storage id="orderStorage" on-order="storeStorageOrder"></lancie-order-storage>
 
     <lancie-ajax auto-fire skip-token id="ajaxAvailable" refurl="tickets/available" on-lancie-ajax="onAvailableTickets"></lancie-ajax>
@@ -115,7 +118,7 @@ This code may only be used under the BSD style license found at https://github.c
           <lancie-ticket-basket class="flex-2" basket="[[basket]]" user="{{user}}"></lancie-ticket-basket>
         </div>
 
-        <lancie-login id="login" on-logged-in="next"></lancie-login>
+        <lancie-login id="login" order-id="[[basket.id]]" registering="{{registering}}" on-logged-in="onLogin"></lancie-login>
 
         <div>
           <h2>Fill in your profile</h2>
@@ -130,7 +133,7 @@ This code may only be used under the BSD style license found at https://github.c
       </iron-pages>
       <div class="buttons layout horizontal end-justified">
         <paper-button hidden="[[_backDisabled(selected)]]" on-tap="backToStart">back to tickets</paper-button>
-        <paper-button class="next-button" disabled="[[_isOrderEmpty(basket)]]" raised on-tap="next">[[_getButtonText(selected)]]</paper-button>
+        <paper-button class="next-button" disabled="[[_isOrderEmpty(basket, fromRegister)]]" raised on-tap="next">[[_getButtonText(selected, registering)]]</paper-button>
       </div>
     </div>
 
@@ -155,11 +158,21 @@ This code may only be used under the BSD style license found at https://github.c
       selected: {
         type: Object,
         value: 0
-      }
+      },
+      fromRegister: Boolean,
+      query: String,
+      registering: Boolean,
     },
     observers: [
       '_assignOrder(user, basket)'
     ],
+
+    ready: function() {
+        if(this.query.indexOf('login') > -1) {
+          this.fromRegister = true;
+          this.selectTab(1);
+        } 
+    },
 
     next: function() {
       if (this.selected === 0) {
@@ -169,7 +182,7 @@ This code may only be used under the BSD style license found at https://github.c
           this.selectTab(2);
         }
       } else if (this.selected === 1 && !this.user) {
-          this.$.login.submit();
+        this.$.login.submit();
       } else if (this.selected === 2 && this.user) {
         this.$.profileForm.validateAndSubmit();
       } else if (this.selected === 3) {
@@ -180,7 +193,7 @@ This code may only be used under the BSD style license found at https://github.c
     },
 
     selectTab: function(tab) {
-      if (tab === 2) {
+      if (tab === 2 && !!this.user.profile.displayName) {
         this.$.profileForm.validate();
       }
       this.selected = tab;
@@ -219,6 +232,11 @@ This code may only be used under the BSD style license found at https://github.c
       if (!this.basket.id) {
         this.basket = e.detail;
       }
+    },
+
+    onLogin: function() {
+      // Required to wait after the user has propogated down into the dom
+      this.async(this.next);
     },
 
     onOpenOrder: function (e, request) {
@@ -266,9 +284,11 @@ This code may only be used under the BSD style license found at https://github.c
       }
     },
 
-    _getButtonText(selected) {
+    _getButtonText(selected, registering) {
       if (selected === 3) {
         return 'agree & pay';
+      } else if (selected === 1) {
+        return (!registering) ? 'login' : 'register';
       }
       return 'next';
     },
@@ -277,7 +297,10 @@ This code may only be used under the BSD style license found at https://github.c
       return selected === 0;
     },
 
-    _isOrderEmpty(basket) {
+    _isOrderEmpty(basket, fromRegister) {
+      if (fromRegister) {
+        return false;
+      }
       if (basket.tickets) {
         return basket.tickets.length <= 0;
       }

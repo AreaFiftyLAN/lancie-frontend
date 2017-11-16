@@ -12,6 +12,10 @@
       flex: 3;
     }
 
+    [hidden] {
+      display: none !important;
+    }
+
     lancie-ticket-item {
       flex: 1;
       flex-basis: 200px;
@@ -27,6 +31,8 @@
       <template id="tickets" is="dom-repeat" items="[[tickets]]">
         <lancie-ticket-item ticket="[[item]]" basket="[[basket]]" color="[[_getColorClass(index)]]"></lancie-ticket-item>
       </template>
+
+      <p hidden="[[tickets.length]]">Currently there are no tickets available.</p>
     </div>
 
   </template>
