@@ -33,7 +33,7 @@
     <lancie-form id="mailForm" refurl="subscriptions" method="POST" class="mail-input" on-response="_onResponse">
       <lancie-error id="mailFormError"></lancie-error>
       <!-- Can be replaced with lancie-alert later on -->
-      <lancie-error id="mailFormInfo" class="lancie-info"></lancie-error>
+      <lancie-error id="mailFormInfo"></lancie-error>
       <paper-input label="E-Mail" name="email" class="mail-input" value="{{email}}">
         <iron-icon icon="mail" slot="prefix"></iron-icon>
         <paper-icon-button slot="suffix" on-tap="clearInput" icon="clear" alt="clear" title="Clear"></paper-icon-button>
@@ -61,7 +61,7 @@
         _onResponse: function(event, request) {
           if (request.succeeded) {
             this.clearInput();
-            this.$.mailFormInfo.setError("Thank you for signing up!");
+            this.$.mailFormInfo.setSuccess("Thank you for signing up!");
           } else {
             this.$.mailFormError.setError(
               !!request.request.response.message ? request.request.response.message : 'Oops! Something has gone wrong. Please refresh and try again.'
