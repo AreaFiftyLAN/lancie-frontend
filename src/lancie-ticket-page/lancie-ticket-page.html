@@ -151,22 +151,33 @@ This code may only be used under the BSD style license found at https://github.c
   (function () {
   'use strict';
 
+  var TABS = {
+    TICKETS: 0,
+    LOGIN: 1,
+    PROFILE: 2,
+    CONDITIONS: 3
+  };
+
   Polymer({
     is: 'lancie-ticket-page',
     properties: {
       user: Object,
       basket: {
         type: Object,
-        value: {},
+        value: function() {
+          return {};
+        },
         notify: true,
       },
       availableTickets: {
-        type: Object,
-        value: [],
+        type: Array,
+        value: function() {
+          return [];
+        },
       },
       selected: {
         type: Object,
-        value: 0
+        value: TABS.TICKETS,
       },
       fromRegister: Boolean,
       query: String,
@@ -179,41 +190,41 @@ This code may only be used under the BSD style license found at https://github.c
     ready: function() {
         if(this.query.indexOf('login') > -1) {
           this.fromRegister = true;
-          this.selectTab(1);
+          this.selectTab(TABS.LOGIN);
         } 
     },
 
     next: function() {
-      if (this.selected === 0) {
+      if (this.selected === TABS.TICKETS) {
         if (!this.user) {
-          this.selectTab(1);
+          this.selectTab(TABS.LOGIN);
         } else {
-          this.selectTab(2);
+          this.selectTab(TABS.PROFILE);
         }
-      } else if (this.selected === 1 && !this.user) {
+      } else if (this.selected === TABS.LOGIN && !this.user) {
         this.$.login.submit();
-      } else if (this.selected === 2 && this.user) {
+      } else if (this.selected === TABS.PROFILE && this.user) {
         this.$.profileForm.validateAndSubmit();
-      } else if (this.selected === 3) {
+      } else if (this.selected === TABS.CONDITIONS) {
         this.$.ajaxCheckout.generateRequest();
       } else {
-        this.selectTab(0);
+        this.selectTab(TABS.TICKETS);
       }
     },
 
     selectTab: function(tab) {
-      if (tab === 2 && !!this.user.profile.displayName) {
+      if (tab === TABS.PROFILE && !!this.user.profile.displayName) {
         this.$.profileForm.validate();
       }
       this.selected = tab;
     },
 
     backToStart: function() {
-      this.selectTab(0);
+      this.selectTab(TABS.TICKETS);
     },
 
     profileConfirmed: function() {
-      this.selectTab(3);
+      this.selectTab(TABS.CONDITIONS);
     },
 
     onAvailableTickets: function (e, request) {
@@ -243,11 +254,6 @@ This code may only be used under the BSD style license found at https://github.c
       }
     },
 
-    onLogin: function() {
-      // Required to wait after the user has propogated down into the dom
-      this.async(this.next);
-    },
-
     onOpenOrder: function (e, request) {
       // Don't set basket when there is a new basket
       if (!!this.basket.tickets) {
@@ -264,8 +270,8 @@ This code may only be used under the BSD style license found at https://github.c
       if (request.succeeded) {
         this.basket = request.response.object;
         this.$.orderStorage.removeStorage();
-        if (this.selected === 1) {
-          this.selectTab(2);
+        if (this.selected === TABS.LOGIN) {
+          this.selectTab(TABS.PROFILE);
         }
       } else {
         if (request.status === 409) {
@@ -294,16 +300,16 @@ This code may only be used under the BSD style license found at https://github.c
     },
 
     _getButtonText(selected, registering) {
-      if (selected === 3) {
+      if (selected === TABS.CONDITIONS) {
         return 'agree & pay';
-      } else if (selected === 1) {
+      } else if (selected === TABS.LOGIN) {
         return (!registering) ? 'login' : 'register';
       }
       return 'next';
     },
 
     _backDisabled(selected) {
-      return selected === 0;
+      return selected === TABS.TICKETS;
     },
 
     _isOrderEmpty(basket, fromRegister) {
