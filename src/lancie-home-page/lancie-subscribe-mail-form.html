@@ -34,7 +34,7 @@
       <lancie-error id="mailFormError"></lancie-error>
       <!-- Can be replaced with lancie-alert later on -->
       <lancie-error id="mailFormInfo"></lancie-error>
-      <paper-input label="E-Mail" name="email" class="mail-input" value="{{email}}">
+      <paper-input label="E-Mail" name="email" class="mail-input" value="{{email}}" on-keydown="checkForEnter">
         <iron-icon icon="mail" slot="prefix"></iron-icon>
         <paper-icon-button slot="suffix" on-tap="clearInput" icon="clear" alt="clear" title="Clear"></paper-icon-button>
       </paper-input>
@@ -56,6 +56,12 @@
           this.$.mailForm.validateAndSubmit();
           this.$.mailFormError.clear();
           this.$.mailFormInfo.clear();
+        },
+
+        checkForEnter: function(e) {
+          if (e.keyCode === 13) {
+            this.handleSubmit();
+          }
         },
 
         _onResponse: function(event, request) {
