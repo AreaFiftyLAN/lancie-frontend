@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/iron-location/iron-location.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="lancie-section/lancie-section.html">
 <link rel="import" href="../bower_components/lancie-card/lancie-card.html">
 <link rel="import" href="../bower_components/lancie-ajax/lancie-ajax.html">
@@ -8,6 +9,11 @@
     <style>
       [hidden] {
         display: none !important;
+      }
+
+      paper-button {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
       }
     </style>
     <lancie-ajax id="ajaxConfirmOrder" token="{{token}}" refurl="orders/[[orderId]]/status" on-lancie-ajax="onResponse"></lancie-ajax>
@@ -23,8 +29,8 @@
         <a href="/">Head back to the homepage</a>
       </div>
       <div class="card-content" hidden$="[[!success]]">
-        <p>Congratulations, your ticket(s) were successfully ordered and are now available in my-area. Click my-area below or in header to go to your area to manage your tickets and profile.</p>
-        <a href="/my-area">My Area</a>
+        <p>Congratulations, your ticket(s) were successfully ordered. Click the button below to go to My Area to view your orders and manage your tickets.</p>
+        <paper-button raised on-tap="openMyArea">my area</paper-button>
       </div>
       <div class="card-content" hidden$="[[!cancelled]]">
         <p>Your order was cancelled. Please place a new order if you still want to buy tickets. Your previous order will be automatically removed. If you have questions, please <a href="/contact">send us an email</a>.</p>
@@ -97,6 +103,10 @@
         } else {
           this.error = true;
         }
+      },
+
+      openMyArea: function() {
+        this.fire('navigate', {page: 'my-area'});
       }
     });
   })();

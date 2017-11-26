@@ -275,13 +275,13 @@ This code may only be used under the BSD style license found at https://github.c
         }
       } else {
         if (request.status === 409) {
-          this.fire('toast', { text: 'Unable to couple the order to your account. Order is already linked.' });
+          this.fire('toast', { text: 'Unable to link the order to your account. Order is already linked.' });
           this.$.orderStorage.removeStorage();
           this.set('basket.tickets', []);
         } else {
           this.basket.status = 'ANONYMOUS';
           this.$.orderStorage.storeOrderId(this.basket.id);
-          this.fire('toast', { text: 'Unable to couple the order to your account. Try refreshing the page.' });
+          this.fire('toast', { text: 'Unable to link the order to your account. Try refreshing the page.' });
         }
       }
     },
