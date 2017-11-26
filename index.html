@@ -120,7 +120,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       border-bottom: 2px solid var(--secondary-color);
     }
 
-    img {
+    .logo {
       margin-left: 16px;
     }
 
@@ -132,6 +132,70 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     .menu-button {
       display: none;
+    }
+
+    /**
+     * As <lancie-home-page> content is available right away, when <iron-lazy-pages>
+     * has not finished lazy loading the custom elements definition, we have
+     * to force the content being shown.
+     */
+    body:not(.no-home-page) .home-page.iron-selected {
+      display: block !important;
+    }
+
+    body.no-home-page .home-page {
+      display: none;
+    }
+
+    .img-container {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      overflow: hidden;
+    }
+
+    .img-container img {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .section div, .section h2 {
+      max-width: 1032px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .section div {
+      letter-spacing: 1px;
+      font-weight: 300;
+      line-height: 24px;
+    }
+
+    .section h2 {
+      font-size: 36px;
+      font-weight: 300;
+      line-height: 48px;
+      text-align: left;
+    }
+
+    .section:nth-child(even) {
+      background-color: #eeecec;
+      color: rgba(0, 0, 0, 0.87);
+    }
+
+    .section:nth-child(even) h2 {
+      color: var(--primary-color);
+    }
+
+    .section:nth-child(odd) {
+      background-color: var(--primary-color);
+      color: rgba(255, 255, 255, 0.87);
+    }
+
+    .section:nth-child(odd) h2 {
+      color: var(--secondary-color);
     }
 
     @media (max-width: 800px) {
@@ -149,6 +213,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 
 <body>
+  <script>
+    /**
+    * NOTE(timvdlippe): We want the homepage to paint before JS loads, but if it turns out that
+    * another page is requested, we don't want to FOUC homepage content.
+    */
+    if (window.location.pathname !== '/') {
+      document.body.classList.add('no-home-page');
+    }
+  </script>
   <lancie-auth-storage></lancie-auth-storage>
   <paper-toast></paper-toast>
 
@@ -178,7 +251,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <paper-icon-button class="menu-button" icon="menu" drawer-toggle></paper-icon-button>
 
           <a href="/">
-            <img height="32" width="200" src="images-optimized/lancie/logo_without_date.png" />
+            <img class="logo" height="32" width="200" src="images-optimized/lancie/logo_without_date.png" />
           </a>
 
           <nav class="navigation-tabs">
@@ -196,7 +269,47 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <main>
         <iron-lazy-pages attr-for-selected="data-route" fallback-selection="404">
 
-          <lancie-home-page data-route="" data-path="src/lancie-home-page/lancie-home-page.html"></lancie-home-page>
+          <lancie-home-page
+              data-route=""
+              data-path="src/lancie-home-page/lancie-home-page.html"
+              class="home-page">
+            <div class="img-container">
+              <img src="images-optimized/slider/slider1.jpg" />
+            </div>
+
+            <div class="section">
+              <h2>Partners &amp; Sponsors</h2>
+            </div>
+
+            <div class="section">
+              <h2>Area FiftyLAN</h2>
+              <div>
+                <p>
+                  Area FiftyLAN is the hottest gaming event of the TU Delft. This spectacular
+                  all-weekend event, from 3 till 5 March 2017, will be organized by the study
+                  association of mathematics and computer science 'Christiaan Huygens' in
+                  cooperation with Unit Sports &amp; Culture, TU Delft. All students are welcome
+                  to bring their PC's or laptops to play their favorite games with their fellow
+                  students and friends. You decide what to play! There will be exciting
+                  competitive tournaments like Rocket League, CS:GO, Hearthstone, League
+                  of Legends, Overwatch and TrackMania: Nations Forever. If you're not into
+                  competitive gaming however, no problem! You can play all the games you
+                  want, whether that's The Sims, Age of Empires 2, Rollercoaster Tycoon or
+                  Minecraft, you decide!
+                </p>
+                <p>
+                  That is not all! There will be plenty to do offline as well. Pokermasters can
+                  also show off in this event, you can try your hand at laser gaming and you
+                  can test your wit in a pop-up escape room. In the Launch Area, you'll find
+                  pinball machines, airhockey tables, football tables and various retro gaming
+                  consoles. An overview of things you can do besides gaming can be found
+                  below.
+                </p>
+
+                <!-- <lancie-activities json="scripts/activity.json"></lancie-activities> -->
+              </div>
+            </div>
+          </lancie-home-page>
 
           <lancie-login-check data-requires-user data-route="my-area" data-path="src/lancie-my-area/lancie-my-area.html">
             <template>
@@ -324,7 +437,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         customElements.whenDefined('app-drawer').then(() => {
           drawer.style.display = 'block';
         });
-      }
+        customElements.whenDefined('lancie-home-page').then(() => {
+          document.body.classList.remove('no-home-page');
+        });
+      };
       document.head.appendChild(linkElement);
 
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
