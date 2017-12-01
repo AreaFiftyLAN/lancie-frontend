@@ -30,15 +30,13 @@
       }
     </style>
 
-    <lancie-form id="mailForm" refurl="subscriptions" method="POST" class="mail-input" on-response="_onResponse">
-      <lancie-error id="mailFormError"></lancie-error>
-      <!-- Can be replaced with lancie-alert later on -->
-      <lancie-error id="mailFormInfo"></lancie-error>
-      <paper-input label="E-Mail" name="email" class="mail-input" value="{{email}}" on-keydown="checkForEnter">
+    <lancie-form id="mailForm" refurl="subscriptions" method="POST" class="mail-input" on-response="onResponse">
+      <lancie-error id="alert"></lancie-error>
+      <paper-input label="E-Mail" name="email" class="mail-input" value="{{email}}" on-keydown="onEnter">
         <iron-icon icon="mail" slot="prefix"></iron-icon>
         <paper-icon-button slot="suffix" on-tap="clearInput" icon="clear" alt="clear" title="Clear"></paper-icon-button>
       </paper-input>
-      <paper-button disabled="[[!email]]" on-tap="handleSubmit">Sign up</paper-button>
+      <paper-button disabled="[[!email]]" on-tap="trySubmit">Sign up</paper-button>
     </lancie-form>
   </template>
 
@@ -49,29 +47,33 @@
       Polymer({
         is: 'lancie-subscribe-mail-form',
         properties: {
-          email: String
-        },
-
-        handleSubmit: function() {
-          this.$.mailForm.validateAndSubmit();
-          this.$.mailFormError.clear();
-          this.$.mailFormInfo.clear();
-        },
-
-        checkForEnter: function(e) {
-          if (e.keyCode === 13) {
-            this.handleSubmit();
+          email: {
+            type: String,
+            value: function() { return ''; }
           }
         },
 
-        _onResponse: function(event, request) {
+        trySubmit: function() {
+          this.$.alert.clear();
+          this.$.mailForm.validateAndSubmit();
+        },
+
+        onEnter: function(e) {
+          if (e.keyCode === 13) {
+            this.trySubmit();
+          }
+        },
+
+        onResponse: function(event, request) {
           if (request.succeeded) {
             this.clearInput();
-            this.$.mailFormInfo.setSuccess("Thank you for signing up!");
+            this.$.alert.setSuccess("Thank you for signing up!");
           } else {
-            this.$.mailFormError.setError(
-              !!request.request.response.message ? request.request.response.message : 'Oops! Something has gone wrong. Please refresh and try again.'
-            );
+            if (request.request.status === 400 || request.request.status === 409) {
+              this.$.alert.setError(request.request.response.message);
+            } else {
+              this.fire('refreshToast');
+            }
           }
         },
 
