@@ -1,4 +1,5 @@
 <!doctype html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
@@ -10,52 +11,69 @@
 
   <link rel="import" href="../../../src/lancie-contact/lancie-contact.html">
 </head>
+
 <body>
 
-<test-fixture id="basic">
-  <template>
-    <lancie-contact></lancie-contact>
-  </template>
-</test-fixture>
+  <test-fixture id="basic">
+    <template>
+      <lancie-contact></lancie-contact>
+    </template>
+  </test-fixture>
 
-<script>
-  suite('lancie-contact tests', function() {
-    let lancieContact, email, subject, message;
-    let server;
+  <script>
+    suite('lancie-contact tests', function () {
+      let lancieContact, email, subject, message;
+      let server;
 
-    setup(function() {
-      lancieContact = fixture('basic');
+      setup(function () {
+        lancieContact = fixture('basic');
 
-      email = 'user@mail.com';
-      subject = 'Testing lancie contact';
-      message = 'Testing lancie contact...';
+        email = 'user@mail.com';
+        subject = 'Testing lancie contact';
+        message = 'Testing lancie contact...';
 
-      lancieContact.email = email;
-      lancieContact.subject = subject;
-      // make sure message is long enough by repeating it a couple of times
-      lancieContact.message = new Array(10).join(message);
-    });
-
-    test('instantiation works', function() {
-      assert.equal(lancieContact.is, 'lancie-contact');
-    });
-
-    test('request fired', function(done) {
-      this.timeout(500);
-      lancieContact.addEventListener('lancie-ajax', () => {
-        done();
+        lancieContact.email = email;
+        lancieContact.subject = subject;
+        // make sure message is long enough by repeating it a couple of times
+        lancieContact.message = new Array(10).join(message);
       });
 
-      lancieContact.shadowRoot.querySelector('paper-button').click();
-    });
+      test('instantiation works', function () {
+        assert.equal(lancieContact.is, 'lancie-contact');
+      });
 
-    //TODO
-    test('invalid mail', function() {
-      lancieContact.email = email.replace('@', '');
-      assert.isFalse(lancieContact.validateContact());
-    });
+      function evaluateInvalidInputs(query, errorMessage, done) {
+        Polymer.Base.async(function () {
+          var valid = lancieContact.validateContact();
+          assert.isFalse(valid, 'input is invalid');
 
-  });
-</script>
+          var err = lancieContact.shadowRoot.querySelector(query).errorMessage;
+          assert.equal(err, errorMessage);
+          done();
+        }, 1);
+      }
+
+      test('invalid mail', function (done) {
+        lancieContact.email = email.replace('@', '');
+        evaluateInvalidInputs('#email', 'Email should be valid.', done);
+      });
+
+      test('invalid subject', function (done) {
+        lancieContact.subject = 'four';
+        evaluateInvalidInputs('#subject', 'Subject too short.', done);
+      });
+
+      test('invalid message', function (done) {
+        lancieContact.message = 'short message';
+        evaluateInvalidInputs('#message', 'Message too short.', done);
+      });
+
+      test('valid input', function () {
+        assert.isTrue(lancieContact.validateContact(), 'input is valid');
+      });
+
+    });
+  </script>
 </body>
+
 </html>
