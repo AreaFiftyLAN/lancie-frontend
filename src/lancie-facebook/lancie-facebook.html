@@ -1,0 +1,33 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<dom-module id="lancie-facebook">
+  <template>
+    <style>
+      :host {
+        display: block;
+        margin: 16px auto 0;
+      }
+      iframe {
+        border: none;
+        overflow: hidden;
+        height: 500px;
+        width: 292px;
+      }
+    </style>
+
+    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fareafiftylan%2F&tabs=timeline&width=292&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"
+            scrolling="no"
+            frameborder="0"
+            allowTransparency="true">
+    </iframe>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'lancie-facebook',
+      });
+    })();
+  </script>
+</dom-module>
