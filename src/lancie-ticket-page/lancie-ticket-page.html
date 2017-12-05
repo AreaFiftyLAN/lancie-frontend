@@ -5,41 +5,86 @@ This code may only be used under the BSD style license found at https://github.c
 -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
+<link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-location/iron-location.html">
+
+<link rel="import" href="../../bower_components/paper-styles/element-styles/paper-material-styles.html">
 
 <link rel="import" href="lancie-tickets.html">
 <link rel="import" href="lancie-ticket-basket.html">
+<link rel="import" href="lancie-terms-of-service-text.html">
+<link rel="import" href="../lancie-my-area/profile-edit-form.html">
 <link rel="import" href="../lancie-storage/lancie-order-storage.html">
+<link rel="import" href="../lancie-login/lancie-login.html">
 
 <dom-module id="lancie-ticket-page">
   <template>
+    <style is="custom-style" include="paper-material-styles"></style>
     <style include="iron-flex iron-flex-alignment iron-flex-factors">
       :host {
-        --card-min-width: 300px;
+        display: block;
+        padding: 16px;
       }
 
-      div {
+      .tabs {
+        display: flex;
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+        font-size: 16px;
+        text-align: center;
+      }
+
+      .tabs > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1;
+        padding: 16px;
+      }
+
+      paper-progress {
+        width: 100%;
+        --paper-progress-active-color: var(--secondary-color);
+        --paper-progress-container-color: var(--primary-color);
+      }
+
+      .paper-material {
+        background-color: white;
         max-width: 1200px;
-        margin: auto;
+        margin: 0 auto;
       }
 
-      div > * {
-        margin: 16px;
-        min-width: var(--card-min-width);
+      iron-pages {
+        padding: 16px;
       }
 
-      lancie-ticket-basket {
-        margin-left: 0;
+      .buttons {
+        padding: 8px;
+        border-top: solid 1px #e8e8e8;
+      }
+      
+      .next-button {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
       }
 
-      @media(max-width: 599px) {
-        div > * {
-          margin: 0;
+      .next-button[disabled] {
+        background: #eaeaea;
+        color: #a8a8a8;
+        cursor: auto;
+        pointer-events: none;
+      }
+
+      @media(max-width: 500px) {
+        :host{
+          padding: 0;
         }
-      }
 
-      @media(min-width: 1232px) {
-        div {
-          margin: 16px auto;
+        .tabs > div {
+          padding: 4px;  
         }
       }
 
@@ -47,114 +92,236 @@ This code may only be used under the BSD style license found at https://github.c
       * Safari hack
       * Makes flex wrapping work
       */
-      .flex, .flex-1, .flex-2, .flex-3 {
-        flex-basis: var(--card-min-width);
+
+      .flex,
+      .flex-1,
+      .flex-2,
+      .flex-3 {
+        flex-basis: 400px;
       }
       /*End Safari hack*/
     </style>
 
+    <iron-location query="{{query}}"></iron-location>
+
     <lancie-order-storage id="orderStorage" on-order="storeStorageOrder"></lancie-order-storage>
 
-    <lancie-ajax id="ajaxAvailable" refurl="tickets/available" on-lancie-ajax="onAvailableTickets"></lancie-ajax>
+    <lancie-ajax auto-fire skip-token id="ajaxAvailable" refurl="tickets/available" on-lancie-ajax="onAvailableTickets"></lancie-ajax>
     <lancie-ajax id="ajaxCoupleOrder" refurl="orders/[[basket.id]]/assign" method="POST" on-lancie-ajax="onCoupleOrder"></lancie-ajax>
-    <lancie-ajax auto-fire refurl="users/current/orders/open" method="GET" on-lancie-ajax="onOpenOrder"></lancie-ajax>
+    <lancie-ajax id="ajaxCheckout" refurl="orders/[[basket.id]]/checkout" method="POST" on-lancie-ajax="onCheckout"></lancie-ajax>
+    <lancie-ajax auto-fire refurl="users/current/orders/open" on-lancie-ajax="onOpenOrder"></lancie-ajax>
 
-    <div class="layout horizontal wrap" on-set-basket="storeBasket">
+    <div class="paper-material" elevation="1" on-next="next">
+      <div class="tabs">
+        <div><span>Tickets</span></div>
+        <div><span>Login</span></div>
+        <div><span>Profile</span></div>
+        <div><span>Terms &amp; Conditions</span></div>
+      </div>
+      <paper-progress min="-1" value="[[selected]]" max="3"></paper-progress>
 
-      <lancie-tickets class="flex-3" tickets="[[availableTickets]]" basket="[[basket]]"></lancie-tickets>
+      <iron-pages selected="[[selected]]">
 
-      <lancie-ticket-basket class="flex-2" basket="[[basket]]" user="{{user}}"></lancie-ticket-basket>
+        <div class="layout horizontal wrap" on-set-basket="storeBasket">
+          <lancie-tickets class="flex-3" tickets="[[availableTickets]]" basket="[[basket]]"></lancie-tickets>
+          <lancie-ticket-basket class="flex-2" basket="[[basket]]" user="{{user}}"></lancie-ticket-basket>
+        </div>
 
+        <lancie-login id="login" order-id="[[basket.id]]" registering="{{registering}}" on-logged-in="onLogin"></lancie-login>
+
+        <div>
+          <h2>Fill in your profile</h2>
+          <profile-edit-form id="profileForm" user="{{user}}" on-profile-submitted="profileConfirmed"></profile-edit-form>
+        </div>
+
+        <div>
+          <h2>Terms and conditions</h2>
+          <lancie-terms-of-service-text></lancie-terms-of-service-text>
+        </div>
+
+      </iron-pages>
+      <div class="buttons layout horizontal end-justified">
+        <paper-button hidden="[[_backDisabled(selected)]]" on-tap="backToStart">back to tickets</paper-button>
+        <paper-button class="next-button" disabled="[[_isOrderEmpty(basket, fromRegister)]]" raised on-tap="next">[[_getButtonText(selected, registering)]]</paper-button>
+      </div>
     </div>
 
   </template>
   <script>
-    'use strict';
+  (function () {
+  'use strict';
 
-    (function () {
-      Polymer({
-        is: 'lancie-ticket-page',
-        properties: {
-          user: Object,
-          basket: {
-            type: Object,
-            value: {},
-            notify: true,
-          },
-          availableTickets: {
-            type: Object,
-            value: [],
-          },
+  var TABS = {
+    TICKETS: 0,
+    LOGIN: 1,
+    PROFILE: 2,
+    CONDITIONS: 3
+  };
+
+  Polymer({
+    is: 'lancie-ticket-page',
+    properties: {
+      user: Object,
+      basket: {
+        type: Object,
+        value: function() {
+          return {};
         },
-        observers: [
-          '_assignOrder(user, basket)'
-        ],
-
-        ready: function () {
-          this.$.ajaxAvailable.generateRequest();
+        notify: true,
+      },
+      availableTickets: {
+        type: Array,
+        value: function() {
+          return [];
         },
+      },
+      selected: {
+        type: Object,
+        value: TABS.TICKETS,
+      },
+      fromRegister: Boolean,
+      query: String,
+      registering: Boolean,
+    },
+    observers: [
+      '_assignOrder(user, basket)'
+    ],
 
-        onAvailableTickets: function (e, request) {
-          if (request.succeeded) {
-            this.availableTickets = request.response;
-          } else {
-            this.fire('refreshToast');
-          }
-        },
+    ready: function() {
+        if(this.query.indexOf('login') > -1) {
+          this.fromRegister = true;
+          this.selectTab(TABS.LOGIN);
+        } 
+    },
 
-        storeBasket: function (e) {
-          this.set('basket', e.detail.basket);
-        },
+    next: function() {
+      if (this.selected === TABS.TICKETS) {
+        if (!this.user) {
+          this.selectTab(TABS.LOGIN);
+        } else {
+          this.selectTab(TABS.PROFILE);
+        }
+      } else if (this.selected === TABS.LOGIN && !this.user) {
+        this.$.login.submit();
+      } else if (this.selected === TABS.PROFILE && this.user) {
+        this.$.profileForm.validateAndSubmit();
+      } else if (this.selected === TABS.CONDITIONS) {
+        this.$.ajaxCheckout.generateRequest();
+      } else {
+        this.selectTab(TABS.TICKETS);
+      }
+    },
 
-        storeStorageOrder: function(e) {
-          if (!this.basket.id) {
-            this.basket = e.detail;
-          }
-        },
+    selectTab: function(tab) {
+      if (tab === TABS.PROFILE && !!this.user.profile.displayName) {
+        this.$.profileForm.validate();
+      }
+      this.selected = tab;
+    },
 
-        onOpenOrder: function (e, request) {
-          // Don't set basket when there is a new basket
-          if (!!this.basket.tickets) {
-            return;
-          }
-          if (request.succeeded) {
-            if (request.response.length > 0) {
-              this.basket = request.response[0];
-            }
-          }
-        },
+    backToStart: function() {
+      this.selectTab(TABS.TICKETS);
+    },
 
-        onCoupleOrder: function (e, request) {
-          if (request.succeeded) {
-            this.basket = request.response.object;
-            this.$.orderStorage.removeStorage();
-          } else {
-            if (request.status === 409) {
-              this.fire('toast', {text: 'Unable to couple the order to your account. Order is already linked.'});
-              this.$.orderStorage.removeStorage();
-              this.set('basket.tickets', []);
-            } else {
-              this.basket.status = 'ANONYMOUS';
-              this.$.orderStorage.storeOrderId(this.basket.id);
-              this.fire('toast', {text: 'Unable to couple the order to your account. Try refreshing the page.'});
-            }
-          }
-        },
+    profileConfirmed: function() {
+      this.selectTab(TABS.CONDITIONS);
+    },
 
-        /*
-          If the order is set and the user is logged in, attempt to couple the order to the user.
-          If the user is not logged in and the order is not yet stored, store the orderId.
-        */
-        _assignOrder: function (user, basket) {
-          if (basket.status === 'ANONYMOUS' && !!user) {
-            basket.status = 'ASSIGNED';
-            this.$.ajaxCoupleOrder.generateRequest();
-          } else if (basket.status === 'ANONYMOUS' && !this.$.orderStorage.orderStored()) {
-            this.$.orderStorage.storeOrderId(basket.id);
-          }
-        },
+    onAvailableTickets: function (e, request) {
+      if (request.succeeded) {
+        this.availableTickets = request.response;
+      } else {
+        this.fire('refreshToast');
+      }
+    },
 
-      });
-    })();
+    storeBasket: function (e) {
+      this.set('basket', e.detail.basket);
+    },
+
+    onCheckout: function(e, request) {
+      if (request.succeeded) {
+        // This sets the url to the mollie address of the order.
+        window.location.href = request.response.object;
+      } else {
+        this.fire('refreshToast');
+      }
+    },
+
+    storeStorageOrder: function (e) {
+      if (!this.basket.id) {
+        this.basket = e.detail;
+      }
+    },
+
+    onOpenOrder: function (e, request) {
+      // Don't set basket when there is a new basket
+      if (!!this.basket.tickets) {
+        return;
+      }
+      if (request.succeeded) {
+        if (request.response.length > 0) {
+          this.basket = request.response[0];
+        }
+      }
+    },
+
+    onCoupleOrder: function (e, request) {
+      if (request.succeeded) {
+        this.basket = request.response.object;
+        this.$.orderStorage.removeStorage();
+        if (this.selected === TABS.LOGIN) {
+          this.selectTab(TABS.PROFILE);
+        }
+      } else {
+        if (request.status === 409) {
+          this.fire('toast', { text: 'Unable to link the order to your account. Order is already linked.' });
+          this.$.orderStorage.removeStorage();
+          this.set('basket.tickets', []);
+        } else {
+          this.basket.status = 'ANONYMOUS';
+          this.$.orderStorage.storeOrderId(this.basket.id);
+          this.fire('toast', { text: 'Unable to link the order to your account. Try refreshing the page.' });
+        }
+      }
+    },
+
+    /*
+      If the order is set and the user is logged in, attempt to couple the order to the user.
+      If the user is not logged in and the order is not yet stored, store the orderId.
+    */
+    _assignOrder: function (user, basket) {
+      if (basket.status === 'ANONYMOUS' && !!user) {
+        basket.status = 'ASSIGNED';
+        this.$.ajaxCoupleOrder.generateRequest();
+      } else if (basket.status === 'ANONYMOUS' && !this.$.orderStorage.orderStored()) {
+        this.$.orderStorage.storeOrderId(basket.id);
+      }
+    },
+
+    _getButtonText(selected, registering) {
+      if (selected === TABS.CONDITIONS) {
+        return 'agree & pay';
+      } else if (selected === TABS.LOGIN) {
+        return (!registering) ? 'login' : 'register';
+      }
+      return 'next';
+    },
+
+    _backDisabled(selected) {
+      return selected === TABS.TICKETS;
+    },
+
+    _isOrderEmpty(basket, fromRegister) {
+      if (fromRegister) {
+        return false;
+      }
+      if (basket.tickets) {
+        return basket.tickets.length <= 0;
+      }
+      return true;
+    },
+  });
+  })();
   </script>
 </dom-module>

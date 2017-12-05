@@ -1,0 +1,102 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../../bower_components/lancie-login-form/lancie-login-form.html">
+
+<dom-module id="lancie-login">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        display: block;
+        margin: auto;
+        max-width: 400px;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      h2 {
+        margin: 0;
+      }
+
+      paper-button {
+        width: calc(50% - 15px);
+        margin-top: 4px;
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+      }
+
+      .actions {
+        text-align: center;
+      }
+    </style>
+
+    <h2>[[_getAction(registering)]]</h2>
+      <div class="card-content">
+        <lancie-login-form id="loginForm" registering="[[registering]]" order-id="[[orderId]]" on-enter="submit"></lancie-login-form>
+      </div>
+      <div class="actions">
+        <paper-button raised on-tap="switchForm">Change to [[_getSwitchAction(registering)]]</paper-button>
+      </div>
+    </lancie-card>
+
+  </template>
+  <script>
+  (function() {
+  'use strict';
+  
+  Polymer({
+    is: 'lancie-login',
+    properties: {
+      registering: {
+        type: Boolean,
+        value: false,
+        notify: true,
+      },
+      orderId: String,
+    },
+
+    switchForm: function() {
+      this.$.loginForm.clearError();
+      this.registering = !this.registering;
+    },
+
+    submit: function() {
+      if (this.registering) {
+        this.register();
+      } else {
+        this.login();
+      }
+    },
+
+    register: function() {
+      this.$.loginForm.tryRegister();
+    },
+
+    login: function() {
+      this.$.loginForm.tryLogIn();
+    },
+
+    _getAction: function(registering) {
+      return registering ? 'Register' : 'Log In';
+    },
+
+    _getSwitchAction: function(registering) {
+      return this._getAction(!registering);
+    },
+
+  });
+  })();
+  </script>
+</dom-module>

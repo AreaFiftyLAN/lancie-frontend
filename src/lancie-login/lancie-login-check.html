@@ -85,13 +85,16 @@
 
         this.$.loginForm.style.display = 'none';
         this.shadowRoot.appendChild(this.instance.root);
+      } else if (user) {
+        this.instance.user = user;
       }
     }
 
     storeUser(e, detail) {
-      this.dispatchEvent(new CustomEvent('store-token', {detail: {token: detail.token, user: detail.user}, bubbles: true, composed: true}));
       this.$.ajax.injectToken(detail.token);
       this.$.form.injectToken(detail.token);
+
+      this.dispatchEvent(new CustomEvent('store-token', {detail: {token: detail.token, user: detail.user}, bubbles: true, composed: true}));
 
       this.user = detail.user;
       for (var i = 0; i < checks.length; i++) {

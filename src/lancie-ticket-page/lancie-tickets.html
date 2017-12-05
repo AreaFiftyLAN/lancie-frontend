@@ -7,34 +7,33 @@
 <dom-module id="lancie-tickets">
   <template>
     <style include="iron-flex iron-flex-alignment">
-      :host {
-        display: block;
-      }
+    :host {
+      display: block;
+      flex: 3;
+    }
 
-      paper-card {
-        width: 100%;
-      }
+    [hidden] {
+      display: none !important;
+    }
 
-      lancie-ticket-item {
-        flex: 1;
-        flex-basis: 200px;
-      }
+    lancie-ticket-item {
+      flex: 1;
+      flex-basis: 200px;
+    }
 
-      @media(max-width: 600px) {
-        paper-card {
-          border-radius: 0;
-          border-bottom: solid 1px #e8e8e8;
-        }
-      }
+    h2 {
+      margin-top: 8px;
+    }
     </style>
 
-    <paper-card heading="Tickets">
-      <div class="card-content layout horizontal wrap">
-        <template id="tickets" is="dom-repeat" items="[[tickets]]">
-          <lancie-ticket-item ticket="[[item]]" basket="[[basket]]" color="[[_getColorClass(index)]]"></lancie-ticket-item>
-        </template>
-      </div>
-    </paper-card>
+    <h2>Tickets</h2>
+    <div class="card-content layout horizontal wrap">
+      <template id="tickets" is="dom-repeat" items="[[tickets]]">
+        <lancie-ticket-item ticket="[[item]]" basket="[[basket]]" color="[[_getColorClass(index)]]"></lancie-ticket-item>
+      </template>
+
+      <p hidden="[[tickets.length]]">Currently there are no tickets available.</p>
+    </div>
 
   </template>
   <script>
