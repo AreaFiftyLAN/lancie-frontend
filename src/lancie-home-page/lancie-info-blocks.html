@@ -16,7 +16,7 @@
     justify-content: space-around;
   }
 
-  .ring {
+  .container > div > div:first-child {
     min-width: 36px;
     min-height: 36px;
     border-radius: 50%;
@@ -25,53 +25,34 @@
     background: transparent;
   }
 
-  .block {
+  .container > div {
     display: flex;
     min-width: 250px;
     color: var(--secondary-color);
     padding: 8px 0;
   }
 
-  .block h2 {
+  .container h2 {
     font-size: 20px;
     font-weight: 400;
     margin: 0 0 8px;
   }
 
-  .block span {
+  .container span {
     color: white;
   }
   </style>
 
   <div class="container">
-    <div class="block">
-      <div class="ring"></div>
+    <template is="dom-repeat" items="[[texts]]">
       <div>
-        <h2>Sports &amp; Culture</h2>
-        <span>Mekelweg 8, Delft</span>
+        <div></div>
+        <div>
+          <h2>[[item.header]]</h2>
+          <span>[[item.text]]</span>
+        </div>
       </div>
-    </div>
-    <div class="block">
-      <div class="ring"></div>
-      <div>
-        <h2>2-4 March</h2>
-        <span>This year!</span>
-      </div>
-    </div>
-    <div class="block">
-      <div class="ring"></div>
-      <div>
-        <h2>220 Seats</h2>
-        <span>Sit with your friends</span>
-      </div>
-    </div>
-    <div class="block">
-      <div class="ring"></div>
-      <div>
-        <h2>&euro;40,- all-in access</h2>
-        <span>And many more!</span>
-      </div>
-    </div>
+    </template>
   </div>
 
 </template>
@@ -85,7 +66,26 @@
     }
 
     static get properties() {
-      return {}
+      return {
+        texts: {
+          type: Object,
+          value: function() {
+            return [{
+                header: 'Sports & Culture',
+                text: 'Mekelweg 8, Delft',
+              },{
+                header: '2-4 March',
+                text: 'This year!',
+              },{
+                header: '220 seats',
+                text: 'Sit with friends',
+              },{
+                header: '€40,- all-in access',
+                text: 'And much more!',
+              }];
+          }
+        }
+      }
     }
   }
 
