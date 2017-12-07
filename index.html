@@ -165,7 +165,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <a data-route="tickets" href="/tickets">Tickets</a>
           <a data-route="my-area" href="/my-area">My Area</a>
           <a data-route="seatmap" href="/seatmap">Seatmap</a>
-          <a data-route="shop" href="/shop">Shop</a>
         </iron-selector>
       </nav>
     </app-drawer>
@@ -187,7 +186,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <a data-route="tickets" href="/tickets">Tickets</a>
               <a data-route="my-area" href="/my-area">My Area</a>
               <a data-route="seatmap" href="/seatmap">Seatmap</a>
-              <a data-route="shop" href="/shop">Shop</a>
             </iron-selector>
           </nav>
         </app-toolbar>
@@ -268,6 +266,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       const appLocation = document.querySelector('app-location');
       const appRoute = document.querySelector('app-route');
       const ironLazyPages = document.querySelector('iron-lazy-pages');
+      const constructionPages = ["/seatmap"];
 
       function showToast(properties) {
         if (paperToast.opened) {
@@ -303,10 +302,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       appLocation.addEventListener('route-changed', (e) => {
-        appRoute.route = e.detail.value;
+        appRoute.route = checkConstruction(e.detail.value);
       });
       appRoute.addEventListener('route-changed', (e) => {
-        appLocation.route = e.detail.value;
+        appLocation.route = checkConstruction(e.detail.value);
       });
       appRoute.addEventListener('data-changed', (e) => {
         ironLazyPages.selected = e.detail.value.page;
@@ -315,6 +314,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           selector.selected = e.detail.value.page;
         }
       });
+
+      // Filters out the pages that are under construction
+      function checkConstruction(page) {
+        if (constructionPages.indexOf(page.path) > -1) {
+          page.path = "/construction"
+        }
+        return page;
+      }
 
       // We can't use async import, as that screws up the loading mechanism :(
       const linkElement = document.createElement('link');
@@ -336,5 +343,4 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     })();
   </script>
 </body>
-
 </html>
