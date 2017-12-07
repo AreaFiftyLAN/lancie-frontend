@@ -1,0 +1,95 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="lancie-info-blocks">
+<template>
+  <style>
+  :host {
+    display: block;
+    background-color: var(--primary-color);
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1032px;
+    margin: 0 auto;
+    justify-content: space-around;
+  }
+
+  .ring {
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 50%;
+    margin: auto 16px auto 0;
+    border: 4px solid var(--secondary-color);
+    background: transparent;
+  }
+
+  .block {
+    display: flex;
+    min-width: 250px;
+    color: var(--secondary-color);
+    padding: 8px 0;
+  }
+
+  .block h2 {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0 0 8px;
+  }
+
+  .block span {
+    color: white;
+  }
+  </style>
+
+  <div class="container">
+    <div class="block">
+      <div class="ring"></div>
+      <div>
+        <h2>Sports &amp; Culture</h2>
+        <span>Mekelweg 8, Delft</span>
+      </div>
+    </div>
+    <div class="block">
+      <div class="ring"></div>
+      <div>
+        <h2>2-4 March</h2>
+        <span>This year!</span>
+      </div>
+    </div>
+    <div class="block">
+      <div class="ring"></div>
+      <div>
+        <h2>220 Seats</h2>
+        <span>Sit with your friends</span>
+      </div>
+    </div>
+    <div class="block">
+      <div class="ring"></div>
+      <div>
+        <h2>&euro;40,- all-in access</h2>
+        <span>And many more!</span>
+      </div>
+    </div>
+  </div>
+
+</template>
+<script>
+(function () {
+'use strict';
+
+  class LancieInfoBlocks extends Polymer.Element {
+    static get is() {
+      return 'lancie-info-blocks';
+    }
+
+    static get properties() {
+      return {}
+    }
+  }
+
+  customElements.define(LancieInfoBlocks.is, LancieInfoBlocks);
+})();
+</script>
+</dom-module>
