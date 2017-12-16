@@ -5,4 +5,4 @@ RUN docker/dockerbuild.sh
 
 FROM nginx:mainline
 COPY docker/nginx_server.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /src/build /srv/www
+COPY --from=builder /src/build/fallback /srv/www
