@@ -13,6 +13,8 @@ http://polymer.github.io/PATENTS.txt
 
 const path = require('path');
 const gulp = require('gulp');
+const gulpif = require('gulp-if');
+const gulpreplace = require('gulp-replace');
 const jshint = require('gulp-jshint');
 const superagent = require('superagent');
 const fs = require('fs-extra');
@@ -22,7 +24,6 @@ const glob = require('glob');
 // const logging = require('plylog');
 // logging.setVerbose();
 
-const project = require('./gulp/project.js');
 const ensureLazyFragments = require('./gulp/ensure-lazy-fragments.js');
 
 const root = path.resolve(process.cwd(), 'images');
@@ -57,6 +58,10 @@ gulp.task('optimize-images', () =>
   })
 );
 
+gulp.task('replace-api', () => {
+  return gulp.src(['build/**/*']).pipe(gulpif(/\.html$/, gulpreplace('/api/v1', 'https://api.areafiftylan.nl/api/v1'))).pipe(gulp.dest('build'))
+});
+
 gulp.task('ensure-images-optimized', () =>
   new Promise((resolve, reject) => {
     if (!fs.existsSync(optimizedImagesRoot)) {
@@ -80,5 +85,5 @@ function linter() {
 // and process them, and output the complete project
 gulp.task('default', gulp.series([
   linter,
-  project
+  ensureLazyFragments
 ]));

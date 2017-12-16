@@ -14,7 +14,7 @@ const analyzer = new Analyzer({
 });
 
 module.exports = () => new Promise((resolve, reject) => {
-  analyzer.analyze('src/lancie-content.html')
+  analyzer.analyze(['index.html'])
   .then((document) => {
     for (const element of document.getByKind('element-reference')) {
       const astNode = element.astNode;
