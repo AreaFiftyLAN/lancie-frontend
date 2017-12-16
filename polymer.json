@@ -5,7 +5,6 @@
   "entrypoint": "index.html",
   "shell": "src/index-imports.html",
   "sources": [
-   "src/**/*",
    "images-optimized/**/*",
    "scripts/*"
   ],
