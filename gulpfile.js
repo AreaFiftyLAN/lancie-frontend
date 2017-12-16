@@ -63,6 +63,10 @@ gulp.task('replace-api', () => {
   return gulp.src(['build/**/*']).pipe(gulpif(/\.html$/, gulpreplace('/api/v1', 'https://api.areafiftylan.nl/api/v1'))).pipe(gulp.dest('build'))
 });
 
+gulp.task('replace-api', () => {
+  return gulp.src(['build/**/*']).pipe(gulpif(/\.html$/, gulpreplace('/api/v1', 'https://api.areafiftylan.nl/api/v1'))).pipe(gulp.dest('build'))
+});
+
 gulp.task('ensure-images-optimized', () =>
   new Promise((resolve, reject) => {
     if (!fs.existsSync(optimizedImagesRoot)) {
@@ -87,7 +91,7 @@ gulp.task('linter', linter);
 gulp.task('default', gulp.series([
   'linter',
   'ensure-images-optimized',
-  'ensure-lazy-fragments' 
+  'ensure-lazy-fragments'
 ]));
 
 gulp.task('post-build', gulp.series([
