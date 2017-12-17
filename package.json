@@ -16,9 +16,10 @@
     "superagent": "^3.2.1"
   },
   "scripts": {
-    "build": "polymer build && node ./node_modules/gulp/bin/gulp.js replace-api",
+    "build": "yarn linter && polymer build -v && node ./node_modules/gulp/bin/gulp.js replace-api",
     "ensure-images": "node ./node_modules/gulp/bin/gulp.js ensure-images-optimized",
-    "serve": "yarn run ensure-images && node ./node_modules/polyserve/bin/polyserve -p 5100 -P h2 --proxy-path api --proxy-target http://localhost:9000/api/"
+    "linter": "node ./node_modules/gulp/bin/gulp.js linter",
+    "serve": "yarn ensure-images && node ./node_modules/polyserve/bin/polyserve -p 5100 -P h2 --proxy-path api --proxy-target http://localhost:9000/api/"
   },
   "engines": {
     "node": ">=5.0.0"

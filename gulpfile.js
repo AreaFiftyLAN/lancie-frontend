@@ -74,16 +74,16 @@ gulp.task('ensure-images-optimized', () =>
 
 gulp.task('ensure-lazy-fragments', ensureLazyFragments);
 
-function linter() {
+const linter = () => {
   return gulp.src('src/**/*.html')
       .pipe(jshint.extract()) // Extract JS from .html files
       .pipe(jshint())
-      .pipe(jshint.reporter('jshint-stylish'));
-}
+      .pipe(jshint.reporter('jshint-stylish'))
+      .pipe(jshint.reporter('fail'));
+};
+gulp.task('linter', linter);
 
-// Clean the build directory, split all source and dependency files into streams
-// and process them, and output the complete project
-gulp.task('default', gulp.series([
-  linter,
+gulp.task('default', gulp.parallel([
+  'linter',
   ensureLazyFragments
 ]));
