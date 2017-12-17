@@ -13,7 +13,7 @@
     "lancie-form": "AreaFiftyLAN/lancie-form#^2.0.0",
     "lancie-error": "AreaFiftyLAN/lancie-error#^2.0.0",
     "lancie-login-dialog": "AreaFiftyLAN/lancie-login-dialog#^2.0.0",
-    "lancie-login-card": "AreaFiftyLAN/lancie-login-card#^2.0.0",
+    "lancie-login-card": "AreaFiftyLAN/lancie-login-card#^3.0.0",
     "lancie-card": "AreaFiftyLAN/lancie-card#^3.0.0",
     "lancie-login-form": "AreaFiftyLAN/lancie-login-form#^2.0.0",
     "iron-flex-layout": "PolymerElements/iron-flex-layout#^2.0.0",
