@@ -9,4 +9,6 @@ npm install -g polymer-cli --unsafe-perm
 yarn
 bower --allow-root install
 
-yarn build
+# Compress images and build
+yarn run optimize-images
+yarn run build
