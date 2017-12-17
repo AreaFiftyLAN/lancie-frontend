@@ -67,7 +67,7 @@
         onResponse: function(event, request) {
           if (request.succeeded) {
             this.clearInput();
-            this.$.alert.setSuccess("Thank you for signing up!");
+            this.$.alert.setSuccess('Thank you for signing up!');
           } else {
             if (request.request.status === 400 || request.request.status === 409) {
               this.$.alert.setError(request.request.response.message);

@@ -15,6 +15,7 @@
   "unused": "vars",
   "strict": true,
   "globals": {
-    "Polymer": false
+    "Polymer": false,
+    "customElements": false
   }
 }
