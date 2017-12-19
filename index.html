@@ -104,7 +104,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       display: flex;
     }
 
-    .navigation-tabs a {
+    .navigation-tabs a, .navigation-tabs lancie-logout-button {
       text-decoration: none;
       color: var(--secondary-color);
       font-size: 16px;
@@ -186,6 +186,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <a data-route="tickets" href="/tickets">Tickets</a>
               <a data-route="my-area" href="/my-area">My Area</a>
               <a data-route="seatmap" href="/seatmap">Seatmap</a>
+              <lancie-logout-button hidden$="[[!user]]"></lancie-logout-button>
             </iron-selector>
           </nav>
         </app-toolbar>

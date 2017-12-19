@@ -1,0 +1,83 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
+<link rel="import" href="../lancie-storage/lancie-auth-storage.html">
+
+<dom-module id="lancie-logout-button">
+<template>
+  <style>
+    :host {
+      display: block;
+      height: 100%;
+      min-height: 100%;
+    }
+
+    :host [hidden] {
+        display: none !important;
+    }
+    
+    a {
+      text-decoration: none;
+      color: var(--secondary-color);
+      /*font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      min-height: 48px;
+      height: inherit;
+      display: flex;
+      align-items: center;*/
+    }
+  </style>
+
+  <lancie-ajax id="ajaxLogout" refurl="logout" method="POST" on-lancie-ajax="onLogoutResponse"></lancie-ajax>
+
+  <a href="#" on-tap="tryLogout">Logout</a>
+
+</template>
+<script>
+  (function () {
+  'use strict';
+
+  const authStorage = document.querySelector('lancie-auth-storage');
+
+  class LancieLogoutButton extends Polymer.Element {
+    static get is() {
+      return 'lancie-logout-button';
+    }
+
+    static get properties() {
+      return {
+      };
+    }
+
+    tryLogout() {
+        this.$.ajaxLogout.generateRequest();
+    }
+
+    onLogoutResponse(e, request) {
+        if (request.succeeded) {
+          authStorage.clearToken();
+          this.dispatchEvent(new CustomEvent('user-changed', {
+              detail: {value: null},
+              bubbles: true,
+              composed: true
+          }));
+          this.dispatchEvent(new CustomEvent('navigate', {
+              detail: {page: ''},
+              bubbles: true,
+              composed: true
+          }));
+          // TODO ensure a the user pages (e.g. My Area) are refreshed so that once you are logged out no personal information is "in cache/already loaded" 
+        } else {
+          this.dispatchEvent(new CustomEvent('toast', {
+            detail: 'You are not logged in',
+            bubbles: true,
+            composed: true
+          }));
+        }
+    }
+  }
+
+  customElements.define(LancieLogoutButton.is, LancieLogoutButton);
+  })();
+  </script>
+</dom-module>

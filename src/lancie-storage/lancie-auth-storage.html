@@ -58,6 +58,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return this.auth && this.auth.token;
       },
 
+      clearToken: function() {
+        this.auth = {};
+        this.$.ajax.clearToken();
+        this.$.form.clearToken();
+      },
+      // TODO include these functions in their respective repositories.
+      // Feel free to use the following code for testing purposes
+      //
+      // clearToken: function() {
+      //  this.auth = {};
+      //  this.$.ajax.injectToken('');
+      //  this.$.form.injectToken('');
+      // },
+
       storeToken: function(token) {
         this.initial = false;
         this.auth = {
