@@ -1,4 +1,4 @@
-language: node_js
+language: generic
 services:
 - docker
 # At least Docker 17.05 is needed for multi-stage builds, so upgrade
