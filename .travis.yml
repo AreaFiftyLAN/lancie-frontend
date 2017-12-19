@@ -11,6 +11,8 @@ script:
 - docker build --no-cache --pull -t wisvch/areafiftylan-frontend:$TRAVIS_BUILD_NUMBER .
 after_success:
 - if [ "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}" == "master" ]; then
+    # Retag the docker build for a push to beta
+    docker tag wisvch/areafiftylan-frontend:$TRAVIS_BUILD_NUMBER wisvch/areafiftylan-frontend-beta:$TRAVIS_BUILD_NUMBER
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push wisvch/areafiftylan-frontend-beta:$TRAVIS_BUILD_NUMBER;
   fi
