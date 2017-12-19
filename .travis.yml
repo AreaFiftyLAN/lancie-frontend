@@ -1,3 +1,4 @@
+language: node_js
 services:
 - docker
 # At least Docker 17.05 is needed for multi-stage builds, so upgrade
@@ -7,6 +8,15 @@ before_install:
   - sudo apt-get update
   - sudo apt-get -y install docker-ce
 script:
-- docker build -t lancie-frontend .
+- docker build --no-cache --pull -t wisvch/areafiftylan-frontend:$TRAVIS_BUILD_NUMBER .
+after_success:
+- if [ "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}" == "master" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push wisvch/areafiftylan-frontend-beta:$TRAVIS_BUILD_NUMBER;
+  fi
+- if [ "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}" == "live" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push wisvch/areafiftylan-frontend:$TRAVIS_BUILD_NUMBER;
+  fi
 notifications:
-email: false
+   email: false
