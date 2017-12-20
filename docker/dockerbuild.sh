@@ -2,12 +2,11 @@
 set -euxo pipefail
 
 # Install programs required for build
-npm install -g yarn bower
+npm install -g bower
+npm install -g polymer-cli --unsafe-perm
 
 # Fetch dependencies
 yarn
 bower --allow-root install
 
-# Compress images and build
-yarn run build optimize-images
-yarn run build
+yarn build

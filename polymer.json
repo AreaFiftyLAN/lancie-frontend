@@ -8,6 +8,10 @@
    "images-optimized/**/*",
    "scripts/*"
   ],
+  "builds": [
+    {"name":"fallback", "preset": "es5-bundled" },
+    {"name": "modern", "preset": "es6-unbundled", "browserCapabilities": ["es2015", "push"]}
+  ],
   "fragments": [
     "src/lancie-home-page/lancie-home-page.html",
     "src/lancie-my-area/lancie-my-area.html",

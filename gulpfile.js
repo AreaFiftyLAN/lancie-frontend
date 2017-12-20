@@ -13,6 +13,8 @@ http://polymer.github.io/PATENTS.txt
 
 const path = require('path');
 const gulp = require('gulp');
+const gulpif = require('gulp-if');
+const gulpreplace = require('gulp-replace');
 const jshint = require('gulp-jshint');
 const superagent = require('superagent');
 const fs = require('fs-extra');
@@ -22,7 +24,6 @@ const glob = require('glob');
 // const logging = require('plylog');
 // logging.setVerbose();
 
-const project = require('./gulp/project.js');
 const ensureLazyFragments = require('./gulp/ensure-lazy-fragments.js');
 
 const root = path.resolve(process.cwd(), 'images');
@@ -36,7 +37,7 @@ const imageOptions = {
 
 // Optimize images with ImageOptim
 // Run with `yarn run build optimize-images`
-gulp.task('optimize-images', () =>
+const optimizeImages = () => {
   glob('images/**/*.{jpg,png,svg}', (err, files) => {
     for (const file of files) {
       const relativeFile = file.substring(file.indexOf('/') + 1);
@@ -55,30 +56,40 @@ gulp.task('optimize-images', () =>
       }
     }
   })
-);
+};
+gulp.task('optimize-images', optimizeImages);
+
+gulp.task('replace-api', () => {
+  return gulp.src(['build/**/*']).pipe(gulpif(/\.html$/, gulpreplace('/api/v1', 'https://api.areafiftylan.nl/api/v1'))).pipe(gulp.dest('build'))
+});
 
 gulp.task('ensure-images-optimized', () =>
   new Promise((resolve, reject) => {
     if (!fs.existsSync(optimizedImagesRoot)) {
-      reject('`images-optimized` does not exist. Make sure to run `yarn run build optimize-images`');
-    } else {
-      resolve();
+      optimizeImages();
     }
+    resolve();
   })
 );
 
 gulp.task('ensure-lazy-fragments', ensureLazyFragments);
 
-function linter() {
+const linter = () => {
   return gulp.src('src/**/*.html')
       .pipe(jshint.extract()) // Extract JS from .html files
       .pipe(jshint())
-      .pipe(jshint.reporter('jshint-stylish'));
-}
+      .pipe(jshint.reporter('jshint-stylish'))
+      .pipe(jshint.reporter('fail'));
+};
+gulp.task('linter', linter);
 
-// Clean the build directory, split all source and dependency files into streams
-// and process them, and output the complete project
+// Changed it back to series to make it easier to test
 gulp.task('default', gulp.series([
-  linter,
-  project
+  'linter',
+  'ensure-images-optimized',
+  'ensure-lazy-fragments' 
+]));
+
+gulp.task('post-build', gulp.series([
+  'replace-api'
 ]));

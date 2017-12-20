@@ -33,7 +33,7 @@
           return {
             id: String,
             success: Boolean
-          }
+          };
         }
 
         constructor() { super(); }
@@ -51,10 +51,10 @@
 
         handleResponse(e, request) {
           if (request.succeeded) {
-            this.$.status.setSuccess('Successfully unsubscribed!')
+            this.$.status.setSuccess('Successfully unsubscribed!');
           } else {
             if (request.request.status=== 404) {
-              this.$.status.setWarning('This email address has already been unsubscribed, or was not found in the database.')
+              this.$.status.setWarning('This email address has already been unsubscribed, or was not found in the database.');
             } else {
               this.$.status.setError('Could not unsubscribe. Please try again.');
             }
