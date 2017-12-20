@@ -8,6 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/marked-element/marked-element.html">
@@ -19,44 +20,52 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       display: block;
     }
 
-    .markdown-html a {
-      color: rgba(255, 255, 255, 0.87);
+    h2 {
+      margin-bottom: 0;
+      font-size: 18px;
     }
   </style>
 
-  <iron-ajax
-    auto
-    url="[[markdown]]"
-    handle-as="text"
-    on-response="onResponse"
-    on-error="onError"></iron-ajax>
+  <lancie-ajax
+    auto-fire
+    skip-token
+    refurl="web/faq"
+    on-lancie-ajax="onResponse"
+  ></lancie-ajax>
 
-  <marked-element markdown="[[text]]">
-    <div class="markdown-html"></div>
-  </marked-element>
+  <template is="dom-repeat" items="[[faq]]" as="faqitem">
+    <h2>[[faqitem.question]]</h2>
+    [[faqitem.answer]]
+  </template>
 
 </template>
 <script>
-  'use strict';
+'use strict';
+(function () {
+class LancieFaq extends Polymer.Element {
+  static get is() {
+    return 'lancie-faq';
+  }
 
-  (function () {
-    Polymer({
-      is: 'lancie-faq',
-      properties: {
-        text: String,
-        markdown: String
-      },
-
-      onResponse: function (e, request) {
-        if (request.succeeded) {
-          this.text = request.response;
-        }
-      },
-
-      onError: function () {
-        this.text = 'There are no frequently asked questions yet. If you have a question, feel free to [ask us](/contact)!';
+  static get properties() {
+    return {
+      faq: {
+        type: Array,
+        value: [{
+          'question': 'There are no frequently asked questions yet. If you have a question, feel free to ask us!',
+          'answer': ''
+        }]
       }
-    });
-  })();
+    }
+  }
+
+  onResponse(e, request) {
+    if (request.succeeded) {
+      this.faq = request.response.object;
+    }
+  }
+}
+customElements.define(LancieFaq.is, LancieFaq);
+})();
 </script>
 </dom-module>
