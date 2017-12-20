@@ -37,7 +37,7 @@ const imageOptions = {
 
 // Optimize images with ImageOptim
 // Run with `yarn run build optimize-images`
-gulp.task('optimize-images', () =>
+const optimizeImages = () => {
   glob('images/**/*.{jpg,png,svg}', (err, files) => {
     for (const file of files) {
       const relativeFile = file.substring(file.indexOf('/') + 1);
@@ -56,7 +56,8 @@ gulp.task('optimize-images', () =>
       }
     }
   })
-);
+};
+gulp.task('optimize-images', optimizeImages);
 
 gulp.task('replace-api', () => {
   return gulp.src(['build/**/*']).pipe(gulpif(/\.html$/, gulpreplace('/api/v1', 'https://api.areafiftylan.nl/api/v1'))).pipe(gulp.dest('build'))
@@ -65,10 +66,9 @@ gulp.task('replace-api', () => {
 gulp.task('ensure-images-optimized', () =>
   new Promise((resolve, reject) => {
     if (!fs.existsSync(optimizedImagesRoot)) {
-      reject('`images-optimized` does not exist. Make sure to run `yarn run build optimize-images`');
-    } else {
-      resolve();
+      optimizeImages();
     }
+    resolve();
   })
 );
 
@@ -83,7 +83,13 @@ const linter = () => {
 };
 gulp.task('linter', linter);
 
-gulp.task('default', gulp.parallel([
+// Changed it back to series to make it easier to test
+gulp.task('default', gulp.series([
   'linter',
-  ensureLazyFragments
+  'ensure-images-optimized',
+  'ensure-lazy-fragments' 
+]));
+
+gulp.task('post-build', gulp.series([
+  'replace-api'
 ]));

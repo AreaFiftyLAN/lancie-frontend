@@ -16,12 +16,12 @@ const analyzer = new Analyzer({
 module.exports = () => new Promise((resolve, reject) => {
   analyzer.analyze(['index.html'])
   .then((document) => {
-    for (const element of document.getByKind('element-reference')) {
+    for (const element of document.getDocument('index.html').getFeatures({kind: 'element-reference'})) {
       const astNode = element.astNode;
       if (astNode.parentNode.tagName === 'iron-lazy-pages') {
         const childLocation = dom5.getAttribute(astNode, 'data-path');
-        if (!fragments.find(e => e === `src/${childLocation}`)) {
-          reject(`Could not find fragment "src/${childLocation}" in polymer.json!`);
+        if (!fragments.find(e => e === `${childLocation}`)) {
+          reject(`Could not find fragment "${childLocation}" in polymer.json!`);
           return;
         }
       }
