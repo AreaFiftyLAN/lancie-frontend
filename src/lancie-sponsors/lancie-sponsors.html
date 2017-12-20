@@ -41,26 +41,35 @@
       /*End Safari hack*/
     </style>
 
+    <lancie-ajax
+      auto-fire
+      skip-token
+      id="ajaxSponsor"
+      refurl="web/sponsor"
+      on-lancie-ajax="onResponse"
+    ></lancie-ajax>
+
     <div id="grid" class="layout horizontal wrap flex">
       <div class="layout vertical flex-1 main-sponsors">
         <h3>Presented by</h3>
-        <a href="https://ch.tudelft.nl" target="_blank" rel="noopener noreferrer"><img src="../../images-optimized/lancie/logo_CH.png"></a>
-        <a href="https://www.tudelft.nl" target="_blank" rel="noopener noreferrer"><img src="../../images-optimized/logos/logo_SC.png"></a>
+        <template is="dom-repeat" items="[[presenters]]" as="presenter">
+          <a href="[[presenter.website]]" target="_blank" rel="noopener noreferrer"><img src="../../[[presenter.imageName]]"></a>
+        </template>
       </div>
       <div class="layout vertical flex-4">
         <h3>Premium sponsors</h3>
         <div class="layout horizontal wrap premium-sponsors">
-          <a href="https://www.sogeti.nl/" target="_blank" rel="noopener noreferrer"><img src="../../images-optimized/logos/sogeti.png"></a>
-          <a href="https://www.nutanix.com" target="_blank" rel="noopener noreferrer"><img src="../../images-optimized/logos/nutanix.png"></a>
-          <a href="https://ogd.nl/" target="_blank" rel="noopener noreferrer"><img src="../../images-optimized/logos/ogd.png"></a>
+          <template is="dom-repeat" items="[[premiums]]" as="premium">
+            <a href="[[premium.website]]" target="_blank" rel="noopener noreferrer"><img src="../../[[premium.imageName]]"></a>
+          </template>
         </div>
+      </div>
       <div class="layout vertical flex-4">
         <h3>Sponsors</h3>
         <div class="layout horizontal wrap regular-sponsors">
-          <a href="http://www.coolermaster.com/" target="_blank" rel="noopener noreferrer"><img src="../../images-optimized/logos/Cooler_Master_Logo.png"></a>
-          <a href="http://www.spam-energydrink.com/" target="_blank" rel="noopener noreferrer"><img src="../../images-optimized/logos/spam-logo.jpg"></a>
-          <a href="http://www.jigsaw.nl/" target="_blank" rel="noopener noreferrer"><img id="jigsawLogo" src="../../images-optimized/logos/jigsaw_cleaner_logo.png"></a>
-          <a href="https://www.transip.nl/" target="_blank" rel="noopener noreferrer"><img src="../../images-optimized/logos/transip_logo.png"></a>
+          <template is="dom-repeat" items="[[normals]]" as="normal">
+            <a href="[[normal.website]]" target="_blank" rel="noopener noreferrer"><img src="../../[[normal.imageName]]"></a>
+          </template>
         </div>
       </div>
     </div>
@@ -72,6 +81,27 @@
 
       Polymer({
         is: 'lancie-sponsors',
+        properties: {
+          sponsors: Array,
+          presenters: Array,
+          premiums: Array,
+          normals: Array
+        },
+
+        onResponse: function (e, request) {
+          if (request.succeeded) {
+            this.sponsors = request.response.object;
+            this.presenters = this.sponsors.filter(function(sponsor) {
+              return sponsor.type === "PRESENTER";
+            });
+            this.premiums = this.sponsors.filter(function(sponsor) {
+              return sponsor.type === "PREMIUM";
+            });
+            this.normals = this.sponsors.filter(function(sponsor) {
+              return sponsor.type === "NORMAL";
+            });
+          }
+        }
       });
     })();
   </script>
