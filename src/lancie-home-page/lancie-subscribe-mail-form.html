@@ -31,7 +31,7 @@
     </style>
 
     <lancie-form id="mailForm" refurl="subscriptions" method="POST" class="mail-input" on-response="onResponse">
-      <lancie-error id="alert"></lancie-error>
+      <lancie-error id="lancieAlert"></lancie-error>
       <paper-input label="E-Mail" name="email" class="mail-input" value="{{email}}" on-keydown="onEnter">
         <iron-icon icon="mail" slot="prefix"></iron-icon>
         <paper-icon-button slot="suffix" on-tap="clearInput" icon="clear" alt="clear" title="Clear"></paper-icon-button>
@@ -54,7 +54,7 @@
         },
 
         trySubmit: function() {
-          this.$.alert.clear();
+          this.$.lancieAlert.clear();
           this.$.mailForm.validateAndSubmit();
         },
 
@@ -67,10 +67,10 @@
         onResponse: function(event, request) {
           if (request.succeeded) {
             this.clearInput();
-            this.$.alert.setSuccess('Thank you for signing up!');
+            this.$.lancieAlert.setSuccess('Thank you for signing up!');
           } else {
             if (request.request.status === 400 || request.request.status === 409) {
-              this.$.alert.setError(request.request.response.message);
+              this.$.lancieAlert.setError(request.request.response.message);
             } else {
               this.fire('refreshToast');
             }
