@@ -56,14 +56,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       color: #333;
       background-color: #eeecec;
       margin: 0;
-      --lancie-primary: #1a2b43;
-      --lancie-secondary: #ffe574;
-      --app-toolbar-height: 64px;
+      --primary-color: #1a2b43;
+      --secondary-color: #ffe574;
     }
 
     app-toolbar {
-      background-color: var(--lancie-primary);
-      height: var(--app-toolbar-height);
+      background-color: var(--primary-color);
+      height: 64px;
       justify-content: space-between;
       display: flex;
       align-items: center;
@@ -106,7 +105,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     .navigation-tabs a {
       text-decoration: none;
-      color: var(--lancie-secondary);
+      color: var(--secondary-color);
       font-size: 16px;
       font-weight: 400;
       line-height: 24px;
@@ -117,15 +116,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       align-items: center;
     }
     .navigation-tabs a.iron-selected {
-      border-bottom: 2px solid var(--lancie-secondary);
+      border-bottom: 2px solid var(--secondary-color);
     }
 
     img {
       margin-left: 16px;
     }
 
-    paper-icon-button {
-      color: var(--lancie-secondary);
+    app-toolbar paper-icon-button {
+      color: var(--secondary-color);
       height: 48px;
       width: 48px;
     }
