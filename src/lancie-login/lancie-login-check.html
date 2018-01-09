@@ -61,7 +61,10 @@
       checks.splice(checks.indexOf(this.callbackFunction), 1);
     }
 
-
+    constructor() {
+      super();
+      this.addEventListener('logged-in', e => {this.storeUser(e, e.detail);});
+    }
 
     _canAccess(instance, user, nologin) {
       if (!instance && (nologin || (user && user !== ''))) {
