@@ -18,6 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../lancie-timeline/lancie-timeline.html">
 <link rel="import" href="../lancie-faq/lancie-faq.html">
 <link rel="import" href="../lancie-facebook/lancie-facebook.html">
+<link rel="import" href="../lancie-my-area/lancie-terms-of-service.html">
 <link rel="import" href="lancie-image-slider.html">
 <link rel="import" href="lancie-info-blocks.html">
 <link rel="import" href="lancie-subscribe-mail-form.html">
@@ -224,24 +225,47 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
     </template>
 
+    <lancie-terms-of-service id="termsOfService">
+      <paper-button on-tap="closeDialog">Close</paper-button>
+    </lancie-terms-of-service>
+
   </template>
 </dom-module>
 <script>
-  (function() {
+  (() => {
     'use strict';
 
-    Polymer({
-      is: 'lancie-home-page',
+    class LancieHomePage extends Polymer.Element {
+      static get is() {
+        return 'lancie-home-page';
+      }
 
-      properties: {
-        opened: {
-          type: Boolean
-        },
-        markdownUrl: {
-          type: String,
-          value: 'scripts/markdown.md'
+      static get properties() {
+        return {
+          opened: {
+            type: Boolean
+          },
+          markdownUrl: {
+            type: String,
+            value: 'scripts/markdown.md'
+          }
         }
       }
-    });
+
+      constructor() {
+        super();
+        this.addEventListener('show-terms-and-conditions', this.openDialog);
+      }
+
+      openDialog() {
+        this.$.termsOfService.open();
+      }
+
+      closeDialog() {
+        this.$.termsOfService.close();
+      }
+    }
+
+    customElements.define(LancieHomePage.is, LancieHomePage);
   })();
 </script>
