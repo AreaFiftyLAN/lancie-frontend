@@ -14,11 +14,12 @@ This code may only be used under the BSD style license found at https://github.c
       }
       .description {
         text-align: justify;
+        padding-right: 16px;
       }
     </style>
 
     <div class="content">
-      <marked-element markdown="{{data.description}}"></marked-element>
+      <marked-element markdown="{{data.description}}" class="description"></marked-element>
     </div>
   </template>
   <script>
