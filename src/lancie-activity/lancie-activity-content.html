@@ -5,6 +5,7 @@ This code may only be used under the BSD style license found at https://github.c
 -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/marked-element/marked-element.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 <dom-module id="lancie-activity-content">
   <template>
@@ -14,11 +15,13 @@ This code may only be used under the BSD style license found at https://github.c
       }
       .description {
         text-align: justify;
+        padding-right: 16px;
       }
     </style>
 
     <div class="content">
-      <marked-element markdown="{{data.description}}"></marked-element>
+      <marked-element markdown="[[data.description]]" class="description"></marked-element>
+      <paper-button on-tap="showTermsAndConditions">View terms and conditions</paper-button>
     </div>
   </template>
   <script>
@@ -34,6 +37,13 @@ This code may only be used under the BSD style license found at https://github.c
             value: {},
             notify: true
           }
+        },
+
+        showTermsAndConditions: function() {
+          this.dispatchEvent(new CustomEvent('show-terms-and-conditions', {
+            bubbles: true,
+            composed: true
+          }));
         }
       });
     })();
