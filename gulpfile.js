@@ -37,7 +37,7 @@ const imageOptions = {
 
 // Optimize images with ImageOptim
 // Run with `yarn run build optimize-images`
-const optimizeImages = () => {
+const optimizeImages = () => new Promise((resolve, reject) => {
   glob('images/**/*.{jpg,png,svg}', (err, files) => {
     for (const file of files) {
       const relativeFile = file.substring(file.indexOf('/') + 1);
@@ -55,8 +55,10 @@ const optimizeImages = () => {
         });
       }
     }
+    resolve();
   })
-};
+});
+
 gulp.task('optimize-images', optimizeImages);
 
 gulp.task('replace-api', () => {
@@ -87,7 +89,7 @@ gulp.task('linter', linter);
 gulp.task('default', gulp.series([
   'linter',
   'ensure-images-optimized',
-  'ensure-lazy-fragments' 
+  'ensure-lazy-fragments'
 ]));
 
 gulp.task('post-build', gulp.series([

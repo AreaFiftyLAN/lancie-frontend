@@ -3,6 +3,9 @@ WORKDIR /src
 ADD . ./
 RUN docker/dockerbuild.sh
 
-FROM nginx:mainline
-COPY docker/nginx_server.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /src/build/fallback /srv/www
+FROM mhart/alpine-node:8
+RUN npm install -g prpl-server
+COPY --from=builder /src/build/ .
+COPY . .
+EXPOSE 80
+CMD [ "prpl-server", "--config" , "polymer.json" ,"--host" ,"0.0.0.0", "--port" ,"80" ]
