@@ -37,7 +37,7 @@ const imageOptions = {
 
 // Optimize images with ImageOptim
 // Run with `yarn run build optimize-images`
-const optimizeImages = () => {
+const optimizeImages = () => new Promise((resolve, reject) => {
   glob('images/**/*.{jpg,png,svg}', (err, files) => {
     for (const file of files) {
       const relativeFile = file.substring(file.indexOf('/') + 1);
@@ -55,13 +55,11 @@ const optimizeImages = () => {
         });
       }
     }
+    resolve();
   })
-};
-gulp.task('optimize-images', optimizeImages);
-
-gulp.task('replace-api', () => {
-  return gulp.src(['build/**/*']).pipe(gulpif(/\.html$/, gulpreplace('/api/v1', 'https://api.areafiftylan.nl/api/v1'))).pipe(gulp.dest('build'))
 });
+
+gulp.task('optimize-images', optimizeImages);
 
 gulp.task('replace-api', () => {
   return gulp.src(['build/**/*']).pipe(gulpif(/\.html$/, gulpreplace('/api/v1', 'https://api.areafiftylan.nl/api/v1'))).pipe(gulp.dest('build'))
