@@ -10,5 +10,4 @@ yarn
 bower --allow-root install
 
 # Compress images and build
-yarn run optimize-images
 yarn run build
