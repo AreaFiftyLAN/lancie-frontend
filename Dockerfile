@@ -3,7 +3,7 @@ WORKDIR /src
 ADD . ./
 RUN docker/dockerbuild.sh
 
-FROM mhart/alpine-node:8
+FROM node:8-alpine
 RUN npm install -g prpl-server
 COPY --from=builder /src/build/ .
 COPY . .
