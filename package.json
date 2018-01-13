@@ -4,7 +4,7 @@
     "dom5": "^2.1.0",
     "fs-extra": "^4.0.1",
     "glob": "^7.1.1",
-    "gulp": "gulpjs/gulp#4.0",
+    "gulp": "^4.0.0",
     "gulp-if": "^2.0.1",
     "gulp-jshint": "^2.0.2",
     "gulp-replace": "^0.6.1",
@@ -16,9 +16,9 @@
     "superagent": "^3.2.1"
   },
   "scripts": {
-    "build": "yarn checks && polymer build && node ./node_modules/gulp/bin/gulp.js post-build",
-    "checks": "node ./node_modules/gulp/bin/gulp.js",
-    "serve": "yarn checks && node ./node_modules/polyserve/bin/polyserve -p 5100 -P h2 --proxy-path api --proxy-target http://localhost:9000/api/"
+    "build": "yarn checks && polymer build && gulp post-build",
+    "checks": "gulp",
+    "serve": "yarn checks && polyserve -p 5100 -P h2 --proxy-path api --proxy-target http://localhost:9000/api/"
   },
   "engines": {
     "node": ">=5.0.0"
