@@ -10,7 +10,7 @@
   ],
   "builds": [
     {"name":"fallback", "preset": "es5-bundled", "basePath": true},
-    {"name": "modern", "preset": "es6-unbundled", "browserCapabilities": ["es2015"], "basePath": true}
+    {"name": "modern", "preset": "es6-unbundled", "browserCapabilities": ["es2015"], "basePath": true, "addPushManifest": false}
   ],
   "fragments": [
     "src/lancie-home-page/lancie-home-page.html",
