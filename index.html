@@ -150,7 +150,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <body>
   <lancie-auth-storage></lancie-auth-storage>
-  <paper-toast></paper-toast>
+  <paper-toast id="msg-toast"></paper-toast>
+
+  <paper-toast id="reload-toast">
+    <paper-button onclick="window.location.reload()">Reload</paper-button>
+  </paper-toast>
 
   <app-location></app-location>
   <app-route pattern="/:page"></app-route>
@@ -261,31 +265,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       const requireUsers = document.querySelectorAll('[data-requires-user]');
       const selectors = document.querySelectorAll('iron-selector, paper-tabs');
       const drawer = document.querySelector('app-drawer');
-      const paperToast = document.querySelector('paper-toast');
+      const msgToast = document.querySelector('#msg-toast');
+      const refreshToast = document.querySelector('#refresh-toast');
       const authStorage = document.querySelector('lancie-auth-storage');
       const appLocation = document.querySelector('app-location');
       const appRoute = document.querySelector('app-route');
       const ironLazyPages = document.querySelector('iron-lazy-pages');
       const constructionPages = ["/seatmap"];
 
-      function showToast(properties) {
-        if (paperToast.opened) {
-          paperToast.close();
+      function showMsgToast(properties) {
+        if (msgToast.opened) {
+          msgToast.close();
           setTimeout(() => {
-            paperToast.show(properties);
+            msgToast.show(properties);
           }, 100);
         } else {
-          paperToast.show(properties);
+          msgToast.show(properties);
         }
       }
       document.addEventListener('toast', (e) => {
-        showToast(e.detail);
+        showMsgToast(e.detail);
       });
       document.addEventListener('navigate', (e) => {
         appLocation.path = e.detail.page;
       });
-      document.addEventListener('refreshToast', (e) => {
-        showToast({text: 'Unable to connect to server. Try refreshing the page.'});
+      document.addEventListener('refresh-toast', () => {
+        refreshToast.show({text: 'Unable to connect to server. Try refreshing the page.'});
+      });
+      document.addEventListener('update-toast', () => {
+        refreshToast.show({text: 'New version available!'});
       });
 
       function updateUserBindings(user) {
@@ -331,7 +339,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         customElements.whenDefined('app-drawer').then(() => {
           drawer.style.display = 'block';
         });
-      }
+      };
       document.head.appendChild(linkElement);
 
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -342,5 +350,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ga('send', 'pageview');
     })();
   </script>
+  <script src="scripts/sw-register.js"></script>
 </body>
 </html>

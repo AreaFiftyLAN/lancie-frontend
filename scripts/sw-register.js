@@ -1,0 +1,39 @@
+(() => {
+  if ('serviceWorker' in navigator && window.location.hostname !== 'localhost') {
+
+    navigator.serviceWorker.register('service-worker.js').then((reg) => {
+        if (!navigator.serviceWorker.controller) {
+          return;
+        }
+
+        if (reg.waiting) {
+          updateReady(reg.waiting);
+          return;
+        }
+
+        if (reg.installing) {
+          trackInstalling(reg.installing);
+          return;
+        }
+
+        reg.addEventListener('updatefound', function () {
+          trackInstalling(reg.installing);
+        });
+      }
+    )
+  }
+
+  let updateReady = (worker) => {
+    this.fire('update-toast');
+    worker.postMessage({action: 'skip-waiting'});
+  };
+
+  let trackInstalling = (worker) => {
+    worker.addEventListener('statechange', function () {
+      if (worker.state === 'installed') {
+        updateReady(worker);
+      }
+    })
+  };
+
+})();

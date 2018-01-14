@@ -166,7 +166,7 @@
         if (request.succeeded) {
           this.fire('set-basket', {basket: request.response.object});
         } else {
-          this.fire('refreshToast');
+          this.fire('refresh-toast');
         }
       },
 

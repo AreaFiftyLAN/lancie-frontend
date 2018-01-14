@@ -65,7 +65,7 @@ This code may only be used under the BSD style license found at https://github.c
         padding: 8px;
         border-top: solid 1px #e8e8e8;
       }
-      
+
       .next-button {
         background-color: var(--primary-color);
         color: var(--secondary-color);
@@ -84,7 +84,7 @@ This code may only be used under the BSD style license found at https://github.c
         }
 
         .tabs > div {
-          padding: 4px;  
+          padding: 4px;
         }
       }
 
@@ -191,7 +191,7 @@ This code may only be used under the BSD style license found at https://github.c
         if(this.query.indexOf('login') > -1) {
           this.fromRegister = true;
           this.selectTab(TABS.LOGIN);
-        } 
+        }
     },
 
     next: function() {
@@ -231,7 +231,7 @@ This code may only be used under the BSD style license found at https://github.c
       if (request.succeeded) {
         this.availableTickets = request.response;
       } else {
-        this.fire('refreshToast');
+        this.fire('refresh-toast');
       }
     },
 
@@ -244,7 +244,7 @@ This code may only be used under the BSD style license found at https://github.c
         // This sets the url to the mollie address of the order.
         window.location.href = request.response.object;
       } else {
-        this.fire('refreshToast');
+        this.fire('refresh-toast');
       }
     },
 
