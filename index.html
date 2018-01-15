@@ -145,6 +145,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </style>
 
   <base href="/">
+  <link rel="import" href="ce-fix.html">
   <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 </head>
 
@@ -324,12 +325,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       // We can't use async import, as that screws up the loading mechanism :(
-      // Load the custom elements workaround first
-      const ceWorkaround = document.createElement('link');
-      ceWorkaround.rel = 'import';
-      ceWorkaround.href = 'ce-fix.html';
-      document.head.appendChild(ceWorkaround);
-
       const linkElement = document.createElement('link');
       linkElement.rel = 'import';
       linkElement.href = 'src/index-imports.html';
