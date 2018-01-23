@@ -65,7 +65,7 @@ This code may only be used under the BSD style license found at https://github.c
         padding: 8px;
         border-top: solid 1px #e8e8e8;
       }
-      
+
       .next-button {
         background-color: var(--primary-color);
         color: var(--secondary-color);
@@ -84,7 +84,7 @@ This code may only be used under the BSD style license found at https://github.c
         }
 
         .tabs > div {
-          padding: 4px;  
+          padding: 4px;
         }
       }
 
@@ -114,7 +114,7 @@ This code may only be used under the BSD style license found at https://github.c
     <div class="paper-material" elevation="1" on-next="next">
       <div class="tabs">
         <div><span>Tickets</span></div>
-        <div><span>Login</span></div>
+        <div><span>Login/Register</span></div>
         <div><span>Profile</span></div>
         <div><span>Terms &amp; Conditions</span></div>
       </div>
@@ -191,7 +191,7 @@ This code may only be used under the BSD style license found at https://github.c
         if(this.query.indexOf('login') > -1) {
           this.fromRegister = true;
           this.selectTab(TABS.LOGIN);
-        } 
+        }
     },
 
     next: function() {
