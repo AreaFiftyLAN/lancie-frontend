@@ -7,8 +7,6 @@
   }
 
   .banner {
-    display: flex;
-    justify-content: space-around;
     width: 100%;
     height: 500px;
 
@@ -19,24 +17,32 @@
     background-color: var(--primary-color);
   }
 
-  .logo {
-    max-height: 120px;
-    height: 100%;
-    margin: 0 8px;
-    z-index: 1;
-
-    background-image: url(../../images-optimized/lancie/logo_without_date.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-  }
-
   .blur {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    height: 100%;
     background: rgba(0, 0, 0, 0.4);
     width: inherit;
+  }
+
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+  }
+
+  .logo-container > img {
+    max-width: 95vw;
+    width: 800px;
+  }
+
+  .logo-container > span {
+    color: white;
+    font-weight: 600;
+    font-size: 24px;
+    text-transform: uppercase;
   }
 
   .links {
@@ -100,7 +106,10 @@
 
 <div class="banner">
   <div class="blur">
-    <div class="logo"></div>
+    <div class="logo-container">
+      <img src="../../images-optimized/lancie/logo_without_date.png" alt="Area FiftyLAN logo">
+      <span>2-3-4 March</span>
+    </div>
   </div>
 </div>
 
