@@ -26,6 +26,7 @@ module.exports = {
       }
     }
   ],
+  importScripts: ['scripts/sw-message.js'],
   navigateFallback: '/index.html',
   navigateFallbackWhitelist: [/^(?!.*\.html$|\/data\/).*/],
 };

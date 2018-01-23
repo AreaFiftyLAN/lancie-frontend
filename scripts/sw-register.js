@@ -1,5 +1,5 @@
 (() => {
-  if ('serviceWorker' in navigator && window.location.hostname !== 'localhost') {
+  if ('serviceWorker' in navigator) {
 
     navigator.serviceWorker.register('service-worker.js').then((reg) => {
         if (!navigator.serviceWorker.controller) {
