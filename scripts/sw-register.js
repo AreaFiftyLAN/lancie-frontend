@@ -24,7 +24,7 @@
   }
 
   let updateReady = (worker) => {
-    this.fire('update-toast');
+    this.dispatchEvent(new CustomEvent('update-toast', {bubbles: true}));
     worker.postMessage({action: 'skip-waiting'});
   };
 
