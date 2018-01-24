@@ -54,11 +54,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
       },
 
+      created: function() {
+        this.addEventListener('clear-token', e => {this.clearToken(e);});
+      },
+
       getToken: function() {
         return this.auth && this.auth.token;
       },
 
-      clearToken: function() {
+      clearToken: function(e) {
         this.auth = {};
         this.$.ajax.clearToken();
         this.$.form.clearToken();
