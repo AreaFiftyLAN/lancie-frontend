@@ -195,12 +195,24 @@
 
       onPasswordUpdate(e, request) {
         if (request.succeeded) {
-          this.fire('toast', {text: 'Password updated.'});
+          this.dispatchEvent(new CustomEvent('toast', {
+            detail: 'Password updated.',
+            bubbles: true,
+            composed: true
+          }));
         } else {
           if (request.request.status === 403) {
-            this.fire('toast', {text: 'Wrong password.'});
+            this.dispatchEvent(new CustomEvent('toast', {
+              detail: 'Wrong password.',
+              bubbles: true,
+              composed: true
+            }));
           } else {
-            this.fire('toast', {text: 'Password update failed.'});
+            this.dispatchEvent(new CustomEvent('toast', {
+              detail: 'Password update failed.',
+              bubbles: true,
+              composed: true
+            }));
           }
         }
       }
