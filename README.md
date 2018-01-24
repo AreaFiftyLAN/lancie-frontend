@@ -1,5 +1,5 @@
 # LANcie frontend
-Welcome to the pretty part of the Area FiftyLAN system! This repo contains all the code that you will see served at https://areafiftylan.nl, including the ticketsale, my-area and seatmap. The front-end is built with [Polymer](https://www.polymer-project.org/1.0/), Google's Web Components framework. There are a couple of things you need to do before you can enjoy all that lovely material design goodness.
+Welcome to the pretty part of the Area FiftyLAN system! This repo contains all the code that you will see served at https://areafiftylan.nl, including the ticketsale, my-area and seatmap. The front-end is built with [Polymer](https://www.polymer-project.org/1.0/), Google's Web Components library. There are a couple of things you need to do before you can enjoy all that lovely material design goodness.
 
 The application works without a back-end, but to enjoy the full functionality, you need to have the back-end running aswell. You can find our back-end also on GitHub, the [LANcie-API](https://github.com/AreaFiftyLAN/lancie-api).
 
@@ -39,3 +39,11 @@ yarn
 bower install
 yarn run serve
 ```
+
+## Thanks
+BrowserStack: For providing testing support
+<div>
+  <a href="https://www.browserstack.com/">
+    <img src="https://www.browserstack.com/images/layout/browserstack-logo-600x315.png" height="70" style="height:70px;">
+  </a>
+</div>
