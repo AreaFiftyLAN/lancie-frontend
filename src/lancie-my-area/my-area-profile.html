@@ -13,6 +13,7 @@
 <link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/lancie-login-form/lancie-passwords.html">
 <link rel="import" href="profile-edit-form.html">
+<link rel="import" href="../lancie-login/lancie-logout-button.html"/>
 
 <dom-module id="my-area-profile">
   <template>
@@ -97,7 +98,7 @@
         <div class="layout horizontal center">
           <iron-icon icon="communication:email" item-icon></iron-icon>
           <div class="item flex">
-            <div>{{user.username}}</div>
+            <div>{{user.email}}</div>
           </div>
         </div>
 
@@ -105,7 +106,7 @@
         <div class="layout horizontal center" hidden$="[[editingPassword]]">
           <iron-icon icon="icons:lock" item-icon></iron-icon>
           <div class="item flex">
-            <div>&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+            <div id="pwPlaceholder"></div>
           </div>
         </div>
         <div class="layout horizontal center" hidden$="[[!editingPassword]]">
@@ -129,44 +130,56 @@
         <paper-icon-button on-tap="submitEdit" icon="icons:check" id="checkIcon"></paper-icon-button>
         <paper-tooltip for="checkIcon" offset="0" animation-delay="1">Save changes</paper-tooltip>
       </div>
+      <lancie-logout-button></lancie-logout-button>
     </paper-card>
-
   </template>
   <script>
-  'use strict';
+    class MyAreaProfile extends Polymer.Element {
 
-  (function() {
-    Polymer({
-      is: 'my-area-profile',
-      properties: {
-        user: Object,
-        editingProfile: {
-          type: Boolean,
-          value: false
-        },
-        editingPassword: {
-          type: Boolean,
-          value: false
-        },
-        currentPassword: {
-          type: String
+      static get is() {
+        return 'my-area-profile';
+      }
+
+      static get properties() {
+        return {
+          user: Object,
+          editingProfile: {
+            type: Boolean,
+            value: false
+          },
+          editingPassword: {
+            type: Boolean,
+            value: false
+          },
+          currentPassword: {
+            type: String
+          },
+          pwPlaceholder: {
+            type: String,
+            value: () => { return '&#9679;'.repeat(12);}
+          }
         }
-      },
+      }
 
-      switchProfileForm: function() {
+      ready() {
+        super.ready();
+        this.$.pwPlaceholder.innerHTML = this.pwPlaceholder;
+      }
+
+      switchProfileForm() {
         this.editingProfile = !this.editingProfile;
-      },
+      }
 
-      switchPasswordForm: function() {
+      switchPasswordForm() {
         this.editingPassword = !this.editingPassword;
-      },
+      }
 
-      resetForms: function() {
+      resetForms() {
         this.editingProfile = false;
         this.editingPassword = false;
-      },
+      }
 
-      submitEdit: function() {
+      submitEdit() {
         if (this.editingProfile) {
           if (this.$.profileForm.validateAndSubmit()) {
             this.switchProfileForm();
@@ -178,9 +191,9 @@
             this.switchPasswordForm();
           }
         }
-      },
+      }
 
-      onPasswordUpdate: function(e, request) {
+      onPasswordUpdate(e, request) {
         if (request.succeeded) {
           this.fire('toast', {text: 'Password updated.'});
         } else {
@@ -190,17 +203,17 @@
             this.fire('toast', {text: 'Password update failed.'});
           }
         }
-      },
+      }
 
-      isEditing: function(editingProfile, editingPassword) {
+      isEditing(editingProfile, editingPassword) {
         return editingProfile || editingPassword;
-      },
+      }
 
-      _checkEmpty: function(value) {
+      _checkEmpty(value) {
         return value || 'Not yet filled in, please click the pencil icon in the bottom left to complete your profile.';
-      },
+      }
+    }
 
-    });
-  })();
+    customElements.define(MyAreaProfile.is, MyAreaProfile);
   </script>
 </dom-module>
