@@ -133,6 +133,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       display: none;
     }
 
+    body:not(imported) .wait-import {
+      display: none;
+    }
+
+    body.imported .wait-import {
+      display: block;
+    }
+
     @media (max-width: 800px) {
       .navigation-tabs {
         display: none;
@@ -150,11 +158,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <body>
   <lancie-auth-storage></lancie-auth-storage>
-  <paper-toast id="msg-toast"></paper-toast>
-
-  <paper-toast id="reload-toast">
-    <a href=".">Reload</a>
-  </paper-toast>
 
   <app-location></app-location>
   <app-route pattern="/:page"></app-route>
@@ -259,6 +262,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </app-header-layout>
   </app-drawer-layout>
 
+  <paper-toast id="msg-toast"></paper-toast>
+
+  <paper-toast id="reload-toast">
+    <a href="." class="wait-import">Reload</a>
+  </paper-toast>
+
   <script>
     'use strict';
     (() => {
@@ -338,6 +347,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       linkElement.onload = function() {
         customElements.whenDefined('app-drawer').then(() => {
           drawer.style.display = 'block';
+          document.body.classList.add('imported');
         });
       };
       document.head.appendChild(linkElement);
