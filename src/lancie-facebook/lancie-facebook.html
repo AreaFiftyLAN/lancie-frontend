@@ -1,4 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../lazy-load.html">
+
 <dom-module id="lancie-facebook">
   <template>
     <style>
@@ -26,30 +28,12 @@
       'use strict';
 
       const iframeUrl = 'https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fareafiftylan%2F&tabs=timeline&width=292&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId';
-      const observerOptions = {
-        rootMargin: '40px'
-      };
 
-      class LancieFacebook extends Polymer.Element {
+      class LancieFacebook extends Lancie.lazyLoad(Polymer.Element) {
         static get is() { return 'lancie-facebook'; }
-
-        connectedCallback() {
-          super.connectedCallback();
-
-          const callback = (entries) => {
-            // The first load triggers the observer, but we are not yet fully
-            // loaded to show the image, thus we are not in view.
-            // Swallow this event by checking if we are actually intersecting
-            if (entries[0].isIntersecting && !this.$.frame.src) {
-              this.$.frame.src = iframeUrl;
-            }
-          };
-
-          if (window.IntersectionObserver) {
-            const observer = new IntersectionObserver(callback, observerOptions);
-            observer.observe(this);
-          } else {
-            callback();
+        lazyCallback() {
+          if (!this.$.frame.src) {
+            this.$.frame.src = iframeUrl;
           }
         }
       }
