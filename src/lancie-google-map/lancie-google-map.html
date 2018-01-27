@@ -1,0 +1,35 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/google-map/google-map.html">
+<link rel="import" href="../../bower_components/google-map/google-map-marker.html">
+<link rel="import" href="../lazy-load.html">
+
+<dom-module id="lancie-google-map">
+  <template>
+    <template is="dom-if" if="[[lazyLoaded]]">
+      <google-map latitude="51.995694" longitude="4.373950" zoom="14" disable-zoom fit-to-markers draggable="false" api-key="{{googleMapsToken.message}}">
+        <google-map-marker slot="markers" latitude="51.995694" longitude="4.373950" draggable="true" title="Area FiftyLAN"></google-map-marker>
+      </google-map>
+    </template>
+  </template>
+  <script>
+  'use strict';
+    (function() {
+      class LancieGoogleMap extends Lancie.lazyLoad(Polymer.Element) {
+        static get is() { return 'lancie-google-map'; }
+        static get properties() {
+          return {
+            googleMapsToken: Object,
+            lazyLoaded: {
+              type: Boolean,
+              value: false
+            }
+          };
+        }
+        lazyCallback() {
+          this.lazyLoaded = true;
+        }
+      }
+      customElements.define(LancieGoogleMap.is, LancieGoogleMap);
+    })();
+  </script>
+</dom-module>

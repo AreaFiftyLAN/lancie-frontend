@@ -1,4 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../lazy-load.html">
+
 <dom-module id="lancie-facebook">
   <template>
     <style>
@@ -14,7 +16,7 @@
       }
     </style>
 
-    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fareafiftylan%2F&tabs=timeline&width=292&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"
+    <iframe id="frame"
             scrolling="no"
             frameborder="0"
             allowTransparency="true">
@@ -25,9 +27,17 @@
     (function() {
       'use strict';
 
-      Polymer({
-        is: 'lancie-facebook',
-      });
+      const iframeUrl = 'https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fareafiftylan%2F&tabs=timeline&width=292&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId';
+
+      class LancieFacebook extends Lancie.lazyLoad(Polymer.Element) {
+        static get is() { return 'lancie-facebook'; }
+        lazyCallback() {
+          if (!this.$.frame.src) {
+            this.$.frame.src = iframeUrl;
+          }
+        }
+      }
+      customElements.define(LancieFacebook.is, LancieFacebook);
     })();
   </script>
 </dom-module>
