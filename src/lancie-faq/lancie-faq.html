@@ -19,8 +19,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       display: block;
     }
 
-    .markdown-html a {
-      color: rgba(255, 255, 255, 0.87);
+    marked-element a {
+      color: var(--secondary-color);
     }
   </style>
 
@@ -32,7 +32,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     on-error="onError"></iron-ajax>
 
   <marked-element markdown="[[text]]">
-    <div class="markdown-html"></div>
+    <div slot="markdown-html"></div>
   </marked-element>
 
 </template>

@@ -9,7 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <!doctype html>
-<html lang="">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -175,10 +175,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <!-- Nav on mobile: side nav menu -->
         <app-toolbar>
-          <paper-icon-button class="menu-button" icon="menu" drawer-toggle></paper-icon-button>
+          <paper-icon-button class="menu-button" icon="menu" drawer-toggle aria-label="Drawer navigation menu"></paper-icon-button>
 
-          <a href="/">
-            <img class="headerLogo" height="32" width="200" src="images-optimized/lancie/logo_without_date.png" />
+          <a href="/" aria-label="Homepage">
+            <img
+                class="headerLogo"
+                height="32" width="200"
+                src="images-optimized/lancie/logo_without_date.png"
+                alt="Area FiftyLAN logo" />
           </a>
 
           <nav class="navigation-tabs">
