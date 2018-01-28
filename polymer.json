@@ -33,7 +33,6 @@
   ],
   "extraDependencies": [
     "ce-fix.html",
-    ".htaccess",
     "manifest.json",
     "favicon.ico",
     "robots.txt",
