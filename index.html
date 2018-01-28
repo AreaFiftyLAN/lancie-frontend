@@ -141,6 +141,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       display: block;
     }
 
+    #reload-toast {
+      --paper-toast-color: white;
+    }
+
+    #reload-toast a {
+      display: inline-block;
+      font-weight: 500;
+      margin-left: 16px;
+      color: var(--secondary-color);
+    }
+
     @media (max-width: 800px) {
       .navigation-tabs {
         display: none;
@@ -264,8 +275,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <paper-toast id="msg-toast"></paper-toast>
 
-  <paper-toast id="reload-toast">
-    <a href="." class="wait-import">Reload</a>
+  <paper-toast id="reload-toast" class="wait-import">
+    <a href="javascript:window.location.reload(true)">Reload</a>
   </paper-toast>
 
   <script>
@@ -274,8 +285,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       const requireUsers = document.querySelectorAll('[data-requires-user]');
       const selectors = document.querySelectorAll('iron-selector, paper-tabs');
       const drawer = document.querySelector('app-drawer');
-      const msgToast = document.querySelector('#msg-toast');
-      const refreshToast = document.querySelector('#refresh-toast');
+      const msgToast = document.getElementById('msg-toast');
+      const reloadToast = document.getElementById('reload-toast');
       const authStorage = document.querySelector('lancie-auth-storage');
       const appLocation = document.querySelector('app-location');
       const appRoute = document.querySelector('app-route');
@@ -299,10 +310,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         appLocation.path = e.detail.page;
       });
       document.addEventListener('refresh-toast', () => {
-        refreshToast.show({text: 'Unable to connect to server. Try refreshing the page.'});
+        reloadToast.show({text: 'Unable to connect to server. Try refreshing the page.'});
       });
       document.addEventListener('update-toast', () => {
-        refreshToast.show({text: 'New version available!'});
+        reloadToast.show({text: 'New version available!'});
       });
 
       function updateUserBindings(user) {

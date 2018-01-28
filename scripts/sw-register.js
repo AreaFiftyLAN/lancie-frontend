@@ -1,39 +1,35 @@
-(() => {
-  if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator) {
 
-    navigator.serviceWorker.register('service-worker.js').then((reg) => {
-        if (!navigator.serviceWorker.controller) {
-          return;
-        }
-
-        if (reg.waiting) {
-          updateReady(reg.waiting);
-          return;
-        }
-
-        if (reg.installing) {
-          trackInstalling(reg.installing);
-          return;
-        }
-
-        reg.addEventListener('updatefound', function () {
-          trackInstalling(reg.installing);
-        });
+  navigator.serviceWorker.register('service-worker.js').then((reg) => {
+      if (!navigator.serviceWorker.controller) {
+        return;
       }
-    )
-  }
 
-  let updateReady = (worker) => {
-    this.dispatchEvent(new CustomEvent('update-toast', {bubbles: true}));
-    worker.postMessage({action: 'skip-waiting'});
-  };
-
-  let trackInstalling = (worker) => {
-    worker.addEventListener('statechange', function () {
-      if (worker.state === 'installed') {
-        updateReady(worker);
+      if (reg.waiting) {
+        updateReady();
+        return;
       }
-    })
-  };
 
-})();
+      if (reg.installing) {
+        trackInstalling(reg.installing);
+        return;
+      }
+
+      reg.addEventListener('updatefound', () => {
+        trackInstalling(reg.installing);
+      });
+    }
+  )
+}
+
+let updateReady = () => {
+  document.dispatchEvent(new CustomEvent('update-toast'));
+};
+
+let trackInstalling = (worker) => {
+  worker.addEventListener('statechange', () => {
+    if (worker.state === 'installed') {
+      updateReady();
+    }
+  })
+};
