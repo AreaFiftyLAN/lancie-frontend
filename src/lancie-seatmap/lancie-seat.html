@@ -92,13 +92,13 @@ This code may only be used under the BSD style license found at https://github.c
         this.fire('requestSeatReserve', {'seatToReserve': this.seat});
       },
       _calculateClass: function(user, teamTickets, seat, filter) {
-        if (!seat.taken) {
+        if (!seat.locked) {
           return '';
         }
         if (seat.ticket && seat.ticket.owner.profile.displayName && filter !== '' && seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
           return 'blue';
         }
-        if ((seat.taken && this.fixed) || (seat.taken && !seat.ticket)) {
+        if ((seat.locked && this.fixed) || (seat.locked && !seat.ticket)) {
           return 'red';
         }
         if (!this.fixed && user.reference === seat.ticket.owner.reference) {
@@ -113,10 +113,10 @@ This code may only be used under the BSD style license found at https://github.c
         return 'red';
       },
       _getTooltipText: function(seat) {
-        if (!seat.taken) {
+        if (!seat.locked) {
           return 'Free';
         }
-        if (seat.taken && !seat.ticket) {
+        if (seat.locked && !seat.ticket) {
           return 'Reserved';
         }
         return seat.ticket.owner.profile.displayName;
