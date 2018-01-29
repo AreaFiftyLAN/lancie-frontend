@@ -80,7 +80,7 @@ This code may only be used under the BSD style license found at https://github.c
     <paper-input label="Search user" value="{{filterUser}}"></paper-input>
     <div class="seatmap layout vertical">
       <div class="layout seats flex-2 seatgroup horizontal">
-        <template is="dom-repeat" items='["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]'>
+        <template is="dom-repeat" items='[[seatGroups]]'>
           <div class="layout flex vertical seatmap-row">
             <div class="grouplabel layout center center-justified horizontal">[[item]]</div>
             <lancie-seat-group class="layout flex horizontal" filter="[[filterUser]]" group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
@@ -149,7 +149,8 @@ This code may only be used under the BSD style license found at https://github.c
         fixed: {
           type: Boolean,
           notify: true
-        }
+        },
+        seatGroups: Array
       },
       listeners: {
         'requestSeatReserve': 'open'
@@ -160,13 +161,14 @@ This code may only be used under the BSD style license found at https://github.c
       },
       onGetAllSeats: function(e, request) {
         if (request.succeeded) {
-          var seats = [];
-          var groups = 'ABCDEFGHIJ';
-          for (var i = 0; i < groups.length; i++) {
-            seats[groups.charAt(i)] = request.response.seatmap[groups.charAt(i)].sort(function(a, b) {
+          let seats = [],
+              groups = Object.keys(request.response.seatmap);
+          this.set('seatGroups', groups);
+          groups.map(group => {
+            seats[groups.indexOf(group)] = request.response.seatmap[group].sort(function(a, b) {
               return a.seatNumber - b.seatNumber;
             });
-          }
+          });
           this.seats = seats;
         } else {
           this.$.getAllSeatsErrorToast.show();
@@ -206,7 +208,7 @@ This code may only be used under the BSD style license found at https://github.c
         this.$.seatDialog.open();
       },
       _getSeatGroup: function(seats, group) {
-        return seats[group];
+        return seats[this.seatGroups.indexOf(group)];
       },
       _checkExists: function(tickets) {
         return tickets.length > 0;
