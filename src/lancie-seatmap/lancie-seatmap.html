@@ -164,7 +164,7 @@ This code may only be used under the BSD style license found at https://github.c
           let seats = [],
               groups = Object.keys(request.response.seatmap);
           this.set('seatGroups', groups);
-          groups.map(group => {
+          groups.forEach(group => {
             seats[groups.indexOf(group)] = request.response.seatmap[group].sort(function(a, b) {
               return a.seatNumber - b.seatNumber;
             });
