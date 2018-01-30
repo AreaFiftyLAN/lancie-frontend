@@ -3,6 +3,8 @@
 Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
 This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
 -->
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
@@ -43,24 +45,42 @@ This code may only be used under the BSD style license found at https://github.c
       height: 60vh;
     }
 
+    .non-seat-group {
+      min-width: 600px;
+    }
+
+    .non-seat-block {
+      background-color: #9e9e9e;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .non-seat-block > div {
+      position: relative;
+      color: #fff;
+      width: 100%;
+      top: calc(50% - 0.75em);
+    }
+
+    .non-seat-block > div > iron-icon {
+      --iron-icon-height: 56px;
+      --iron-icon-width: 56px;
+    }
+
     .lounge {
-      height: 500px;
-      width: 30vw;
-      padding-right: 2px;
+      width: 200px;
+      height: 300px;
     }
 
     .stage {
-      height: 300px;
-      width: 20vw;
-      margin-top: 200px;
-      padding-right: 2px;
+      width: 210px;
+      height: 120px;
+      margin-top: 180px;
     }
 
     .entrance {
-      height: 300px;
-      width: 10vw;
-      margin-top: 200px;
-      padding-right: 2px;
+      width: 130px;
+      height: auto;
     }
 
     #listbox {
@@ -69,7 +89,7 @@ This code may only be used under the BSD style license found at https://github.c
     }
 
     .seatmap {
-      overflow: auto;
+      overflow-x: auto;
     }
     </style>
 
@@ -79,7 +99,7 @@ This code may only be used under the BSD style license found at https://github.c
 
     <paper-input label="Search user" value="{{filterUser}}"></paper-input>
     <div class="seatmap layout vertical">
-      <div class="layout seats flex-2 seatgroup horizontal">
+      <div class="layout horizontal seats">
         <template is="dom-repeat" items='[[seatGroups]]'>
           <div class="layout flex vertical seatmap-row">
             <div class="grouplabel layout center center-justified horizontal">[[item]]</div>
@@ -87,15 +107,18 @@ This code may only be used under the BSD style license found at https://github.c
           </div>
         </template>
       </div>
-      <div class="layout horizontal">
-        <div>
-          <img src="images-optimized/seatmap/lounge.png" class="lounge">
+      <div class="layout horizontal non-seat-group">
+        <div class="non-seat-block lounge">
+          <div>Lounge</div>
         </div>
-        <div>
-          <img src="images-optimized/seatmap/stage.png" class="stage">
+        <div class="non-seat-block stage">
+          <div>Stage</div>
         </div>
-        <div>
-          <img src="images-optimized/seatmap/entrance.png" class="entrance">
+        <div class="non-seat-block entrance">
+          <div>Entrance</div>
+          <div>
+            <iron-icon icon="icons:arrow-downward"></iron-icon>
+          </div>
         </div>
       </div>
     </div>
