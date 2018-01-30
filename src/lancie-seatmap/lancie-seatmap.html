@@ -3,7 +3,6 @@
 Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
 This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
 -->
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
@@ -11,6 +10,7 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="lancie-seat-group.html">
 <link rel="import" href="lancie-seat.html">
+<link rel="import" href="../lancie-icons.html">
 
 
 <dom-module id="lancie-seatmap">
@@ -41,12 +41,9 @@ This code may only be used under the BSD style license found at https://github.c
                   0 3px 1px -2px rgba(0, 0, 0, 0.2);
     }
 
-    .seats {
-      height: 60vh;
-    }
-
     .non-seat-group {
       min-width: 600px;
+      margin-top: 60px;
     }
 
     .non-seat-block {
@@ -68,19 +65,20 @@ This code may only be used under the BSD style license found at https://github.c
     }
 
     .lounge {
-      width: 200px;
-      height: 300px;
+      width: 300px;
+      height: 450px;
     }
 
     .stage {
-      width: 210px;
-      height: 120px;
-      margin-top: 180px;
+      width: 315px;
+      height: 180px;
+      margin-top: 270px;
     }
 
     .entrance {
-      width: 130px;
-      height: auto;
+      width: 195px;
+      height: 330px;
+      margin-top: 120px;
     }
 
     #listbox {
@@ -88,8 +86,14 @@ This code may only be used under the BSD style license found at https://github.c
       max-height: 40vh;
     }
 
+    .seatmap-wrapper {
+      text-align: center;
+    }
+
     .seatmap {
       overflow-x: auto;
+      margin: 0 auto;
+      width: 1200px;
     }
     </style>
 
@@ -97,27 +101,29 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-ajax auto-fire id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-lancie-ajax="onGetTeamTickets"></lancie-ajax>
     <lancie-ajax id="ajaxReserveSeat" method="POST" on-lancie-ajax="onReserveSeat"></lancie-ajax>
 
-    <paper-input label="Search user" value="{{filterUser}}"></paper-input>
-    <div class="seatmap layout vertical">
-      <div class="layout horizontal seats">
-        <template is="dom-repeat" items='[[seatGroups]]'>
-          <div class="layout flex vertical seatmap-row">
-            <div class="grouplabel layout center center-justified horizontal">[[item]]</div>
-            <lancie-seat-group class="layout flex horizontal" filter="[[filterUser]]" group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
+    <div class="seatmap-wrapper">
+      <paper-input label="Search user" value="{{filterUser}}"></paper-input>
+      <div class="seatmap">
+        <div class="layout horizontal">
+          <template is="dom-repeat" items='[[seatGroups]]'>
+            <div class="seatmap-row">
+              <div class="grouplabel layout center center-justified horizontal">[[item]]</div>
+              <lancie-seat-group class="layout flex horizontal" filter="[[filterUser]]" group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
+            </div>
+          </template>
+        </div>
+        <div class="layout horizontal non-seat-group">
+          <div class="non-seat-block lounge">
+            <div>Lounge</div>
           </div>
-        </template>
-      </div>
-      <div class="layout horizontal non-seat-group">
-        <div class="non-seat-block lounge">
-          <div>Lounge</div>
-        </div>
-        <div class="non-seat-block stage">
-          <div>Stage</div>
-        </div>
-        <div class="non-seat-block entrance">
-          <div>Entrance</div>
-          <div>
-            <iron-icon icon="icons:arrow-downward"></iron-icon>
+          <div class="non-seat-block stage">
+            <div>Stage</div>
+          </div>
+          <div class="non-seat-block entrance">
+            <div>Entrance</div>
+            <div>
+              <iron-icon icon="lancie:arrow-downward"></iron-icon>
+            </div>
           </div>
         </div>
       </div>

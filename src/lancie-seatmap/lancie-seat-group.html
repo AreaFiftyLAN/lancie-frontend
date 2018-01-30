@@ -17,12 +17,12 @@ This code may only be used under the BSD style license found at https://github.c
     </style>
 
     <div class="layout horizontal flex">
-      <div class="layout flex vertical">
+      <div>
         <template is="dom-repeat" items="{{_getFirstHalf(seats)}}">
           <lancie-seat class="layout vertical flex" tickets="{{tickets}}" filter="{{filter}}"  seat="{{item}}" user="{{user}}" fixed="{{fixed}}"></lancie-seat>
         </template>
       </div>
-      <div class="layout flex vertical">
+      <div>
         <template is="dom-repeat" items="{{_getLastHalf(seats)}}">
           <lancie-seat class="layout vertical flex" tickets="{{tickets}}" filter="{{filter}}" seat="{{item}}" user="{{user}}" fixed="{{fixed}}"></lancie-seat>
         </template>
