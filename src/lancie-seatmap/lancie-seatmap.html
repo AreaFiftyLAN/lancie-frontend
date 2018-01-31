@@ -3,8 +3,8 @@
 Copyright (c) 2015 The LANcie commission of W.I.S.V `Christiaan Huygens`. All rights reserved.
 This code may only be used under the BSD style license found at https://github.com/WISVCH/LANcie/blob/master/LICENSE
 -->
-<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/neon-animation/web-animations.html">
@@ -47,7 +47,7 @@ This code may only be used under the BSD style license found at https://github.c
     }
 
     .non-seat-block {
-      background-color: #9e9e9e;
+      background-color: var(--paper-grey-500);
       display: inline-block;
       text-align: center;
     }
@@ -151,76 +151,83 @@ This code may only be used under the BSD style license found at https://github.c
       </div>
     </lancie-dialog>
 
+    <!--Todo: Use one toast only-->
     <paper-toast id="reserveSeatSuccessToast" text="Seat reservation successfull!" duration="3000"></paper-toast>
     <paper-toast id="getAllSeatsErrorToast" text="Something went wrong, please refresh the page!" duration="3000"></paper-toast>
     <paper-toast id="getAllTicketsErrorToast" text="Something went wrong, please refresh the page!" duration="3000"></paper-toast>
   </template>
   <script>
-  'use strict';
-  (function() {
-    Polymer({
-      is: 'lancie-seatmap',
-      properties: {
-        user: Object,
-        seats: {
-          type: Array,
-          value: function() {
-            return [];
-          }
-        },
-        seatToReserve: Object,
-        tickets: {
-          type: Array,
-          value: function() {
-            return [];
-          }
-        },
-        fixed: {
-          type: Boolean,
-          notify: true
-        },
-        seatGroups: Array
-      },
-      listeners: {
-        'requestSeatReserve': 'open'
-      },
-      refreshSeats: function() {
+    class LancieSeatmap extends Polymer.Element {
+      static get is() {
+        return 'lancie-seatmap';
+      }
+
+      static get properties() {
+        return {
+          user: Object,
+          seats: {
+            type: Array,
+            value: () => [],
+          },
+          seatToReserve: Object,
+          tickets: {
+            type: Array,
+            value: () => [],
+          },
+          fixed: {
+            type: Boolean,
+            notify: true
+          },
+          seatGroups: Array
+        };
+      }
+
+      ready() {
+        super.ready();
+        this.addEventListener('request-seat-reserve', (e) => this.open(e));
+      }
+
+      refreshSeats() {
         this.$.reserveSeatSuccessToast.show();
         this.$.ajaxGetAllSeats.generateRequest();
-      },
-      onGetAllSeats: function(e, request) {
+      }
+
+      onGetAllSeats(e, request) {
         if (request.succeeded) {
-          let seats = [],
-              groups = Object.keys(request.response.seatmap);
+          const seatMap = request.response.seatmap;
+          const groups = Object.keys(seatMap);
           this.set('seatGroups', groups);
-          groups.forEach(group => {
-            seats[groups.indexOf(group)] = request.response.seatmap[group].sort(function(a, b) {
-              return a.seatNumber - b.seatNumber;
-            });
-          });
-          this.seats = seats;
+
+          this.seats = groups
+            .map(x => seatMap[x])
+            .sort((x, y) => x.seatNumber - y.seatNumber);
         } else {
           this.$.getAllSeatsErrorToast.show();
         }
-      },
-      onGetTeamTickets: function(e, request) {
+      }
+
+      onGetTeamTickets(e, request) {
         if (request.succeeded) {
           this.tickets = request.response;
         } else {
           this.$.getAllTicketsErrorToast.show();
         }
-      },
-      reserveSeat: function() {
+      }
+
+      reserveSeat() {
         this.$.error.clear();
         if (!this.$.listbox.selectedItem) {
           this.$.error.setError('Please select a user.');
           return;
         }
-        this.$.ajaxReserveSeat.refurl = 'seats/' + this.seatToReserve.seatGroup + '/' + this.seatToReserve.seatNumber + '/' + this.$.listbox.selectedItem.dataset.ticket;
+        const seat = this.seatToReserve;
+        const ticket = this.$.listbox.selectedItem.dataset.ticket;
+        this.$.ajaxReserveSeat.refurl = `seats/${seat.seatGroup}/${seat.seatGroup}/${ticket}`;
         this.$.ajaxReserveSeat.generateRequest();
         this.$.seatDialog.close();
-      },
-      onReserveSeat: function(e, request) {
+      }
+
+      onReserveSeat(e, request) {
         if (request.succeeded) {
           this.$.listbox.selected = undefined;
           this.refreshSeats();
@@ -231,18 +238,22 @@ This code may only be used under the BSD style license found at https://github.c
             this.$.error.setError('Something went wrong, please refresh and try again.');
           }
         }
-      },
-      open: function(event) {
+      }
+
+      open(event) {
         this.seatToReserve = event.detail.seatToReserve;
         this.$.seatDialog.open();
-      },
-      _getSeatGroup: function(seats, group) {
+      }
+
+      _getSeatGroup(seats, group) {
         return seats[this.seatGroups.indexOf(group)];
-      },
-      _checkExists: function(tickets) {
+      }
+
+      _checkExists(tickets) {
         return tickets.length > 0;
-      },
-    });
-  })();
+      }
+    }
+
+    customElements.define(LancieSeatmap.is, LancieSeatmap);
   </script>
 </dom-module>

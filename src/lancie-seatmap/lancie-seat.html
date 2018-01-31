@@ -37,25 +37,25 @@ This code may only be used under the BSD style license found at https://github.c
     }
 
     .green {
-      background-color: #4CAF50;
+      background-color: var(--paper-green-500);
     }
 
     .yellow {
-      background-color: #FFEB3B;
+      background-color: var(--paper-yellow-500);
     }
 
     .red {
-      background-color: #F44336;
+      background-color: var(--paper-red-500);
       cursor: default !important;
     }
 
     .gray {
-      background-color: #9E9E9E;
+      background-color: var(--paper-grey-500);
       cursor: default !important;
     }
 
     .blue {
-      background-color: #2196F3;
+      background-color: var(--paper-blue-500);
     }
     </style>
     <div id="seat" class$="seat layout center center-justified horizontal flex {{_calculateClass(user, tickets, seat, filter)}}" on-tap="showSeatDialog">
@@ -97,7 +97,7 @@ This code may only be used under the BSD style license found at https://github.c
         if (this.seat.locked || this.seat.ticket && this.seat.ticket.owner.reference !== this.user.reference) {
           return;
         }
-        this.fire('requestSeatReserve', {'seatToReserve': this.seat});
+        this.fire('request-seat-reserve', {'seatToReserve': this.seat});
       },
       _calculateClass: function(user, teamTickets, seat, filter) {
         if (seat.ticket && seat.ticket.owner.profile.displayName && filter !== '' && seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
