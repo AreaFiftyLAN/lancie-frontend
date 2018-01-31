@@ -15,7 +15,6 @@ This code may only be used under the BSD style license found at https://github.c
 
 <dom-module id="lancie-seatmap">
   <template>
-    <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
     <style>
     :host {
       display: block;
@@ -44,22 +43,23 @@ This code may only be used under the BSD style license found at https://github.c
     .non-seat-group {
       min-width: 600px;
       margin-top: 60px;
+      display: flex;
     }
 
-    .non-seat-block {
+    .non-seat-group > div {
       background-color: var(--paper-grey-500);
       display: inline-block;
       text-align: center;
     }
 
-    .non-seat-block > div {
+    .non-seat-group > div > div {
       position: relative;
       color: #fff;
       width: 100%;
       top: calc(50% - 0.75em);
     }
 
-    .non-seat-block > div > iron-icon {
+    .non-seat-group iron-icon {
       --iron-icon-height: 56px;
       --iron-icon-width: 56px;
     }
@@ -95,6 +95,10 @@ This code may only be used under the BSD style license found at https://github.c
       margin: 0 auto;
       width: 1200px;
     }
+
+    .seats {
+      display: flex;
+    }
     </style>
 
     <lancie-ajax auto-fire id="ajaxGetAllSeats" refurl="seats" on-lancie-ajax="onGetAllSeats"></lancie-ajax>
@@ -104,22 +108,22 @@ This code may only be used under the BSD style license found at https://github.c
     <div class="seatmap-wrapper">
       <paper-input label="Search user" value="{{filterUser}}"></paper-input>
       <div class="seatmap">
-        <div class="layout horizontal">
+        <div class="seats">
           <template is="dom-repeat" items='[[seatGroups]]'>
             <div class="seatmap-row">
-              <div class="grouplabel layout center center-justified horizontal">[[item]]</div>
-              <lancie-seat-group class="layout flex horizontal" filter="[[filterUser]]" group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
+              <div class="grouplabel">[[item]]</div>
+              <lancie-seat-group filter="[[filterUser]]" group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
             </div>
           </template>
         </div>
-        <div class="layout horizontal non-seat-group">
-          <div class="non-seat-block lounge">
+        <div class="non-seat-group">
+          <div class="lounge">
             <div>Lounge</div>
           </div>
-          <div class="non-seat-block stage">
+          <div class="stage">
             <div>Stage</div>
           </div>
-          <div class="non-seat-block entrance">
+          <div class="entrance">
             <div>Entrance</div>
             <div>
               <iron-icon icon="lancie:arrow-downward"></iron-icon>
