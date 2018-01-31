@@ -57,7 +57,7 @@ This code may only be used under the BSD style license found at https://github.c
       background-color: var(--paper-blue-500);
     }
     </style>
-    <div class="seat" on-tap="showSeatDialog">
+    <div id="seat" class="seat" on-tap="showSeatDialog">
       <div>[[seat.seatNumber]]</div>
       <paper-tooltip for="seat" animationDelay="0">[[_getTooltipText(seat)]]</paper-tooltip>
     </div>
