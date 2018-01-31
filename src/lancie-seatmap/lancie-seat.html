@@ -15,7 +15,7 @@ This code may only be used under the BSD style license found at https://github.c
 
 <dom-module id="lancie-seat">
   <template>
-    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+    <style>
     :host {
       display: block;
       position: relative;
@@ -35,33 +35,37 @@ This code may only be used under the BSD style license found at https://github.c
       background: #fafafa;
       box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .green {
+
+    :host([seat-color="green"]) .seat {
       background-color: var(--paper-green-500);
     }
 
-    .yellow {
+    :host([seat-color="yellow"]) .seat {
       background-color: var(--paper-yellow-500);
     }
 
-    .red {
+    :host([seat-color="red"]) .seat {
       background-color: var(--paper-red-500);
       cursor: default !important;
     }
 
-    .gray {
+    :host([seat-color="gray"]) .seat {
       background-color: var(--paper-grey-500);
       cursor: default !important;
     }
 
-    .blue {
+    :host([seat-color="blue"]) .seat {
       background-color: var(--paper-blue-500);
     }
     </style>
-    <div id="seat" class$="seat layout center center-justified horizontal flex {{_calculateClass(user, tickets, seat, filter)}}" on-tap="showSeatDialog">
-      <div>{{seat.seatNumber}}</div>
-      <paper-tooltip for="seat" animationDelay="0">{{_getTooltipText(seat)}}</paper-tooltip>
+    <div class="seat" on-tap="showSeatDialog">
+      <div>[[seat.seatNumber]]</div>
+      <paper-tooltip for="seat" animationDelay="0">[[_getTooltipText(seat)]]</paper-tooltip>
     </div>
   </template>
   <script>
@@ -76,7 +80,9 @@ This code may only be used under the BSD style license found at https://github.c
       properties: {
         user: {
           type: Object,
-          value: {}
+          value: function() {
+            return {};
+          }
         },
         seat: Object,
         tickets: {
@@ -92,6 +98,11 @@ This code may only be used under the BSD style license found at https://github.c
         fixed: {
           type: Boolean,
           value: false
+        },
+        seatColor: {
+          type: String,
+          reflectToAttribute: true,
+          computed: '_calculateSeatColor(user, teamTickets, seat, filter)'
         }
       },
       showSeatDialog: function() {
@@ -100,29 +111,32 @@ This code may only be used under the BSD style license found at https://github.c
         }
         this.fire('request-seat-reserve', {'seatToReserve': this.seat});
       },
-      _calculateClass: function(user, teamTickets, seat, filter) {
-        if (seat.ticket && seat.ticket.owner.profile.displayName && filter !== '' && seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
-          return 'blue'; // Filter (search bar)
-        }
+      _calculateSeatColor: function(user, teamTickets, seat, filter) {
         if (seat.locked) {
           return 'gray'; // Reserved
         }
-        if (seat.ticket && user.reference === seat.ticket.owner.reference) {
-          return 'green'; // Your own seat!
+        if (seat.ticket) {
+          if (seat.ticket.owner.profile.displayName
+              && filter
+              && seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
+            return 'blue'; // Filter (search bar)
+          }
+          if (user.reference === seat.ticket.owner.reference) {
+            return 'green'; // Your own seat!
+          }
+
+          if (teamTickets
+              && teamTickets.map((ticket) => ticket.owner.reference)
+                            .includes(seat.ticket.owner.reference)) {
+            return 'yellow'; // A team member's seat
+          }
+
+          if (seat.ticket.owner.reference !== user.reference) {
+            return 'red'; // Taken
+          }
         }
-        let teamMembers = teamTickets.map(function(ticket) {
-          return ticket.owner.reference;
-        });
-        if (seat.ticket && teamMembers.includes(seat.ticket.owner.reference)) {
-          return 'yellow'; // A team member's seat
-        }
-        if (seat.ticket && seat.ticket.owner.reference !== user.reference) {
-          return 'red'; // Taken
-        }
-        if (!seat.ticket && !seat.locked) {
-          return ''; // Free
-        }
-        return 'red'; // No match any of the above, make red just in case
+
+        return ''; // Free
       },
       _getTooltipText: function(seat) {
         if (seat.locked) {
