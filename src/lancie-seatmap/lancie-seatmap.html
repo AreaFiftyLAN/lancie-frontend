@@ -8,7 +8,6 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/neon-animation/web-animations.html">
-<link rel="import" href="lancie-seat-group.html">
 <link rel="import" href="lancie-seat.html">
 <link rel="import" href="../lancie-icons.html">
 
@@ -27,6 +26,12 @@ This code may only be used under the BSD style license found at https://github.c
 
     .seatmap-row {
       padding: 16px;
+    }
+
+    .seatmap-row .seats-group {
+      width: 100px;
+      display: flex;
+      flex-wrap: wrap;
     }
 
     .grouplabel {
@@ -112,7 +117,11 @@ This code may only be used under the BSD style license found at https://github.c
           <template is="dom-repeat" items='[[seatGroups]]'>
             <div class="seatmap-row">
               <div class="grouplabel">[[item]]</div>
-              <lancie-seat-group filter="[[filterUser]]" group="[[item]]" seats="[[_getSeatGroup(seats, item)]]" tickets="[[tickets]]" user="[[user]]" fixed="[[fixed]]"></lancie-seat-group>
+              <div class="seats-group">
+                <template is="dom-repeat" items="[[_getSeatGroup(seats, item)]]">
+                  <lancie-seat tickets="{{tickets}}" filter="[[filterUser]]"  seat="{{item}}" user="{{user}}" fixed="{{fixed}}"></lancie-seat>
+                </template>
+              </div>
             </div>
           </template>
         </div>
