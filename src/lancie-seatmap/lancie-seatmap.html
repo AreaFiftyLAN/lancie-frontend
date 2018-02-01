@@ -8,6 +8,7 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../../bower_components/lancie-dialog/lancie-dialog.html">
 <link rel="import" href="lancie-seat.html">
 <link rel="import" href="../lancie-icons.html">
 
@@ -164,10 +165,7 @@ This code may only be used under the BSD style license found at https://github.c
       </div>
     </lancie-dialog>
 
-    <!--Todo: Use one toast only-->
-    <paper-toast id="reserveSeatSuccessToast" text="Seat reservation successfull!" duration="3000"></paper-toast>
-    <paper-toast id="getAllSeatsErrorToast" text="Something went wrong, please refresh the page!" duration="3000"></paper-toast>
-    <paper-toast id="getAllTicketsErrorToast" text="Something went wrong, please refresh the page!" duration="3000"></paper-toast>
+    <paper-toast id="toast"></paper-toast>
   </template>
   <script>
     class LancieSeatmap extends Polymer.Element {
@@ -201,13 +199,13 @@ This code may only be used under the BSD style license found at https://github.c
       }
 
       refreshSeats() {
-        this.$.reserveSeatSuccessToast.show();
+        this.$.toast.show({text: "Seat reservation succeeded!", duration: 3000});
         this.$.ajaxGetAllSeats.generateRequest();
       }
 
       onGetAllSeats(e, request) {
         if (!request.succeeded) {
-          this.$.getAllSeatsErrorToast.show();
+          this.$.toast.show({text: "Something went wrong, please refresh the page!", duration: 3000});
           return;
         }
         const seatMap = request.response.seatmap;
@@ -223,11 +221,11 @@ This code may only be used under the BSD style license found at https://github.c
       }
 
       onGetTeamTickets(e, request) {
-        if (request.succeeded) {
-          this.tickets = request.response;
-        } else {
-          this.$.getAllTicketsErrorToast.show();
+        if (!request.succeeded) {
+          this.$.toast.show({text: "Something went wrong, please refresh the page!", duration: 3000});
+          return;
         }
+        this.tickets = request.response;
       }
 
       reserveSeat() {
@@ -238,7 +236,7 @@ This code may only be used under the BSD style license found at https://github.c
         }
         const seat = this.seatToReserve;
         const ticket = this.$.listbox.selectedItem.dataset.ticket;
-        this.$.ajaxReserveSeat.refurl = `seats/${seat.seatGroup}/${seat.seatGroup}/${ticket}`;
+        this.$.ajaxReserveSeat.refurl = `seats/${seat.seatGroup}/${seat.seatNumber}/${ticket}`;
         this.$.ajaxReserveSeat.generateRequest();
         this.$.seatDialog.close();
       }
