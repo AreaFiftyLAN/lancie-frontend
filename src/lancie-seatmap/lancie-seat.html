@@ -110,17 +110,16 @@ This code may only be used under the BSD style license found at https://github.c
           return 'gray'; // Reserved
         }
         if (seat.ticket) {
-          if (seat.ticket.owner.profile.displayName
-              && filter
-              && seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
+          if (seat.ticket.owner.profile.displayName && filter &&
+            seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
             return 'blue'; // Filter (search bar)
           }
           if (user.reference === seat.ticket.owner.reference) {
             return 'green'; // Your own seat!
           }
 
-          if (teamTickets
-              && teamTickets.map((ticket) => ticket.owner.reference)
+          if (teamTickets &&
+            teamTickets.map((ticket) => ticket.owner.reference)
                             .includes(seat.ticket.owner.reference)) {
             return 'yellow'; // A team member's seat
           }
