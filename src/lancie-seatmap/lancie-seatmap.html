@@ -206,17 +206,20 @@ This code may only be used under the BSD style license found at https://github.c
       }
 
       onGetAllSeats(e, request) {
-        if (request.succeeded) {
-          const seatMap = request.response.seatmap;
-          const groups = Object.keys(seatMap);
-          this.set('seatGroups', groups);
-
-          this.seats = groups
-            .map(x => seatMap[x])
-            .sort((x, y) => x.seatNumber - y.seatNumber);
-        } else {
+        if (!request.succeeded) {
           this.$.getAllSeatsErrorToast.show();
+          return;
         }
+        const seatMap = request.response.seatmap;
+        const groups = Object.keys(seatMap);
+        this.set('seatGroups', groups);
+
+        let seats = groups.map(x => seatMap[x]);
+        for (let group of seats) {
+          group.sort((a, b) => a.seatNumber - b.seatNumber);
+        }
+
+        this.seats = seats;
       }
 
       onGetTeamTickets(e, request) {
