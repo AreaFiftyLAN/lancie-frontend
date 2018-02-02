@@ -1,6 +1,9 @@
-if ('serviceWorker' in navigator) {
+window.Polymer = {rootPath: '/'};
 
-  navigator.serviceWorker.register('service-worker.js').then((reg) => {
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js', {
+    scope: Polymer.rootPath,
+  }).then((reg) => {
       if (!navigator.serviceWorker.controller) {
         return;
       }
