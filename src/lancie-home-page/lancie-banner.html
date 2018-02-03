@@ -1,0 +1,139 @@
+<dom-module id="lancie-banner">
+<template>
+<style>
+  :host {
+    display: block;
+    margin-bottom: -64px;
+  }
+
+  .banner {
+    width: 100%;
+    height: 500px;
+
+    background-image: url(../../images-optimized/banner/banner.jpg);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+    background-color: var(--primary-color);
+  }
+
+  .blur {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    width: inherit;
+  }
+
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+  }
+
+  .logo-container > img {
+    max-width: 95vw;
+    width: 800px;
+  }
+
+  .logo-container > span {
+    color: white;
+    font-weight: 600;
+    font-size: 40px;
+    text-transform: uppercase;
+  }
+
+  .links {
+    position: relative;
+    bottom: 64px;
+    max-width: 800px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .links > * {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 20px;
+    font-size: 20px;
+    width: 300px;
+    max-height: 24px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .links > a {
+    text-decoration: underline;
+  }
+
+  .links > *:last-child {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+  }
+
+  @media (max-width: 600px) {
+    :host {
+      margin: 0;
+    }
+
+    .banner {
+      height: 300px;
+    }
+
+    .logo-container > span {
+      font-size: 24px;
+    }
+
+    .links {
+      position: unset;
+    }
+
+    .links > * {
+      padding: 8px;
+      max-height: 48px;
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .banner {
+      background-position: center;
+    }
+  }
+</style>
+
+<div class="banner">
+  <div class="blur">
+    <div class="logo-container">
+      <img src="images-optimized/lancie/logo_without_date.png" alt="Area FiftyLAN logo">
+      <span>2-3-4 March</span>
+    </div>
+  </div>
+</div>
+
+<div class="links">
+  <a href="/tickets"><div>buy your tickets</div></a>
+  <div><span>early birds until 26-01</span></div>
+</div>
+
+</template>
+<script>
+(function () {
+'use strict';
+
+  class LancieBanner extends Polymer.Element {
+    static get is() {
+      return 'lancie-banner';
+    }
+  }
+
+  customElements.define(LancieBanner.is, LancieBanner);
+})();
+</script>
+</dom-module>

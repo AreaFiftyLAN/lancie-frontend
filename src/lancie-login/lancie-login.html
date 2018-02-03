@@ -22,19 +22,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         max-width: 400px;
       }
 
-      [hidden] {
-        display: none !important;
-      }
-
       h2 {
         margin: 0;
       }
 
       paper-button {
-        width: calc(50% - 15px);
         margin-top: 4px;
         background-color: var(--primary-color);
         color: var(--secondary-color);
+      }
+
+      paper-button > iron-icon {
+        margin-right: 4px;
       }
 
       .actions {
@@ -43,60 +42,63 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <h2>[[_getAction(registering)]]</h2>
-      <div class="card-content">
-        <lancie-login-form id="loginForm" registering="[[registering]]" order-id="[[orderId]]" on-enter="submit"></lancie-login-form>
-      </div>
-      <div class="actions">
-        <paper-button raised on-tap="switchForm">Change to [[_getSwitchAction(registering)]]</paper-button>
-      </div>
-    </lancie-card>
+    <div class="card-content">
+      <lancie-login-form id="loginForm" registering="[[registering]]" order-id="[[orderId]]"
+                         on-enter="submit"></lancie-login-form>
+    </div>
+    <div class="actions">
+      <paper-button raised on-tap="switchForm"><iron-icon icon="lancie:cached"></iron-icon>Switch to [[_getSwitchAction(registering)]]</paper-button>
+    </div>
 
   </template>
   <script>
-  (function() {
-  'use strict';
-  
-  Polymer({
-    is: 'lancie-login',
-    properties: {
-      registering: {
-        type: Boolean,
-        value: false,
-        notify: true,
-      },
-      orderId: String,
-    },
-
-    switchForm: function() {
-      this.$.loginForm.clearError();
-      this.registering = !this.registering;
-    },
-
-    submit: function() {
-      if (this.registering) {
-        this.register();
-      } else {
-        this.login();
+    class LancieLogin extends Polymer.Element {
+      static get is() {
+        return 'lancie-login';
       }
-    },
 
-    register: function() {
-      this.$.loginForm.tryRegister();
-    },
+      static get properties() {
+        return {
+          registering: {
+            type: Boolean,
+            value: false,
+            notify: true,
+          },
+          orderId: String,
+        };
+      }
 
-    login: function() {
-      this.$.loginForm.tryLogIn();
-    },
+      switchForm() {
+        this.$.loginForm.clearError();
+        this.registering = !this.registering;
+      }
 
-    _getAction: function(registering) {
-      return registering ? 'Register' : 'Log In';
-    },
+      submit() {
+        if (this.registering) {
+          this.register();
+        } else {
+          this.login();
+        }
+      }
 
-    _getSwitchAction: function(registering) {
-      return this._getAction(!registering);
-    },
+      register() {
+        this.$.loginForm.tryRegister();
+      }
 
-  });
-  })();
+      login() {
+        this.$.loginForm.tryLogIn();
+      }
+
+      _getAction(registering) {
+        return registering ? 'Register' : 'Log In';
+      }
+
+      _getSwitchAction(registering) {
+        return this._getAction(!registering);
+      }
+
+    }
+
+    customElements.define(LancieLogin.is, LancieLogin);
   </script>
 </dom-module>

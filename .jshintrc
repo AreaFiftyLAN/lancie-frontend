@@ -16,6 +16,7 @@
   "strict": true,
   "globals": {
     "Polymer": false,
-    "customElements": false
+    "customElements": false,
+    "Lancie": false
   }
 }

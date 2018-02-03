@@ -33,6 +33,7 @@
     "src/lancie-password/lancie-password-reset-request-success.html"
   ],
   "extraDependencies": [
+    "ce-fix.html",
     ".htaccess",
     "manifest.json",
     "favicon.ico",

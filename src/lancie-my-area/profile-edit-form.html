@@ -33,6 +33,17 @@
         display: none;
       }
 
+      /*
+      Workaround for a bug that causes paper-input
+      with type="date" not being editable when empty
+      (PolymerElements/paper-input/issues/352).
+      */
+      paper-input[type="date"] {
+        --paper-input-container-input: {
+          min-height: 1px;
+        };
+      }
+
       .dropdown-content {
         min-width: 200px;
       }
