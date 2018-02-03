@@ -62,7 +62,7 @@
             if (request.request.status === 400 || request.request.status === 409) {
               this.$.alert.setError(request.request.response.message);
             } else {
-              this.fire('refreshToast');
+              this.fire('refresh-toast');
             }
           }
         },

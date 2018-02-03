@@ -231,7 +231,7 @@ This code may only be used under the BSD style license found at https://github.c
       if (request.succeeded) {
         this.availableTickets = request.response;
       } else {
-        this.fire('refreshToast');
+        this.fire('refresh-toast');
       }
     },
 
@@ -244,7 +244,7 @@ This code may only be used under the BSD style license found at https://github.c
         // This sets the url to the mollie address of the order.
         window.location.href = request.response.object;
       } else {
-        this.fire('refreshToast');
+        this.fire('refresh-toast');
       }
     },
 

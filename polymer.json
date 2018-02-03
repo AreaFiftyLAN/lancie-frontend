@@ -5,8 +5,9 @@
   "entrypoint": "index.html",
   "shell": "src/index-imports.html",
   "sources": [
-   "images-optimized/**/*",
-   "scripts/*"
+    "images-optimized/**/*",
+    "data/*",
+    "scripts/*"
   ],
   "builds": [
     {"name":"fallback", "preset": "es5-bundled", "basePath": true,"addPushManifest": false},
