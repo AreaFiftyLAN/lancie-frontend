@@ -5,6 +5,7 @@ module.exports = {
     'manifest.json',
     'favicon.ico',
     'favicon.jpg',
+    'data/**/*',
     'images-optimized/**/*',
     'scripts/**/*',
     'bower_components/webcomponentsjs/webcomponents-loader.js'
