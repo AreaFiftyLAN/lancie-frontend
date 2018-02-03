@@ -1,4 +1,4 @@
-window.Polymer = {rootPath: '/'};
+'use strict';
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js', {
@@ -22,7 +22,7 @@ if ('serviceWorker' in navigator) {
         trackInstalling(reg.installing);
       });
     }
-  )
+  );
 }
 
 let updateReady = () => {
@@ -34,5 +34,5 @@ let trackInstalling = (worker) => {
     if (worker.state === 'installed') {
       updateReady();
     }
-  })
+  });
 };

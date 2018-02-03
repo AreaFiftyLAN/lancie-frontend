@@ -165,7 +165,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <base href="/">
 
-  <script src="scripts/sw-register.js"></script>
   <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 </head>
 
@@ -353,6 +352,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return page;
       }
 
+      window.Polymer = {rootPath: '/'};
+
       // We can't use async import, as that screws up the loading mechanism :(
       const linkElement = document.createElement('link');
       linkElement.rel = 'import';
@@ -373,5 +374,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ga('send', 'pageview');
     })();
   </script>
+  <script src="scripts/sw-register.js"></script>
 </body>
 </html>
