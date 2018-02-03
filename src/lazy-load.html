@@ -6,6 +6,11 @@ const observerOptions = {
 };
 
 window.Lancie = window.Lancie || {};
+/**
+ * Mixin that allows you to lazy load content with `lazyCallback`
+ * @polymer
+ * @mixinFunction
+ */
 window.Lancie.lazyLoad = (clazz) => class extends clazz {
   connectedCallback() {
     super.connectedCallback();
