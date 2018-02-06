@@ -4,7 +4,6 @@ module.exports = {
     'ce-fix.html',
     'manifest.json',
     'favicon.ico',
-    'favicon.jpg',
     'data/**/*',
     'images-optimized/**/*',
     'scripts/**/*',
