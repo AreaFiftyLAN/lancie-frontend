@@ -318,7 +318,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         reloadToast.show({text: 'Unable to connect to server. Try refreshing the page.'});
       });
       document.addEventListener('update-toast', () => {
-        reloadToast.show({text: 'New version available!'});
+        reloadToast.show({text: 'New version available!', duration: 0});
       });
 
       function updateUserBindings(user) {
