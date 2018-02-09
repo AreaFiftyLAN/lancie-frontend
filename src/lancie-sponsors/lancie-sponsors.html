@@ -1,5 +1,4 @@
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../../bower_components/paper-styles/shadow.html">
 
 <dom-module id="lancie-sponsors">
@@ -10,26 +9,19 @@
         display: block;
         width: 100%;
         --logo-width: 210px;
-        line-height: 0px;
+        line-height: 0;
       }
 
       img {
         object-fit: contain;
         width: var(--logo-width);
-      }
-
-      .main-sponsors img {
-        margin-right: 32px;
-      }
-
-      .premium-sponsors a {
         height: 100%;
-        margin: auto 6px;
+        margin: 8px;
       }
 
-      .regular-sponsors a {
-        height: 100%;
-        margin: auto 6px;
+      .sponsors > div {
+        @apply --layout-horizontal;
+        @apply --layout-wrap;
       }
 
       /*
@@ -42,26 +34,24 @@
       /*End Safari hack*/
     </style>
 
-    <div id="grid" class="layout horizontal wrap flex">
-      <div class="layout vertical flex-1 main-sponsors">
+    <div class="layout horizontal wrap justified">
+      <div class="layout vertical">
         <h3>Presented by</h3>
         <a href="https://ch.tudelft.nl" target="_blank" rel="noopener noreferrer"><img src="images-optimized/lancie/logo_CH.png"></a>
         <a href="https://www.tudelft.nl" target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/logo_SC.png"></a>
       </div>
-      <div class="layout vertical flex-4">
+      <div class="layout vertical sponsors">
         <h3>Premium sponsors</h3>
-        <div class="layout horizontal wrap premium-sponsors">
+        <div>
           <a href="https://www.sogeti.nl/" target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/sogeti.png"></a>
           <a href="http://eu.coolermaster.com/en/" target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/Cooler_Master_Logo.png"></a>
           <a href="https://ogd.nl/" target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/ogd.png"></a>
       </div>
-      <div class="layout vertical flex-4">
-          <h3>Sponsors</h3>
-          <div class="layout horizontal wrap regular-sponsors">
-            <a href="http://www.spam-energydrink.com/" target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/spam-logo.jpg"></a>
-            <a href="https://prodrive-technologies.com/" target="_blank" rel="noopener noreferrer"><img id="prodriveLogo" src="images-optimized/logos/ProDrive.jpg"></a>
-          </div>
-      </div>
+        <h3>Sponsors</h3>
+        <div>
+          <a href="http://www.spam-energydrink.com/" target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/spam-logo.jpg"></a>
+          <a href="https://prodrive-technologies.com/" target="_blank" rel="noopener noreferrer"><img id="prodriveLogo" src="images-optimized/logos/ProDrive.jpg"></a>
+        </div>
     </div>
 
   </template>
