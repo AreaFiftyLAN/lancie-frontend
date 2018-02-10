@@ -24,11 +24,12 @@ You can serve the build with `polymer serve build/fallback` or `polymer serve bu
 
 #### With Docker
 
-To build with Docker, run `docker build . -t lancie`.
-To run the image you created, invoke `docker run -p 8080:80 -t lancie`.
-The PRPL-server should be accessible on `localhost:8080` while it connects to the internal Docker port 80.
+Follow [this guide](https://docs.docker.com/v17.09/engine/installation/linux/linux-postinstall) to manage Docker as a non-root user (optional, for linux users).
 
-To kill the Docker container, run `docker ps` and run `docker stop [CONTAINER_ID]` for each `CONTAINER_ID` in the list.
+- To build with Docker, run `docker build . -t lancie`.
+- To run the image you created, invoke `docker run -p 8080:8080 -t lancie`.
+- The PRPL-server should be accessible on `localhost:8080` while it also connects to the internal Docker port 8080.
+- To kill the Docker container, run `docker ps` and run `docker stop [CONTAINER_ID]` for each `CONTAINER_ID` in the list.
 
 ### Deploy
 Frontend is automatically deployed by updating the `live` git branch and publishing a new tag in the form `YEAR.MAJOR.MINOR`.
