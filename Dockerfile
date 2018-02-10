@@ -16,6 +16,7 @@ RUN bower --allow-root install
 COPY images/ images/
 COPY src/ src/
 COPY scripts/ scripts/
+COPY data/ data/
 COPY gulp/ gulp/
 COPY index.html ce-fix.html favicon.ico gulpfile.js manifest.json polymer.json robots.txt .jshintrc ./
 RUN yarn run build
