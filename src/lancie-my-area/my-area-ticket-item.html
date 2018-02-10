@@ -98,7 +98,7 @@
       onSetupTicketTransfer: function(e, request) {
         if (request.succeeded) {
           this.$.ticketTransferDialog.close();
-          this.username = '';
+          this.email = '';
           this.async(function() {this.set('ticket.token', request.response.object);}, 500);
           this.fire('toast', {text: 'Ticket set up for transfer.'});
         } else {
