@@ -35,7 +35,7 @@
     }
     </style>
 
-    <lancie-ajax id="ajaxSetupTicketTransfer" refurl="tickets/transfer/[[ticket.id]]" method="POST" body="[[username]]" on-lancie-ajax="onSetupTicketTransfer"></lancie-ajax>
+    <lancie-ajax id="ajaxSetupTicketTransfer" refurl="tickets/transfer/[[ticket.id]]" method="POST" body="[[email]]" on-lancie-ajax="onSetupTicketTransfer"></lancie-ajax>
     <lancie-ajax id="ajaxCancelTicketTransfer" refurl="tickets/transfer" method="DELETE" body="[[ticket.token]]" on-lancie-ajax="onCancelTicketTransfer"></lancie-ajax>
 
     <hr>
@@ -50,7 +50,7 @@
       <h2>Set up ticket transfer</h2>
       <div class="dialog-content">
         <lancie-error id="error"></lancie-error>
-        <paper-input type="email" id="username" label="Email" name="Username" value="{{username}}" error-message="Email should be valid." required autofocus></paper-input>
+        <paper-input type="email" id="email" label="Email" name="Email" value="{{email}}" error-message="Email should be valid." required autofocus></paper-input>
       </div>
       <div class="dialog-actions">
         <paper-button dialog-dismiss>Cancel</paper-button>
@@ -72,7 +72,7 @@
           value: {},
           notify: true
         },
-        username: String,
+        email: String,
       },
 
       openTicketTransferDialog: function() {
@@ -85,10 +85,10 @@
 
       setupTicketTransfer: function() {
         this.$.error.clear();
-        if (!this.$.username.validate()) {
+        if (!this.$.email.validate()) {
           return;
         }
-        if (this.username === this.user.username) {
+        if (this.email === this.user.email) {
           this.$.error.setError('You can\'t a transfer ticket to yourself.');
           return;
         }
@@ -98,7 +98,7 @@
       onSetupTicketTransfer: function(e, request) {
         if (request.succeeded) {
           this.$.ticketTransferDialog.close();
-          this.username = '';
+          this.email = '';
           this.async(function() {this.set('ticket.token', request.response.object);}, 500);
           this.fire('toast', {text: 'Ticket set up for transfer.'});
         } else {
