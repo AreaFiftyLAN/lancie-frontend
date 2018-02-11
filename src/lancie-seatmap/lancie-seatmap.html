@@ -199,13 +199,13 @@ This code may only be used under the BSD style license found at https://github.c
       }
 
       refreshSeats() {
-        this.$.toast.show({text: "Seat reservation succeeded!", duration: 3000});
+        this.$.toast.show({text: 'Seat reservation succeeded!', duration: 3000});
         this.$.ajaxGetAllSeats.generateRequest();
       }
 
       onGetAllSeats(e, request) {
         if (!request.succeeded) {
-          this.$.toast.show({text: "Something went wrong, please refresh the page!", duration: 3000});
+          this.$.toast.show({text: 'Something went wrong, please refresh the page!', duration: 3000});
           return;
         }
         const seatMap = request.response.seatmap;
@@ -222,7 +222,7 @@ This code may only be used under the BSD style license found at https://github.c
 
       onGetTeamTickets(e, request) {
         if (!request.succeeded) {
-          this.$.toast.show({text: "Something went wrong, please refresh the page!", duration: 3000});
+          this.$.toast.show({text: 'Something went wrong, please refresh the page!', duration: 3000});
           return;
         }
         this.tickets = request.response;
