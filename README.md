@@ -22,14 +22,18 @@ To build the entire frontend, the `yarn run build` command is used. This command
 
 You can serve the build with `polymer serve build/fallback` or `polymer serve build/modern`.
 
+#### With Docker
+
+Follow [this guide](https://docs.docker.com/v17.09/engine/installation/linux/linux-postinstall) to manage Docker as a non-root user (optional, for linux users).
+
+- To build with Docker, run `docker build . -t lancie`.
+- To run the image you created, invoke `docker run -p 8080:8080 -t lancie`.
+- The PRPL-server should be accessible on `localhost:8080` while it also connects to the internal Docker port 8080.
+- To kill the Docker container, run `docker ps` and run `docker stop [CONTAINER_ID]` for each `CONTAINER_ID` in the list.
+
 ### Deploy
-To deploy the frontend, you can upload it to a server. This can be done by copying and pasting manually, but this is quite cumbersome. The easiest way to do this is with the `scp` command (only available on linux and OS X, no download needed). The scp command works like this:
-
-```
-scp -r $(local_build_folder)/. $(server_login)@$(server_ip):$(server_destination_folder)
-```
-
-Upon running this command, you are prompted to enter your password and all the files in the `$(build_folder)` are getting transferred to the `$(destination_folder)` on the target server. Authentication on the server is provided by the `$(server_login)` portion, this is your username on the server.
+Frontend is automatically deployed by updating the `live` git branch and publishing a new tag in the form `YEAR.MAJOR.MINOR`.
+For example, the first release for the LAN-party of 2018 is `2018.1.0`, while the second minor update of the second release is `2018.2.2`.
 
 ## TL:DR;
 ```
