@@ -101,6 +101,10 @@ This code may only be used under the BSD style license found at https://github.c
     .seats {
       display: flex;
     }
+
+    .team-member {
+      cursor: pointer;
+    }
     </style>
 
     <lancie-ajax auto-fire id="ajaxGetAllSeats" refurl="seats" on-lancie-ajax="onGetAllSeats"></lancie-ajax>
@@ -145,7 +149,7 @@ This code may only be used under the BSD style license found at https://github.c
           Select the user to reserve this seat for:
           <paper-listbox id="listbox">
             <template is="dom-repeat" items="[[tickets]]">
-              <paper-item data-ticket$="[[item.id]]">[[item.owner.profile.displayName]]</paper-item>
+              <paper-item data-ticket$="[[item.id]]" class="team-member">[[item.owner.profile.displayName]]</paper-item>
             </template>
           </paper-listbox>
         </div>
