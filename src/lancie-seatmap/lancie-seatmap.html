@@ -40,6 +40,11 @@ This code may only be used under the BSD style license found at https://github.c
       overflow: auto;
     }
 
+    .seatmapwrapper{
+      display: flex;
+      justify-content: space-around;
+    }
+
     .grouplabel {
       text-align: center;
       width: 100%;
@@ -112,58 +117,60 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-ajax id="ajaxReserveSeat" method="POST" on-lancie-ajax="onReserveSeat"></lancie-ajax>
 
     <paper-input label="Search user" value="{{filterUser}}"></paper-input>
-    <div class="seatmap">
-      <div class="seats">
-        <template is="dom-repeat" items='[[seatGroups]]'>
-          <div class="seatmap-row">
-            <div class="grouplabel">[[item]]</div>
-            <div class="seats-group">
-              <template is="dom-repeat" items="[[_getSeatGroup(seats, item)]]">
-                <lancie-seat tickets="{{tickets}}" filter="[[filterUser]]"  seat="{{item}}" user="{{user}}" fixed="{{fixed}}"></lancie-seat>
-              </template>
+    <div class="seatmapwrapper">
+      <div class="seatmap">
+         <div class="seats">
+            <template is="dom-repeat" items='[[seatGroups]]'>
+               <div class="seatmap-row">
+                  <div class="grouplabel">[[item]]</div>
+                  <div class="seats-group">
+                     <template is="dom-repeat" items="[[_getSeatGroup(seats, item)]]">
+                        <lancie-seat tickets="{{tickets}}" filter="[[filterUser]]"  seat="{{item}}" user="{{user}}" fixed="{{fixed}}"></lancie-seat>
+                     </template>
+                  </div>
+               </div>
+            </template>
+         </div>
+         <div class="non-seat-group">
+            <div class="lounge">
+               <div>Lounge</div>
             </div>
-          </div>
-        </template>
+            <div class="stage">
+               <div>Stage</div>
+            </div>
+            <div class="entrance">
+               <div>Entrance</div>
+               <div>
+                  <iron-icon icon="lancie:arrow-downward"></iron-icon>
+               </div>
+            </div>
+         </div>
       </div>
-      <div class="non-seat-group">
-        <div class="lounge">
-          <div>Lounge</div>
-        </div>
-        <div class="stage">
-          <div>Stage</div>
-        </div>
-        <div class="entrance">
-          <div>Entrance</div>
-          <div>
-            <iron-icon icon="lancie:arrow-downward"></iron-icon>
-          </div>
-        </div>
-      </div>
-    </div>
+   </div>
 
-    <lancie-dialog id="seatDialog">
-      <h2>Seat reservation</h2>
-      <div class="dialog-content">
-        <lancie-error id="error"></lancie-error>
-        <div hidden$="[[!_checkExists(tickets)]]">
-          Select the user to reserve this seat for:
-          <paper-listbox id="listbox">
-            <template is="dom-repeat" items="[[tickets]]">
+  <lancie-dialog id="seatDialog">
+    <h2>Seat reservation</h2>
+    <div class="dialog-content">
+      <lancie-error id="error"></lancie-error>
+      <div hidden$="[[!_checkExists(tickets)]]">
+        Select the user to reserve this seat for:
+        <paper-listbox id="listbox">
+          <template is="dom-repeat" items="[[tickets]]">
               <paper-item data-ticket$="[[item.id]]" class="team-member">[[item.owner.profile.displayName]]</paper-item>
             </template>
-          </paper-listbox>
-        </div>
-        <div hidden$="[[_checkExists(tickets)]]">
-          You need at least one ticket to reserve a seat!
-        </div>
+        </paper-listbox>
       </div>
-      <div class="dialog-actions">
-        <paper-button dialog-dismiss>Close</paper-button>
-        <paper-button on-tap="reserveSeat" hidden$="[[!_checkExists(tickets)]]">Reserve seat</paper-button>
+      <div hidden$="[[_checkExists(tickets)]]">
+        You need at least one ticket to reserve a seat!
       </div>
-    </lancie-dialog>
+    </div>
+    <div class="dialog-actions">
+      <paper-button dialog-dismiss>Close</paper-button>
+      <paper-button on-tap="reserveSeat" hidden$="[[!_checkExists(tickets)]]">Reserve seat</paper-button>
+    </div>
+  </lancie-dialog>
 
-    <paper-toast id="toast"></paper-toast>
+  <paper-toast id="toast"></paper-toast>
   </template>
   <script>
     class LancieSeatmap extends Polymer.Element {
@@ -197,13 +204,19 @@ This code may only be used under the BSD style license found at https://github.c
       }
 
       refreshSeats() {
-        this.$.toast.show({text: 'Seat reservation succeeded!', duration: 3000});
+        this.$.toast.show({
+          text: 'Seat reservation succeeded!',
+          duration: 3000
+        });
         this.$.ajaxGetAllSeats.generateRequest();
       }
 
       onGetAllSeats(e, request) {
         if (!request.succeeded) {
-          this.$.toast.show({text: 'Something went wrong, please refresh the page!', duration: 3000});
+          this.$.toast.show({
+            text: 'Something went wrong, please refresh the page!',
+            duration: 3000
+          });
           return;
         }
         const seatMap = request.response.seatmap;
@@ -220,7 +233,10 @@ This code may only be used under the BSD style license found at https://github.c
 
       onGetTeamTickets(e, request) {
         if (!request.succeeded) {
-          this.$.toast.show({text: 'Something went wrong, please refresh the page!', duration: 3000});
+          this.$.toast.show({
+            text: 'Something went wrong, please refresh the page!',
+            duration: 3000
+          });
           return;
         }
         this.set('tickets', request.response);
