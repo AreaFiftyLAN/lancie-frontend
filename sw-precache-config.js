@@ -20,7 +20,7 @@ module.exports = {
       }
     },
     {
-      urlPattern: /api\.areafiftylan.nl/,
+      urlPattern: /api\.areafiftylan.nl\/api\/v1\/web/,
       handler: 'fastest',
       options: {
         cache: {
