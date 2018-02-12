@@ -118,11 +118,9 @@ This code may only be used under the BSD style license found at https://github.c
             return 'green'; // Your own seat!
           }
 
-          console.log(tickets/*, tickets.map((ticket) => ticket.owner.reference).includes(seat.ticket.owner.reference)*/);
-
           if (tickets &&
             tickets.map((ticket) => ticket.owner.reference)
-                            .includes(seat.ticket.owner.reference)) {
+              .includes(seat.ticket.owner.reference)) {
             return 'yellow'; // A team member's seat
           }
 
