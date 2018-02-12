@@ -7,6 +7,7 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="../../bower_components/lancie-dialog/lancie-dialog.html">
 <link rel="import" href="lancie-seat.html">
@@ -35,7 +36,12 @@ This code may only be used under the BSD style license found at https://github.c
       flex-wrap: wrap;
     }
 
+    .seatmap {
+      overflow: auto;
+    }
+
     .grouplabel {
+      text-align: center;
       width: 100%;
       color: var(--secondary-color);
       font-size: 32px;
@@ -92,16 +98,6 @@ This code may only be used under the BSD style license found at https://github.c
       max-height: 40vh;
     }
 
-    .seatmap-wrapper {
-      text-align: center;
-    }
-
-    .seatmap {
-      overflow-x: auto;
-      margin: 0 auto;
-      width: 1200px;
-    }
-
     .seats {
       display: flex;
     }
@@ -111,33 +107,31 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-ajax auto-fire id="ajaxGetTeamTickets" refurl="tickets/teammembers" on-lancie-ajax="onGetTeamTickets"></lancie-ajax>
     <lancie-ajax id="ajaxReserveSeat" method="POST" on-lancie-ajax="onReserveSeat"></lancie-ajax>
 
-    <div class="seatmap-wrapper">
-      <paper-input label="Search user" value="{{filterUser}}"></paper-input>
-      <div class="seatmap">
-        <div class="seats">
-          <template is="dom-repeat" items='[[seatGroups]]'>
-            <div class="seatmap-row">
-              <div class="grouplabel">[[item]]</div>
-              <div class="seats-group">
-                <template is="dom-repeat" items="[[_getSeatGroup(seats, item)]]">
-                  <lancie-seat tickets="{{tickets}}" filter="[[filterUser]]"  seat="{{item}}" user="{{user}}" fixed="{{fixed}}"></lancie-seat>
-                </template>
-              </div>
+    <paper-input label="Search user" value="{{filterUser}}"></paper-input>
+    <div class="seatmap">
+      <div class="seats">
+        <template is="dom-repeat" items='[[seatGroups]]'>
+          <div class="seatmap-row">
+            <div class="grouplabel">[[item]]</div>
+            <div class="seats-group">
+              <template is="dom-repeat" items="[[_getSeatGroup(seats, item)]]">
+                <lancie-seat tickets="{{tickets}}" filter="[[filterUser]]"  seat="{{item}}" user="{{user}}" fixed="{{fixed}}"></lancie-seat>
+              </template>
             </div>
-          </template>
+          </div>
+        </template>
+      </div>
+      <div class="non-seat-group">
+        <div class="lounge">
+          <div>Lounge</div>
         </div>
-        <div class="non-seat-group">
-          <div class="lounge">
-            <div>Lounge</div>
-          </div>
-          <div class="stage">
-            <div>Stage</div>
-          </div>
-          <div class="entrance">
-            <div>Entrance</div>
-            <div>
-              <iron-icon icon="lancie:arrow-downward"></iron-icon>
-            </div>
+        <div class="stage">
+          <div>Stage</div>
+        </div>
+        <div class="entrance">
+          <div>Entrance</div>
+          <div>
+            <iron-icon icon="lancie:arrow-downward"></iron-icon>
           </div>
         </div>
       </div>
@@ -225,7 +219,7 @@ This code may only be used under the BSD style license found at https://github.c
           this.$.toast.show({text: 'Something went wrong, please refresh the page!', duration: 3000});
           return;
         }
-        this.tickets = request.response;
+        this.set('tickets', request.response);
       }
 
       reserveSeat() {
