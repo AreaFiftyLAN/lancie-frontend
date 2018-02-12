@@ -13,7 +13,7 @@ This code may only be used under the BSD style license found at https://github.c
     :host {
       display: block;
       position: relative;
-      width: 48px;
+      width: 50%;
       height: 72px;
       margin-bottom: 5px;
     }
@@ -96,7 +96,7 @@ This code may only be used under the BSD style license found at https://github.c
         seatColor: {
           type: String,
           reflectToAttribute: true,
-          computed: '_calculateSeatColor(user, teamTickets, seat, filter)'
+          computed: '_calculateSeatColor(user, tickets, seat, filter)'
         }
       },
       showSeatDialog: function() {
@@ -105,7 +105,7 @@ This code may only be used under the BSD style license found at https://github.c
         }
         this.fire('request-seat-reserve', {'seatToReserve': this.seat});
       },
-      _calculateSeatColor: function(user, teamTickets, seat, filter) {
+      _calculateSeatColor: function(user, tickets, seat, filter) {
         if (seat.locked) {
           return 'gray'; // Reserved
         }
@@ -118,8 +118,10 @@ This code may only be used under the BSD style license found at https://github.c
             return 'green'; // Your own seat!
           }
 
-          if (teamTickets &&
-            teamTickets.map((ticket) => ticket.owner.reference)
+          console.log(tickets/*, tickets.map((ticket) => ticket.owner.reference).includes(seat.ticket.owner.reference)*/);
+
+          if (tickets &&
+            tickets.map((ticket) => ticket.owner.reference)
                             .includes(seat.ticket.owner.reference)) {
             return 'yellow'; // A team member's seat
           }
