@@ -175,8 +175,6 @@ This code may only be used under the BSD style license found at https://github.c
       <paper-button on-tap="reserveSeat" hidden$="[[!_checkExists(tickets)]]">Reserve seat</paper-button>
     </div>
   </lancie-dialog>
-
-  <paper-toast id="toast"></paper-toast>
   </template>
   <script>
     class LancieSeatmap extends Polymer.Element {
@@ -210,7 +208,7 @@ This code may only be used under the BSD style license found at https://github.c
       }
 
       refreshSeats() {
-        this.$.toast.show({
+        this.fire('toast', {
           text: 'Seat reservation succeeded!',
           duration: 3000
         });
@@ -219,7 +217,7 @@ This code may only be used under the BSD style license found at https://github.c
 
       onGetAllSeats(e, request) {
         if (!request.succeeded) {
-          this.$.toast.show({
+          this.fire('toast', {
             text: 'Something went wrong, please refresh the page!',
             duration: 3000
           });
