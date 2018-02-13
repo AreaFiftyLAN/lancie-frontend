@@ -109,26 +109,24 @@ This code may only be used under the BSD style license found at https://github.c
         if (seat.locked) {
           return 'gray'; // Reserved
         }
-        if (seat.ticket) {
-          if (seat.ticket.owner.profile.displayName && filter &&
-            seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
-            return 'blue'; // Filter (search bar)
-          }
-          if (user.reference === seat.ticket.owner.reference) {
-            return 'green'; // Your own seat!
-          }
-
-          if (tickets &&
-            tickets.map((ticket) => ticket.owner.reference)
-              .includes(seat.ticket.owner.reference)) {
-            return 'yellow'; // A team member's seat
-          }
-
-          if (seat.ticket.owner.reference !== user.reference) {
-            return 'red'; // Taken
-          }
+        if (!seat.ticket) {
+          return '';
         }
-
+        if (seat.ticket.owner.profile.displayName && filter &&
+          seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
+          return 'blue'; // Filter (search bar)
+        }
+        if (user.reference === seat.ticket.owner.reference) {
+          return 'green'; // Your own seat!
+        }
+        if (tickets &&
+          tickets.map((ticket) => ticket.owner.reference)
+            .includes(seat.ticket.owner.reference)) {
+          return 'yellow'; // A team member's seat
+        }
+        if (seat.ticket.owner.reference !== user.reference) {
+          return 'red'; // Taken
+        }
         return ''; // Free
       },
       _getTooltipText: function(seat) {
