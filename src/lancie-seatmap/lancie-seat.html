@@ -100,7 +100,7 @@ This code may only be used under the BSD style license found at https://github.c
         }
       },
       showSeatDialog: function() {
-        if (this.seat.locked || this.seat.ticket && this.seat.ticket.owner.reference !== this.user.reference) {
+        if (this.seat.locked || this.seat.ticket) {
           return;
         }
         this.fire('request-seat-reserve', {'seatToReserve': this.seat});
