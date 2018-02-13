@@ -75,7 +75,7 @@
       <h2>Add a team member</h2>
       <div class="dialog-content">
         <lancie-error id="error"></lancie-error>
-        <paper-input label="Email" type="text" value="{{memberUsername}}"></paper-input>
+        <paper-input label="Email" type="text" value="{{memberEmail}}"></paper-input>
       </div>
       <div class="dialog-actions">
         <paper-button dialog-dismiss>Cancel</paper-button>
@@ -112,7 +112,7 @@
       team: Object,
       user: Object,
       teamInvites: Array,
-      memberUsername: String,
+      memberEmail: String,
     },
 
     refreshInvites: function() {
@@ -120,12 +120,12 @@
     },
     openAddMemberDialog: function() {
       this.addMemberMessage = '';
-      this.memberUsername = '';
+      this.memberEmail = '';
       this.$.addMemberDialog.open();
     },
     submitInviteMember: function() {
       this.$.error.clear();
-      this.$.ajaxInviteMember.body = this.memberUsername;
+      this.$.ajaxInviteMember.body = this.memberEmail;
       this.$.ajaxInviteMember.generateRequest();
     },
     onInviteMember: function(e, r) {

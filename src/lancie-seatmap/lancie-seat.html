@@ -5,21 +5,17 @@ This code may only be used under the BSD style license found at https://github.c
 -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
-<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
-<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
-<link rel="import" href="../../bower_components/lancie-dialog/lancie-dialog.html">
-<link rel="import" href="../../bower_components/lancie-error/lancie-error.html">
 
 <dom-module id="lancie-seat">
   <template>
-    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+    <style>
     :host {
       display: block;
       position: relative;
-      min-width: 32px;
+      width: 50%;
+      height: 72px;
+      margin-bottom: 5px;
     }
 
     [hidden] {
@@ -32,27 +28,38 @@ This code may only be used under the BSD style license found at https://github.c
       border-radius: 2px;
       background: #fafafa;
       box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .green {
-      background-color: #4CAF50;
+
+    :host([seat-color="green"]) .seat {
+      background-color: var(--paper-green-500);
     }
 
-    .yellow {
-      background-color: #FFEB3B;
+    :host([seat-color="yellow"]) .seat {
+      background-color: var(--paper-yellow-500);
     }
 
-    .red {
-      background-color: #F44336;
+    :host([seat-color="red"]) .seat {
+      background-color: var(--paper-red-500);
+      cursor: default !important;
     }
 
-    .blue {
-      background-color: #42A5F5;
+    :host([seat-color="gray"]) .seat {
+      background-color: var(--paper-grey-500);
+      cursor: default !important;
+    }
+
+    :host([seat-color="blue"]) .seat {
+      background-color: var(--paper-blue-500);
     }
     </style>
-    <div id="seat" class$="seat layout center center-justified horizontal flex {{_calculateClass(user, tickets, seat, filter)}}" on-tap="showSeatDialog">
-      <div>{{seat.seatNumber}}</div>
-      <paper-tooltip for="seat" animationDelay="0">{{_getTooltipText(seat)}}</paper-tooltip>
+    <div id="seat" class="seat" on-tap="showSeatDialog">
+      <div>[[seat.seatNumber]]</div>
+      <paper-tooltip for="seat" animationDelay="0">[[_getTooltipText(seat)]]</paper-tooltip>
     </div>
   </template>
   <script>
@@ -67,7 +74,9 @@ This code may only be used under the BSD style license found at https://github.c
       properties: {
         user: {
           type: Object,
-          value: {}
+          value: function() {
+            return {};
+          }
         },
         seat: Object,
         tickets: {
@@ -83,43 +92,54 @@ This code may only be used under the BSD style license found at https://github.c
         fixed: {
           type: Boolean,
           value: false
+        },
+        seatColor: {
+          type: String,
+          reflectToAttribute: true,
+          computed: '_calculateSeatColor(user, tickets, seat, filter)'
         }
       },
       showSeatDialog: function() {
-        if (this.seat.taken) {
+        if (this.seat.locked || this.seat.ticket) {
           return;
         }
-        this.fire('requestSeatReserve', {'seatToReserve': this.seat});
+        this.fire('request-seat-reserve', {'seatToReserve': this.seat});
       },
-      _calculateClass: function(user, teamTickets, seat, filter) {
-        if (!seat.taken) {
+      _calculateSeatColor: function(user, tickets, seat, filter) {
+        if (seat.locked) {
+          return 'gray'; // Reserved
+        }
+        if (!seat.ticket) {
           return '';
         }
-        if (seat.ticket && seat.ticket.owner.profile.displayName && filter !== '' && seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
-          return 'blue';
+        if (seat.ticket.owner.profile.displayName && filter &&
+          seat.ticket.owner.profile.displayName.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
+          return 'blue'; // Filter (search bar)
         }
-        if ((seat.taken && this.fixed) || (seat.taken && !seat.ticket)) {
-          return 'red';
+        if (user.reference === seat.ticket.owner.reference) {
+          return 'green'; // Your own seat!
         }
-        if (!this.fixed && user.reference === seat.ticket.owner.reference) {
-          return 'green';
+        if (tickets &&
+          tickets.map((ticket) => ticket.owner.reference)
+            .includes(seat.ticket.owner.reference)) {
+          return 'yellow'; // A team member's seat
         }
-        var teamMembers = teamTickets.map(function(ticket) {
-          return ticket.owner.reference;
-        });
-        if (!this.fixed && teamMembers.includes(seat.ticket.owner.reference)) {
-          return 'yellow';
+        if (seat.ticket.owner.reference !== user.reference) {
+          return 'red'; // Taken
         }
-        return 'red';
+        return ''; // Free
       },
       _getTooltipText: function(seat) {
-        if (!seat.taken) {
-          return 'Free';
-        }
-        if (seat.taken && !seat.ticket) {
+        if (seat.locked) {
           return 'Reserved';
         }
-        return seat.ticket.owner.profile.displayName;
+        if (seat.ticket) {
+          return seat.ticket.owner.profile.displayName;
+        }
+        if (!seat.locked && !seat.ticket) {
+          return 'Free';
+        }
+        return 'Taken'; // Backup, if for some reason an invalid state is encountered (it is probably red then)
       }
     });
   })();
