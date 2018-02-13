@@ -208,19 +208,21 @@ This code may only be used under the BSD style license found at https://github.c
       }
 
       refreshSeats() {
-        this.fire('toast', {
-          text: 'Seat reservation succeeded!',
-          duration: 3000
-        });
+        this.dispatchEvent(new CustomEvent('toast', {
+          detail: {text: 'Seat reservation succeeded!', duration: 3000},
+          bubbles: true,
+          composed: true
+        }));
         this.$.ajaxGetAllSeats.generateRequest();
       }
 
       onGetAllSeats(e, request) {
         if (!request.succeeded) {
-          this.fire('toast', {
-            text: 'Something went wrong, please refresh the page!',
-            duration: 3000
-          });
+          this.dispatchEvent(new CustomEvent('toast', {
+            detail: {text: 'Something went wrong, please refresh the page!', duration: 8000},
+            bubbles: true,
+            composed: true
+          }));
           return;
         }
         const seatMap = request.response.seatmap;
@@ -237,7 +239,7 @@ This code may only be used under the BSD style license found at https://github.c
 
       onGetTeamTickets(e, request) {
         if (!request.succeeded) {
-          this.fire('refreshToast');
+          this.dispatchEvent(new CustomEvent('refreshToast', {bubbles: true, composed: true}));
           return;
         }
         this.set('tickets', request.response);
