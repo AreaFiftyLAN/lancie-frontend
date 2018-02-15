@@ -1,257 +1,32 @@
-[/**
+[
   {
-    "title": "MC",
-    "subtitle": "Hunger Games & Race For The Wool",
-    "headerTitle": "Minecraft",
-    "description": "Minecraft is a sandbox video game created by Swedish programmer Markus 'Notch' Persson and later developed and published by Mojang. The creative and building aspects of Minecraft enable players to build constructions out of textured cubes in a 3D procedurally generated world. Other activities in the game include exploration, resource gathering, crafting, and combat. Multiple gameplay modes are available, including survival mode where the player must acquire resources to build the world and maintain health, a creative mode where players have unlimited resources to build with and the ability to fly, an adventure mode where players can play custom maps created by other players, and a spectator mode where players can fly around and clip through blocks, but cannot place or destroy any.\n\n# Rules\nT.B.A.",
-    "backgroundImagePath": "images-optimized/unofficial/minecraft.jpg",
-    "sponsor": {
-      "name": "",
-      "imagePath": "/images-optimized/unofficial/minecraft.jpg",
-      "website": "#"
-    },
-    "prizes": [
-      "None"
-    ],
-    "format": "Hunger Games & Race For The Wool",
-    "startingDateTime": {
-      "monthValue": 6,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
-    ],
-    "footer": false
-  },
-  {
-    "title": "Poker",
-    "subtitle": "Texas Hold'm",
-    "headerTitle": "Poker",
-    "description": "Poker is a family of gambling card games. All poker variants involve betting as an intrinsic part of play, and determine the winner of each hand according to the combinations of players' cards, at least some of which remain hidden until the end of the hand. Poker games vary in the number of cards dealt, the number of shared or 'community' cards, the number of cards that remain hidden, and the betting procedures.\n\n# Rules\nT.B.A.",
-    "backgroundImagePath": "images-optimized/unofficial/poker.jpg",
-    "sponsor": {
-      "name": "",
-      "imagePath": "images-optimized/unofficial/poker-logo.png",
-      "website": "#"
-    },
-    "prizes": [
-      "None"
-    ],
-    "format": "Texas Hold'm",
-    "startingDateTime": {
-      "monthValue": 6,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "None"
-    ],
-    "footer": false
-  },
-  {
-    "title": "Achtung",
+    "title": "LoL",
     "subtitle": "1 v 1",
-    "headerTitle": "Achtung die Kurve",
-    "description": "Achtung, die Kurve!, also known as Zatacka or simply Achtung, is a freeware, multiplayer DOS computer game that supports from two-player up to eight-player gaming simultaneously. The game is similar to the game Tron, where players leave a trail and try to make the opponent hit a wall or a trail first. The game is controlled by only two buttons, to turn left or right. A key difference is that in Achtung, die Kurve!, players can turn and travel in any direction, not limited to the 4 cardinal directions.\n\n#### Start time\nSaturday 23:30\n\n#### Game format\nFree-for-all, 4 players per game, knockout\n\n#### Tournament structure\nDepends on number of participants\n\n#### Winner criteria\nBeat everyone, shout Achtung! the loudest of everyone everytime\n\n#### Additional info\nThe game has bugs... I mean features. Losing because of a 'feature' is just having bad luck, sorry, can't do anything about it. Hate the game, not the tournament director! (Somebody lost a point last year due to a bug.)",
-    "backgroundImagePath": "images-optimized/unofficial/achtung.jpg",
+    "headerTitle": "League of Legends",
+    "description": "League of Legends is a fast-paced, competitive online game that blends the speed and intensity of an RTS with RPG elements. Two teams of powerful champions, each with a unique design and playstyle, battle head-to-head across multiple battlefields and game modes. With an ever-expanding roster of champions, frequent updates and a thriving tournament scene, League of Legends offers endless replayability for players of every skill level.  \n[~ leagueoflegends.com](https://na.leagueoflegends.com/en/game-info/get-started/what-is-lol/)\n\n# The organization\nThe organization of this tournament (organization for short) consists of:\n\n1. Pepijn van Hees\n2. Area FiftyLAN organization where needed\n\n# A team\nA team consists of:\n\n1. 1 player (subs not allowed)\n\n# A Game\nEach game will consist of:\n\n1. **Ban Phase:**\nBefore champion select is entered, both players get a chance to alternately ban three champions. A player may also decide to ban less than three.\n\n2. **Champion Select:**\nBlind Pick, as provided by the league of legends client at the time.\nIf a player picks a champion that was banned in the ban phase, one of several things can happen:\n\n    1. If one Player has picked a banned champion, they will be at fault.\n        1. Both Players agree to play on with the selected champions and accept the result of the match.\n        2. The player that is not at fault can force a remake of the game with an entire new ban phase and champion select.\n        3. If the player at fault refuses the forced remake, this is to be discussed with the organization. The organization  can:\n            1. Force a remake of the game with an entire new ban phase and champion select, the player at fault will lose 1 option to ban (leaving them with a max of 2 bans).\n            2. Force the player at fault to forfeit.\n     2. If both Players have picked a banned champion, they will both be at fault:\n         1. Both Players agree to play on with the selected champions and accept the result of the match.\n         2. If one of the players disagrees to play on, they can force a remake of the game with an entire new ban phase and champion select.\n\n3. **Battle:**\nEach Battle will be played on the map Howling Abyss, as provided by the League of Legends client at the time.\nIn order to end the game victorious, a player must achieve one of four things:\n    1. Kill the opponent once.\n    2. Kill 100 minions.\n    3. Destroy 1 enemy tower.\n    4. The opponent forfeits, by clearly stating this in the all-chat.\n\n4. **Post-Game**\nBoth players communicate the result of the game to the organization via the ways provided by the organization of Area FiftyLAN or by the organization.\nIf any form of unsolvable discussion exists during or after the game, both players will take this up with the organization. The judgment of the organization is final.\n\n# The Tournament\nThis tournament will consist of:\n1. **Group phase:**\nThere will be 4 groups, consisting of a somewhat constant amount of teams. They are determined in advance by the organization of Area FiftyLAN.\nAll matches in the group phase will be a best of 1, with only 1 game per match.\nEvery team will play a single round robin: playing a match against everybody else once.\nThe 2 teams of each group that have acquired the most victories in the group phase will move to the knock-out phase.\nIn case of a Tie, one of several things can happen:\n    1. Two teams are tied for first or for second place:\n        1. The two teams will play an extra single game, a tiebreaker. The victor will take the higher of the two places, the other team the lower.\n        2. Three teams are tied for first place:\n            1. If one team has beaten both other teams in the respective matchups, they will move to first place directly. Otherwise:\n                1. The team with the shortest average game time will move up to first place directly.\n            2. The two other teams will play an extra single game, a tiebreaker. The victor will take the higher of the two places, the other team the lower.\n        3. Three teams are tied for second place:\n            1. If one team has beaten both other teams in the respective matchups, they will move to second place directly. Otherwise:\n                1. The two teams with the shortest average game time will play an extra single game, a tiebreaker. The victor will take the higher of the two places, the other team the lower.\n        4. More than three teams are tied for first or second place:\n            1. The teams will be sorted by shortest average game time. If any discussion or lack of knowledge exists, please come to the organization. The organization will determine where to force tiebreakers.\n\n2. **Knock-out phase:**\nThe first place team in each group will play a random second place team of another group.\nA losing team in the knock-out phase will directly be eliminated. This continues until only one team is left. \nAll matches in the knock-out phase will be best of 3, with 3 games per match.\n\n# Auto forfeit and schedule\nA precise schedule of the tournament is yet to be determined. If a team cannot be on time for a match due to a match of any other tournament (which will always have higher priority, regardless of the match in the LoL 1v1 tournament), they will automatically forfeit the match, so that the tournament is not delayed.",
+    "backgroundImagePath": "images-optimized/activities/lol.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "images-optimized/unofficial/achtung.jpg",
-      "website": "http://curvefever.com/"
+      "imagePath": "images-optimized/activities/lol.jpg",
+      "website": "https://euw.leagueoflegends.com/en/"
     },
     "prizes": [
       "None"
-    ],
-    "format": "1 vs 1",
-    "startingDateTime": {
-      "monthValue": 6,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
-    ],
-    "footer": false
+    ]
   },
   {
-    "title": "JD",
-    "subtitle": "2 v 2",
-    "headerTitle": "Just Dance",
-    "description": "Just Dance is THE game to show your awesome moves to all of Area FiftyLAN. Some heroes took the initiative to set up a tournament just for this, so make sure to get your wristbands and yogapants ready to bust some moves!\n\n### Start time\nSaturday 22:00\n\n### Team Size\nIndividual\n\n### Setup\nElimination. Every game has a four participant. Every round two will continue to the next!",
-    "backgroundImagePath": "images-optimized/unofficial/justdance.jpg",
+    "title": "Dota",
+    "subtitle": "5 v 5",
+    "headerTitle": "Dota 2",
+    "description": "# Rules\n## General rules\n### Teams and participants\n* Every person with a valid steam account is allowed to participate in the tournament.\n\n### Commitments\n* By attending the tournament participants comply with the rules and regulations,\nofficial announcement, and with the statements and decisions made by the admins.\n* Every participant must always have the latest version of Steam and Dota 2 installed\nand has to check for updates in time before each match.\n* Every team accepts the official schedule of the competition and declares its ability to\nbe available during these times.\n* Every team and participant has to try to win every match at every stage of the\ncompetition. Purposefully losing for any reason is strictly forbidden.\n\n## Teams and Players\n### Roster\n* Teams should consist of exactly 5 players\n\n### Captain\n* Every team needs a so called “captain” for the season. He/She will communicate with\nthe enemy team and will be the point of contact\n\n\n## Hosting and Settings\n\n### Lobby Hosting\n* Unless an admin interferes or both teams agree on the opposite, the team who is\nshown first on the match page has to host the lobby. If the team has not hosted after 10\nminutes, the second team may host the lobby. The hosting team has to communicate\nthe password directly to the opponents.\n* The default server location is Luxembourg.\n* Other servers than the default one are used if both teams agree on it.\n\n### Drafting order\n* Selection priority for the first game of a match is decided by a coin toss done in the\nlobby.\n* Before each game, the team with the selection priority may either select a side or a\ndraft order. The opposing team can choose the remaining factor.\n\n### Game Settings\n* The hosting team has to put the following settings to the lobby:\n    * GAME MODE - Captains Mode, unless stated otherwise by the individual\ncompetition rules.\n    * LOBBY PASSWORD - Chosen by hosting team and communicated to the\nother team.\n    * SERVER LOCATION - Luxembourg.\n    * STARTING TEAM - First team listed on the match page.\n    * PENALTY-RADIANT - NonePENALTY-DIRE - None\n    * ENABLE CHEATS - No\n    * SPECTATORS - Enabled\n    * DOTA TV DELAY - 2 minutes or more\n    * PAUSING - Unlimited\n    * SERIES TYPE – No series\n    * FILL EMPTY SLOTS WITH BOTS - No\n\n## During the games\n### Picks and bans\n* The hero pool always consists of all heroes that the game mode allows and\nmay therefore change several times during the competition. The game must not be\npaused during the draft, unless a drafter disconnects.\n\n### Pauses\n* Each team has the right to pause the game if a player announces it at least three\nseconds in advance and calls a coherent reason or if a player is disconnected. The\ngame must not be resumed until both teams agree to it.\n* The total pause time may not exceed 10 minutes, unless stated otherwise by the\nadmins. Both teams may agree upon extending the total pause time together.\n\n### Disconnects and Reconnects\n* If a player disconnects, the game is to be paused instantly. Everyone has up to ten\nminutes to reconnect to the game following the Pausing rules above. The disconnected\nplayer is allowed to rejoin the game at any point of the game.\n\n### Bugs and Hacks\n* If any serious bugs occur, the game has to be paused immediately and the\nadministration decides how to continue. Abusing a bug is forbidden.\n* The usage of any Dota-related tool aside from Steam and Dota 2 during a match is\nstrictly forbidden.\n* A match is finished, when an Ancient Fortress is destroyed, when the majority of a\nteam leaves on purpose, or when the administration decides on it. (note: A match is\nnot forfeited when a player types \"gg\" or \"ff\". Always wait for the ancient to be\ndestroyed!\n\n## Rule violation and punishment\n* Breaking the rules results in a punishment for a whole team. They will lose the match\ninstantly, and therefore be eliminated from the tournament",
+    "backgroundImagePath": "images-optimized/activities/dota2.jpg",
     "sponsor": {
-      "name": "",
-      "imagePath": "images-optimized/unofficial/justdance.jpg",
-      "website": "#"
+      "name": "DutchDota",
+      "imagePath": "images-optimized/logos/dutch_dota.png",
+      "website": "https://dutchdota.com/"
     },
     "prizes": [
-      "None"
-    ],
-    "format": "1 vs 1",
-    "startingDateTime": {
-      "monthValue": 6,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "PC",
-      "Mac"
-    ],
-    "footer": false
-  },
-  {
-    "title": "Cthulhu Wars",
-    "subtitle": "and others",
-    "headerTitle": "Cthulhu Wars and other board games",
-    "description": "Cthulhu Wars is a dice-driven strategy boardgame for 5 players in which you take control of alien races and gods taken from the Cthulhu mythos created by H. P. Lovecraft. The game takes place on a map of Earth. Each player control of one of five factions lead by a major ruinous god: The Great Cthulhu, Nyarlathotep the Crawling Chaos, Shub-Niggurath the Black Goat, Tsathoggua the Sleeper, and the King in Yellow. Each faction has a very individual playstyle, thus the game is highly asymmetric while still being extremely well-balanced. Cthulhu Wars uses impressive large-scale miniatures, and we’ll be playing a customized hand-painted version of the game. You can find more information <a href=\"https://www.docdroid.net/aIXfkhg/cthukhuwars-a51.pdf.html\" target=\"_blank\">here</a>.",
-    "backgroundImagePath": "images-optimized/unofficial/boardgames.jpg",
-    "sponsor": {
-      "name": "",
-      "imagePath": "images-optimized/unofficial/boardgames.jpg",
-      "website": "#"
-    },
-    "prizes": [
-      "None"
-    ],
-    "format": "1 vs 1",
-    "startingDateTime": {
-      "monthValue": 6,
-      "month": "June",
-      "year": 2016,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "Offline"
-    ],
-    "footer": false
-  },
-  {
-    "title": "FoxPWN",
-    "subtitle": "Hacking CTF",
-    "headerTitle": "FoxPWN CTF Challenge",
-    "description": "In the FoxPWN Capture-The-Flag challenge, you're tasked with hacking a number of vulnerable machines in order to get the flags!\nYou'll need real security tools to find the vulnerabilities and hack the machines. It doesn't matter if you have no experience, the challenge is perfect to get started in the world of security and we'll help you to get started. \n\nThis unofficial activity is organized by a participant, while the challenge environment is provided by Fox-IT. They will also provide some prizes for the top 3 hackers!\n# Rules\n1. Only scan the provided IP range! Using the tools on the regular network is strictly prohibited\n2. Don't break the machines, only go for the flag. Keep it fair!",
-    "backgroundImagePath": "images-optimized/unofficial/foxpwn.jpg",
-    "sponsor": {
-      "name": "Fox-IT",
-      "imagePath": "images-optimized/logos/FoxIT.png",
-      "website": "https://fox-it.com"
-    },
-    "prizes": [
-      "Secrid Wallet + Coffeemug",
-      "Coffeemug + Powerbank",
-      "Powerbank + Umbrella"
-    ],
-    "format": "CTF",
-    "startingDateTime": {
-      "monthValue": 3,
-      "month": "March",
-      "year": 2017,
-      "dayOfMonth": 4,
-      "dayOfWeek": "Saturday",
-      "dayOfYear": 237,
-      "nano": 876000000,
-      "second": 36,
-      "chronology": {
-        "id": "ISO",
-        "calendarType": "iso8601"
-      }
-    },
-    "rulePath": "T.B.A.",
-    "platform": [
-      "Kali Linux"
-    ],
-    "footer": false
-  },
-  {
-      "title": "8-Bits Retro-Gaming",
-      "subtitle": "",
-      "headerTitle": "8-Bits Retro-Gaming",
-      "description": "This 8-bits retro gaming competition will take place the whole weekend. We'll be playing a classic on an old Atari game console. If you submit your score to the organisation you take place in the competition and have a chance to win one of the awesome eight prizes.",
-      "backgroundImagePath": "images-optimized/logos/jigsaw_cleaner_logo.png",
-      "sponsor": {
-        "name": "Jigsaw",
-        "imagePath": "images-optimized/logos/jigsaw_cleaner_logo.png",
-        "website": "http://www.jigsaw.nl"
-      },
-      "prizes": [
-        "Asus Strix Tactic Pro Keyboard",
-        "Logitec G G430",
-        "Mega Bombox Touchspeaker",
-        "RockStar Headphonesplitter",
-        "Screencleaner",
-        "Touchscreen Gloves",
-        "Beer and a Snickers",
-        "Beer"
-      ],
-      "format": "FFA",
-      "startingDateTime": {
-        "monthValue": 3,
-        "month": "March",
-        "year": 2017,
-        "dayOfMonth": 4,
-        "dayOfWeek": "Saturday",
-        "dayOfYear": 237,
-        "nano": 876000000,
-        "second": 36,
-        "chronology": {
-          "id": "ISO",
-          "calendarType": "iso8601"
-        }
-      },
-      "platform": [
-        "Atari"
-      ]
-  }**/
+      "Keychains"
+    ]
+  }
 ]
