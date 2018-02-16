@@ -11,6 +11,8 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="lancie-activity-sponsor.html">
 <link rel="import" href="../../bower_components/lancie-dialog/lancie-dialog.html">
 
+<link rel="import" href="../lancie-icons.html">
+
 <dom-module id="lancie-activity-dialog">
   <template>
     <style>
@@ -87,7 +89,7 @@ This code may only be used under the BSD style license found at https://github.c
     <lancie-dialog id="lancieDialog">
       <div class="dialog-header">
         <h2><strong>[[data.sponsor.name]]</strong> <span>[[data.headerTitle]]</span></h2>
-        <paper-icon-button icon="close" dialog-dismiss></paper-icon-button>
+        <paper-icon-button icon="lancie:clear" dialog-dismiss></paper-icon-button>
       </div>
       <div class="dialog-content">
         <lancie-activity-content data="[[data]]"></lancie-activity-content>

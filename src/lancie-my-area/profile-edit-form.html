@@ -5,11 +5,11 @@
 <link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../bower_components/neon-animation/web-animations.html">
-<link rel="import" href="../../bower_components/iron-icons/communication-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 
 <link rel="import" href="../../bower_components/lancie-form/lancie-form.html">
+
+<link rel="import" href="../lancie-icons.html">
 
 <dom-module id="profile-edit-form">
   <template>
@@ -60,7 +60,7 @@
 
     <lancie-form id="form" refurl="users/current/profile" on-response="onProfileUpdate" no-reset on-enter="fireSubmitEvent">
       <div class="layout horizontal center">
-        <iron-icon icon="icons:account-circle" item-icon></iron-icon>
+        <iron-icon icon="lancie:account-circle" item-icon></iron-icon>
         <div class="layout horizontal wrap flex">
           <paper-input label="First Name" name="firstName" type="text" value="{{profile.firstName}}" class="flex" required></paper-input>
           <paper-input label="Last Name" name="lastName" type="text" value="{{profile.lastName}}" class="flex" required></paper-input>
@@ -74,19 +74,19 @@
         </div>
       </div>
       <div class="layout horizontal center">
-        <iron-icon icon="social:cake" item-icon></iron-icon>
+        <iron-icon icon="lancie:cake" item-icon></iron-icon>
         <div class="item flex">
           <paper-input label="Birthday" name="birthday" type="date" placeholder="YYYY-MM-DD" value="{{profile.birthday}}" required></paper-input>
         </div>
       </div>
       <div class="layout horizontal center">
-        <iron-icon icon="communication:phone" item-icon></iron-icon>
+        <iron-icon icon="lancie:phone" item-icon></iron-icon>
         <div class="flex">
           <paper-input label="Phone Number" name="phoneNumber" type="text" value="{{profile.phoneNumber}}" required></paper-input>
         </div>
       </div>
       <div class="layout horizontal center">
-        <iron-icon icon="communication:location-on" item-icon></iron-icon>
+        <iron-icon icon="lancie:location-on" item-icon></iron-icon>
         <div class="layout horizontal wrap flex">
           <paper-input label="Address" name="address" type="text" value="{{profile.address}}" class="flex-3" required></paper-input>
           <paper-input label="Zipcode" name="zipcode" type="text" value="{{profile.zipcode}}" class="flex" required></paper-input>
