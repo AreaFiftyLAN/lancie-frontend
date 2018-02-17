@@ -70,7 +70,7 @@
       },
 
       _getStatus: function(ticket) {
-        return (this.ticket.token === undefined) ? 'Owned' : 'Transfering';
+        return (this.ticket.token === undefined) ? this.status : 'Transfering';
       },
 
       _formatPrice: function(amount) {
