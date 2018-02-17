@@ -123,7 +123,7 @@
       }
 
       _computeTicketInfo(tickets) {
-        return tickets[0] ? (tickets[0].valid ? 'Purchased' : 'Unknown') : 'None';
+        return tickets.length ? (tickets[0].valid ? 'Purchased' : 'Unknown') : 'None';
       }
 
       _computeTeamInfo(teams) {
