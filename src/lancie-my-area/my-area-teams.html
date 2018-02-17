@@ -119,7 +119,11 @@
   Polymer({
     is: 'my-area-teams',
     properties: {
-      teams: Array,
+      teams: {
+        type: Array,
+        reflectToAttribute: true,
+        notify: true,
+      },
       user: Object,
       personalInvites: Array,
       teamName: String,

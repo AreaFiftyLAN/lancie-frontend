@@ -25,6 +25,10 @@
       border-top: 1px solid #e8e8e8;
     }
 
+    hr:last-of-type {
+      display: none;
+    }
+
     paper-tooltip {
       --paper-tooltip-background: var(--primary-color);
       --paper-tooltip-text-color: var(--secondary-color);
@@ -79,7 +83,6 @@
       <paper-button on-tap="closeDialog">Close</paper-button>
     </lancie-terms-of-service>
 
-    <paper-toast id="ticketTransferTokensRetrievalError" text="Unable to check for open ticket transfers!" duration="3000"></paper-toast>
   </template>
   <script>
   'use strict';
@@ -103,7 +106,9 @@
         type: Array,
         value: function() {
           return [];
-        }
+        },
+        reflectToAttribute: true,
+        notify: true,
       },
     },
     buyTickets: function() {
@@ -132,11 +137,8 @@
         })(this));
         this.tickets = this.tempTickets;
       } else {
-        this.$.ticketTransferTokensRetrievalError.show();
+        this.fire('toast', {text: 'Unable to check for open ticket transfers!', duration: 3000});
       }
-    },
-    getIcon: function(binding) {
-      return binding ? 'lancie:check' : 'lancie:clear';
     },
 
     closeDialog: function() {
