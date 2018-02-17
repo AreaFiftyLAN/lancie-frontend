@@ -5,7 +5,9 @@
   <template>
     <style>
       :host {
-        display: block;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         margin: 8px;
         padding: 20px;
         background: var(--base-bg-color);
@@ -19,7 +21,6 @@
         margin-right: 15px;
         height: 60px;
         width: 60px;
-        position: absolute;
         --iron-icon-fill-color: var(--icon-fill-color);
       }
 
@@ -46,8 +47,10 @@
     </style>
 
     <iron-icon icon="{{icon}}"></iron-icon>
-    <span class="heading">{{heading}}</span>
-    <span class="info">{{info}}</span>
+    <div>
+      <span class="heading">{{heading}}</span>
+      <span class="info">{{info}}</span>
+    </div>
 
   </template>
   <script>
