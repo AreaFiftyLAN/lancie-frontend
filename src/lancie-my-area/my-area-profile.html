@@ -5,7 +5,6 @@
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-tooltip/paper-tooltip.html">
-<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 
 <link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/lancie-login-form/lancie-passwords.html">
@@ -37,14 +36,6 @@
     iron-icon {
       padding: 8px;
       margin-right: 8px;
-    }
-
-    #checkIcon {
-      --iron-icon-fill-color: #4CAF50;
-    }
-
-    #closeIcon {
-      --iron-icon-fill-color: #F44336;
     }
 
     hr {
@@ -103,7 +94,7 @@
         <div class="layout horizontal center" hidden$="[[editingPassword]]">
           <iron-icon icon="lancie:lock" item-icon></iron-icon>
           <div class="item flex">
-            <div>&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
+            <div id="pwPlaceholder"></div>
           </div>
         </div>
         <div class="layout horizontal center" hidden$="[[!editingPassword]]">
@@ -131,40 +122,52 @@
 
   </template>
   <script>
-  'use strict';
+    class MyAreaProfile extends Polymer.Element {
 
-  (function() {
-    Polymer({
-      is: 'my-area-profile',
-      properties: {
-        user: Object,
-        editingProfile: {
-          type: Boolean,
-          value: false
-        },
-        editingPassword: {
-          type: Boolean,
-          value: false
-        },
-        currentPassword: {
-          type: String
-        }
-      },
+      static get is() {
+        return 'my-area-profile';
+      }
 
-      switchProfileForm: function() {
+      static get properties() {
+        return {
+          user: Object,
+          editingProfile: {
+            type: Boolean,
+            value: false
+          },
+          editingPassword: {
+            type: Boolean,
+            value: false
+          },
+          currentPassword: {
+            type: String
+          },
+          pwPlaceholder: {
+            type: String,
+            value: () => { return '&#9679;'.repeat(12);}
+          }
+        };
+      }
+
+      ready() {
+        super.ready();
+        this.$.pwPlaceholder.innerHTML = this.pwPlaceholder;
+      }
+
+      switchProfileForm() {
         this.editingProfile = !this.editingProfile;
-      },
+      }
 
-      switchPasswordForm: function() {
+      switchPasswordForm() {
         this.editingPassword = !this.editingPassword;
-      },
+      }
 
-      resetForms: function() {
+      resetForms() {
         this.editingProfile = false;
         this.editingPassword = false;
-      },
+      }
 
-      submitEdit: function() {
+      submitEdit() {
         if (this.editingProfile) {
           if (this.$.profileForm.validateAndSubmit()) {
             this.switchProfileForm();
@@ -176,29 +179,41 @@
             this.switchPasswordForm();
           }
         }
-      },
+      }
 
-      onPasswordUpdate: function(e, request) {
+      onPasswordUpdate(e, request) {
         if (request.succeeded) {
-          this.fire('toast', {text: 'Password updated.'});
+          this.dispatchEvent(new CustomEvent('toast', {
+            detail: 'Password updated.',
+            bubbles: true,
+            composed: true
+          }));
         } else {
           if (request.request.status === 403) {
-            this.fire('toast', {text: 'Wrong password.'});
+            this.dispatchEvent(new CustomEvent('toast', {
+              detail: 'Wrong password.',
+              bubbles: true,
+              composed: true
+            }));
           } else {
-            this.fire('toast', {text: 'Password update failed.'});
+            this.dispatchEvent(new CustomEvent('toast', {
+              detail: 'Password update failed.',
+              bubbles: true,
+              composed: true
+            }));
           }
         }
-      },
+      }
 
-      isEditing: function(editingProfile, editingPassword) {
+      isEditing(editingProfile, editingPassword) {
         return editingProfile || editingPassword;
-      },
+      }
 
-      _checkEmpty: function(value) {
+      _checkEmpty(value) {
         return value || 'Not yet filled in, please click the pencil icon in the bottom left to complete your profile.';
-      },
+      }
+    }
 
-    });
-  })();
+    customElements.define(MyAreaProfile.is, MyAreaProfile);
   </script>
 </dom-module>
