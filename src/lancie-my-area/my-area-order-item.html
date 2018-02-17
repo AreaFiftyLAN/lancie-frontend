@@ -56,7 +56,7 @@
       </div>
       <div class="layout vertical block">
         <div>Status:</div>
-        <div>[[order.status]]</div>
+        <div>[[_getStatus(order.status)]]</div>
       </div>
       <div class="layout vertical block">
         <div>Ordered on:</div>
@@ -72,11 +72,11 @@
         <div class="order-stats">
           <div><b>Ordered on: </b>[[order.creationDateTime]]</div>
           <div><b>Price: </b>&euro; [[_format(order.amount)]]</div>
-          <div><b>Status: </b>[[order.status]]</div>
+          <div><b>Status: </b>[[_getStatus(order.status)]]</div>
         </div>
-        <template is="dom-repeat" items="[[order.tickets]]" status="[[order.status]]" index-as="index">
+        <template is="dom-repeat" items="[[order.tickets]]">
           <hr>
-          <lancie-order-item ticket="[[item]]" status="[[order.status]]"></lancie-order-item>
+          <lancie-order-item ticket="[[item]]" status="[[_getStatus(order.status)]]"></lancie-order-item>
         </template>
       </div>
       <div class="dialog-actions">
@@ -105,6 +105,16 @@
 
     _format: function(amount) {
       return amount.toFixed(2);
+    },
+
+    // Format strings to improve representation to user
+    _getStatus: function(status) {
+      if (status === 'ANONYMOUS' || status === 'ASSIGNED') {
+        return 'CREATING';
+      } else if (status === 'PENDING') {
+        return 'PAYMENT PENDING';
+      }
+      return status;
     }
   });
   </script>
