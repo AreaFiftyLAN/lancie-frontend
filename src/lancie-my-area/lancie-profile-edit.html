@@ -1,5 +1,4 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
@@ -12,7 +11,7 @@
 
 <dom-module id="lancie-profile-edit">
   <template>
-    <style include="iron-flex iron-flex-alignment iron-flex-factors">
+    <style>
       :host {
         display: block;
         max-width: 500px;
@@ -20,10 +19,19 @@
       }
 
       .input-groups > div {
-        @apply --layout-horizontal;
-        @apply --layout-flex;
-        @apply --layout-wrap;
-        @apply --layout-start;
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+
+      .group {
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
       }
 
       iron-icon {
@@ -56,15 +64,15 @@
       <div class="input-groups">
         <div>
           <iron-icon icon="lancie:account-circle"></iron-icon>
-          <div class="layout horizontal justified wrap flex">
-            <paper-input label="First Name" name="firstName" type="text" value="{{profile.firstName}}"
+          <div class="group">
+            <paper-input label="First Name" name="firstName" type="text" value="[[profile.firstName]]"
                          required></paper-input>
-            <paper-input label="Last Name" name="lastName" type="text" value="{{profile.lastName}}"
+            <paper-input label="Last Name" name="lastName" type="text" value="[[profile.lastName]]"
                          required></paper-input>
-            <paper-input label="Display Name" name="displayName" type="text" value="{{profile.displayName}}"
+            <paper-input label="Display Name" name="displayName" type="text" value="[[profile.displayName]]"
                          required></paper-input>
             <paper-dropdown-menu label="Gender" name="gender" required>
-              <paper-listbox class="dropdown-content" slot="dropdown-content" selected="{{user.profile.gender}}"
+              <paper-listbox class="dropdown-content" slot="dropdown-content" selected="[[user.profile.gender]]"
                              attr-for-selected="data-value">
                 <paper-item data-value="MALE">MALE</paper-item>
                 <paper-item data-value="FEMALE">FEMALE</paper-item>
@@ -75,19 +83,19 @@
         </div>
         <div>
           <iron-icon icon="lancie:cake"></iron-icon>
-          <paper-input label="Birthday" name="birthday" type="date" value="{{profile.birthday}}" required></paper-input>
+          <paper-input label="Birthday" name="birthday" type="date" value="[[profile.birthday]]" required></paper-input>
         </div>
         <div>
           <iron-icon icon="lancie:phone"></iron-icon>
-          <paper-input label="Phone Number" name="phoneNumber" type="text" value="{{profile.phoneNumber}}"
+          <paper-input label="Phone Number" name="phoneNumber" type="text" value="[[profile.phoneNumber]]"
                        required></paper-input>
         </div>
         <div>
           <iron-icon icon="lancie:location-on"></iron-icon>
-          <div class="layout horizontal justified flex wrap">
-            <paper-input label="Address" name="address" type="text" value="{{profile.address}}" required></paper-input>
-            <paper-input label="Zipcode" name="zipcode" type="text" value="{{profile.zipcode}}" required></paper-input>
-            <paper-input label="City" name="city" type="text" value="{{profile.city}}" required></paper-input>
+          <div class="group">
+            <paper-input label="Address" name="address" type="text" value="[[profile.address]]" required></paper-input>
+            <paper-input label="Zipcode" name="zipcode" type="text" value="[[profile.zipcode]]" required></paper-input>
+            <paper-input label="City" name="city" type="text" value="[[profile.city]]" required></paper-input>
           </div>
         </div>
       </div>
@@ -122,16 +130,12 @@
       onProfileUpdate(e, req) {
         if (req.succeeded) {
           this.set('user.profile', req.response.object);
-          this.dispatchEvent(new CustomEvent('profile-form-submit', {
-            detail: {text: 'Profile updated successfully.'},
-            bubbles: true,
-            composed: true
-          }));
+          this._submit();
           this.dispatchEvent(new CustomEvent('profile-submitted', {
             bubbles: true,
             composed: true
           }));
-          this._fireToast('Profile updated!');
+          this._fireToast('Profile successfully updated!');
         } else {
           if (req.request.status === 409) {
             this._fireToast('Display name already in use.');
@@ -157,7 +161,7 @@
 
       _fireToast(text) {
         this.dispatchEvent(new CustomEvent('toast', {
-          detail: {text: text},
+          detail: {text},
           bubbles: true,
           composed: true
         }));

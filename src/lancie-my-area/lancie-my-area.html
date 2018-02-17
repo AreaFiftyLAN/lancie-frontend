@@ -1,5 +1,4 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="my-area-profile.html">
 <link rel="import" href="my-area-teams.html">
 <link rel="import" href="my-area-orders.html">
@@ -10,7 +9,6 @@
 
 <dom-module id="lancie-my-area">
   <template>
-    <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
     <style>
     :host {
       display: block;
@@ -18,15 +16,17 @@
     }
 
     .cards-container {
-      @apply --layout-horizontal;
-      @apply --layout-wrap;
-      @apply --layout-start;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-start;
     }
 
     .cards-container > div {
-      @apply --layout-vertical;
-      @apply --layout-wrap;
-      @apply --layout-flex;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      flex-grow: 1;
       margin: 8px;
       min-width: var(--card-min-width);
       flex-basis: var(--card-min-width);
@@ -37,9 +37,9 @@
     }
 
     .info-boxes {
-      @apply --layout-horizontal;
-      @apply --layout-wrap;
-      @apply --layout-justified;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
     }
 
     lancie-info-box{
@@ -84,7 +84,7 @@
         <lancie-info-box class="seat" heading="Seat" icon="lancie:event-seat" info$="{{_computeSeatInfo(seats)}}"></lancie-info-box>
         <lancie-info-box class="ticket" heading="Ticket" icon="lancie:local-activity" info$="{{_computeTicketInfo(tickets)}}"></lancie-info-box>
         <lancie-info-box class="team" heading="Team" icon="lancie:group" info$="{{_computeTeamInfo(teams)}}"></lancie-info-box>
-        <lancie-info-box on-tap="openDiscordLink" class="discord" heading="Discord" icon="lancie:discord" info="{{discordWidget.members.length}} Online "></lancie-info-box>
+        <lancie-info-box on-tap="openDiscordLink" class="discord" heading="Discord" icon="lancie:discord" info$="{{discordWidget.members.length}} Online "></lancie-info-box>
       </div>
       <div class="cards-container">
         <div>
@@ -127,7 +127,7 @@
       }
 
       _computeTeamInfo(teams) {
-        return teams ? teams[0].teamName : 'None';
+        return teams.length ? teams[0].teamName : 'None';
       }
 
       openDiscordLink(){
