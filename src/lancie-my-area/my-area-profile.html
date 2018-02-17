@@ -183,24 +183,12 @@
 
       onPasswordUpdate(e, request) {
         if (request.succeeded) {
-          this.dispatchEvent(new CustomEvent('toast', {
-            detail: 'Password updated.',
-            bubbles: true,
-            composed: true
-          }));
+          this._fireToast('Password updated');
         } else {
           if (request.request.status === 403) {
-            this.dispatchEvent(new CustomEvent('toast', {
-              detail: 'Wrong password.',
-              bubbles: true,
-              composed: true
-            }));
+            this._fireToast('Wrong password');
           } else {
-            this.dispatchEvent(new CustomEvent('toast', {
-              detail: 'Password update failed.',
-              bubbles: true,
-              composed: true
-            }));
+            this._fireToast('Password update failed');
           }
         }
       }
@@ -211,6 +199,14 @@
 
       _checkEmpty(value) {
         return value || 'Not yet filled in, please click the pencil icon in the bottom left to complete your profile.';
+      }
+
+      _fireToast(text) {
+        this.dispatchEvent(new CustomEvent('toast', {
+          detail: {text},
+          bubbles: true,
+          composed: true
+        }));
       }
     }
 
