@@ -4,8 +4,10 @@
 <link rel="import" href="my-area-teams.html">
 <link rel="import" href="my-area-orders.html">
 <link rel="import" href="my-area-seat.html">
-<link rel="import" href="my-area-discord.html">
+<link rel="import" href="lancie-info-box.html">
 <link rel="import" href="../lancie-section/lancie-section.html">
+<link rel="import" href="../lancie-icons.html">
+
 <dom-module id="lancie-my-area">
   <template>
     <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
@@ -15,43 +17,125 @@
       --card-min-width: 300px;
     }
 
-    .card {
+    .cards-container {
+      @apply --layout-horizontal;
+      @apply --layout-wrap;
+      @apply --layout-start;
+    }
+
+    .cards-container > div {
+      @apply --layout-vertical;
+      @apply --layout-wrap;
+      @apply --layout-flex;
       margin: 8px;
       min-width: var(--card-min-width);
-    }
-
-    /*
-     * Safari hack
-     * Makes flex wrapping work
-     */
-    .flex, .flex-1, .flex-2, .flex-3 {
       flex-basis: var(--card-min-width);
     }
-    /*End Safari hack*/
+
+    .cards-container > div > *:not(first-child){
+      margin-top: 16px;
+    }
+
+    .info-boxes {
+      @apply --layout-horizontal;
+      @apply --layout-wrap;
+      @apply --layout-justified;
+    }
+
+    lancie-info-box{
+      min-width: var(--card-min-width);
+      min-height: 75px;
+    }
+
+    .seat {
+      --icon-fill-color: var(--paper-red-500);
+    }
+
+    .ticket {
+      --icon-fill-color: var(--paper-green-500);
+    }
+
+    .team {
+      --icon-fill-color: var(--paper-blue-500);
+    }
+
+    .discord {
+      --icon-fill-color: var(--paper-grey-800);
+    }
+
+    .discord:hover {
+      cursor: pointer;
+      -webkit-transform: translateY(-2px);
+      transform: translateY(-2px);
+      box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08)
+    }
 
     </style>
+
+    <lancie-ajax
+      auto-fire
+      skip-token
+      absoluteurl="https://discordapp.com/api/servers/146690066541051904/widget.json"
+      last-response="{{discordWidget}}">
+    </lancie-ajax>
+
     <lancie-section type="primary full" header="My Area - {{user.profile.displayName}}">
-      <div>
-        <div class="layout horizontal start wrap">
-          <my-area-profile user="{{user}}" class="flex-2 card"></my-area-profile>
-          <my-area-teams user="{{user}}" class="flex-2 card"></my-area-teams>
-          <my-area-discord class="flex-1 card"></my-area-discord>
+      <div class="info-boxes">
+        <lancie-info-box class="seat" heading="Seat" icon="lancie:event-seat" info$="{{_computeSeatInfo(seats)}}"></lancie-info-box>
+        <lancie-info-box class="ticket" heading="Ticket" icon="lancie:local-activity" info$="{{_computeTicketInfo(tickets)}}"></lancie-info-box>
+        <lancie-info-box class="team" heading="Team" icon="lancie:group" info$="{{_computeTeamInfo(teams)}}"></lancie-info-box>
+        <lancie-info-box on-tap="openDiscordLink" class="discord" heading="Discord" icon="lancie:discord" info="{{discordWidget.members.length}} Online "></lancie-info-box>
+      </div>
+      <div class="cards-container">
+        <div>
+          <my-area-profile user="{{user}}"></my-area-profile>
+          <my-area-seat user="{{user}}" seats="{{seats}}" ></my-area-seat>
         </div>
-        <div class="layout horizontal start wrap">
-          <my-area-orders user="[[user]]" class="flex-3 card"></my-area-orders>
-          <my-area-seat class="flex-2 card"></my-area-seat>
+        <div>
+          <my-area-teams user="{{user}}" teams="{{teams}}"></my-area-teams>
+          <my-area-orders user="{{user}}" tickets="{{tickets}}"></my-area-orders>
         </div>
       </div>
     </lancie-section>
   </template>
   <script>
-  Polymer({
-    is: 'lancie-my-area',
-    properties: {
-      user: {
-        type: Object
+    class LancieMyArea extends Polymer.Element {
+      static get is() {
+        return 'lancie-my-area';
+      }
+
+      static get properties() {
+        return {
+          user: Object,
+          tickets: Array,
+          teams: Array,
+          seats: Array,
+        };
+      }
+
+      _computeSeatInfo(seats) {
+        for (let seat of seats) {
+          if (seat.ticket.owner.reference === this.user.reference) {
+            return `${seat.seatGroup}${seat.seatNumber}`;
+          }
+        }
+      }
+
+      _computeTicketInfo(tickets) {
+        return tickets ? (tickets[0].valid ? 'Purchased' : 'Unknown') : 'None';
+      }
+
+      _computeTeamInfo(teams) {
+        return teams ? teams[0].teamName : 'None';
+      }
+
+      openDiscordLink(){
+        /*jshint camelcase: false */
+        window.open(this.discordWidget.instant_invite, '_blank');
+        /*jshint camelcase: true */
       }
     }
-  });
+
+    customElements.define(LancieMyArea.is, LancieMyArea);
   </script>
 </dom-module>
