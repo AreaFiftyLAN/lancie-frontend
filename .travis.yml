@@ -8,7 +8,7 @@ before_install:
   - sudo apt-get update
   - sudo apt-get -y install docker-ce
 script:
-docker build --no-cache --pull -t quay.io/areafiftylan/lancie-frontend:$TRAVIS_BUILD_NUMBER .
+- docker build --no-cache --pull -t quay.io/areafiftylan/lancie-frontend:$TRAVIS_BUILD_NUMBER .
 after_success:
 - if [ "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}" == "master" ]; then
     docker tag quay.io/areafiftylan/frontend:$TRAVIS_BUILD_NUMBER quay.io/areafiftylan/frontend-beta:$TRAVIS_BUILD_NUMBER;
