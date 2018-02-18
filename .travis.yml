@@ -8,12 +8,12 @@ before_install:
   - sudo apt-get update
   - sudo apt-get -y install docker-ce
 script:
-- docker build --no-cache --pull -t wisvch/areafiftylan-frontend:$TRAVIS_BUILD_NUMBER .
+docker build --no-cache --pull -t quay.io/areafiftylan/lancie-frontend:$TRAVIS_BUILD_NUMBER .
 after_success:
 - if [ "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}" == "master" ]; then
-    docker tag wisvch/areafiftylan-frontend:$TRAVIS_BUILD_NUMBER wisvch/areafiftylan-frontend-beta:$TRAVIS_BUILD_NUMBER;
-    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push wisvch/areafiftylan-frontend-beta:$TRAVIS_BUILD_NUMBER;
+    docker tag quay.io/areafiftylan/frontend:$TRAVIS_BUILD_NUMBER quay.io/areafiftylan/frontend-beta:$TRAVIS_BUILD_NUMBER;
+    docker login quay.io -u="$QUAY_USERNAME" -p="$QUAY_PASSWORD";
+    docker push quay.io/areafiftylan/frontend-beta:$TRAVIS_BUILD_NUMBER;
   fi
 - if [ "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}" == "live" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
