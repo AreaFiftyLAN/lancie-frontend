@@ -229,7 +229,7 @@ This code may only be used under the BSD style license found at https://github.c
 
     onAvailableTickets: function (e, request) {
       if (request.succeeded) {
-        this.availableTickets = request.response;
+        this.availableTickets = request.response.ticketTypes;
       } else {
         this.fire('refresh-toast');
       }
