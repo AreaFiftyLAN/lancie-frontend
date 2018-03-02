@@ -10,6 +10,7 @@
 
 <link rel="import" href="../../bower_components/lancie-dialog/lancie-dialog.html">
 <link rel="import" href="my-area-orders/lancie-order-item.html">
+<link rel="import" href="../lancie-icons.html">
 
 <dom-module id="my-area-order-item">
   <template>
@@ -25,6 +26,10 @@
       border: 0;
       border-top: 1px solid #e8e8e8;
       padding: 0;
+    }
+
+    hr:last-of-type {
+      display: none;
     }
 
     .order-stats > div > b {
@@ -62,7 +67,7 @@
         <div>Ordered on:</div>
         <div>[[order.creationDateTime]]</div>
       </div>
-      <paper-icon-button icon="icons:info" on-tap="showOrderTickets"></paper-icon-button>
+      <paper-icon-button icon="lancie:info" on-tap="showOrderTickets"></paper-icon-button>
     </paper-item>
     <hr>
 
@@ -93,10 +98,6 @@
         type: Object,
         notify: true
       }
-    },
-
-    getIcon: function(binding) {
-      return binding ? 'icons:check' : 'icons:clear';
     },
 
     showOrderTickets: function() {

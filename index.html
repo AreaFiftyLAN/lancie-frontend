@@ -58,6 +58,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       margin: 0;
       --primary-color: #1a2b43;
       --secondary-color: #ffe574;
+      --base-bg-color: #fafafa;
     }
 
     app-toolbar {
@@ -141,7 +142,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       display: block;
     }
 
-    #reload-toast {
+    #reload-toast, #msg-toast {
       --paper-toast-color: white;
     }
 
@@ -193,7 +194,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <!-- Nav on mobile: side nav menu -->
         <app-toolbar>
-          <paper-icon-button class="menu-button" icon="menu" drawer-toggle aria-label="Drawer navigation menu"></paper-icon-button>
+          <paper-icon-button class="menu-button" icon="lancie:menu" drawer-toggle aria-label="Drawer navigation menu"></paper-icon-button>
 
           <a href="/" aria-label="Homepage">
             <img

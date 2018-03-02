@@ -1,8 +1,6 @@
 <link rel="import" href="../../../bower_components/polymer/polymer.html">
 
 <link rel="import" href="../../../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../../bower_components/iron-icons/social-icons.html">
 
 <link rel="import" href="../../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../../bower_components/paper-icon-button/paper-icon-button.html">
@@ -18,6 +16,8 @@
 
 <link rel="import" href="team-member-item.html">
 <link rel="import" href="my-area-teams-invite.html">
+
+<link rel="import" href="../../lancie-icons.html"/>
 
 <dom-module id="team-item">
   <template>
@@ -58,9 +58,9 @@
         </div>
         <template is="dom-if" if="[[_isSameUser(team.captain, user)]]">
           <div class="team-header">
-            <paper-icon-button id="addMemberButton" icon="social:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
+            <paper-icon-button id="addMemberButton" icon="lancie:person-add" on-tap="openAddMemberDialog"></paper-icon-button>
             <paper-tooltip offset="0" for="addMemberButton" animation-delay="1">Invite a member</paper-tooltip>
-            <paper-icon-button id="openInvitesButton" icon="icons:markunread-mailbox" on-tap="openTeamInvitesDialog"></paper-icon-button>
+            <paper-icon-button id="openInvitesButton" icon="lancie:markunread-mailbox" on-tap="openTeamInvitesDialog"></paper-icon-button>
             <paper-tooltip offset="0" for="openInvitesButton" animation-delay="1">View open invites</paper-tooltip>
           </div>
         </template>
