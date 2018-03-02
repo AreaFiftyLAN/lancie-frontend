@@ -93,15 +93,15 @@
     ]
   },
   {
-    "title": "PUBG",
+    "title": "FN",
     "subtitle": "FFA",
-    "headerTitle": "PlayerUnknown's Battlegrounds",
-    "description": "PlayerUnknown's Battlegrounds (PUBG) is a multiplayer online battle royale game developed and published by PUBG Corporation, a subsidiary of Korean publisher Bluehole. The game is based on previous mods that were developed by Brendan \"PlayerUnknown\" Greene for other games using the 2000 film Battle Royale for inspiration, and expanded into a standalone game under Greene's creative direction. In the game, up to one hundred players parachute onto an island and scavenge for weapons and equipment to kill others while avoiding getting killed themselves. The available safe area of the game's map decreases in size over time, directing surviving players into tighter areas to force encounters. The last player or team standing wins the round.\n\n# Rules\n\nThe general AreaFiftyLAN Terms and Conditions apply.\n",
-    "backgroundImagePath": "images-optimized/activities/pubg.jpg",
+    "headerTitle": "Fortnite",
+    "description": "Fortnite is set in contemporary Earth, where the sudden appearance of a worldwide storm causes 98% of the world's population to disappear, and zombie-like creatures rise to attack the remainder. Considered by Epic as a cross between Minecraft and Left 4 Dead, Fortnite has up to four players cooperating on various missions on randomly-generated maps to collect resources, build fortifications around defensive objectives that are meant to help fight the storm and protect survivors, and construct weapons and traps to engage in combat with waves of these creatures that attempt to destroy the objectives. Players gain rewards through these missions to improve their hero characters, support teams, and arsenal of weapon and trap schematics to be able to take on more difficult missions. The game is supported through microtransactions to purchase in-game currency that can be used towards these upgrades.\n\n# Rules\n\nThe general Area FiftyLAN Terms and Conditions apply\n",
+    "backgroundImagePath": "images-optimized/activities/fortnite.jpg",
     "sponsor": {
       "name": "",
-      "imagePath": "images-optimized/activities/pubg.jpg",
-      "website": "https://www.playbattlegrounds.com"
+      "imagePath": "images-optimized/activities/fortnite.jpg",
+      "website": "https://www.epicgames.com/fortnite/en-US/buy-now/battle-royale"
     },
     "prizes": [
       "Campzone tickets (2x)"
