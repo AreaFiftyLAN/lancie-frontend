@@ -18,15 +18,17 @@
     }
 
     .cards-container {
-      @apply --layout-horizontal;
-      @apply --layout-wrap;
-      @apply --layout-start;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-start;
     }
 
     .cards-container > div {
-      @apply --layout-vertical;
-      @apply --layout-wrap;
-      @apply --layout-flex;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      flex-grow: 1;
       margin: 8px;
       min-width: var(--card-min-width);
       flex-basis: var(--card-min-width);
@@ -37,9 +39,9 @@
     }
 
     .info-boxes {
-      @apply --layout-horizontal;
-      @apply --layout-wrap;
-      @apply --layout-justified;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
     }
 
     lancie-info-box {
