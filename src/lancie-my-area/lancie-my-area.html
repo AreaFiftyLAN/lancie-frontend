@@ -1,20 +1,28 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="my-area-profile.html">
 <link rel="import" href="my-area-teams.html">
 <link rel="import" href="my-area-orders.html">
 <link rel="import" href="my-area-seat.html">
 <link rel="import" href="lancie-info-box.html">
-<link rel="import" href="../lancie-section/lancie-section.html">
 <link rel="import" href="../lancie-icons.html">
 
 <dom-module id="lancie-my-area">
   <template>
-    <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
     <style>
     :host {
       display: block;
       --card-min-width: 300px;
+      --my-area-grey: #515D6E;
+    }
+
+    h1 {
+      font-size: 2.4em;
+      font-weight: 300;
+      line-height: 48px;
+      margin: 0 0 16px 8px;
+    }
+    .container {
+      padding: 32px;
     }
 
     .cards-container {
@@ -29,13 +37,13 @@
       flex-direction: column;
       flex-wrap: wrap;
       flex-grow: 1;
-      margin: 8px;
+      margin: 0 8px;
       min-width: var(--card-min-width);
       flex-basis: var(--card-min-width);
     }
 
-    .cards-container > div > *:not(first-child){
-      margin-top: 16px;
+    .cards-container > div > * {
+      margin: 8px 0;
     }
 
     .info-boxes {
@@ -68,7 +76,17 @@
       cursor: pointer;
       -webkit-transform: translateY(-2px);
       transform: translateY(-2px);
-      box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08)
+      box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08);
+    }
+
+    @media (max-width: 600px) {
+      lancie-info-box {
+        min-width: 200px;
+      }
+      .container {
+        margin: 8px;
+        padding: 0;
+      }
     }
 
     </style>
@@ -80,24 +98,25 @@
       last-response="{{discordWidget}}">
     </lancie-ajax>
 
-    <lancie-section type="primary full" header="My Area - {{user.profile.displayName}}">
+    <div class="container">
+      <h1>My Area - [[user.profile.displayName]]</h1>
       <div class="info-boxes">
         <lancie-info-box class="seat" heading="Seat" icon="lancie:event-seat" info$="{{_computeSeatInfo(seats)}}"></lancie-info-box>
         <lancie-info-box class="ticket" heading="Ticket" icon="lancie:local-activity" info$="{{_computeTicketInfo(tickets)}}"></lancie-info-box>
         <lancie-info-box class="team" heading="Team" icon="lancie:group" info$="{{_computeTeamInfo(teams)}}"></lancie-info-box>
-        <lancie-info-box on-tap="openDiscordLink" class="discord" heading="Discord" icon="lancie:discord" info="{{discordWidget.members.length}} Online "></lancie-info-box>
+        <lancie-info-box on-tap="openDiscordLink" class="discord" heading="Discord" icon="lancie:discord" info="{{discordWidget.members.length}} Online "><span>Tap to join!</span></lancie-info-box>
       </div>
       <div class="cards-container">
         <div>
           <my-area-profile user="{{user}}"></my-area-profile>
-          <my-area-seat user="{{user}}" seats="{{seats}}" ></my-area-seat>
+          <my-area-seat user="[[user]]" seats="{{seats}}" ></my-area-seat>
         </div>
         <div>
-          <my-area-teams user="{{user}}" teams="{{teams}}"></my-area-teams>
-          <my-area-orders user="{{user}}" tickets="{{tickets}}"></my-area-orders>
+          <my-area-teams user="[[user]]" teams="{{teams}}"></my-area-teams>
+          <my-area-orders user="[[user]]" tickets="{{tickets}}"></my-area-orders>
         </div>
       </div>
-    </lancie-section>
+    </div>
   </template>
   <script>
     class LancieMyArea extends Polymer.Element {
