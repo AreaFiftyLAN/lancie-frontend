@@ -16,6 +16,10 @@
         flex: 1;
       }
 
+      :host ::slotted(*) {
+        color: var(--my-area-grey);
+      }
+
       iron-icon {
         display: block;
         margin-right: 16px;
@@ -28,7 +32,7 @@
       .heading {
         display: block;
         position: relative;
-        color: #515d6e;
+        color: var(--my-area-grey);
         text-align: right;
       }
 
@@ -46,7 +50,10 @@
 
     </style>
 
-    <iron-icon icon="[[icon]]"></iron-icon>
+    <div>
+      <iron-icon icon="[[icon]]"></iron-icon>
+      <slot></slot>
+    </div>
     <div>
       <span class="heading">[[heading]]</span>
       <span class="info">[[info]]</span>
