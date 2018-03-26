@@ -123,11 +123,11 @@
       }
 
       _computeTicketInfo(tickets) {
-        return tickets ? (tickets[0].valid ? 'Purchased' : 'Unknown') : 'None';
+        return (tickets && tickets.length) ? (tickets[0].valid ? 'Purchased' : 'Unknown') : 'None';
       }
 
       _computeTeamInfo(teams) {
-        return teams ? teams[0].teamName : 'None';
+        return (teams && teams.length) ? teams[0].teamName : 'None';
       }
 
       openDiscordLink(){
