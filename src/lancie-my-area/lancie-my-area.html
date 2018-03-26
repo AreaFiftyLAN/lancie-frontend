@@ -101,10 +101,10 @@
     <div class="container">
       <h1>My Area - [[user.profile.displayName]]</h1>
       <div class="info-boxes">
-        <lancie-info-box class="seat" heading="Seat" icon="lancie:event-seat" info$="{{_computeSeatInfo(seats)}}"></lancie-info-box>
-        <lancie-info-box class="ticket" heading="Ticket" icon="lancie:local-activity" info$="{{_computeTicketInfo(tickets)}}"></lancie-info-box>
-        <lancie-info-box class="team" heading="Team" icon="lancie:group" info$="{{_computeTeamInfo(teams)}}"></lancie-info-box>
-        <lancie-info-box on-tap="openDiscordLink" class="discord" heading="Discord" icon="lancie:discord" info="{{discordWidget.members.length}} Online "><span>Tap to join!</span></lancie-info-box>
+        <lancie-info-box class="seat" heading="Seat" icon="lancie:event-seat" info="[[_computeSeatInfo(seats)]]"></lancie-info-box>
+        <lancie-info-box class="ticket" heading="Ticket" icon="lancie:local-activity" info="[[_computeTicketInfo(tickets)]]"></lancie-info-box>
+        <lancie-info-box class="team" heading="Team" icon="lancie:group" info="[[_computeTeamInfo(teams)]]"></lancie-info-box>
+        <lancie-info-box on-tap="openDiscordLink" class="discord" heading="Discord" icon="lancie:discord" info="[[discordWidget.members.length]] Online "><span>Tap to join!</span></lancie-info-box>
       </div>
       <div class="cards-container">
         <div>
