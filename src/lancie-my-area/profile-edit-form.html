@@ -67,8 +67,9 @@
           <paper-input label="Display Name" name="displayName" type="text" value="{{profile.displayName}}" required></paper-input>
           <paper-dropdown-menu class="flex" label="Gender" name="gender" required>
             <paper-listbox class="dropdown-content" slot="dropdown-content" selected="{{user.profile.gender}}" attr-for-selected="data-value">
-              <paper-item data-value="MALE">MALE</paper-item>
-              <paper-item data-value="FEMALE">FEMALE</paper-item>
+              <paper-item data-value="MALE">Male</paper-item>
+              <paper-item data-value="FEMALE">Female</paper-item>
+              <paper-item data-value="OTHER">Other</paper-item>
             </paper-listbox>
           </paper-dropdown-menu>
         </div>
