@@ -1,0 +1,80 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+
+<dom-module id="lancie-info-box">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 8px;
+        padding: 20px;
+        background: var(--base-bg-color);
+        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);
+        --icon-fill-color: var(--paper-grey-700);
+        flex: 1;
+      }
+
+      :host ::slotted(*) {
+        color: var(--my-area-grey);
+      }
+
+      iron-icon {
+        display: block;
+        margin-right: 16px;
+        height: 60px;
+        width: 60px;
+        --iron-icon-fill-color: var(--icon-fill-color);
+      }
+
+      .info,
+      .heading {
+        display: block;
+        position: relative;
+        color: var(--my-area-grey);
+        text-align: right;
+      }
+
+      .heading {
+        font-size: 1.2em;
+        font-weight: 300;
+        text-transform: uppercase;
+      }
+
+      .info {
+        font-size: 1.8em;
+        font-weight: 500;
+        margin-top: 5px;
+      }
+
+    </style>
+
+    <div>
+      <iron-icon icon="[[icon]]"></iron-icon>
+      <slot></slot>
+    </div>
+    <div>
+      <span class="heading">[[heading]]</span>
+      <span class="info">[[info]]</span>
+    </div>
+
+  </template>
+  <script>
+    class LancieInfoBox extends Polymer.Element {
+      static get is() {
+        return 'lancie-info-box';
+      }
+
+      static get properties() {
+        return {
+          icon: String,
+          heading: String,
+          info: String,
+        };
+      }
+    }
+
+    customElements.define(LancieInfoBox.is, LancieInfoBox);
+  </script>
+</dom-module>

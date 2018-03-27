@@ -1,8 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
 
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
@@ -20,6 +18,8 @@
 <link rel="import" href="my-area-teams/my-area-teams-invite.html">
 <link rel="import" href="my-area-teams/team-member-item.html">
 <link rel="import" href="my-area-teams/team-item.html">
+
+<link rel="import" href="../lancie-icons.html"/>
 
 <dom-module id="my-area-teams">
   <template>
@@ -70,9 +70,9 @@
         </template>
       </div>
       <div class="card-actions">
-        <paper-icon-button id="new-team" icon="social:group-add" on-tap="openCreateTeamDialog"></paper-icon-button>
+        <paper-icon-button id="new-team" icon="lancie:group-add" on-tap="openCreateTeamDialog"></paper-icon-button>
         <paper-tooltip for="new-team" offset="0" animation-delay="1">Create a new team</paper-tooltip>
-        <paper-icon-button id="teamInviteButton" icon="icons:inbox" on-tap="openPersonalInvitesDialog"></paper-icon-button>
+        <paper-icon-button id="teamInviteButton" icon="lancie:inbox" on-tap="openPersonalInvitesDialog"></paper-icon-button>
         <paper-tooltip for="teamInviteButton" offset="0" animation-delay="1">View your open invites</paper-tooltip>
         <template is="dom-if" if="[[personalInvites.length]]">
           <paper-badge for="teamInviteButton" label="[[personalInvites.length]]"></paper-badge>
@@ -119,7 +119,10 @@
   Polymer({
     is: 'my-area-teams',
     properties: {
-      teams: Array,
+      teams: {
+        type: Array,
+        notify: true,
+      },
       user: Object,
       personalInvites: Array,
       teamName: String,

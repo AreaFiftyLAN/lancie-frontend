@@ -33,6 +33,10 @@
       border-top: 1px solid #e8e8e8;
       padding: 0;
     }
+
+    hr:last-of-type {
+      display: none;
+    }
     </style>
 
     <lancie-ajax id="ajaxSetupTicketTransfer" refurl="tickets/transfer/[[ticket.id]]" method="POST" body="[[email]]" on-lancie-ajax="onSetupTicketTransfer"></lancie-ajax>
@@ -120,7 +124,7 @@
       },
 
       _getIcon: function(token) {
-        return token === undefined ? 'icons:send' : 'icons:clear';
+        return token === undefined ? 'lancie:send' : 'lancie:clear';
       },
 
       _getText: function(token) {
