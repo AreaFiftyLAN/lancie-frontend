@@ -119,7 +119,11 @@
         if (this.profileChanged) {
           return this.$.form.validateAndSubmit();
         }
-        this._fireToast('There are no profile changes');
+
+        this.dispatchEvent(new CustomEvent('no-changes', {
+            bubbles: true,
+            composed: true
+        }));
       }
       validate() {
         return this.$.form.validate();

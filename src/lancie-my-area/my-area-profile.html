@@ -89,7 +89,7 @@
             </div>
           </div>
         </div>
-        <lancie-profile-edit id="profileForm" hidden$="[[!editingProfile]]" user={{user}} on-profile-form-submit="submitEdit"></lancie-profile-edit>
+        <lancie-profile-edit id="profileForm" hidden$="[[!editingProfile]]" user={{user}} on-profile-form-submit="submitEdit" on-no-changes="noChanges"></lancie-profile-edit>
 
         <hr>
         <div class="layout horizontal center">
@@ -176,6 +176,10 @@
             this.switchPasswordForm();
           }
         }
+      },
+
+      noChanges: function() {
+        this.switchProfileForm();
       },
 
       onPasswordUpdate: function(e, request) {
