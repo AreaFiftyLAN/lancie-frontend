@@ -16,7 +16,7 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="lancie-tickets.html">
 <link rel="import" href="lancie-ticket-basket.html">
 <link rel="import" href="lancie-terms-of-service-text.html">
-<link rel="import" href="../lancie-my-area/profile-edit-form.html">
+<link rel="import" href="../lancie-my-area/lancie-profile-edit.html">
 <link rel="import" href="../lancie-storage/lancie-order-storage.html">
 <link rel="import" href="../lancie-login/lancie-login.html">
 
@@ -78,6 +78,10 @@ This code may only be used under the BSD style license found at https://github.c
         pointer-events: none;
       }
 
+      lancie-profile-edit {
+        margin: 0 auto;
+      }
+
       @media(max-width: 500px) {
         :host{
           padding: 0;
@@ -131,7 +135,7 @@ This code may only be used under the BSD style license found at https://github.c
 
         <div>
           <h2>Fill in your profile</h2>
-          <profile-edit-form id="profileForm" user="{{user}}" on-profile-submitted="profileConfirmed"></profile-edit-form>
+          <lancie-profile-edit id="profileForm" user="{{user}}" on-profile-submitted="profileConfirmed"></lancie-profile-edit>
         </div>
 
         <div>

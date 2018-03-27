@@ -1,0 +1,171 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/lancie-form/lancie-form.html">
+
+<link rel="import" href="../lancie-icons.html">
+
+<dom-module id="lancie-profile-edit">
+  <template>
+    <style>
+      :host {
+        display: block;
+        max-width: 500px;
+        --input-width: 200px;
+      }
+
+      .input-groups > div {
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+      .group {
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      iron-icon {
+        padding: 8px;
+        margin: 24px 8px 0 0;
+      }
+
+      paper-dropdown-menu {
+        width: var(--input-width);
+      }
+
+      .dropdown-content {
+        min-width: 120px;
+      }
+
+      /*
+       Workaround for a bug that causes paper-input
+       with type="date" not being editable when empty
+       (PolymerElements/paper-input/issues/352).
+     */
+      paper-input[type="date"] {
+        --paper-input-container-input: {
+          min-height: 1px;
+        };
+        width: var(--input-width);
+      }
+    </style>
+
+    <lancie-form id="form" refurl="users/current/profile" on-response="onProfileUpdate" no-reset on-enter="_submit">
+      <div class="input-groups">
+        <div>
+          <iron-icon icon="lancie:account-circle"></iron-icon>
+          <div class="group">
+            <paper-input label="First Name" name="firstName" type="text" value="{{profile.firstName}}" required></paper-input>
+            <paper-input label="Last Name" name="lastName" type="text" value="{{profile.lastName}}" required></paper-input>
+            <paper-input label="Display Name" name="displayName" type="text" value="{{profile.displayName}}" required></paper-input>
+            <paper-dropdown-menu label="Gender" name="gender" required>
+              <paper-listbox class="dropdown-content" slot="dropdown-content" selected="{{profile.gender}}" attr-for-selected="data-value">
+                <paper-item data-value="MALE">MALE</paper-item>
+                <paper-item data-value="FEMALE">FEMALE</paper-item>
+                <paper-item data-value="OTHER">OTHER</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+          </div>
+        </div>
+        <div>
+          <iron-icon icon="lancie:cake"></iron-icon>
+          <paper-input label="Birthday" name="birthday" type="date" value="{{profile.birthday}}" required></paper-input>
+        </div>
+        <div>
+          <iron-icon icon="lancie:phone"></iron-icon>
+          <paper-input label="Phone Number" name="phoneNumber" type="text" value="{{profile.phoneNumber}}" required></paper-input>
+        </div>
+        <div>
+          <iron-icon icon="lancie:location-on"></iron-icon>
+          <div class="group">
+            <paper-input label="Address" name="address" type="text" value="{{profile.address}}" required></paper-input>
+            <paper-input label="Zipcode" name="zipcode" type="text" value="{{profile.zipcode}}" required></paper-input>
+            <paper-input label="City" name="city" type="text" value="{{profile.city}}" required></paper-input>
+          </div>
+        </div>
+      </div>
+    </lancie-form>
+
+  </template>
+  <script>
+    class LancieProfileEdit extends Polymer.Element {
+      static get is() {
+        return 'lancie-profile-edit';
+      }
+      static get properties() {
+        return {
+          user: Object,
+          profile: Object,
+          profileChanged: Boolean,
+        };
+      }
+      static get observers() {
+        return ['_userChanged(user)', '_profileChanged(profile.*)'];
+      }
+      connectedCallback() {
+        super.connectedCallback();
+        this.profileChanged = false;
+      }
+      validateAndSubmit() {
+        if (this.profileChanged) {
+          return this.$.form.validateAndSubmit();
+        }
+        this._fireToast('There are no profile changes');
+      }
+      validate() {
+        return this.$.form.validate();
+      }
+      onProfileUpdate(e, req) {
+        if (req.succeeded) {
+          this.set('user.profile', req.response.object);
+          this._submit();
+          this.dispatchEvent(new CustomEvent('profile-submitted', {
+            bubbles: true,
+            composed: true
+          }));
+          this._fireToast('Profile successfully updated!');
+          this.profileChanged = false;
+        } else {
+          if (req.request.status === 409) {
+            this._fireToast('Display name already in use');
+          } else {
+            this._fireToast('Profile update failed');
+          }
+          this.set('profile', this.user.profile);
+        }
+      }
+      _userChanged(user) {
+        if (!!user && !this.profile) {
+          this.profile = user.profile;
+        }
+      }
+      _profileChanged(profile) {
+        this.profileChanged = true;
+      }
+      _submit() {
+        this.dispatchEvent(new CustomEvent('profile-form-submit', {
+          bubbles: true,
+          composed: true
+        }));
+      }
+      _fireToast(text) {
+        this.dispatchEvent(new CustomEvent('toast', {
+          detail: {text},
+          bubbles: true,
+          composed: true
+        }));
+      }
+    }
+    customElements.define(LancieProfileEdit.is, LancieProfileEdit);
+
+  </script>
+</dom-module>

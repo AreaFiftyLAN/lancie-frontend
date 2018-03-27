@@ -10,7 +10,7 @@
 <link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
 <link rel="import" href="../../bower_components/lancie-login-form/lancie-passwords.html">
 <link rel="import" href="../lancie-icons.html">
-<link rel="import" href="profile-edit-form.html">
+<link rel="import" href="lancie-profile-edit.html">
 
 <dom-module id="my-area-profile">
   <template>
@@ -89,7 +89,7 @@
             </div>
           </div>
         </div>
-        <profile-edit-form id="profileForm" hidden$="[[!editingProfile]]" user={{user}} on-profile-form-submit="submitEdit"></profile-edit-form>
+        <lancie-profile-edit id="profileForm" hidden$="[[!editingProfile]]" user={{user}} on-profile-form-submit="submitEdit"></lancie-profile-edit>
 
         <hr>
         <div class="layout horizontal center">
