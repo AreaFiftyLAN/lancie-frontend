@@ -40,12 +40,12 @@ const imageOptions = {
 const optimizeImages = () => new Promise((resolve, reject) => {
   glob('images/**/*.{jpg,png,svg}', (err, files) => {
     for (const file of files) {
-      const relativeFile = file.substring(file.indexOf('/') + 1);
+      const relativeFile = file.substring(file.indexOf(path.sep) + 1);
       fs.ensureDirSync(path.resolve(optimizedImagesRoot, path.dirname(relativeFile)));
       if (path.extname(file) === '.svg') {
         fs.copySync(file, path.resolve(optimizedImagesRoot, relativeFile));
       } else {
-        const imageCategory = path.relative(root, file).split('/')[0];
+        const imageCategory = path.relative(root, file).split(path.sep)[0];
         const options = imageOptions[imageCategory] || 'full';
         superagent.post(`https://im2.io/nddfzrzzpk/${options}`)
         .attach('file', file)
