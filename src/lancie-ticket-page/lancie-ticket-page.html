@@ -8,8 +8,10 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../../bower_components/paper-tabs/paper-tab.html">
 <link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/iron-location/iron-location.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
 
 <link rel="import" href="../../bower_components/paper-styles/element-styles/paper-material-styles.html">
 
@@ -19,6 +21,7 @@ This code may only be used under the BSD style license found at https://github.c
 <link rel="import" href="../lancie-my-area/lancie-profile-edit.html">
 <link rel="import" href="../lancie-storage/lancie-order-storage.html">
 <link rel="import" href="../lancie-login/lancie-login.html">
+<link rel="import" href="../lancie-icons.html">
 
 <dom-module id="lancie-ticket-page">
   <template>
@@ -27,6 +30,10 @@ This code may only be used under the BSD style license found at https://github.c
       :host {
         display: block;
         padding: 16px;
+      }
+
+      [hidden] {
+        display: none !important;
       }
 
       .tabs {
@@ -82,6 +89,18 @@ This code may only be used under the BSD style license found at https://github.c
         margin: 0 auto;
       }
 
+      .collapse {
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+      }
+
+      iron-icon {
+        margin: auto 0;
+        width: 40px;
+        height: 40px;
+      }
+
       @media(max-width: 500px) {
         :host{
           padding: 0;
@@ -91,7 +110,6 @@ This code may only be used under the BSD style license found at https://github.c
           padding: 4px;
         }
       }
-
       /*
       * Safari hack
       * Makes flex wrapping work
@@ -139,8 +157,14 @@ This code may only be used under the BSD style license found at https://github.c
         </div>
 
         <div>
-          <h2>Terms and conditions</h2>
-          <lancie-terms-of-service-text></lancie-terms-of-service-text>
+          <div class="collapse" on-tap="_toggleCollapse">
+            <iron-icon icon="[[_getTermsIcon(termsOpen)]]"></iron-icon>
+            <h2>Terms and Conditions</h2>
+          </div>
+          <p hidden$="[[termsOpen]]">Tap title above to show terms and conditions</p>
+          <iron-collapse opened="{{termsOpen}}" id="collapse">
+            <lancie-terms-of-service-text></lancie-terms-of-service-text>
+          </iron-collapse>
         </div>
 
       </iron-pages>
@@ -186,6 +210,7 @@ This code may only be used under the BSD style license found at https://github.c
       fromRegister: Boolean,
       query: String,
       registering: Boolean,
+      termsOpen: Boolean,
     },
     observers: [
       '_assignOrder(user, basket)'
@@ -324,6 +349,14 @@ This code may only be used under the BSD style license found at https://github.c
         return basket.tickets.length <= 0;
       }
       return true;
+    },
+
+    _toggleCollapse() {
+      this.$.collapse.toggle();
+    },
+
+    _getTermsIcon(termsOpen) {
+      return (termsOpen) ? 'lancie:expand-less' : 'lancie:expand-more';
     },
   });
   })();
