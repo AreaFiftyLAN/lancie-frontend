@@ -27,7 +27,7 @@ RUN addgroup -g ${gid} ${group} \
 
 RUN npm install -g prpl-server
 
-USER ${user}
+USER ${uid}
 WORKDIR /home/${user}/app
 COPY --from=builder /app/build/ ./
 
