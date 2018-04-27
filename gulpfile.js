@@ -32,7 +32,7 @@ const imageOptions = {
   activities: '340x340',
   logos: '250,scale-down',
   unofficial: '340x340',
-  banner: '2000x500,scale-down'
+  banner: '750x500,scale-down'
 };
 
 // Optimize images with ImageOptim
@@ -40,29 +40,34 @@ const imageOptions = {
 const optimizeImages = () => new Promise((resolve, reject) => {
   glob('images/**/*.{jpg,png,svg}', (err, files) => {
     for (const file of files) {
-      const relativeFile = file.substring(file.indexOf(path.sep) + 1);
+      const relativeFile = file.substring(file.indexOf('/') + 1);
       fs.ensureDirSync(path.resolve(optimizedImagesRoot, path.dirname(relativeFile)));
       if (path.extname(file) === '.svg') {
         fs.copySync(file, path.resolve(optimizedImagesRoot, relativeFile));
       } else {
-        const imageCategory = path.relative(root, file).split(path.sep)[0];
+        const imageCategory = relativeFile.split('/')[0];
         const options = imageOptions[imageCategory] || 'full';
         superagent.post(`https://im2.io/nddfzrzzpk/${options}`)
         .attach('file', file)
         .end((err, res) =>  {
-          console.log(`Finished optimizing ${file}`);
-          fs.writeFileSync(path.resolve(optimizedImagesRoot, relativeFile), res.body);
+          if (err) {
+            console.warn(`Failed optimizing ${file}`);
+            fs.writeFileSync(path.resolve(optimizedImagesRoot, relativeFile), fs.readFileSync(file));
+          } else {
+            console.log(`Finished optimizing ${file}`);
+            fs.writeFileSync(path.resolve(optimizedImagesRoot, relativeFile), res.body);
+          }
         });
       }
     }
     resolve();
-  })
+  });
 });
 
 gulp.task('optimize-images', optimizeImages);
 
 gulp.task('replace-api', () => {
-  return gulp.src(['build/**/*']).pipe(gulpif(/\.html$/, gulpreplace('/api/v1', 'https://api.areafiftylan.nl/api/v1'))).pipe(gulp.dest('build'))
+  return gulp.src(['build/**/*']).pipe(gulpif(/\.html$/, gulpreplace('/api/v1', 'https://api.areafiftylan.nl/api/v1'))).pipe(gulp.dest('build'));
 });
 
 gulp.task('ensure-images-optimized', () =>
