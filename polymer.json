@@ -27,6 +27,7 @@
     "src/lancie-order-check.html",
     "src/lancie-404.html",
     "src/lancie-construction.html",
+    "src/lancie-icons.html",
     "src/lancie-password/lancie-password-reset.html",
     "src/lancie-password/lancie-password-reset-success.html",
     "src/lancie-password/lancie-password-reset-request.html",
