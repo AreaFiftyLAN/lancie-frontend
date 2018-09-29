@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="my-area-profile.html">
+<link rel="import" href="my-area-password.html">
 <link rel="import" href="my-area-teams.html">
 <link rel="import" href="my-area-orders.html">
 <link rel="import" href="my-area-seat.html">
@@ -104,9 +105,11 @@
         <lancie-info-box class="team" heading="Team" icon="lancie:group" info="[[_computeTeamInfo(teams)]]"></lancie-info-box>
         <lancie-info-box on-tap="openDiscordLink" class="discord" heading="Discord" icon="lancie:discord" info="[[discordWidget.members.length]] Online "><span>Tap to join!</span></lancie-info-box>
       </div>
+
       <div class="cards-container">
         <div>
           <my-area-profile user="{{user}}"></my-area-profile>
+          <my-area-password></my-area-password>
           <my-area-seat user="[[user]]" seats="{{seats}}" ></my-area-seat>
         </div>
         <div>
