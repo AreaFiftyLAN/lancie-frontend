@@ -61,7 +61,7 @@
     <paper-card class="layout vertical flex" heading="Profile">
       <div class="card-content">
 
-        <div hidden$="[[editingProfile]]">
+        <div hidden$="[[editing]]">
           <div class="layout horizontal center">
             <iron-icon icon="lancie:account-circle" item-icon></iron-icon>
             <div class="item flex">
@@ -89,7 +89,7 @@
             </div>
           </div>
         </div>
-        <lancie-profile-edit id="profileForm" hidden$="[[!editingProfile]]" user={{user}} on-profile-form-submit="submitEdit" on-no-changes="noChanges"></lancie-profile-edit>
+        <lancie-profile-edit id="profileForm" hidden$="[[!editing]]" user={{user}} on-profile-form-submit="submit" on-no-changes="close"></lancie-profile-edit>
 
         <hr>
         <div class="layout horizontal center">
@@ -98,33 +98,16 @@
             <div>{{user.email}}</div>
           </div>
         </div>
-
-        <hr>
-        <div class="layout horizontal center" hidden$="[[editingPassword]]">
-          <iron-icon icon="lancie:lock" item-icon></iron-icon>
-          <div class="item flex">
-            <div>&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</div>
-          </div>
-        </div>
-        <div class="layout horizontal center" hidden$="[[!editingPassword]]">
-          <iron-icon icon="lancie:lock" item-icon></iron-icon>
-          <lancie-form id="passwordForm" class="flex" refurl="users/current/password" on-response="onPasswordUpdate">
-            <paper-input label="Current Password" name="oldPassword" type="password" value="{{currentPassword}}" required></paper-input>
-            <lancie-passwords name="newPassword"></lancie-passwords>
-          </lancie-form>
-        </div>
       </div>
 
-      <div class="card-actions" hidden$="[[isEditing(editingProfile, editingPassword)]]">
-        <paper-icon-button on-tap="switchProfileForm" icon="lancie:create" id="edit-profile"></paper-icon-button>
+      <div class="card-actions" hidden$="[[editing]]">
+        <paper-icon-button on-tap="open" icon="lancie:create" id="edit-profile"></paper-icon-button>
         <paper-tooltip for="edit-profile" offset="0" animation-delay="1">Edit your profile</paper-tooltip>
-        <paper-icon-button on-tap="switchPasswordForm" icon="lancie:lock" id="change-password"></paper-icon-button>
-        <paper-tooltip for="change-password" offset="0" animation-delay="1">Change your password</paper-tooltip>
       </div>
-      <div class="card-actions" hidden$="[[!isEditing(editingProfile, editingPassword)]]">
-        <paper-icon-button on-tap="resetForms" icon="lancie:clear" id="closeIcon"></paper-icon-button>
+      <div class="card-actions" hidden$="[[!editing]]">
+        <paper-icon-button on-tap="close" icon="lancie:clear" id="closeIcon"></paper-icon-button>
         <paper-tooltip for="closeIcon" offset="0" animation-delay="1">Cancel</paper-tooltip>
-        <paper-icon-button on-tap="submitEdit" icon="lancie:check" id="checkIcon"></paper-icon-button>
+        <paper-icon-button on-tap="submit" icon="lancie:check" id="checkIcon"></paper-icon-button>
         <paper-tooltip for="checkIcon" offset="0" animation-delay="1">Save changes</paper-tooltip>
       </div>
     </paper-card>
@@ -138,64 +121,27 @@
       is: 'my-area-profile',
       properties: {
         user: Object,
-        editingProfile: {
+        editing: {
           type: Boolean,
           value: false
         },
-        editingPassword: {
-          type: Boolean,
-          value: false
-        },
-        currentPassword: {
-          type: String
-        }
       },
 
-      switchProfileForm: function() {
-        this.editingProfile = !this.editingProfile;
+      open: function() {
+        this.editing = !this.editing;
       },
 
-      switchPasswordForm: function() {
-        this.editingPassword = !this.editingPassword;
+      close: function() {
+        this.editing = false;
+        this.$.profileForm.reset();
       },
 
-      resetForms: function() {
-        this.editingProfile = false;
-        this.editingPassword = false;
-      },
-
-      submitEdit: function() {
-        if (this.editingProfile) {
+      submit: function() {
+        if (this.editing) {
           if (this.$.profileForm.validateAndSubmit()) {
-            this.switchProfileForm();
+            this.close();
           }
         }
-
-        if (this.editingPassword) {
-          if (this.$.passwordForm.validateAndSubmit()) {
-            this.switchPasswordForm();
-          }
-        }
-      },
-
-      noChanges: function() {
-        this.switchProfileForm();
-      },
-
-      onPasswordUpdate: function(e, request) {
-        if (request.succeeded) {
-          this.fire('toast', {text: 'Password updated.'});
-        } else {
-          if (request.request.status === 403) {
-            this.fire('toast', {text: 'Wrong password.'});
-          } else {
-            this.fire('toast', {text: 'Password update failed.'});
-          }
-        }
-      },
-
-      isEditing: function(editingProfile, editingPassword) {
-        return editingProfile || editingPassword;
       },
 
       _checkEmpty: function(value) {

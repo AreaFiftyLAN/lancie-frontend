@@ -105,15 +105,14 @@
         return {
           user: Object,
           profile: Object,
-          profileChanged: Boolean,
+          profileChanged: {
+            type: Boolean,
+            value: false,
+          },
         };
       }
       static get observers() {
         return ['_userChanged(user)', '_profileChanged(profile.*)'];
-      }
-      connectedCallback() {
-        super.connectedCallback();
-        this.profileChanged = false;
       }
       validateAndSubmit() {
         if (this.profileChanged) {
@@ -127,6 +126,10 @@
       }
       validate() {
         return this.$.form.validate();
+      }
+      reset() {
+        this.set('profile', this._cloneProfile(this.user));
+        this.set('profileChanged', false);
       }
       onProfileUpdate(e, req) {
         if (req.succeeded) {
@@ -144,16 +147,20 @@
           } else {
             this._fireToast('Profile update failed');
           }
-          this.set('profile', this.user.profile);
+          this.reset();
         }
       }
       _userChanged(user) {
         if (!!user && !this.profile) {
-          this.profile = user.profile;
+          this.profile = this._cloneProfile(user);
         }
       }
       _profileChanged(profile) {
         this.profileChanged = true;
+      }
+      _cloneProfile(user) {
+        // Don't laugh, I'm serious
+        return JSON.parse(JSON.stringify(user.profile));
       }
       _submit() {
         this.dispatchEvent(new CustomEvent('profile-form-submit', {
