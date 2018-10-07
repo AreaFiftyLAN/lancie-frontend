@@ -85,6 +85,10 @@
       color: inherit;
     }
 
+    .navigation-wrapper {
+      display: flex;
+    }
+
     .navigation-tabs {
       height: 100%;
     }
@@ -120,7 +124,7 @@
       width: 48px;
     }
 
-    .menu-button {
+    .menu-button, lancie-logout-button {
       display: none;
     }
 
@@ -144,7 +148,7 @@
     }
 
     @media (max-width: 800px) {
-      .navigation-tabs {
+      .navigation-wrapper {
         display: none;
       }
 
@@ -177,6 +181,7 @@
           <a data-route="seatmap" href="/seatmap">Seatmap</a>
         </iron-selector>
       </nav>
+      <lancie-logout-button></lancie-logout-button>
     </app-drawer>
 
     <app-header-layout fullbleed>
@@ -194,14 +199,17 @@
                 alt="Area FiftyLAN logo" />
           </a>
 
-          <nav class="navigation-tabs">
-            <iron-selector attr-for-selected="data-route">
-              <a data-route="" href="/">Home</a>
-              <a data-route="tickets" href="/tickets">Tickets</a>
-              <a data-route="my-area" href="/my-area">My Area</a>
-              <a data-route="seatmap" href="/seatmap">Seatmap</a>
-            </iron-selector>
-          </nav>
+          <div class="navigation-wrapper">
+            <nav class="navigation-tabs">
+              <iron-selector attr-for-selected="data-route">
+                <a data-route="" href="/">Home</a>
+                <a data-route="tickets" href="/tickets">Tickets</a>
+                <a data-route="my-area" href="/my-area">My Area</a>
+                <a data-route="seatmap" href="/seatmap">Seatmap</a>
+              </iron-selector>
+            </nav>
+            <lancie-logout-button></lancie-logout-button>
+          </div>
         </app-toolbar>
       </app-header>
 
@@ -280,6 +288,7 @@
     (() => {
       const requireUsers = document.querySelectorAll('[data-requires-user]');
       const selectors = document.querySelectorAll('iron-selector, paper-tabs');
+      const logoutButtons = document.querySelectorAll('lancie-logout-button');
       const drawer = document.querySelector('app-drawer');
       const msgToast = document.getElementById('msg-toast');
       const reloadToast = document.getElementById('reload-toast');
@@ -317,12 +326,26 @@
           el.user = user;
         }
       }
+      function showLogoutButtons() {
+        for (const node of logoutButtons) {
+          node.style.display = 'block';
+        }
+      }
       document.addEventListener('store-token', (e) => {
         authStorage.storeToken(e.detail.token);
         updateUserBindings(e.detail.user);
+        showLogoutButtons();
       });
-      authStorage.addEventListener('user-changed', (e) => {
-        updateUserBindings(e.detail.value);
+
+      document.addEventListener('user-changed', (e) => {
+        updateUserBindings(e.detail);
+        showLogoutButtons();
+      });
+
+      document.addEventListener('logout', () => {
+        authStorage.clear();
+        // Note: some extensions block this
+        location.reload();
       });
 
       appLocation.addEventListener('route-changed', (e) => {

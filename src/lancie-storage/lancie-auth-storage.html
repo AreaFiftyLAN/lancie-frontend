@@ -64,7 +64,7 @@
           }
           this.$.ajax.injectToken(this.auth.token);
           this.$.form.injectToken(this.auth.token);
-          this.user = request.response;
+          this.fire('user-changed', request.response);
         } else {
           // Old token can be cleared when the token is no longer valid
           this.auth = {};
@@ -80,6 +80,9 @@
         }
       },
 
+      clear: function() {
+        this.auth = {};
+      }
     });
   })();
   </script>
