@@ -33,11 +33,19 @@
       }
 
       .tabs > div {
-        display: flex;
         flex-direction: column;
         justify-content: center;
         flex: 1;
         padding: 16px;
+      }
+
+      .step-nr {
+        margin-right: 10px;
+        width: 20px;
+        height: 20px;
+        color: var(--primary-color);
+        background-color: var(--secondary-color);
+        display: inline-block;
       }
 
       paper-progress {
@@ -112,10 +120,10 @@
 
     <div class="paper-material" elevation="1" on-next="next">
       <div class="tabs">
-        <div><span>Tickets</span></div>
-        <div><span>Login/Register</span></div>
-        <div><span>Profile</span></div>
-        <div><span>Terms &amp; Conditions</span></div>
+        <div><span class="step-nr">1</span><span>Tickets</span></div>
+        <div><span class="step-nr">2</span><span>Login/Register</span></div>
+        <div><span class="step-nr">3</span><span>Profile</span></div>
+        <div><span class="step-nr">4</span><span>Terms &amp; Conditions</span></div>
       </div>
       <paper-progress min="-1" value="[[selected]]" max="3"></paper-progress>
 
