@@ -185,7 +185,7 @@
           <a data-route="seatmap" href="/seatmap">Seatmap</a>
         </iron-selector>
       </nav>
-      <lancie-logout-button labeled></lancie-logout-button>
+      <lancie-logout-button label></lancie-logout-button>
     </app-drawer>
 
     <app-header-layout fullbleed>
@@ -350,6 +350,7 @@
         authStorage.clear();
         // Note: some extensions block this
         location.reload();
+        appLocation.path = '/';
       });
 
       appLocation.addEventListener('route-changed', (e) => {
