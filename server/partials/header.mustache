@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="AreaFiftyLAN gaming event">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AreaFiftyLAN - Gaming Event</title>
+
+  <!-- Social media sharing Open Graph Protocol -->
+  <meta property="og:title" content="AreaFiftyLAN - Gaming Event" />
+  <meta property="og:description" content="Area FiftyLAN is the hottest gaming event of Delft. For the third year in a row over 200 gamers will gather and play their favourite on- and off-line games together for three days (and nights)!" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://areafiftylan.nl/" />
+  <meta property="og:image" content="images-optimized/lancie/logo_without_date_with_background.png" />
+
+  <!-- Place favicon.ico in the root directory -->
+
+  <!-- Chrome for Android theme color -->
+  <meta name="theme-color" content="#1A2B43">
+
+  <!-- Web Application Manifest -->
+  <!-- <link rel="manifest" href="manifest.json"> -->
+
+  <!-- Tile color for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="AreaFiftyLAN">
+  <!-- <link rel="icon" sizes="192x192" href="images-optimized/touch/icon-192x192.png"> -->
+
+  <!-- Add to homescreen for Safari on iOS (152x152)-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="AreaFiftyLAN">
+  <!-- <link rel="apple-touch-icon" href="images-optimized/touch/icon-152x152.png"> -->
+
+  <!-- Tile icon for Win8 (144x144) -->
+  <meta name="msapplication-TileImage" content="images-optimized/touch/icon-144x144.png">
+
+  <style>
+    html, body  {
+      margin: 0;
+      padding: 0;
+      --primary-color: #1a2b43;
+      --secondary-color: #ffe574;
+    }
+
+    header {
+      height: 64px;
+      background-color: var(--primary-color);
+    }
+
+    nav a {
+      color: var(--secondary-color);
+      font-size: 16px;
+      text-decoration: none;
+      padding: 0 16px;
+    }
+
+    img {
+      max-height: 500px;
+    }
+
+    .dynamic-activities {
+      min-height: 100px;
+    }
+  </style>
+
+
+  <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  <script type="module" src="src/wisvch-footer.js"></script>
+  <script type="module" src="src/lancie-activity/lancie-activities.js"></script>
+  <script type="module" src="src/lancie-selector/lancie-selector.js"></script>
+  {{#pages}}
+  <script type="module" src="src/lancie-{{ page }}/lancie-{{ page }}.js"></script>
+  {{/pages}}
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/tickets">Tickets</a>
+      <a href="/my-area">My area</a>
+      <a href="/seat-map">Seat map</a>
+    </nav>
+  </header>
+  
+  <main>

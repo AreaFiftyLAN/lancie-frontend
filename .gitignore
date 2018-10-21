@@ -9,3 +9,6 @@ npm-debug.log
 .idea
 *.pem
 images-optimized
+
+server/index.js
+server/partials/pages/
