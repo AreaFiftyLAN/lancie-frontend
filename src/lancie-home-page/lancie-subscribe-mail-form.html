@@ -47,7 +47,6 @@
 
         trySubmit: function() {
           if (this.$.avg.checked) {
-            this.$.alert.clear();
             this.$.mailForm.validateAndSubmit();
           } else {
             this.$.alert.setError('You have to agree to receive updates.');
@@ -63,6 +62,7 @@
 
         onResponse: function(event, request) {
           if (request.succeeded) {
+            this.$.alert.clear();
             this.clearInput();
             this.$.alert.setSuccess('Thank you for signing up!');
           } else {
