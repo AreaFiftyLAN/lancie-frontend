@@ -46,12 +46,12 @@
         },
 
         trySubmit: function() {
+          this.$.alert.clear();
           if (this.$.avg.checked) {
             this.$.mailForm.validateAndSubmit();
           } else {
             this.$.alert.setError('You have to agree to receive updates.');
           }
-
         },
 
         onEnter: function(e) {
@@ -62,7 +62,6 @@
 
         onResponse: function(event, request) {
           if (request.succeeded) {
-            this.$.alert.clear();
             this.clearInput();
             this.$.alert.setSuccess('Thank you for signing up!');
           } else {
