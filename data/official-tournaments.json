@@ -11,7 +11,7 @@
       "website": "https://www.rocketleague.com"
     },
     "prizes": [
-      "Steam Controller (3x)"
+      "To be announced"
     ]
   },
   {
@@ -26,8 +26,7 @@
       "website": "https://www.transip.nl/"
     },
     "prizes": [
-      "CORSAIR Gaming K55 RGB - Gaming Keyboard (5x)",
-      "LOGITECH Z150 Multimedia Speakers (5x)"
+      "To be announced"
     ]
   },
   {
@@ -42,7 +41,7 @@
       "website": "www.counter-strike.net/"
     },
     "prizes": [
-      "Cooler Master MasterSet MS120 - Keyboard and mouse set (5x)"
+      "To be announced"
     ]
   },
   {
@@ -57,9 +56,7 @@
       "website": "https://campzone.nl/?lang=en"
     },
     "prizes": [
-      "Campzone tickets (2x)",
-      "Campzone tickets (2x)",
-      "Campzone tickets (2x)"
+      "To be announced"
     ]
   },
   {
@@ -74,7 +71,7 @@
       "website": "https://playoverwatch.com/"
     },
     "prizes": [
-      "Logitech Z213 - Speaker set (6x)"
+      "To be announced"
     ]
   },
   {
@@ -90,21 +87,6 @@
     },
     "prizes": [
       "To be announced"
-    ]
-  },
-  {
-    "title": "FN",
-    "subtitle": "FFA",
-    "headerTitle": "Fortnite",
-    "description": "Fortnite is set in contemporary Earth, where the sudden appearance of a worldwide storm causes 98% of the world's population to disappear, and zombie-like creatures rise to attack the remainder. Considered by Epic as a cross between Minecraft and Left 4 Dead, Fortnite has up to four players cooperating on various missions on randomly-generated maps to collect resources, build fortifications around defensive objectives that are meant to help fight the storm and protect survivors, and construct weapons and traps to engage in combat with waves of these creatures that attempt to destroy the objectives. Players gain rewards through these missions to improve their hero characters, support teams, and arsenal of weapon and trap schematics to be able to take on more difficult missions. The game is supported through microtransactions to purchase in-game currency that can be used towards these upgrades.\n\n# Rules\n\nThe general Area FiftyLAN Terms and Conditions apply\n",
-    "backgroundImagePath": "images-optimized/activities/fortnite.jpg",
-    "sponsor": {
-      "name": "",
-      "imagePath": "images-optimized/activities/fortnite.jpg",
-      "website": "https://www.epicgames.com/fortnite/en-US/buy-now/battle-royale"
-    },
-    "prizes": [
-      "Campzone tickets (2x)"
     ]
   }
 ]
