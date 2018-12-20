@@ -23,7 +23,7 @@
 
     <lancie-form id="mailForm" refurl="subscriptions" method="POST" class="mail-input" on-response="onResponse">
       <lancie-error id="alert"></lancie-error>
-      <paper-checkbox id="avg"}>I agree to receiving updates on future events.</paper-checkbox>
+      <paper-checkbox id="avg">I agree to receiving updates on future events.</paper-checkbox>
       <paper-input label="E-Mail" name="email" class="mail-input" value="{{email}}" on-keydown="onEnter">
         <iron-icon icon="lancie:mail" slot="prefix"></iron-icon>
         <paper-icon-button slot="suffix" on-tap="clearInput" icon="lancie:clear" alt="clear" title="Clear"></paper-icon-button>
