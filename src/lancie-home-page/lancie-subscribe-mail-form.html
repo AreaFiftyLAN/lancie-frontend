@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/lancie-error/lancie-error.html">
 <link rel="import" href="../../bower_components/lancie-form/lancie-form.html">
@@ -22,6 +23,7 @@
 
     <lancie-form id="mailForm" refurl="subscriptions" method="POST" class="mail-input" on-response="onResponse">
       <lancie-error id="alert"></lancie-error>
+      <paper-checkbox id="avg">I agree to receiving updates on future events.</paper-checkbox>
       <paper-input label="E-Mail" name="email" class="mail-input" value="{{email}}" on-keydown="onEnter">
         <iron-icon icon="lancie:mail" slot="prefix"></iron-icon>
         <paper-icon-button slot="suffix" on-tap="clearInput" icon="lancie:clear" alt="clear" title="Clear"></paper-icon-button>
@@ -45,7 +47,11 @@
 
         trySubmit: function() {
           this.$.alert.clear();
-          this.$.mailForm.validateAndSubmit();
+          if (this.$.avg.checked) {
+            this.$.mailForm.validateAndSubmit();
+          } else {
+            this.$.alert.setError('You have to agree to receive updates.');
+          }
         },
 
         onEnter: function(e) {
