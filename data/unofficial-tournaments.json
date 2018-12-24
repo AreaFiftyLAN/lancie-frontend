@@ -11,7 +11,7 @@
       "website": "https://euw.leagueoflegends.com/en/"
     },
     "prizes": [
-      "None"
+      "To be announced"
     ]
   },
   {
@@ -21,12 +21,12 @@
     "description": "# Rules\n## General rules\n### Teams and participants\n* Every person with a valid steam account is allowed to participate in the tournament.\n\n### Commitments\n* By attending the tournament participants comply with the rules and regulations,\nofficial announcement, and with the statements and decisions made by the admins.\n* Every participant must always have the latest version of Steam and Dota 2 installed\nand has to check for updates in time before each match.\n* Every team accepts the official schedule of the competition and declares its ability to\nbe available during these times.\n* Every team and participant has to try to win every match at every stage of the\ncompetition. Purposefully losing for any reason is strictly forbidden.\n\n## Teams and Players\n### Roster\n* Teams should consist of exactly 5 players\n\n### Captain\n* Every team needs a so called “captain” for the season. He/She will communicate with\nthe enemy team and will be the point of contact\n\n\n## Hosting and Settings\n\n### Lobby Hosting\n* Unless an admin interferes or both teams agree on the opposite, the team who is\nshown first on the match page has to host the lobby. If the team has not hosted after 10\nminutes, the second team may host the lobby. The hosting team has to communicate\nthe password directly to the opponents.\n* The default server location is Luxembourg.\n* Other servers than the default one are used if both teams agree on it.\n\n### Drafting order\n* Selection priority for the first game of a match is decided by a coin toss done in the\nlobby.\n* Before each game, the team with the selection priority may either select a side or a\ndraft order. The opposing team can choose the remaining factor.\n\n### Game Settings\n* The hosting team has to put the following settings to the lobby:\n    * GAME MODE - Captains Mode, unless stated otherwise by the individual\ncompetition rules.\n    * LOBBY PASSWORD - Chosen by hosting team and communicated to the\nother team.\n    * SERVER LOCATION - Luxembourg.\n    * STARTING TEAM - First team listed on the match page.\n    * PENALTY-RADIANT - NonePENALTY-DIRE - None\n    * ENABLE CHEATS - No\n    * SPECTATORS - Enabled\n    * DOTA TV DELAY - 2 minutes or more\n    * PAUSING - Unlimited\n    * SERIES TYPE – No series\n    * FILL EMPTY SLOTS WITH BOTS - No\n\n## During the games\n### Picks and bans\n* The hero pool always consists of all heroes that the game mode allows and\nmay therefore change several times during the competition. The game must not be\npaused during the draft, unless a drafter disconnects.\n\n### Pauses\n* Each team has the right to pause the game if a player announces it at least three\nseconds in advance and calls a coherent reason or if a player is disconnected. The\ngame must not be resumed until both teams agree to it.\n* The total pause time may not exceed 10 minutes, unless stated otherwise by the\nadmins. Both teams may agree upon extending the total pause time together.\n\n### Disconnects and Reconnects\n* If a player disconnects, the game is to be paused instantly. Everyone has up to ten\nminutes to reconnect to the game following the Pausing rules above. The disconnected\nplayer is allowed to rejoin the game at any point of the game.\n\n### Bugs and Hacks\n* If any serious bugs occur, the game has to be paused immediately and the\nadministration decides how to continue. Abusing a bug is forbidden.\n* The usage of any Dota-related tool aside from Steam and Dota 2 during a match is\nstrictly forbidden.\n* A match is finished, when an Ancient Fortress is destroyed, when the majority of a\nteam leaves on purpose, or when the administration decides on it. (note: A match is\nnot forfeited when a player types \"gg\" or \"ff\". Always wait for the ancient to be\ndestroyed!\n\n## Rule violation and punishment\n* Breaking the rules results in a punishment for a whole team. They will lose the match\ninstantly, and therefore be eliminated from the tournament",
     "backgroundImagePath": "images-optimized/activities/dota2.jpg",
     "sponsor": {
-      "name": "DutchDota",
-      "imagePath": "images-optimized/logos/dutch_dota.png",
-      "website": "https://dutchdota.com/"
+      "name": "",
+      "imagePath": "images-optimized/activities/dota2.jpg",
+      "website": "https://dota2.com/"
     },
     "prizes": [
-      "Keychains"
+      "To be announced"
     ]
   }
 ]
