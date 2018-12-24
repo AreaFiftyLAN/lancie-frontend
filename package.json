@@ -22,8 +22,5 @@
   },
   "engines": {
     "node": ">=5.0.0"
-  },
-  "dependencies": {
-    "polymer-cli": "^1.9.1"
   }
 }
