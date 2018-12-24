@@ -21,7 +21,7 @@ const imageOptions = {
   activities: '340x340',
   logos: '250,scale-down',
   unofficial: '340x340',
-  banner: '750x500,scale-down'
+  banner: '1500x1000,scale-down'
 };
 
 // Optimize images with ImageOptim
