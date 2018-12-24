@@ -32,7 +32,8 @@
   .logo-container {
     display: flex;
     flex-direction: column;
-    text-align: end;
+    text-align: center;
+    align-items: center;
   }
 
   .logo-container > img {
@@ -41,6 +42,8 @@
   }
 
   .logo-container > span {
+    margin-top: 20px;
+    max-width: 80vw;
     color: white;
     font-weight: 600;
     font-size: 40px;
@@ -90,6 +93,7 @@
 
     .logo-container > span {
       font-size: 24px;
+      max-width: 90vw;
     }
 
     .links {
@@ -109,11 +113,19 @@
   }
 </style>
 
+<!-- Request the current banner text from the admin system -->
+<lancie-ajax
+  auto-fire
+  skip-token
+  refurl="web/banners/current"
+  last-response="{{banner}}">
+</lancie-ajax>
+
 <div class="banner">
   <div class="blur">
     <div class="logo-container">
       <img src="images-optimized/lancie/logo_without_date.png" alt="Area FiftyLAN logo">
-      <span>1-3 March</span>
+      <span>[[banner.object.text]]</span>
     </div>
   </div>
 </div>
@@ -133,7 +145,6 @@
       return 'lancie-banner';
     }
   }
-
   customElements.define(LancieBanner.is, LancieBanner);
 })();
 </script>
