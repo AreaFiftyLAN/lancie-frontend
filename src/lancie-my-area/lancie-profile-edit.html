@@ -85,12 +85,14 @@
           <paper-input label="Phone Number" name="phoneNumber" type="text" value="{{profile.phoneNumber}}" required></paper-input>
         </div>
         <div>
-          <iron-icon icon="lancie:location-on"></iron-icon>
-          <div class="group">
-            <paper-input label="Address" name="address" type="text" value="{{profile.address}}" required></paper-input>
-            <paper-input label="Zipcode" name="zipcode" type="text" value="{{profile.zipcode}}" required></paper-input>
-            <paper-input label="City" name="city" type="text" value="{{profile.city}}" required></paper-input>
-          </div>
+          <template is="dom-if" if="[[addressNeeded]]">
+            <iron-icon icon="lancie:location-on"></iron-icon>
+            <div class="group" >
+              <paper-input label="Address" name="address" type="text" value="{{profile.address}}" required></paper-input>
+              <paper-input label="Zipcode" name="zipcode" type="text" value="{{profile.zipcode}}" required></paper-input>
+              <paper-input label="City" name="city" type="text" value="{{profile.city}}" required></paper-input>
+            </div>
+          </template>
         </div>
       </div>
     </lancie-form>
@@ -106,6 +108,10 @@
           user: Object,
           profile: Object,
           profileChanged: Boolean,
+          addressNeeded: {
+            type: Boolean,
+            value: true
+          },
         };
       }
       static get observers() {
