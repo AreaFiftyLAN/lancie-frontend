@@ -58,6 +58,8 @@
 
     </style>
 
+    <lancie-ajax auto-fire id="ajaxTickets" refurl="users/current/tickets" handle-as="json" on-lancie-ajax="onTickets"></lancie-ajax>
+
     <paper-card class="layout vertical flex" heading="Profile">
       <div class="card-content">
 
@@ -81,15 +83,17 @@
               <div>{{_checkEmpty(user.profile.phoneNumber)}}</div>
             </div>
           </div>
-          <div class="layout horizontal center">
-            <iron-icon icon="lancie:location-on" item-icon></iron-icon>
-            <div class="item flex">
-              <div>{{user.profile.address}}</div>
-              <div>{{user.profile.zipcode}} {{user.profile.city}}</div>
+          <template is="dom-if" if="[[_hasPickupService(tickets)]]">
+            <div class="layout horizontal center">
+              <iron-icon icon="lancie:location-on" item-icon></iron-icon>
+              <div class="item flex">
+                <div>{{user.profile.address}}</div>
+                <div>{{user.profile.zipcode}} {{user.profile.city}}</div>
+              </div>
             </div>
-          </div>
+          </template>
         </div>
-        <lancie-profile-edit id="profileForm" hidden$="[[!editingProfile]]" user={{user}} on-profile-form-submit="submitEdit" on-no-changes="noChanges"></lancie-profile-edit>
+        <lancie-profile-edit id="profileForm" hidden$="[[!editingProfile]]" user={{user}} on-profile-form-submit="submitEdit" on-no-changes="noChanges" address-needed="[[_hasPickupService(tickets)]]"></lancie-profile-edit>
 
         <hr>
         <div class="layout horizontal center">
@@ -148,7 +152,8 @@
         },
         currentPassword: {
           type: String
-        }
+        },
+        tickets: Object,
       },
 
       switchProfileForm: function() {
@@ -198,8 +203,23 @@
         return editingProfile || editingPassword;
       },
 
+      onTickets: function(e, request) {
+        this.tickets = request.response.length > 0 ? request.response : false;
+      },
+
       _checkEmpty: function(value) {
         return value || 'Not yet filled in, please click the pencil icon in the bottom left to complete your profile.';
+      },
+
+      _hasPickupService(tickets) {
+        if (tickets) {
+          for (let i = 0; i < tickets.length; i++) {
+            if (tickets[i].enabledOptions.filter(o => o.name === 'pickupService').length >= 1) {
+              return true;
+            }
+          }
+        }
+        return false;
       },
 
     });
