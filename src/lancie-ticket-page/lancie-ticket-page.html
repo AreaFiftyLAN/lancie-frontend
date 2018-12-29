@@ -143,7 +143,7 @@
           <lancie-ticket-basket class="flex-2" basket="[[basket]]" user="{{user}}"></lancie-ticket-basket>
         </div>
 
-        <lancie-login id="login" order-id="[[basket.id]]" registering="{{registering}}" on-logged-in="onLogin"></lancie-login>
+        <lancie-login id="login" order-id="[[basket.id]]" registering="{{registering}}"></lancie-login>
 
         <div>
           <h2>Fill in your profile</h2>
@@ -313,6 +313,8 @@
         this.$.ajaxCoupleOrder.generateRequest();
       } else if (basket.status === 'ANONYMOUS' && !this.$.orderStorage.orderStored()) {
         this.$.orderStorage.storeOrderId(basket.id);
+      } else if (basket.status === 'ASSIGNED' && user) {
+        this.selectTab(TABS.PROFILE);
       }
     },
 
