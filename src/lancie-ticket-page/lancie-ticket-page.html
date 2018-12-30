@@ -143,11 +143,11 @@
           <lancie-ticket-basket class="flex-2" basket="[[basket]]" user="{{user}}"></lancie-ticket-basket>
         </div>
 
-        <lancie-login id="login" order-id="[[basket.id]]" registering="{{registering}}" on-logged-in="onLogin"></lancie-login>
+        <lancie-login id="login" order-id="[[basket.id]]" registering="{{registering}}"></lancie-login>
 
         <div>
           <h2>Fill in your profile</h2>
-          <lancie-profile-edit id="profileForm" user="{{user}}" on-profile-submitted="profileConfirmed" on-no-changes="profileConfirmed"></lancie-profile-edit>
+          <lancie-profile-edit id="profileForm" user="{{user}}" address-needed="[[_hasPickupService(basket.tickets)]]" on-profile-submitted="profileConfirmed" on-no-changes="profileConfirmed"></lancie-profile-edit>
         </div>
 
         <div>
@@ -198,6 +198,7 @@
       fromRegister: Boolean,
       query: String,
       registering: Boolean,
+
     },
     observers: [
       '_assignOrder(user, basket)'
@@ -312,6 +313,8 @@
         this.$.ajaxCoupleOrder.generateRequest();
       } else if (basket.status === 'ANONYMOUS' && !this.$.orderStorage.orderStored()) {
         this.$.orderStorage.storeOrderId(basket.id);
+      } else if (basket.status === 'ASSIGNED' && user) {
+        this.selectTab(TABS.PROFILE);
       }
     },
 
@@ -337,6 +340,18 @@
       }
       return true;
     },
+
+    _hasPickupService(tickets) {
+      if (tickets) {
+        for (let i = 0; i < tickets.length; i++) {
+          if (tickets[i].enabledOptions.filter(o => o.name === 'pickupService').length >= 1) {
+            return true;
+          }
+        }
+      }
+      return false;
+    },
+
   });
   })();
   </script>
