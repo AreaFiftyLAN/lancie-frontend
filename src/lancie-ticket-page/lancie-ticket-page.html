@@ -344,7 +344,7 @@
     _hasPickupService(tickets) {
       if (tickets) {
         for (let i = 0; i < tickets.length; i++) {
-          if (tickets[i].enabledOptions.filter(o => o.name === 'pickupService').length >= 1) {
+          if (tickets[i].enabledOptions.filter(o => o.name.toLowerCase().includes('pickup')).length >= 1) {
             return true;
           }
         }
