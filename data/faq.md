@@ -31,8 +31,5 @@ Unfortunately it is to hard for us to keep track of visitors. Since we want to k
 ### I accidentally bought the wrong ticket. Oops! What now?
 If you bought a ticket with discount, but you are not entitled to it, you have to pay for it before the event. Upon signing in on Friday, we will check if you are a CH member, if not, you have to pay another €5,- before you can enter.
 
-### Will there be merchandise?
-Yes, there will! Further information and specifications will follow soon.
-
 ### I have another question.
-You can message us on [facebook](https://www.facebook.com/areafiftylan), or send a mail to [us](/contact).
+You can message us on [Facebook](https://www.facebook.com/areafiftylan), or send a mail to [us](/contact).
