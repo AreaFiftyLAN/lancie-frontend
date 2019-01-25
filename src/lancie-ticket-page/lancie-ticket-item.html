@@ -105,6 +105,8 @@
   'use strict';
 
   (function() {
+    const orderLimit = 15;
+
     Polymer({
       is: 'lancie-ticket-item',
       properties: {
@@ -141,8 +143,8 @@
       addToBasket: function() {
         if (!this.basket.tickets) {
           this.$.addTicket.refurl = 'orders';
-        } else if (this.basket.tickets.length >= 5) {
-          this.fire('toast', {text: 'Maximum of 5 tickets in order.'});
+        } else if (this.basket.tickets.length >= orderLimit) {
+          this.fire('toast', {text: 'Maximum of ' + orderLimit + ' tickets in order.'});
           return;
         } else {
           this.$.addTicket.refurl = 'orders/' + this.basket.id;
