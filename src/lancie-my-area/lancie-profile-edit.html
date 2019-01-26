@@ -85,7 +85,7 @@
           <paper-input label="Phone Number" name="phoneNumber" type="text" value="{{profile.phoneNumber}}" required></paper-input>
         </div>
         <div>
-          <template is="dom-if" if="[[addressNeeded]]">
+          <template is="dom-if" if="[[addressNeeded]]" restamp="true">
             <iron-icon icon="lancie:location-on"></iron-icon>
             <div class="group" >
               <paper-input label="Address" name="address" type="text" value="{{profile.address}}" required></paper-input>
