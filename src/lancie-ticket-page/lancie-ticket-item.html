@@ -120,6 +120,10 @@
           type: Object,
           notify: true,
         },
+        orderLimit: {
+          type: Number,
+          value: 15,
+        },
         totalString: String,
         // This determines how a ticket is displayed in the front-end
         deadlineDisplay: {
@@ -141,8 +145,8 @@
       addToBasket: function() {
         if (!this.basket.tickets) {
           this.$.addTicket.refurl = 'orders';
-        } else if (this.basket.tickets.length >= 5) {
-          this.fire('toast', {text: 'Maximum of 5 tickets in order.'});
+        } else if (this.basket.tickets.length >= this.orderLimit) {
+          this.fire('toast', {text: 'Maximum of ' + this.orderLimit + ' tickets in order.'});
           return;
         } else {
           this.$.addTicket.refurl = 'orders/' + this.basket.id;
