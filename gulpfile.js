@@ -19,7 +19,7 @@ const root = path.resolve(process.cwd(), 'images');
 const optimizedImagesRoot = path.resolve(process.cwd(), 'images-optimized');
 const imageOptions = {
   activities: '340x340',
-  logos: '250,scale-down',
+  logos: '350,scale-down',
   unofficial: '340x340',
   banner: '1500x1000,scale-down'
 };
