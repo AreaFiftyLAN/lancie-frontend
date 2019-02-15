@@ -11,7 +11,7 @@
       "website": "http://www.coolermaster.com/"
     },
     "prizes": [
-      "3x MH-752 Headset (3x)",
+      "MH-752 Headset (3x)",
       "CK-550-GKGR1-US Keyboard (3x)",
       "MPA-MP510-M Mousepad (3x)"
     ]
@@ -23,9 +23,9 @@
     "description": "League of Legends is a fast-paced, competitive online game that blends the speed and intensity of an RTS with RPG elements. Two teams of powerful champions, each with a unique design and playstyle, battle head-to-head across multiple battlefields and game modes. With an ever-expanding roster of champions, frequent updates and a thriving tournament scene, League of Legends offers endless replayability for players of every skill level.  \n[~ leagueoflegends.com](https://na.leagueoflegends.com/en/game-info/get-started/what-is-lol/)\n\n# Rules\n1. The rules are [the official Riot rules](http://s3-us-west-2.amazonaws.com/burningman-prod/tournament-rules/en_GB.pdf) where applicable.\n2. The organisation reserves the right to override rules deemed impossible to uphold.",
     "backgroundImagePath": "images-optimized/activities/lol.jpg",
     "sponsor": {
-      "name": "Corporate Escape",
-      "imagePath": "images-optimized/logos/corporate_escape.png",
-      "website": "https://corporate-escape.nl/"
+      "name": "Escape-Event",
+      "imagePath": "images-optimized/logos/escape-event.png",
+      "website": "https://www.escape-event.nl/"
     },
     "prizes": [
       "Tickets for the 'Red Carpet Escape' escape room (5x)",
