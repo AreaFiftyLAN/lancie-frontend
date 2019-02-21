@@ -28,8 +28,8 @@
       "website": "https://www.escape-event.nl/"
     },
     "prizes": [
-      "Tickets for the 'Red Carpet Escape' escape room (5x)",
-      "More prices to be announced"
+      "Tickets for the 'Red Carpet Escape' escape room (5x) + Steelseries 63004 Gaming Mousepad (5x)",
+      "Steelseries 63004 Gaming Mousepad (5x)"
     ]
   },
   {
@@ -46,7 +46,7 @@
     "prizes": [
       "NH-L9i Noctua Cooler (5x)",
       "NF-F12 PWM Chromax.black.swap fans (5x)",
-      "NF-P14s redux-1500 PWM (5x)"
+      "NF-P14s Redux-1500 PWM (5x)"
     ]
   },
   {
@@ -61,7 +61,9 @@
       "website": "https://www.playhearthstone.com/"
     },
     "prizes": [
-      "To be announced"
+      "Steelseries A-Rival 600 Gaming Mouse + Hearthstone: Innkeeper's Tavern Cookbook",
+      "Logitech G502 Proteus Spectrum Gaming Mouse + Hearthstone: Innkeeper's Tavern Cookbook",
+      "Logitech G203 Prodigy Gaming Mouse + Hearthstone: Innkeeper's Tavern Cookbook"
     ]
   },
   {
@@ -91,12 +93,12 @@
       "website": "https://www.trackmania.com/"
     },
     "prizes": [
-      "To be announced"
+      "ThomaxX RC Buggy"
     ]
   },
   {
     "title": "FN",
-    "subtitle": "",
+    "subtitle": "1 v 1",
     "headerTitle": "Fortnite",
     "description": "# Rules\n\nTo be determined\n",
     "backgroundImagePath": "images-optimized/activities/fortnite.jpg",
@@ -113,7 +115,7 @@
     "title": "MS",
     "subtitle": "Highscore",
     "headerTitle": "Vectrex Mine Storm",
-    "description": "Mine Storm is the built-in game that came with every Vectrex unit. Gameplay is similar to the arcade game Asteroids: An alien force is laying mines throughout the intergalactic lanes of travel! You are going to destroy those mines before they can harm innocents. \n\n# Rules #\n## 1. Tournament Format ##\nThe tournament is running during the entire event. A Vectrex console can be found in the LAuNCH area on which a contestant must try to get set the best score on the game Mine Storm. A selfie with the score MUST be provided to one of the administrators.\n## 2. Behavior and Conduct ##\n\n1. If a participant commits - or threatens to commit - violent acts against any other player in the Tournament, any admin, or any spectators of the Tournament, he or she may be disqualified from the Tournament.\n2. If a participant behaves in any unsportsmanlike way it is possible that he or she receives a penalty, to the sole discretion of the administrators.\n3. If a participant finishes his run, he or she must give the next player in line the possibility to set a score.\n\n## 3. Tournament Eligibility ##\n\n1. Participants which have a conflict of interest may be excluded from tournaments.\n2. The current organizing committee (LANcie) have the final say in tournament eligibility",
+    "description": "Mine Storm is the built-in game that came with every Vectrex unit. Gameplay is similar to the arcade game Asteroids: An alien force is laying mines throughout the intergalactic lanes of travel! You are going to destroy those mines before they can harm innocents. \n\n# Rules #\n## 1. Tournament Format ##\nThe tournament is running during the entire event. A Vectrex console can be found in the LAuNCH area on which a contestant must try to get set the best score on the game Mine Storm. A selfie with the score MUST be provided to one of the administrators as proof of the score. Only your best score counts. If two participants achieve the same score, the two prizes belonging to that score will be randomly assigned. \n## 2. Behavior and Conduct ##\n\n1. If a participant commits - or threatens to commit - violent acts against any other player in the Tournament, any admin, or any spectators of the Tournament, he or she may be disqualified from the Tournament.\n2. If a participant behaves in any unsportsmanlike way it is possible that he or she receives a penalty, to the sole discretion of the administrators.\n3. If a participant finishes his run, he or she must give the next player in line the possibility to set a score.\n\n## 3. Tournament Eligibility ##\n\n1. Participants which have a conflict of interest may be excluded from tournaments.\n2. The current organizing committee (LANcie) have the final say in tournament eligibility",
     "backgroundImagePath": "images-optimized/activities/vetrex.jpg",
     "sponsor": {
       "name": "Jigsaw",
@@ -121,7 +123,14 @@
       "website": "https://jigsaw.nl/"
     },
     "prizes": [
-      "To be announced"
+      "SNES Classic Mini",
+      "Playstation Classic",
+      "The C64 Mini",
+      "BLAZE 'Atari Vault' USB Joystick",
+      "Retro Design Mousepad",
+      "Retro Games Mystery Mini Vinyl Figure",
+      "Retro Gaming Volume One",
+      "Tetris Stress Block"
     ]
   }
 ]
