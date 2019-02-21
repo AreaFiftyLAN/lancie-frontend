@@ -29,7 +29,7 @@
     },
     "prizes": [
       "Tickets for the 'Red Carpet Escape' escape room (5x)",
-      "More prices to be announced"
+      "Steelseries 63004 Gaming mousepad (5x)"
     ]
   },
   {
@@ -46,7 +46,7 @@
     "prizes": [
       "NH-L9i Noctua Cooler (5x)",
       "NF-F12 PWM Chromax.black.swap fans (5x)",
-      "NF-P14s redux-1500 PWM (5x)"
+      "NF-P14s Redux-1500 PWM (5x)"
     ]
   },
   {
@@ -61,7 +61,9 @@
       "website": "https://www.playhearthstone.com/"
     },
     "prizes": [
-      "To be announced"
+      "Steelseries A-Rival 600 Gaming-muis + Hearthstone: Innkeeper's Tavern Cookbook",
+      "Logitech G502 Proteus Spectrum-gaming mouse + Hearthstone: Innkeeper's Tavern Cookbook",
+      "Logitech g203 prodigy Gaming-muis + Hearthstone: Innkeeper's Tavern Cookbook"
     ]
   },
   {
@@ -91,12 +93,12 @@
       "website": "https://www.trackmania.com/"
     },
     "prizes": [
-      "To be announced"
+      "ThomaxX RC Buggy"
     ]
   },
   {
     "title": "FN",
-    "subtitle": "",
+    "subtitle": "1 v 1",
     "headerTitle": "Fortnite",
     "description": "# Rules\n\nTo be determined\n",
     "backgroundImagePath": "images-optimized/activities/fortnite.jpg",
@@ -121,7 +123,14 @@
       "website": "https://jigsaw.nl/"
     },
     "prizes": [
-      "To be announced"
+      "SNES Classic Mini",
+      "Playstation Classic",
+      "The C64 Mini",
+      "BLAZE 'Atari Vault' USB Joystick",
+      "Retro Games Mystery Mini Vinyl",
+      "Speedlink Vinpad Mousepad (Retro Design)",
+      "Tetris Stress Blocks",
+      "Retro Gaming Volume One"
     ]
   }
 ]
