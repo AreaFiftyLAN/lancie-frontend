@@ -23,7 +23,20 @@ At the event there will be a space to sleep. You have to bring your own sleeping
 Both showers and toilets will be available during the entire event.
 
 ### What should I bring to Area FiftyLAN?
-You have to bring your own LAN cable (10m+) and your own PC/laptop. If you live within a 7,5 km radius of the event and you bought the Pickup Service option, we can come and pick up your hardware a day before the event.
+Please bring the following items to the event:
+
+- ID
+- Power strip without a switch
+- LAN cable of at least 10m
+- PC/laptop with necessities (cables etc.)
+- Monitor (maximum of 1)
+- Keyboard, mouse and headset
+- Cash and/or debit card (for drinks at the bar). Credit cards are not accepted.
+- Sleeping bag, mattress and pillow (in case you will stay the night)
+- Clean clothes
+- Toiletries
+
+If you live within a 7,5 km radius of the event and you bought the Pickup Service option, we can come and pick up your hardware a day before the event.
 
 ### Can I come to the event as a spectator?
 Unfortunately it is to hard for us to keep track of visitors. Since we want to keep your belongings secure, we do not welcome anyone without a ticket.
