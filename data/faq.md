@@ -31,7 +31,7 @@ Please bring the following items to the event:
 - PC/laptop with necessities (cables etc.)
 - Monitor (maximum of 1)
 - Keyboard, mouse and headset
-- Cash, credit or debit card (for drinks at the bar)
+- Cash and/or debit card (for drinks at the bar). Credit cards are not accepted.
 - Sleeping bag, mattress and pillow (in case you will stay the night)
 - Clean clothes
 - Toiletries
