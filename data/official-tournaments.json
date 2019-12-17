@@ -3,7 +3,7 @@
     "title": "OW",
     "subtitle": "6 v 6",
     "headerTitle": "Overwatch",
-    "description": "Overwatch puts players into two teams of six, with each player selecting one of several pre-defined hero characters with unique movement, attributes, and abilities; these heroes are divided into four classes: Offense, Defense, Tank and Support. Players on a team work together to secure and defend control points on a map and\/or escort a payload across the map in a limited amount of time. Overwatch is a first-person shooter that features squad-based combat with two opposing teams. Players choose one of several hero characters, each with their own unique abilities and role classes. Each hero has a primary attack or skill and at least two additional skills that can be invoked at any time, some requiring a brief cooldown period before they can be used again.\r\n# Rules\r\n## 1. Format\r\nSingle elimination in a 6v6. The tournament will be a best of 3. The finals will be a best of 5.\r\n## 2. Match Settings\r\nCustom game: Invite Only\r\nRule set: Competitive\r\n\r\n - Game mode:\r\n  - Finals: Best of Five\r\n  - Other matches: Best of Three\r\n - Map rotation: Single map\r\n - Return to lobby: After a game\r\n - Available maps: \r\n  - Escort: Dorado, Route 66, Rialto\r\n  - Hybrid: King's Row, Hollywood, Eichenwalde\r\n  - Assault: Hanamura, Temple of Anubis, Volkaya\r\n  - Control Point: Nepal, Lijiang Tower, Busan (points to win: 2)\r\n - Hero selection limit: 1 per team\r\n - Disable any heroes not currently available in competitive \r\n - Disable kill cam: On\r\n - Disable skins: On\r\n\r\n## 3. General Rules:\r\n### 3.1 Tie\r\n\r\n - In case of a tie on Assault, Hybrid or Escort a Control Point map will be played (either Ilios or Oasis). Recordings and\/or screenshots from each round are required.\r\n\r\n### 3.2 Map order\r\n\r\nThe maps will be played in this type order:\r\n\r\n 1. Control Point\r\n 2. Hybrid\r\n 3. Escort\r\n 4. Assault\r\n 5. Control Point\r\n \r\n### 3.3 Map Pick\/Veto\r\nUnless otherwise specified, the map pick\/veto rules are as follows:\r\n\r\nMap one:\r\n\r\n 1. The highest seeded team (first team listed) will be chosen to start the pick & ban phase by banning one of the 3 control point maps. \r\n 2. The other team will then select one of the two remaining maps, which is the map that will be played.\r\n\r\nFollowing maps:\r\n\r\n 1. The winner of the previous map will be banning one of the 3 different maps for the next maptype. \r\n 2. The other team will then select one of the two remaining maps, which is the map that will be played. \r\n 3. The winner of the previous map will then decide if they want to start on the blue team (defence) or the red team (offense).\r\n\r\n\r\n### 3.4 Pauses\r\n\r\n - A team is allowed 5 minutes of pause time per map. These pauses must be initiated between fights. After the 5 minutes are up the team is required to continue play. \r\n - Pauses to contact administration are not counted towards the pause time of a team.\r\n\r\n### 3.5 Technical Issues\r\n\r\n - In the case that a player(s) disconnects, the team is required to continue to play the fight, a pause (up to 5 minutes) shall be put into place after the fight ends. \r\n- If a player fails to show up on time the team can decide to wait (up to 10 minutes) or play with a player less.\r\n- If a team chooses to wait and after 10 min the missing player still hasn\u2019t shown up the team must play with a player less.\r\n- If a missing player shows up in the middle of a round he\/she is not allowed to join and must wait until the next round.\r\n- If a match can\u2019t be played because of multiple players missing, the administrator can choose to wait if there is enough time or penalize the team with a lost round or a complete loss of the match.\r\n- If the administrator chooses to wait, then after 10 min the faulty team is penalized with a lost round and after 20 min complete disqualification.",
+    "description": "Overwatch puts players into two teams of six, with each player selecting one of several pre-defined hero characters with unique movement, attributes, and abilities; these heroes are divided into four classes: Offense, Defense, Tank and Support. Players on a team work together to secure and defend control points on a map and\/or escort a payload across the map in a limited amount of time. Overwatch is a first-person shooter that features squad-based combat with two opposing teams. Players choose one of several hero characters, each with their own unique abilities and role classes. Each hero has a primary attack or skill and at least two additional skills that can be invoked at any time, some requiring a brief cooldown period before they can be used again.",
     "backgroundImagePath": "images-optimized/activities/overwatch.jpg",
     "sponsor": {
       "name": "",
@@ -18,7 +18,7 @@
     "title": "CS:GO",
     "subtitle": "5 v 5",
     "headerTitle": "Counter Strike: Global Offensive",
-    "description": "",
+    "description": "Counter-Strike: Global Offensive is a tactical first-person shooter developed by Valve Corporation and Hidden Path Entertainment. It is the fourth game in the main Counter-Strike franchise. Like the previous games in the series, Global Offensive is an objective-based multiplayer first-person shooter. Each player joins either the Terrorist or Counter-Terrorist team and attempts to complete objectives or eliminate the enemy team. The game operates in short rounds that end when all players on one side are dead or a teams objective is completed.",
     "backgroundImagePath": "images-optimized/activities/csgo.jpg",
     "sponsor": {
       "name": "",
@@ -26,14 +26,14 @@
       "website": ""
     },
     "prizes": [
-      ""
+      "TBA"
     ]
   },
   {
     "title": "LoL",
     "subtitle": "5 v 5",
     "headerTitle": "League of Legends",
-    "description": "",
+    "description": "League of Legends is a fast-paced, competitive online game that blends the speed and intensity of an RTS with RPG elements. Two teams of powerful champions, each with a unique design and playstyle, battle head-to-head across multiple battlefields and game modes. With an ever-expanding roster of champions, frequent updates and a thriving tournament scene, League of Legends offers endless replayability for players of every skill level.  \n[~ leagueoflegends.com](https://na.leagueoflegends.com/en/game-info/get-started/what-is-lol/)",
     "backgroundImagePath": "images-optimized/activities/lol.jpg",
     "sponsor": {
       "name": "",
@@ -41,14 +41,14 @@
       "website": ""
     },
     "prizes": [
-      ""
+      "TBA"
     ]
   },
   {
     "title": "RL",
     "subtitle": "3 v 3",
     "headerTitle": "Rocket League",
-    "description": "",
+    "description": "Soccer meets driving once again in the long-awaited, physics-based multiplayer-focused sequel to Supersonic Acrobatic Rocket-Powered Battle-Cars! Choose a variety of high-flying vehicles equipped with huge rocket boosters to score amazing aerial goals and pull-off incredible game-changing saves!  \n[~ steampowered.com](http://store.steampowered.com/app/252950/Rocket_League/)",
     "backgroundImagePath": "images-optimized/activities/rl.jpg",
     "sponsor": {
       "name": "",
@@ -56,29 +56,29 @@
       "website": ""
     },
     "prizes": [
-      ""
+      "TBA"
     ]
   },
   {
     "title": "SM",
-    "subtitle": "3 v 3",
+    "subtitle": "TBA",
     "headerTitle": "Super Smash Bros",
-    "description": "",
-    "backgroundImagePath": "images-optimized/activities/rl.jpg",
+    "description": "Super Smash Bros. is a series of crossover fighting video games published by Nintendo, and primarily features characters from various Nintendo franchises. The series was created by Masahiro Sakurai, who has directed every game in the series. The gameplay objective differs from that of traditional fighters in that the aim is to knock opponents off the stage instead of depleting life bars.",
+    "backgroundImagePath": "images-optimized/activities/Smash_logo.jpg",
     "sponsor": {
       "name": "",
       "imagePath": "",
       "website": ""
     },
     "prizes": [
-      ""
+      "TBA"
     ]
   },
   {
     "title": "HS",
     "subtitle": "1 v 1",
     "headerTitle": "Hearthstone: Heroes of Warcraft",
-    "description": "",
+    "description": "Hearthstone is a digital collectible card game that revolves around turn-based matches between two opponents. Players start the game with a substantial collection of 'basic' cards, but can gain rarer and more powerful cards through purchasing packs of cards, or as reward for competing in the Arena. Hearthstone is set within the Warcraft universe, with its characters, cards and locations drawing from existing lore.",
     "backgroundImagePath": "images-optimized/activities/hs.jpg",
     "sponsor": {
       "name": "",
@@ -86,14 +86,14 @@
       "website": ""
     },
     "prizes": [
-      ""
+      "TBA"
     ]
   },
   {
     "title": "TM2",
     "subtitle": "FFA",
     "headerTitle": "TrackMania 2 Stadium",
-    "description": "",
+    "description": "TrackMania 2 Stadium is the return of the popular Stadium environment enjoyed by millions of players with TrackMania Nations Forever. Now part of the ManiaPlanet environment, Stadium allows for improved services around the game, better graphics and a powerful track editor.",
     "backgroundImagePath": "images-optimized/activities/trackmania.jpg",
     "sponsor": {
       "name": "",
@@ -101,22 +101,7 @@
       "website": ""
     },
     "prizes": [
-      ""
-    ]
-  },
-  {
-    "title": "ACH",
-    "subtitle": "FFA",
-    "headerTitle": "ACHTUNG",
-    "description": "",
-    "backgroundImagePath": "",
-    "sponsor": {
-      "name": "",
-      "imagePath": "",
-      "website": ""
-    },
-    "prizes": [
-      ""
+      "TBA"
     ]
   }
 ]
