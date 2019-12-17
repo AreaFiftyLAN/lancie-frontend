@@ -1,3 +1,6 @@
+### When will the event take place?
+The event will take place from Friday the 28th of February till Sunday the 1st of March. Further details will be made available at a later date.
+
 ### What happens when the tickets are sold out?
 When the tickets are sold out, the only way of getting a ticket is to be put on a waiting list. Once a ticket becomes available, you will be noted of the person trying to sell the ticket. There will be no second round of the ticket sale, so make sure you get your tickets on time!
 
