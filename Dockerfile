@@ -1,4 +1,4 @@
-FROM node:8 AS builder
+FROM node:10 AS builder
 
 WORKDIR /app
 COPY package.json yarn.lock ./
@@ -15,12 +15,14 @@ COPY gulp/ gulp/
 COPY index.html ce-fix.html favicon.ico gulpfile.js manifest.json polymer.json robots.txt .jshintrc ./
 RUN yarn run build
 
-FROM node:8-alpine
+FROM node:10-alpine
 
 ARG user=lancie
 ARG group=lancie
 ARG uid=1010
 ARG gid=1010
+
+RUN npm config set unsafe-perm true
 
 RUN addgroup -g ${gid} ${group} \
   && adduser -D -u ${uid} -G ${group} ${user}
