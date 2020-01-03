@@ -20,7 +20,7 @@ If you purchase the pickup service option and live within 7.5 km from the event,
 Yes, you can. We will provide chairs for all participants, but you can also take your own. However, the pickup service will not pick up any chairs. You have to bring it yourself.
 
 ### Can I sleep on location?
-At the event there will be a space to sleep. You have to bring your own sleeping bag and mattress.
+Unfortunately, due to availability problems at the venue, there will only be limited spaces to sleep. We kindly ask you to sleep in your own bed if you live in or near Delft. If you live further away there will be a place for you to sleep, but you will have to bring your own sleeping bag and mattress.
 
 ### Are there showers and toilets on location?
 Both showers and toilets will be available during the entire event.
