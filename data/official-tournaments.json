@@ -21,12 +21,14 @@
     "description": "Counter-Strike: Global Offensive is a tactical first-person shooter developed by Valve Corporation and Hidden Path Entertainment. It is the fourth game in the main Counter-Strike franchise. Like the previous games in the series, Global Offensive is an objective-based multiplayer first-person shooter. Each player joins either the Terrorist or Counter-Terrorist team and attempts to complete objectives or eliminate the enemy team. The game operates in short rounds that end when all players on one side are dead or a teams objective is completed.\r\n\r\n# Rules #\r\n\r\n## 1. Format: ##\r\n1. Single elimination in a 5v5. Depending on the amount of contestants, the group stage matches will be a best of 1 or a best of 3. All other matches will be a best of 3.\r\n\r\n### 1.1 Draw ###\r\n1. A draw (15-15) is allowed for group stage matches. In case there is a draw (15-15) in an elimination match, there will be a mr3 on that map to decide who will win that round. The first team that reaches 4 points will win the round. If it ends in a 3-3 this will be done again until there is a winner. \r\n\r\n## 2. Maps ##\r\n - de_train\r\n - de_inferno\r\n - de_nuke\r\n - de_mirage\r\n - de_vertigo\r\n - de_overpass\r\n - de_dust2\r\n\r\n### 2.1 Map pick ###\r\n\r\n#### 2.1.1 Best of 1 ####\r\n1. The HOME team will remove 1 map from the map pool. \r\n2. The AWAY team will remove 2 maps from the remaining 6 maps in the pool.\r\n3. The HOME team will remove 2 maps from the remaining 4 maps in the pool.\r\n4. The Away team will select the map to be played from the remaining 2 maps in the pool.\r\n\r\n#### 2.1.2 Best of 3 ####\r\n1. The AWAY team will remove 2 maps from the map pool. After this, the HOME team will choose one of the remaining 5 maps as the first map in the series.\r\n2. The HOME team will remove 2 maps from the remaining 4 maps in the pool. Next, the AWAY team will choose one of 2 maps remaining in the pool as the second map in the series.\r\n3. The remaining map in the pool will serve as the tiebreaker map (if necessary).\r\n4. The maps will be played in order\r\n\r\n## 3. Game and Server settings ##\r\n - MR15\r\n\r\nThis means that you&#39;ll play 15 rounds on each side. The team that reaches 16 first wins the match.\r\n\r\n### 3.1 Server\/client settings ###\r\nWe&#39;re using the ESL server config:\r\nTwo flashes and a maximum of two other grenades are allowed.\r\nForbidden:\r\nweapon_recoil_model 0\r\nmat_hdr_level 0\/1\/2\r\nAlways use:\r\nweapon_debug_spread_show 0\r\n\r\n### 3.2 Bugs and forbidden actions ###\r\n1. Using bugs isn&#39;t allowed.  \r\nBoosting through walls, ceiling and ground, skywalking, map swimming, floating and sharking are all forbidden.\r\n2. Scripts are not allowed, except buy scripts.",
     "backgroundImagePath": "images-optimized/activities/csgo.jpg",
     "sponsor": {
-      "name": "Escape Event",
-      "imagePath": "images-optimized/logos/escape-event.png",
-      "website": "https://www.escape-event.nl/"
+      "name": "Raccoon Serious Games",
+      "imagePath": "images-optimized/logos/raccoon-games.png",
+      "website": "https://raccoon.games/"
     },
     "prizes": [
-      "TBA"
+      "Escape room tickets",
+      "Escape room tickets",
+      "Escape room tickets"
     ]
   },
   {
