@@ -70,14 +70,20 @@
         <div class="card-content">
           <iron-pages selected="{{selected}}">
             <div class="page">
-              <table>
+              <table class="friday">
                 <tbody>
+                    <td colspan="32">
+                      <!-- This div makes all columns equal width -->
+                      <!-- Each column is 30 minutes from 8:30 till 0:30 (32x 30 minutes) -->
+                      <div style="width: 100%"></div>
+                    </td>
+                  </tr>
                   <tr>
-                    <td class="timeblock" rowspan="3" colspan="3">
+                    <td class="timeblock" colspan="8">
                       <div class="time-header">19:00-20:00</div>
                       <div>Opening</div>
                     </td>
-                    <td class="timeblock" colspan="5">
+                    <td class="timeblock" colspan="24">
                       <div class="time-header">20:00-0:00</div>
                       <div>Tournament Registration</div>
                     </td>
