@@ -128,5 +128,24 @@
       "Razer DeathAdder Essential",
       "Cooler Master MPA-MP720"
     ]
+  },
+  {
+    "title": "BBSB",
+    "subtitle": "Highscore",
+    "headerTitle": "Bounty Bob Strikes Back",
+    "description": "Bounty Bob Strikes Back! is the sequel to Miner 2049er and features similar gameplay. As Bounty Bob, your goal is to claim every inch of 25 challenging mines. To do this, you must walk over each segment of the framework in the mines. To reach each segment of framework, you will need to figure out a way to jump, climb, or use one of the many devices occasionally available to get there. To your help you get around (or sometimes hinder progress) are ladders, slides, suction tubes, cannons, transporters, and other devices. Wandering about the mines are many dangerous mutants. If you come in contact with one of these, you will lose a life. Scattered throughout each mine are special food items; collect one of these, and you will temporarily be able to eliminate the mutants by walking into them. You will need to figure out a unique strategy for each level in order to complete it, plus there is a time limit so claim all the territory quickly! \n\n# Rules #\n## 1. Tournament Format ##\nThe tournament is running during the entire event. A Bounty Bob Strikes Back console can be found in the LAuNCH area on which a contestant must try to get set the best score on the game Bounty Bob Stikes Back. A selfie with the score MUST be provided to one of the administrators as proof of the score. Only your best score counts. If two participants achieve the same score, the two prizes belonging to that score will be randomly assigned. \n## 2. Behavior and Conduct ##\n\n1. If a participant commits - or threatens to commit - violent acts against any other player in the Tournament, any admin, or any spectators of the Tournament, he or she may be disqualified from the Tournament.\n2. If a participant behaves in any unsportsmanlike way it is possible that he or she receives a penalty, to the sole discretion of the administrators.\n3. If a participant finishes his run, he or she must give the next player in line the possibility to set a score.\n\n## 3. Tournament Eligibility ##\n\n1. Participants which have a conflict of interest may be excluded from tournaments.\n2. The current organizing committee (LANcie) have the final say in tournament eligibility",
+    "backgroundImagePath":"images-optimized/activities/BountyBobStrikesBack.jpg",
+    "sponsor": {
+      "name": "Jigsaw",
+      "imagePath": "images-optimized/logos/jigsaw.png",
+      "website": "https://jigsaw.nl/"
+    },
+    "prizes": [
+      "Gameboy Silver + 2 games",
+      "Turtle Beach Impact 100 Keyboard",
+      "ASUS Cerberus Mousemat",
+      "GXT 310 Radius Headset",
+      "GXT 101 Gav Gaming Mouse"
+    ]
   }
 ]
