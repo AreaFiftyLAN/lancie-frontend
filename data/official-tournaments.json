@@ -60,14 +60,12 @@
       "website": "https://www.estunt.nl/"
     },
     "prizes": [
-      "Computer Monitor",
-      "Computer Monitor",
       "Computer Monitor"
     ]
   },
   {
     "title": "SM",
-    "subtitle": "TBA",
+    "subtitle": "5v5",
     "headerTitle": "Super Smash Bros",
     "description": "Super Smash Bros. is a series of crossover fighting video games published by Nintendo, and primarily features characters from various Nintendo franchises. The series was created by Masahiro Sakurai, who has directed every game in the series. The gameplay objective differs from that of traditional fighters in that the aim is to knock opponents off the stage instead of depleting life bars.",
     "backgroundImagePath": "images-optimized/activities/Smash_logo.jpg",
@@ -77,7 +75,7 @@
       "website": "https://esportsdelft.nl"
     },
     "prizes": [
-      "TBA"
+      "Amiibos"
     ]
   },
   {
@@ -113,11 +111,11 @@
     ]
   },
   {
-    "title": "???",
-    "subtitle": "",
-    "headerTitle": "???",
-    "description": "",
-    "backgroundImagePath":"images-optimized/activities/secret.jpg",
+    "title": "MC",
+    "subtitle": "TEAM UHC",
+    "headerTitle": "Minecraft: Ultra Hardcore",
+    "description": "UHC (Ultra Hardcore) is a Minecraft PvP minigame where the goal is to be the last player/team standing. For those interested, we are using the UHCCore plugin and these are the config settings we will be playing on during the event: https://pastebin.com/xHui0pKb",
+    "backgroundImagePath":"images-optimized/activities/minecraft.jpg",
     "sponsor": {
       "name": "Bytecode",
       "imagePath": "images-optimized/logos/bytecode.png",
