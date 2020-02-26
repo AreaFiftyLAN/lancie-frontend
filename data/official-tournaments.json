@@ -60,16 +60,14 @@
       "website": "https://www.estunt.nl/"
     },
     "prizes": [
-      "Computer Monitor",
-      "Computer Monitor",
       "Computer Monitor"
     ]
   },
   {
     "title": "SM",
-    "subtitle": "TBA",
+    "subtitle": "5v5",
     "headerTitle": "Super Smash Bros",
-    "description": "Super Smash Bros. is a series of crossover fighting video games published by Nintendo, and primarily features characters from various Nintendo franchises. The series was created by Masahiro Sakurai, who has directed every game in the series. The gameplay objective differs from that of traditional fighters in that the aim is to knock opponents off the stage instead of depleting life bars.",
+    "description": "Super Smash Bros. is a series of crossover fighting video games published by Nintendo, and primarily features characters from various Nintendo franchises. The series was created by Masahiro Sakurai, who has directed every game in the series. The gameplay objective differs from that of traditional fighters in that the aim is to knock opponents off the stage instead of depleting life bars. \n# Rules #\n## 1. Format ##\n Players will be competing in teams of 5 players. In any given match, each team member will have 3 Stocks (lives) for a total of 15 Stocks per team. Each team chooses one player to play against each other. When one of the players loses all their Stocks, they lost the round and are out of the match. The player who won the round will keep playing against the next opponent. However, they will start the round with the amount of Stocks they have left from the previous round. So if win the first round with 1 Stock left, they will start the second round with 1 Stock. This process continues until one team loses all its Stocks. Matches are played with all items disabled. \n## 2. Behavior and Conduct ##\n\n1. If a participant commits - or threatens to commit - violent acts against any other player in the Tournament, any admin, or any spectators of the Tournament, he or she may be disqualified from the Tournament.\n2. If a participant behaves in any unsportsmanlike way it is possible that he or she receives a penalty, to the sole discretion of the administrators.\n3. If a participant finishes his run, he or she must give the next player in line the possibility to set a score.\n\n## 3. Tournament Eligibility ##\n\n1. Participants which have a conflict of interest may be excluded from tournaments.\n2. The current organizing committee (LANcie) have the final say in tournament eligibility",
     "backgroundImagePath": "images-optimized/activities/Smash_logo.jpg",
     "sponsor": {
       "name": "DSEA",
@@ -77,7 +75,7 @@
       "website": "https://esportsdelft.nl"
     },
     "prizes": [
-      "TBA"
+      "Amiibos"
     ]
   },
   {
@@ -113,11 +111,11 @@
     ]
   },
   {
-    "title": "???",
-    "subtitle": "",
-    "headerTitle": "???",
-    "description": "",
-    "backgroundImagePath":"images-optimized/activities/secret.jpg",
+    "title": "MC",
+    "subtitle": "TEAM UHC",
+    "headerTitle": "Minecraft: Ultra Hardcore",
+    "description": "UHC (Ultra Hardcore) is a Minecraft PvP minigame where the goal is to be the last player/team standing. Fight in a lobby against other teams after creating your own tools and armour. In this gamemode normal Minecraft health regeneration is disabled. \n\nFor those interested, we are using the UHCCore plugin and these are the config settings we will be playing on during the event: https://pastebin.com/xHui0pKb \n\n# Rules #\n## 1. Format ##\nYou will be working in a team of 3 players, fighting against all the other teams in a Free For All format. There will be a total of 3 rounds played. The 3 teams that won each round will have to face off against each other one more time in order to become the Minecraft UHC Champion. \n## 2. Behavior and Conduct ##\n\n1. If a participant commits - or threatens to commit - violent acts against any other player in the Tournament, any admin, or any spectators of the Tournament, he or she may be disqualified from the Tournament.\n2. If a participant behaves in any unsportsmanlike way it is possible that he or she receives a penalty, to the sole discretion of the administrators.\n3. If a participant finishes his run, he or she must give the next player in line the possibility to set a score.\n\n## 3. Tournament Eligibility ##\n\n1. Participants which have a conflict of interest may be excluded from tournaments.\n2. The current organizing committee (LANcie) have the final say in tournament eligibility",
+    "backgroundImagePath":"images-optimized/activities/minecraft.jpg",
     "sponsor": {
       "name": "Bytecode",
       "imagePath": "images-optimized/logos/bytecode.png",
