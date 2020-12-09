@@ -21,29 +21,19 @@
       line-height: 48px;
       margin: 0 0 16px 8px;
     }
+
     .container {
       padding: 32px;
     }
 
-    .cards-container {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: flex-start;
+    .action-cards {
+      max-width: 800px;
+      margin: auto;
     }
 
-    .cards-container > div {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-      flex-grow: 1;
-      margin: 0 8px;
-      min-width: var(--card-min-width);
-      flex-basis: var(--card-min-width);
-    }
-
-    .cards-container > div > * {
-      margin: 8px 0;
+    .action-cards > * {
+      margin-top: 16px;
+      padding: 8px;
     }
 
     .info-boxes {
@@ -85,6 +75,14 @@
         margin: 8px;
         padding: 0;
       }
+
+      .action-cards {
+        padding-top: 8px;
+      }
+
+      .action-cards > * {
+        margin-top: 0;
+      }
     }
 
     </style>
@@ -104,16 +102,15 @@
         <lancie-info-box class="team" heading="Team" icon="lancie:group" info="[[_computeTeamInfo(teams)]]"></lancie-info-box>
         <lancie-info-box on-tap="openDiscordLink" class="discord" heading="Discord" icon="lancie:discord" info="[[discordWidget.members.length]] Online "><span>Tap to join!</span></lancie-info-box>
       </div>
-      <div class="cards-container">
-        <div>
-          <my-area-profile user="{{user}}"></my-area-profile>
-          <my-area-seat user="[[user]]" seats="{{seats}}" ></my-area-seat>
-        </div>
-        <div>
-          <my-area-teams user="[[user]]" teams="{{teams}}"></my-area-teams>
-          <my-area-orders user="[[user]]" tickets="{{tickets}}"></my-area-orders>
-        </div>
+
+
+      <div class="action-cards">
+        <my-area-profile user="{{user}}"></my-area-profile>
+        <my-area-seat user="[[user]]" seats="{{seats}}" ></my-area-seat>
+        <my-area-teams user="[[user]]" teams="{{teams}}"></my-area-teams>
+        <my-area-orders user="[[user]]" tickets="{{tickets}}"></my-area-orders>
       </div>
+
     </div>
   </template>
   <script>
