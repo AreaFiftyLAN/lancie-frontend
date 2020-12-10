@@ -1,17 +1,17 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html">
-<link rel="import" href="../lancie-section/lancie-section.html">
-<link rel="import" href="../lancie-activity/lancie-activities.html">
-<link rel="import" href="../lancie-commission/lancie-commission.html">
-<link rel="import" href="../lancie-sponsors/lancie-sponsors.html">
-<link rel="import" href="../lancie-timeline/lancie-timeline.html">
-<link rel="import" href="../lancie-faq/lancie-faq.html">
-<link rel="import" href="../lancie-facebook/lancie-facebook.html">
-<link rel="import" href="../lancie-google-map/lancie-google-map.html">
-<link rel="import" href="../lancie-my-area/lancie-terms-of-service.html">
-<link rel="import" href="lancie-banner.html">
-<link rel="import" href="lancie-info-blocks.html">
-<link rel="import" href="lancie-subscribe-mail-form.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html" />
+<link rel="import" href="../../bower_components/lancie-ajax/lancie-ajax.html" />
+<link rel="import" href="../lancie-section/lancie-section.html" />
+<link rel="import" href="../lancie-activity/lancie-activities.html" />
+<link rel="import" href="../lancie-commission/lancie-commission.html" />
+<link rel="import" href="../lancie-sponsors/lancie-sponsors.html" />
+<link rel="import" href="../lancie-timeline/lancie-timeline.html" />
+<link rel="import" href="../lancie-faq/lancie-faq.html" />
+<link rel="import" href="../lancie-facebook/lancie-facebook.html" />
+<link rel="import" href="../lancie-google-map/lancie-google-map.html" />
+<link rel="import" href="../lancie-my-area/lancie-terms-of-service.html" />
+<link rel="import" href="lancie-banner.html" />
+<link rel="import" href="lancie-info-blocks.html" />
+<link rel="import" href="lancie-subscribe-mail-form.html" />
 
 <dom-module id="lancie-home-page">
   <template>
@@ -50,7 +50,7 @@
       }
 
       .intro-container {
-        display:flex;
+        display: flex;
         flex-wrap: wrap;
       }
 
@@ -60,35 +60,34 @@
         flex: 1;
       }
 
-      @media(max-width: 736px) {
+      @media (max-width: 736px) {
         .intro-text {
-          margin-right: 0 ;
+          margin-right: 0;
         }
       }
-
     </style>
 
-    <lancie-ajax
+    <!-- <lancie-ajax
       auto-fire
       skip-token
       refurl="web/properties/googlemapskey"
-      last-response="{{googleMapsToken}}">
-    </lancie-ajax>
+      last-response="{{googleMapsToken}}"
+    >
+    </lancie-ajax> -->
 
     <lancie-banner></lancie-banner>
 
-    <lancie-info-blocks></lancie-info-blocks>
-
+    <!-- <lancie-info-blocks></lancie-info-blocks> -->
 
     <!-- Uncomment the code below once you have sponsors for the event and updated the lancie-sponsors file -->
-    <lancie-section type="primary" header="Partners &amp; Sponsors">
+    <!-- <lancie-section type="primary" header="Partners &amp; Sponsors">
       <lancie-sponsors></lancie-sponsors>
-    </lancie-section>
+    </lancie-section> -->
 
     <!-- Uncomment the code below once you have finalised the timetable for the event and updated the lancie-timeline file -->
-    <lancie-section type="primary" header="Timetable">
+    <!-- <lancie-section type="primary" header="Timetable">
       <lancie-timeline></lancie-timeline>
-    </lancie-section>
+    </lancie-section> -->
 
     <!-- <lancie-section type="primary" header="Updates">
       <div>
@@ -101,127 +100,162 @@
       </div>
     </lancie-section> -->
 
-    <lancie-section type="secondary" header="Area FiftyLAN">
+    <lancie-section header="Area FiftyLAN">
       <div class="intro-container">
         <div class="intro-text">
           <p>
-            Area FiftyLAN is the annual gaming event held at the TU Delft.
-            In March, more than 200 gamers will spend the weekend having a blast playing games
-            together. It is organized by the study association of Applied
-            Mathematics and Computer Science &amp; Engineering, W.I.S.V. ‘Christiaan Huygens',
-            in cooperation with X (former Unit Sports &amp; Culture, TU Delft). All students are
-            welcome to bring their PCs to play their favourite games with their friends.
-            There will be official tournaments where you can win amazing prizes. Besides the
-            official tournaments, you can team up and have fun with more casual games as well
-            or organize your own tournament.
+            Area FiftyLAN is the annual gaming event. In February, more than 200
+            gamers will spend the weekend having a blast playing games together.
+            It is organized by the study association of Applied Mathematics and
+            Computer Science &amp; Engineering, W.I.S.V. ‘Christiaan Huygens').
+            All students are welcome to bring their PCs, or join from home, to
+            play their favourite games with their friends. There will be
+            official tournaments where you can win amazing prizes. Besides the
+            official tournaments, you can team up and have fun with more casual
+            games as well or organize your own tournament.
           </p>
           <p>
-            If you are no hardcore gamer, don’t worry. There are also enough offline-games
-            to play with. Think about arcade cabinets, retro consoles and board games. More
-            information about the event will be published at a later date.
+            If you are no hardcore gamer, don’t worry. There will be plenty of
+            oppertunity to play more casual games, like Among Us.
           </p>
-          <!-- <lancie-activities json="data/activity.json"></lancie-activities> -->
+          <lancie-activities json="data/activity.json"></lancie-activities>
         </div>
-        <lancie-facebook></lancie-facebook>
       </div>
     </lancie-section>
 
-    <lancie-section type="primary" header="What do you get?">
+    <!-- <lancie-section type="primary" header="What do you get?">
       <div>
-        <p>
-          Buying a ticket will get you the following perks:
-        </p>
+        <p>Buying a ticket will get you the following perks:</p>
         <ul>
-          <li> Admission to the event from Friday evening until Sunday evening </li>
-          <li> Breakfast, lunch and dinner on Saturday </li>
-          <li> Breakfast and lunch on Sunday </li>
-          <li> Admission to the LAUNCH Area for offline fun </li>
-          <li> A personal desk (dimensions around 100x100 cm) for your PC </li>
-          <li> A comfy chair to sit on </li>
-          <li> The opportunity to participate in official tournaments with prize pools </li>
-          <li> The opportunity to participate in all unofficial tournaments hosted by guests at the event </li>
+          <li>
+            Admission to the event from Friday evening until Sunday evening
+          </li>
+          <li>Breakfast, lunch and dinner on Saturday</li>
+          <li>Breakfast and lunch on Sunday</li>
+          <li>Admission to the LAUNCH Area for offline fun</li>
+          <li>A personal desk (dimensions around 100x100 cm) for your PC</li>
+          <li>A comfy chair to sit on</li>
+          <li>
+            The opportunity to participate in official tournaments with prize
+            pools
+          </li>
+          <li>
+            The opportunity to participate in all unofficial tournaments hosted
+            by guests at the event
+          </li>
         </ul>
         <p>
-          You can purchase your early bird ticket for €37,50* or a regular ticket at a later
-          date for €40,-*. Both these tickets give access to everything named above. For an
-          additional €5,00, we will pick up your PC and deliver it to the event. The maximum
-          distance for the pickup service is 7.5km from Sports and Culture Unit of the TU
-          Delft. Your PC will be returned to you on Sunday evening. Area FiftyLAN will be an
-          unforgettable event you do not want to miss! Are you ready for the launch?
+          You can purchase your early bird ticket for €37,50* or a regular
+          ticket at a later date for €40,-*. Both these tickets give access to
+          everything named above. For an additional €5,00, we will pick up your
+          PC and deliver it to the event. The maximum distance for the pickup
+          service is 7.5km from Sports and Culture Unit of the TU Delft. Your PC
+          will be returned to you on Sunday evening. Area FiftyLAN will be an
+          unforgettable event you do not want to miss! Are you ready for the
+          launch?
           <br /><sub>* CH members/alumni will get a small discount</sub>
         </p>
       </div>
-    </lancie-section>
+    </lancie-section> -->
 
-    <lancie-section type="secondary" header="Official Tournaments">
+    <!-- <lancie-section type="secondary" header="Official Tournaments">
       <div>
-        <p>There are multiple official tournaments that will be organized by the committee.
-          These tournaments feature large prize pools, so expect the competition to
-          be fierce. If your favorite game is not listed here do not worry, you can organize
-          your own! Contact us to get the ball rolling, more information on how to do that is
-          found below.</p>
-        <lancie-activities json="data/official-tournaments.json?ver=1.2"></lancie-activities>
+        <p>
+          There are multiple official tournaments that will be organized by the
+          committee. These tournaments feature large prize pools, so expect the
+          competition to be fierce. If your favorite game is not listed here do
+          not worry, you can organize your own! Contact us to get the ball
+          rolling, more information on how to do that is found below.
+        </p>
+        <lancie-activities
+          json="data/official-tournaments.json?ver=1.2"
+        ></lancie-activities>
       </div>
-    </lancie-section>
+    </lancie-section> -->
 
-    <lancie-section type="primary" header="Organize your own tournament!">
+    <!-- <lancie-section type="primary" header="Organize your own tournament!">
       <div>
-        <p>Is your favorite game not listed as an official tournament? We offer the
-          possibility to host this tournament yourself. To set up your own tournament
-          you need to write a proposal for your tournament. This proposal should contain the
-          following information:</p>
+        <p>
+          Is your favorite game not listed as an official tournament? We offer
+          the possibility to host this tournament yourself. To set up your own
+          tournament you need to write a proposal for your tournament. This
+          proposal should contain the following information:
+        </p>
         <ul>
           <li>Which game you want to host</li>
           <li>Game format (Free-for all, 5 vs 5, 1 vs 1, etc)</li>
-          <li>Tournament structure (Qualifiers, rounds and a final, or a single round)</li>
+          <li>
+            Tournament structure (Qualifiers, rounds and a final, or a single
+            round)
+          </li>
           <li>Winner criteria (How is the winner chosen?)</li>
-          <li>Expected duration (4 hours for the entire tournament, or does it span multiple days?)</li>
-          <li>Required resources (Do you need our server, or host your own?)</li>
+          <li>
+            Expected duration (4 hours for the entire tournament, or does it
+            span multiple days?)
+          </li>
+          <li>
+            Required resources (Do you need our server, or host your own?)
+          </li>
           <li>Contact information</li>
         </ul>
-        <p><a href="/contact">Send us an email</a> with all these details and we will get back to you!</p>
-        <p>Please consider the official tournaments and their tight schedule when wanting to host
-           a large tournament. We prefer short compact tournaments, but don't let that stop you
-           from proposing an amazing multi-day event. There is no limit to the duration of the
-           tournament, but the format should be considered. A truly competitive tournament should
-           not take more than a morning or afternoon, while a casual long-term tournament can span
-           multiple days.</p>
-        <p>After we receive your proposal through the contact form, we will review it and hopefully accept it.
-          When that happens, we appoint you as the responsible person to run the tournament. This
-          means that entire organization of the tournament will be up to you. Our own support for
-          the tournament will be minimal but we will help you gain other enthusiastic gamers by
-          placing your tournament on our site for others to sign up. If you are interested in
-          sponsoring one of the unofficial tournaments, you can find our contact information below.</p>
+        <p>
+          <a href="/contact">Send us an email</a> with all these details and we
+          will get back to you!
+        </p>
+        <p>
+          Please consider the official tournaments and their tight schedule when
+          wanting to host a large tournament. We prefer short compact
+          tournaments, but don't let that stop you from proposing an amazing
+          multi-day event. There is no limit to the duration of the tournament,
+          but the format should be considered. A truly competitive tournament
+          should not take more than a morning or afternoon, while a casual
+          long-term tournament can span multiple days.
+        </p>
+        <p>
+          After we receive your proposal through the contact form, we will
+          review it and hopefully accept it. When that happens, we appoint you
+          as the responsible person to run the tournament. This means that
+          entire organization of the tournament will be up to you. Our own
+          support for the tournament will be minimal but we will help you gain
+          other enthusiastic gamers by placing your tournament on our site for
+          others to sign up. If you are interested in sponsoring one of the
+          unofficial tournaments, you can find our contact information below.
+        </p>
 
-        <lancie-activities json="data/unofficial-tournaments.json?ver=1.3"></lancie-activities>
+        <lancie-activities
+          json="data/unofficial-tournaments.json?ver=1.3"
+        ></lancie-activities>
       </div>
-    </lancie-section>
+    </lancie-section> -->
 
     <lancie-section type="secondary" header="Frequently Asked Questions">
       <lancie-faq markdown="data/faq.md?ver=1.0"></lancie-faq>
     </lancie-section>
 
-    <lancie-section header="6th LANcie of W.I.S.V. 'Christiaan Huygens'">
+    <lancie-section header="7th LANcie of W.I.S.V. 'Christiaan Huygens'">
       <lancie-commission></lancie-commission>
     </lancie-section>
 
-    <lancie-section type="secondary" header="Location">
+    <!-- <lancie-section type="secondary" header="Location">
       <div>
-        <p>This years edition will be held at X (former Unit Sports &amp; Culture on the TU Delft campus). Address: Mekelweg 8, 2628 CD Delft
+        <p>
+          This years edition will be held at X (former Unit Sports &amp; Culture
+          on the TU Delft campus). Address: Mekelweg 8, 2628 CD Delft
         </p>
       </div>
     </lancie-section>
 
     <template is="dom-if" if="[[googleMapsToken]]" restamp="true">
       <div class="google-maps-section">
-        <lancie-google-map google-maps-token="[[googleMapsToken]]"></lancie-google-map>
+        <lancie-google-map
+          google-maps-token="[[googleMapsToken]]"
+        ></lancie-google-map>
       </div>
-    </template>
+    </template> -->
 
     <lancie-terms-of-service id="termsOfService">
       <paper-button on-tap="closeDialog">Close</paper-button>
     </lancie-terms-of-service>
-
   </template>
 </dom-module>
 <script>
@@ -236,12 +270,12 @@
       static get properties() {
         return {
           opened: {
-            type: Boolean
+            type: Boolean,
           },
           markdownUrl: {
             type: String,
-            value: 'data/markdown.md'
-          }
+            value: 'data/markdown.md',
+          },
         };
       }
 
