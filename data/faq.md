@@ -1,32 +1,22 @@
-### What is the Pre-LAN?
-
-As a fun little event we will have a smaller LAN, entirely for free!
-Here you can get a taste for the LAN for just one evening!
-The event is entirely for free, and will take place February 19th at 20:00 (CET).
-You can check out our [Discord](https://discord.gg/QefnMzNGG6) for more information!
-
 ### How does the event look like this year?
 
 As you can probably imagine AreaFiftyLAN will be pretty different, as safety of our participants and staff will always come first.
-A lot is still unclear, and we want to hold off with any new information till we are sure.
-What we can tell you is that the event will at least partly take place online, and if we do have physical spots they will be very limited.
+With this in mind, we had to make the hard choice to organize the LAN completely online this year.
+Don't worry, it will still be an continous three day event packed with tournaments and casual games.
+To tie it all together we will also have a stream running for a large portion of the day.
 
-### When will he event take place?
+### When will the event take place?
 
-The event will take place from Friday the 28th of February till Sunday the 1st of March. Further details will be made available at a later date.
+The event will take place from Friday the 26th of February till Sunday the 28st. Further details will be made available at a later date.
 
-### What happens when the tickets are sold out?
+### I don't have any friends who want to participate, will it still be fun?
 
-When the tickets are sold out, the only way of getting a ticket is to be put on a waiting list. Once a ticket becomes available, you will be noted of the person trying to sell the ticket. There will be no second round of the ticket sale, so make sure you get your tickets on time!
+Yes! There will be plenty of opportunity to socialize with other participants, and we will try to create groups of single players.
 
-### Is there a minimum age to participate?
+### Are there still prizes this year?
 
-No, there is not. If you are younger than 18, you should be able to present any form of authorization by caretakers/parents upon entry to the event.
-
-### Can I sleep on location?
-
-Unfortunately, due to the pandemic we won't have any sleeping spot available this year.
+Yes, of course. We will have a comparable prizes available as last year. More details will follow later. On top of that we will have a (limited amount of) goodie bags available.
 
 ### I still have questions, where can I ask them?
 
-You can send any questions either in the Discord server, or with the [contact form](/contact).
+You can send any questions either in the [Discord](https://discord.gg/QefnMzNGG6) server, or through the [contact](/contact) form.
