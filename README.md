@@ -24,16 +24,23 @@ You can serve the build with `polymer serve build/fallback` or `polymer serve bu
 
 #### With Docker
 
-Follow [this guide](https://docs.docker.com/v17.09/engine/installation/linux/linux-postinstall) to manage Docker as a non-root user (optional, for linux users).
+Follow [this guide](https://docs.docker.com/engine/security/rootless/) to manage Docker as a non-root user (optional, for linux users).
 
-- To build with Docker, run `docker build . -t lancie`.
-- To run the image you created, invoke `docker run -p 8080:8080 -t lancie`.
+- To build with Docker, run `docker build . -t lancie-frontend`.
+- To run the image you created, invoke `docker run -p 8080:8080 -t lancie-frontend -n lancie-frontend`.
 - The PRPL-server should be accessible on `localhost:8080` while it also connects to the internal Docker port 8080.
-- To kill the Docker container, run `docker ps` and run `docker stop [CONTAINER_ID]` for each `CONTAINER_ID` in the list.
+- To kill the Docker container, run `docker stop lancie-frontend`.
 
 ### Deploy
 Frontend is automatically deployed by updating the `live` git branch and publishing a new tag in the form `YEAR.MAJOR.MINOR`.
 For example, the first release for the LAN-party of 2018 is `2018.1.0`, while the second minor update of the second release is `2018.2.2`.
+
+To push a tag to the live branch, pull the release tag after creating it on Github (with a regular `git pull` on master), and then:
+
+```git push origin {tag}:live```
+
+for example:
+`git push origin 2021.1:live`
 
 ## TL:DR;
 ```
