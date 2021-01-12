@@ -9,3 +9,5 @@ npm-debug.log
 .idea
 *.pem
 images-optimized
+yarn.lock
+package-lock.json
