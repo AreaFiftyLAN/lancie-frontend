@@ -1,7 +1,7 @@
 FROM node:10 AS builder
 
 WORKDIR /app
-COPY package.json yarn.lock ./
+COPY package.json ./
 RUN yarn
 RUN npm install -g bower
 RUN npm install -g polymer-cli --unsafe-perm
