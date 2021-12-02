@@ -4,7 +4,8 @@ The event will take place from Friday the 27th of May till Sunday the 29th of Ma
 
 ### What does the event look like this year?
 
-As you can probably imagine AreaFiftyLAN will be pretty depended on the Corona measurements at the time. As far as possible we will try to have physical AreaFiftyLAN and plan that as far as possible. It might look a bit different if there is a capacity cap per hall. Of course, we will have a backup plan if the measurements do not allow us for a physical AreaFiftyLAN. We will give updates as soon as we have them.
+As you can probably imagine AreaFiftyLAN will be pretty depended on the corona measures at the time.
+We will try our utmost best to host a physical AreaFiftyLAN. However, there could be some changes if there is a maximum capacity per hall. If no physical event is allowed, we switch to an online event. We will make sure we plan ahead as far as possible and have a proper back-up plan, as well as keep you updated.
 
 ### Is there a minimum age to participate?
 
