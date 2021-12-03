@@ -1,4 +1,4 @@
-FROM node:10 AS builder
+FROM node:12 AS builder
 
 WORKDIR /app
 COPY package.json ./
@@ -15,7 +15,7 @@ COPY gulp/ gulp/
 COPY index.html ce-fix.html favicon.ico gulpfile.js manifest.json polymer.json robots.txt .jshintrc ./
 RUN yarn run build
 
-FROM node:10-alpine
+FROM node:12-alpine
 
 ARG user=lancie
 ARG group=lancie
