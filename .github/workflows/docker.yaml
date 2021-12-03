@@ -2,7 +2,7 @@ name: Docker
 on:
   push:
   schedule:
-   - cron: '0 17 * * 4'
+   - cron: '0 17 * * WED'
   workflow_dispatch:
 jobs:
   buildDockerImage:
