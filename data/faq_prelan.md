@@ -1,18 +1,18 @@
 ### When will the Pre-LAN take place?
 
-The event will take place Friday the 25th of Februari. Further details will be made available at a later date.
+The event will take place Friday the 25th of February. Further details will be made available later.
 
 ### What does the Pre-LAN look like this year?
 
-Just like last year the Pre-LAN will be held online. So everyone can participate from the comfort of their own home.
+Just like last year the Pre-LAN will be held online. So, everyone can participate from the comfort of their own home.
 
 ### Is there a minimum age to participate?
 
-No, there is not. If you are younger than 18, you should be able to present any form of authorization by caretakers/parents upon entry to the event.
+No, there is not. If you are younger than 18, you should be able to present any form of authorisation by caretakers/parents upon entry to the event.
 
 ### I don't have any friends who want to participate, will it still be fun?
 
-Yes! There will be plenty of opportunities to socialize with other participants and we will try to create groups of single players.
+Yes! There will be plenty of opportunities to socialise with other participants and we will try to create groups of single players.
 
 ### Are there still prizes this year?
 
