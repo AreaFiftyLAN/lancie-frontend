@@ -84,27 +84,34 @@
       <lancie-timeline></lancie-timeline>
     </lancie-section> -->
 
-    <lancie-section type="primary" header="Area FiftyLAN">
+    <lancie-section type="primary" header="AreaFiftyLAN">
       <div class="intro-container">
         <div class="intro-text">
           <p>
-            Area FiftyLAN is the annual gaming event held at the TU Delft.
+            AreaFiftyLAN is the annual gaming event held at the TU Delft.
             In May, more than 200 gamers will spend the weekend having a blast playing games
-            together. It is organized by the study association of Applied
+            together. It is organised by the study association of Applied
             Mathematics and Computer Science &amp; Engineering, W.I.S.V. ‘Christiaan Huygens',
             in cooperation with X (former Unit Sports &amp; Culture, TU Delft). All students are
-            welcome to bring their PCs to play their favourite games with their friends.
+            welcome to bring their computers to play their favourite games with their friends.
             There will be official tournaments where you can win amazing prizes. Besides the
             official tournaments, you can team up and have fun with more casual games as well
-            or organize your own tournament.
-
+            or organise your own tournament.
+          </p>
+          <p>
+            This year for the second time there will be a Pre-LAN again.
+            The Pre-LAN is an online gaming event.
+            It will be held on Friday 25 February 2022.
+            It will have gaming, chilling and tournaments.
+            The tickets for the Pre-LAN are free and available now!
+            <br /><sub>* A Discord account is required to participate</sub>
           </p>
           <lancie-activities json="data/activity.json"></lancie-activities>
         </div>
       </div>
     </lancie-section>
 
-    <lancie-section type="primary" header="What do you get?">
+    <!-- <lancie-section type="primary" header="What do you get?">
       <div>
         <p>Buying a ticket will get you the following perks:</p>
         <ul>
@@ -134,9 +141,9 @@
           <br /><sub>* CH members/alumni will get a small discount</sub>
         </p>
       </div>
-    </lancie-section>
+    </lancie-section> -->
 
-    <lancie-section type="secondary" header="Official Tournaments">
+    <!-- <lancie-section type="secondary" header="Official Tournaments">
       <div>
         <p>
           There are multiple official tournaments that will be organized by the
@@ -149,9 +156,22 @@
           json="data/official-tournaments.json?ver=1.2"
         ></lancie-activities>
       </div>
+    </lancie-section> -->
+
+    <lancie-section type="secondary" header="Official Pre-LAN Tournaments">
+      <div>
+        <p>
+          There are multiple official tournaments that will be organised by the
+          committee. These tournaments feature the most populair tournaments of
+          the last AreaFiftyLAN, so expect the competition to be fierce.
+        </p>
+        <lancie-activities
+          json="data/official-tournaments-pre_lan.json?ver=1.2"
+        ></lancie-activities>
+      </div>
     </lancie-section>
 
-    <lancie-section type="primary" header="Organize your own tournament!">
+    <!-- <lancie-section type="primary" header="Organize your own tournament!">
       <div>
         <p>
           Is your favorite game not listed as an official tournament? We offer
@@ -204,11 +224,11 @@
           json="data/unofficial-tournaments.json?ver=1.3"
         ></lancie-activities>
       </div>
-    </lancie-section>
+    </lancie-section> -->
 
-    <lancie-section type="secondary" header="Frequently Asked Questions">
+    <!-- <lancie-section type="secondary" header="Frequently Asked Questions">
       <lancie-faq markdown="data/faq.md?ver=1.0"></lancie-faq>
-    </lancie-section>
+    </lancie-section> -->
 
     <lancie-section type="primary" header="Partners &amp; Sponsors">
       <lancie-sponsors></lancie-sponsors>
@@ -249,6 +269,11 @@
         <lancie-subscribe-mail-form></lancie-subscribe-mail-form>
       </div>
     </lancie-section>
+
+    <lancie-section type="primary" header="Frequently Asked Pre-LAN Questions">
+      <lancie-faq markdown="data/faq_prelan.md?ver=1.0"></lancie-faq>
+    </lancie-section>
+
   </template>
 </dom-module>
 <script>
