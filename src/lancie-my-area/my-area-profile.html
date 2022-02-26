@@ -177,9 +177,7 @@
         }
 
         if (this.editingPassword) {
-          if (this.$.passwordForm.validateAndSubmit()) {
-            this.switchPasswordForm();
-          }
+          this.$.passwordForm.validateAndSubmit();
         }
       },
 
@@ -189,12 +187,13 @@
 
       onPasswordUpdate: function(e, request) {
         if (request.succeeded) {
+          this.switchPasswordForm();
           this.fire('toast', {text: 'Password updated.'});
         } else {
-          if (request.request.status === 403) {
-            this.fire('toast', {text: 'Wrong password.'});
+          if (request.request.status === 304 || request.request.status === 403) {
+            this.fire('toast', {text: request.request.message});
           } else {
-            this.fire('toast', {text: 'Password update failed.'});
+            this.fire('toast', {text: 'Something went wrong processing your request. Please retry.'});
           }
         }
       },

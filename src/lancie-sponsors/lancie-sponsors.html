@@ -1,4 +1,4 @@
-<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/polymer-element.html" />
 
 <dom-module id="lancie-sponsors">
   <template>
@@ -10,7 +10,7 @@
       img {
         object-fit: contain;
         width: 210px;
-        height: 100%;
+        height: 8em;
         margin: 10px;
       }
 
@@ -23,13 +23,16 @@
 
       .vertical-flex {
         display: flex;
+        width: 100%;
         flex-direction: column;
       }
 
       .vertical-flex > div {
         display: flex;
+        width: 100%;
         flex-direction: row;
         flex-wrap: wrap;
+        justify-content: space-evenly;
       }
     </style>
 
@@ -37,37 +40,82 @@
       <div class="vertical-flex">
         <h3>Presented by</h3>
         <div>
-          <a href="https://ch.tudelft.nl" target="_blank" rel="noopener noreferrer"><img src="images-optimized/lancie/logo_CH.png"></a>
-          <a href="https://www.tudelft.nl" target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/logo_SC.png"></a>
+          <a
+            href="https://ch.tudelft.nl"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><img src="images-optimized/lancie/logo_CH.png"
+          /></a>
+          <a href="https://tudelft.nl" target="_blank" rel="noopener noreferrer"
+            ><img src="images-optimized/logos/logo_SC.png"
+          /></a>
         </div>
       </div>
-      <div class="vertical-flex">
+      <!-- <div class="vertical-flex">
         <h3>Premium sponsors</h3>
         <div>
-          <a href="https://uturn-now.com/en/" target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/UTURN.png"></a>
-          <a href="https://ogd.nl/" target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/ogd.png"></a>
-          <a href="https://www.netcompany.com/" target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/Netcompany.png"></a>
+          <a
+            href="https://topdesk.com/nl/"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><img src="images-optimized/logos/topdesk.png"
+          /></a>
+          <a
+            href="https://netcompany.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><img src="images-optimized/logos/Netcompany.png"
+          /></a>
         </div>
       </div>
       <div class="vertical-flex">
         <h3>Supporting partners</h3>
-        <div >
-          <a href="https://www.coolermaster.com/" target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/Cooler_Master_Logo.png"></a>
-          <a href="https://raccoon.games/" target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/raccoon-games.png"></a>
-          <a href="https://noctua.at/"target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/noctua.png"></a>
-          <a href="https://www.estunt.nl/"target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/estunt.jpg"></a>
-          <a href="https://esportsdelft.nl" target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/dsea.png"></a>
-          <a href="https://www.eminent-online.com/"target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/eminent.png"></a>
-          <a href="https://bytecode.nl/"target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/bytecode.png"></a>
-          <a href="https://nadeo.com/"target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/nadeo.png"></a>
-          <a href="https://jigsaw.nl/"target="_blank" rel="noopener noreferrer"><img src="images-optimized/logos/jigsaw.png"></a>
+        <div>
+          <a
+            href="https://tinybuild.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><img src="images-optimized/logos/tinybuild.png"
+          /></a>
+          <a href="https://noctua.at/" target="_blank" rel="noopener noreferrer"
+            ><img src="images-optimized/logos/noctua.png"
+          /></a>
+          <a href="https://estunt.nl/" target="_blank" rel="noopener noreferrer"
+            ><img src="images-optimized/logos/estunt.jpg"
+          /></a>
+          <a
+            href="https://coolermaster.com/nl/nl-nl/"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><img src="images-optimized/logos/Cooler_Master_Logo.png"
+          /></a>
+          <a
+            href="https://linneweever.nl/"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><img src="images-optimized/logos/linneweever.png"
+          /></a>
+          <a href="https://nadeo.com/" target="_blank" rel="noopener noreferrer"
+            ><img src="images-optimized/logos/nadeo.png"
+          /></a>
+          <a
+            href="https://raccoon.games/"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><img src="images-optimized/logos/raccoon-games.png"
+          /></a>
+          <a
+            href="https://wearebit.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><img src="images-optimized/logos/bit.jpg"
+          /></a>
         </div>
-      </div>
+      </div> -->
     </div>
-
   </template>
   <script>
-    (function() {
+    (function () {
       'use strict';
 
       Polymer({

@@ -1,7 +1,7 @@
-FROM node:10 AS builder
+FROM node:17 AS builder
 
 WORKDIR /app
-COPY package.json yarn.lock ./
+COPY package.json ./
 RUN yarn
 RUN npm install -g bower
 RUN npm install -g polymer-cli --unsafe-perm
@@ -15,7 +15,7 @@ COPY gulp/ gulp/
 COPY index.html ce-fix.html favicon.ico gulpfile.js manifest.json polymer.json robots.txt .jshintrc ./
 RUN yarn run build
 
-FROM node:10-alpine
+FROM node:12-alpine
 
 ARG user=lancie
 ARG group=lancie

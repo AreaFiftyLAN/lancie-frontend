@@ -67,52 +67,44 @@
       }
     </style>
 
-    <!-- <lancie-ajax
+    <lancie-ajax
       auto-fire
       skip-token
       refurl="web/properties/googlemapskey"
       last-response="{{googleMapsToken}}"
     >
-    </lancie-ajax> -->
+    </lancie-ajax>
 
     <lancie-banner></lancie-banner>
 
-    <!-- <lancie-info-blocks></lancie-info-blocks> -->
-
-    <!-- Uncomment the code below once you have sponsors for the event and updated the lancie-sponsors file -->
-    <!-- <lancie-section type="primary" header="Partners &amp; Sponsors">
-      <lancie-sponsors></lancie-sponsors>
-    </lancie-section> -->
+    <lancie-info-blocks></lancie-info-blocks>
 
     <!-- Uncomment the code below once you have finalised the timetable for the event and updated the lancie-timeline file -->
     <!-- <lancie-section type="primary" header="Timetable">
       <lancie-timeline></lancie-timeline>
     </lancie-section> -->
 
-    <!-- <lancie-section type="primary" header="Updates">
-      <div>
-        <p>
-          Don't worry, we hate junkmail too. We will not share your details with anyone.<br/>
-          You will only receive emails relevant to the event, such as when
-          the ticket sales are opened.
-        </p>
-        <lancie-subscribe-mail-form></lancie-subscribe-mail-form>
-      </div>
-    </lancie-section> -->
-
-    <lancie-section header="Area FiftyLAN">
+    <lancie-section type="primary" header="AreaFiftyLAN">
       <div class="intro-container">
         <div class="intro-text">
           <p>
-            Area FiftyLAN is the annual gaming event. In February, more than 200
-            gamers will spend the weekend having a blast playing games together.
-            It is organized by the study association of Applied Mathematics and
-            Computer Science &amp; Engineering, W.I.S.V. ‘Christiaan Huygens').
-            All students will join from home to play their favourite games with
-            their friends. There will be official tournaments where you can win
-            amazing prizes. Besides the official tournaments, you can team up
-            and have fun with more casual games as well or organize your own
-            tournament.
+            AreaFiftyLAN is the annual gaming event held at the TU Delft.
+            In May, more than 200 gamers will spend the weekend having a blast playing games
+            together. It is organised by the study association of Applied
+            Mathematics and Computer Science &amp; Engineering, W.I.S.V. ‘Christiaan Huygens',
+            in cooperation with X (former Unit Sports &amp; Culture, TU Delft). All students are
+            welcome to bring their computers to play their favourite games with their friends.
+            There will be official tournaments where you can win amazing prizes. Besides the
+            official tournaments, you can team up and have fun with more casual games as well
+            or organise your own tournament.
+          </p>
+          <p>
+            This year for the second time there will be a Pre-LAN again.
+            The Pre-LAN is an online gaming event.
+            It will be held on Friday 25 February 2022.
+            It will have gaming, chilling and tournaments.
+            The tickets for the Pre-LAN are free and available now!
+            <br /><sub>* A Discord account is required to participate</sub>
           </p>
           <lancie-activities json="data/activity.json"></lancie-activities>
         </div>
@@ -129,7 +121,7 @@
           <li>Breakfast, lunch and dinner on Saturday</li>
           <li>Breakfast and lunch on Sunday</li>
           <li>Admission to the LAUNCH Area for offline fun</li>
-          <li>A personal desk (dimensions around 100x100 cm) for your PC</li>
+          <li>A personal desk (dimensions around 100x80 cm) for your PC</li>
           <li>A comfy chair to sit on</li>
           <li>
             The opportunity to participate in official tournaments with prize
@@ -143,10 +135,7 @@
         <p>
           You can purchase your early bird ticket for €37,50* or a regular
           ticket at a later date for €40,-*. Both these tickets give access to
-          everything named above. For an additional €5,00, we will pick up your
-          PC and deliver it to the event. The maximum distance for the pickup
-          service is 7.5km from Sports and Culture Unit of the TU Delft. Your PC
-          will be returned to you on Sunday evening. Area FiftyLAN will be an
+          everything named above. AreaFiftyLAN will be an
           unforgettable event you do not want to miss! Are you ready for the
           launch?
           <br /><sub>* CH members/alumni will get a small discount</sub>
@@ -168,6 +157,19 @@
         ></lancie-activities>
       </div>
     </lancie-section> -->
+
+    <lancie-section type="secondary" header="Official Pre-LAN Tournaments">
+      <div>
+        <p>
+          There are multiple official tournaments that will be organised by the
+          committee. These tournaments feature the most populair tournaments of
+          the last AreaFiftyLAN, so expect the competition to be fierce.
+        </p>
+        <lancie-activities
+          json="data/official-tournaments-pre_lan.json?ver=1.2"
+        ></lancie-activities>
+      </div>
+    </lancie-section>
 
     <!-- <lancie-section type="primary" header="Organize your own tournament!">
       <div>
@@ -224,11 +226,15 @@
       </div>
     </lancie-section> -->
 
-    <lancie-section type="secondary" header="Frequently Asked Questions">
+    <!-- <lancie-section type="secondary" header="Frequently Asked Questions">
       <lancie-faq markdown="data/faq.md?ver=1.0"></lancie-faq>
+    </lancie-section> -->
+
+    <lancie-section type="primary" header="Partners &amp; Sponsors">
+      <lancie-sponsors></lancie-sponsors>
     </lancie-section>
 
-    <lancie-section header="7th LANcie of W.I.S.V. 'Christiaan Huygens'">
+    <lancie-section type="secondary" header="8th LANcie of W.I.S.V. 'Christiaan Huygens'">
       <lancie-commission></lancie-commission>
     </lancie-section>
 
@@ -252,6 +258,22 @@
     <lancie-terms-of-service id="termsOfService">
       <paper-button on-tap="closeDialog">Close</paper-button>
     </lancie-terms-of-service>
+
+    <lancie-section type="primary" header="Updates">
+      <div>
+        <p>
+          Don't worry, we hate junkmail too. We will not share your details with anyone.<br/>
+          You will only receive emails relevant to the event, such as when
+          the ticket sales are opened.
+        </p>
+        <lancie-subscribe-mail-form></lancie-subscribe-mail-form>
+      </div>
+    </lancie-section>
+
+    <lancie-section type="primary" header="Frequently Asked Pre-LAN Questions">
+      <lancie-faq markdown="data/faq_prelan.md?ver=1.0"></lancie-faq>
+    </lancie-section>
+
   </template>
 </dom-module>
 <script>
