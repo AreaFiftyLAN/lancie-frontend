@@ -24,13 +24,16 @@
       }
     </style>
     <lancie-ajax id="ajaxRemoveMember" refurl="teams/[[team.id]]/members" method="DELETE" handle-as="json" body="[[member.email]]" on-lancie-ajax="onRemoveMember"></lancie-ajax>
+    <lancie-ajax id="ajaxChangeCaptain" refurl="teams/[[team.id]]/captain" method="POST" handle-as="json" body="[[member.email]]" on-lancie-ajax="onChangeCaptain"></lancie-ajax>
 
     <paper-item>
       <paper-item-body class="layout horizontal center member-icon">
         <iron-icon icon="lancie:person" item-icon></iron-icon>
         <div class="flex member-info">[[member.profile.displayName]]</div>
         <paper-icon-button id="removeMemberButton" icon="lancie:clear" on-tap="openRemoveMemberDialog" disabled="[[!canRemoveMember]]"></paper-icon-button>
+        <paper-icon-button id="changeCaptainButton" icon="lancie:star" on-tap="openChangeCaptainDialog" disabled="[[canRemoveMember]]"></paper-icon-button>
         <paper-tooltip for="removeMemberButton" offset="0" animation-delay="1">Remove from team</paper-tooltip>
+        <paper-tooltip for="changeCaptainButton" offset="0" animation-delay="1">Set this user to team captain</paper-tooltip>
       </paper-item-body>
     </paper-item>
 
@@ -41,6 +44,16 @@
       <div class="dialog-actions">
         <paper-button dialog-dismiss>Cancel</paper-button>
         <paper-button on-tap="submitDeleteUser">Remove</paper-button>
+      </div>
+    </lancie-dialog>
+
+    <!-- Change captain dialog -->
+    <lancie-dialog id="changeCaptainDialog">
+      <h2>Set a team member as the new captain</h2>
+      <div class="dialog-content">You are about to set [[member.profile.displayName]] as the new captain of this team. Are you sure?</div>
+      <div class="dialog-actions">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button on-tap="submitChangeCaptain">Set captain</paper-button>
       </div>
     </lancie-dialog>
 
@@ -68,6 +81,25 @@
         this.$.removeMemberDialog.close();
         this.fire('toast', {text: 'User successfully removed!'});
         this.fire('remove-member');
+      }
+    },
+    openChangeCaptainDialog: function() {
+      this.$.changeCaptainDialog.open();
+    },
+    submitChangeCaptain: function() {
+      this.$.ajaxChangeCaptain.generateRequest();
+    },
+    onChangeCaptain: function(event, request) {
+      if (request.succeeded) {
+        this.$.changeCaptainDialog.close();
+        this.fire('toast', {text: 'User successfully set as captain!'});
+        this.fire('remove-member');
+      } else {
+        if (request.request.status === 403) {
+          this.fire('toast', {text: request.request.message});
+        } else {
+          this.fire('toast', {text: 'Something went wrong setting this user as captain. Please try again.'});
+        }
       }
     },
   });
