@@ -31,8 +31,9 @@
         <iron-icon icon="lancie:person" item-icon></iron-icon>
         <div class="flex member-info">[[member.profile.displayName]]</div>
         <paper-icon-button id="removeMemberButton" icon="lancie:clear" on-tap="openRemoveMemberDialog" disabled="[[!canRemoveMember]]"></paper-icon-button>
-        <paper-icon-button id="changeCaptainButton" icon="lancie:create" on-tap="openChangeCaptainDialog" disabled="[[!canRemoveMember]]"></paper-icon-button>
+        <paper-icon-button id="changeCaptainButton" icon="lancie:star" on-tap="openChangeCaptainDialog" disabled="[[canRemoveMember]]"></paper-icon-button>
         <paper-tooltip for="removeMemberButton" offset="0" animation-delay="1">Remove from team</paper-tooltip>
+        <paper-tooltip for="changeCaptainButton" offset="0" animation-delay="1">Set this user to team captain</paper-tooltip>
       </paper-item-body>
     </paper-item>
 
