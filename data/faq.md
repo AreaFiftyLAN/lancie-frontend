@@ -63,5 +63,3 @@ Yes! There will be plenty of opportunities to socialize with other participants 
 Yes, of course. We will have comparable prizes available as last year. More details will follow later. On top of that, we will have a (limited amount of) goodiebags available.
 
 ### I still have questions, where can I ask them?
-
-You can send any questions either in the [Discord](https://discord.gg/WGrks2A8As) server or through the [contact](/contact) form.
