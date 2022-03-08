@@ -4,7 +4,7 @@ The event will take place from Friday the 27th of May till Sunday the 29th of Ma
 
 ### What does the event look like this year?
 
-As you can probably imagine AreaFiftyLAN will be pretty depended on the corona measures at the time.
+As you can probably imagine AreaFiftyLAN will be pretty dependent on the corona measures at the time.
 We will try our utmost best to host a physical AreaFiftyLAN. However, there could be some changes if there is a maximum capacity per hall. If no physical event is allowed, we switch to an online event. We will make sure we plan ahead as far as possible and have a proper back-up plan, as well as keep you updated.
 
 ### Is there a minimum age to participate?
@@ -25,17 +25,17 @@ Yes, you can. We will provide chairs for all participants, but you can also take
 
 ### Can I sleep on location?
 
-We will again try to make sure that there is a sleeping area for participants, however, we do need to comply with the corona measurements at that time. So It possibly is not allowed.
+We will again try to make sure that there is a sleeping area for participants, however, we do need to comply with the corona measures at that time. So It possibly is not allowed.
 
 ### Are there showers and toilets on location?
 
 Both showers and toilets will be available during the entire event.
 
-### What should I bring to Area FiftyLAN?
+### What should I bring to the AreaFiftyLAN?
 
 Please bring the following items to the event:
 
-- ID and Corona QR Code
+- ID
 - Power strip without a switch
 - LAN cable of at least 10m
 - PC/laptop with necessities (cables etc.)
@@ -48,7 +48,7 @@ Please bring the following items to the event:
 
 ### Can I come to the event as a spectator?
 
-Unfortunately, it is too hard for us to keep track of visitors. Since we want to keep your belongings secure, we do not welcome anyone without a ticket. Especially with the corona measurements that might apply during the event.
+Unfortunately, it is too hard for us to keep track of visitors. Since we want to keep your belongings secure, we do not welcome anyone without a ticket. Especially with the corona measures that might apply during the event.
 
 ### I accidentally bought the wrong ticket. Oops! What now?
 
@@ -60,7 +60,7 @@ Yes! There will be plenty of opportunities to socialize with other participants 
 
 ### Are there still prizes this year?
 
-Yes, of course. We will have comparable prizes available as last year. More details will follow later. On top of that, we will have a (limited amount of) goodie bags available.
+Yes, of course. We will have comparable prizes available as last year. More details will follow later. On top of that, we will have a (limited amount of) goodiebags available.
 
 ### I still have questions, where can I ask them?
 
