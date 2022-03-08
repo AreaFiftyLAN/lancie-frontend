@@ -106,8 +106,8 @@
           this.async(function() {this.set('ticket.token', request.response.object);}, 500);
           this.fire('toast', {text: 'Ticket set up for transfer.'});
         } else {
-          if (request.request.response.exception.indexOf('UsernameNotFound') > -1) {
-            this.$.error.setError('User not found.');
+          if (request.request.status === 403) {
+            this.$.error.setError('User not found. Make sure the user has an account');
           } else {
             this.$.error.setError('The server was unable to process your request.');
           }

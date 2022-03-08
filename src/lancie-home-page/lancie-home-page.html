@@ -60,6 +60,10 @@
         flex: 1;
       }
 
+      #faqurl {
+        color: rgb(255,229,67);
+      }
+
       @media (max-width: 736px) {
         .intro-text {
           margin-right: 0;
@@ -84,7 +88,7 @@
       <lancie-timeline></lancie-timeline>
     </lancie-section> -->
 
-    <lancie-section type="primary" header="AreaFiftyLAN">
+    <!--<lancie-section type="primary" header="AreaFiftyLAN">
       <div class="intro-container">
         <div class="intro-text">
           <p>
@@ -109,41 +113,34 @@
           <lancie-activities json="data/activity.json"></lancie-activities>
         </div>
       </div>
-    </lancie-section>
+    </lancie-section>-->
 
-    <!-- <lancie-section type="primary" header="What do you get?">
+     <lancie-section type="primary" header="What do you get?">
       <div>
         <p>Buying a ticket will get you the following perks:</p>
         <ul>
-          <li>
-            Admission to the event from Friday evening until Sunday evening
-          </li>
+          <li>Admission to the event from Friday evening until Sunday evening</li>
           <li>Breakfast, lunch and dinner on Saturday</li>
           <li>Breakfast and lunch on Sunday</li>
           <li>Admission to the LAUNCH Area for offline fun</li>
           <li>A personal desk (dimensions around 100x80 cm) for your PC</li>
           <li>A comfy chair to sit on</li>
-          <li>
-            The opportunity to participate in official tournaments with prize
-            pools
-          </li>
-          <li>
-            The opportunity to participate in all unofficial tournaments hosted
-            by guests at the event
-          </li>
+          <li>The opportunity to participate in official tournaments with prize pools</li>
+          <li>The opportunity to participate in all unofficial tournaments hosted
+            by guests at the event</li>
         </ul>
         <p>
-          You can purchase your early bird ticket for €37,50* or a regular
-          ticket at a later date for €40,-*. Both these tickets give access to
+          <!-- You can purchase your early bird ticket for €xx,yy* or a regular
+          ticket at a later date for €xx,yy*. Both these tickets give access to
           everything named above. AreaFiftyLAN will be an
           unforgettable event you do not want to miss! Are you ready for the
-          launch?
+          launch? -->
           <br /><sub>* CH members/alumni will get a small discount</sub>
         </p>
       </div>
-    </lancie-section> -->
+    </lancie-section>
 
-    <!-- <lancie-section type="secondary" header="Official Tournaments">
+     <lancie-section type="secondary" header="Official Tournaments">
       <div>
         <p>
           There are multiple official tournaments that will be organized by the
@@ -156,9 +153,9 @@
           json="data/official-tournaments.json?ver=1.2"
         ></lancie-activities>
       </div>
-    </lancie-section> -->
+    </lancie-section>
 
-    <lancie-section type="secondary" header="Official Pre-LAN Tournaments">
+<!--    <lancie-section type="secondary" header="Official Pre-LAN Tournaments">
       <div>
         <p>
           There are multiple official tournaments that will be organised by the
@@ -169,9 +166,9 @@
           json="data/official-tournaments-pre_lan.json?ver=1.2"
         ></lancie-activities>
       </div>
-    </lancie-section>
+    </lancie-section>-->
 
-    <!-- <lancie-section type="primary" header="Organize your own tournament!">
+     <lancie-section type="primary" header="Organize your own tournament!">
       <div>
         <p>
           Is your favorite game not listed as an official tournament? We offer
@@ -214,7 +211,7 @@
           review it and hopefully accept it. When that happens, we appoint you
           as the responsible person to run the tournament. This means that
           entire organization of the tournament will be up to you. Our own
-          support for the tournament will be minimal but we will help you gain
+          support for the tournament will be minimal, but we will help you gain
           other enthusiastic gamers by placing your tournament on our site for
           others to sign up. If you are interested in sponsoring one of the
           unofficial tournaments, you can find our contact information below.
@@ -224,11 +221,14 @@
           json="data/unofficial-tournaments.json?ver=1.3"
         ></lancie-activities>
       </div>
-    </lancie-section> -->
+    </lancie-section>
 
-    <!-- <lancie-section type="secondary" header="Frequently Asked Questions">
+    <lancie-section type="secondary" header="Frequently Asked Questions">
       <lancie-faq markdown="data/faq.md?ver=1.0"></lancie-faq>
-    </lancie-section> -->
+      <p>
+        You can send any questions either in the <a id="faqurl" href="https://discord.gg/WGrks2A8As">Discord</a> server or through the <a id="faqurl" href="/contact">contact form</a>.
+      </p>
+    </lancie-section>
 
     <lancie-section type="primary" header="Partners &amp; Sponsors">
       <lancie-sponsors></lancie-sponsors>
@@ -238,22 +238,13 @@
       <lancie-commission></lancie-commission>
     </lancie-section>
 
-    <!-- <lancie-section type="secondary" header="Location">
-      <div>
-        <p>
-          This years edition will be held at X (former Unit Sports &amp; Culture
-          on the TU Delft campus). Address: Mekelweg 8, 2628 CD Delft
-        </p>
-      </div>
-    </lancie-section>
-
-    <template is="dom-if" if="[[googleMapsToken]]" restamp="true">
+<!--    <template is="dom-if" if="[[googleMapsToken]]" restamp="true">
       <div class="google-maps-section">
         <lancie-google-map
           google-maps-token="[[googleMapsToken]]"
         ></lancie-google-map>
       </div>
-    </template> -->
+    </template>-->
 
     <lancie-terms-of-service id="termsOfService">
       <paper-button on-tap="closeDialog">Close</paper-button>
@@ -262,7 +253,7 @@
     <lancie-section type="primary" header="Updates">
       <div>
         <p>
-          Don't worry, we hate junkmail too. We will not share your details with anyone.<br/>
+          Don't worry, we hate junk mail too. We will not share your details with anyone.<br/>
           You will only receive emails relevant to the event, such as when
           the ticket sales are opened.
         </p>
@@ -270,9 +261,9 @@
       </div>
     </lancie-section>
 
-    <lancie-section type="primary" header="Frequently Asked Pre-LAN Questions">
+<!--    <lancie-section type="primary" header="Frequently Asked Pre-LAN Questions">
       <lancie-faq markdown="data/faq_prelan.md?ver=1.0"></lancie-faq>
-    </lancie-section>
+    </lancie-section>-->
 
   </template>
 </dom-module>
