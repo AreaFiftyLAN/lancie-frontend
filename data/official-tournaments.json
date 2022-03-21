@@ -88,5 +88,20 @@
     "prizes": [
       "TBD"
     ]
+  },
+  {
+    "title": "MC",
+    "subtitle": "Building Competition",
+    "headerTitle": "Minecraft: Building competition",
+    "description": "The Minecraft building competition will be a weekend long compitition during AreaFiftyLAN. Here you can work in creative-mode, solo or with friends, to create the most magnificent buildings mankind has ever seen.\n\nFormat:\nFrom the start of the start of AreaFiftyLAN until Sunday 12:00 you will be able to work on your building project. You have complete creative freedom, on the condition that it is not insulting to anyone in any way. During the event the moderators will rate all the buildings and at the end the winner(s) will be announced.",
+    "backgroundImagePath":"images-optimized/activities/minecraft_building.jpg",
+    "sponsor": {
+      "name": "TBD",
+      "imagePath": "images-optimized/invader.png",
+      "website": "https://areafiftylan.nl"
+    },
+    "prizes": [
+      "TBD"
+    ]
   }
 ]
