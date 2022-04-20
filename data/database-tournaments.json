@@ -148,5 +148,20 @@
     "prizes": [
       "TBD"
     ]
+  },
+  {
+    "title": "CIV6",
+    "subtitle": "FFA",
+    "headerTitle": "Civilization 6",
+    "description": "Civilization 6 is a turn- based strategy game designed by Firaxis. In this game you will bring your civilization to high prosperity, however, you are not the only one. Other players will be competing with you over resources, land, great people and overall influence in the world. With a lot of variety in civilizations to choose from, and a lot of different victory conditions this game always has a different feel to it, making it an excellent game to play over and over again.\n\n# Rules # \n\n ##1. Format: ##\n\n1. Players will be competing on an individual basis.\n\n2. Starting with a group phase with 4-6 players per game and then a final with 4 players.\n\n3. Maps will be shuffled and with map size tiny.\n\n4. The game speed will be online with a dynamic turn timer.\n\n5. The leaders and civilization will be from a chosen leader-pool.\n\n6. All players will play on prince difficulty.\n\n7. Barbarians will be off.\n\n## 2. Behaviour and Conduct ##\n\n1. If a participant commits - or threatens to commit - violent acts against any other player in the Tournament, any admin, or any spectators of the Tournament, they may be disqualified from the Tournament.\n2. If a participant behaves in any unsportsmanlike way it is possible that they receive a penalty, to the sole discretion of the administrators.\n3. It is a players responsibility to be on time for their matches, if they are late they will suffer a penalty. This can be either losing a game after 20 minutes, or the entire match after 30 minutes so as to not delay the entire tournament. A player is required to inform the tournament staff if they are late for a match, including a valid reason. If not they will be dropped from the tournament.\n4. One 5 minute break is allowed between a match.\n5. Coaching is not allowed during a match.\n\n## 3. Tournament Eligibility ##\n\n1. Participants which have a conflict of interest may be excluded from tournaments.\n2. The current organising committee (LANcie) have the final say in tournament eligibility.",
+    "backgroundImagePath":"images-optimized/activities/civ6.jpg",
+    "sponsor": {
+      "name": "Linneweever",
+      "imagePath": "images-optimized/logos/linneweever.png",
+      "website": "https://linneweever.nl/"
+    },
+    "prizes": [
+      "TBD"
+    ]
   }
 ]
