@@ -4,8 +4,7 @@ The event will take place from Friday the 27th of May till Sunday the 29th of Ma
 
 ### What does the event look like this year?
 
-As you can probably imagine AreaFiftyLAN will be pretty dependent on the corona measures at the time.
-We will try our utmost best to host a physical AreaFiftyLAN. However, there could be some changes if there is a maximum capacity per hall. If no physical event is allowed, we switch to an online event. We will make sure we plan ahead as far as possible and have a proper back-up plan, as well as keep you updated.
+The event is back to what is was before the corona pandamic. With more then enough space for everyone.
 
 ### Is there a minimum age to participate?
 
@@ -25,7 +24,7 @@ Yes, you can. We will provide chairs for all participants, but you can also take
 
 ### Can I sleep on location?
 
-We will again try to make sure that there is a sleeping area for participants, however, we do need to comply with the corona measures at that time. So It possibly is not allowed.
+Sleeping is once again possible. We have Hall X2 for this. It might be that during the day you need to move your stuff to the side, but this will be made clear by the LANcie.
 
 ### Are there showers and toilets on location?
 
