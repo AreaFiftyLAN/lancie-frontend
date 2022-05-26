@@ -163,5 +163,20 @@
     "prizes": [
       "TBD"
     ]
+  },
+  {
+    "title": "RC",
+    "subtitle": "FFA",
+    "headerTitle": "Roller Champions",
+    "description": "\n\n# Rules # \n\n## 1. Format: ##\n\n1. Players will be competing in teams of 3.\n\n## 2. Behaviour and Conduct ##\n\n1. If a participant commits - or threatens to commit - violent acts against any other player in the Tournament, any admin, or any spectators of the Tournament, they may be disqualified from the Tournament.\n2. If a participant behaves in any unsportsmanlike way it is possible that they receive a penalty, to the sole discretion of the administrators.\n3. It is a players responsibility to be on time for their matches, if they are late they will suffer a penalty. This can be either losing a game after 20 minutes, or the entire match after 30 minutes so as to not delay the entire tournament. A player is required to inform the tournament staff if they are late for a match, including a valid reason. If not they will be dropped from the tournament.\n4. Every hour one 5 minute break is allowed during a match.\n5. Coaching is not allowed during a match.\n\n## 3. Tournament Eligibility ##\n\n1. Participants which have a conflict of interest may be excluded from tournaments.\n2. The current organising committee (LANcie) have the final say in tournament eligibility.",
+    "backgroundImagePath":"images-optimized/activities/RC_Logo.png",
+    "sponsor": {
+      "name": "Ubisoft",
+      "imagePath": "images-optimized/logos/ubisoft stacked logo_black.png",
+      "website": "https://www.ubisoft.com/nl-nl/"
+    },
+    "prizes": [
+      "A set of Ubisoft game keys"
+    ]
   }
 ]
