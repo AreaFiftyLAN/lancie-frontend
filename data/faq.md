@@ -1,11 +1,3 @@
-### When will the event take place?
-
-The event will take place from Friday the 27th of May till Sunday the 29th of May. Further details will be made available at a later date.
-
-### What does the event look like this year?
-
-The event is back to what is was before the corona pandamic. With more then enough space for everyone.
-
 ### Is there a minimum age to participate?
 
 No, there is not. If you are younger than 18, you should be able to present any form of authorization by caretakers/parents upon entry to the event.
