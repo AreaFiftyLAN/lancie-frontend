@@ -15,7 +15,7 @@ These are the tools you need to install manually, the rest of the needed tools f
 -   `bower install`
 
 ### Viewing locally
-To view the webpage locally, run `yarn run serve`. The page will be shown on `https://localhost:5100`
+To view the webpage locally, run `yarn run serve`. The page will be shown on `http://localhost:5100`
 
 ### Build
 To build the entire frontend, the `yarn run build` command is used. This command relies on the `polymer-cli` package with v1.5.7 or higher. The build process places the complete and ready to serve webpage in `./build`. There are two folders located in the build folder, a es5-bundled and an es6-unbundled version. The bundled version is for non-http/2 compatible servers. The unbundled version is for http/2 compatible servers. Keep in mind that if images are added since the last build, these have to be compressed, this is done with `yarn run build optimize-images`.
