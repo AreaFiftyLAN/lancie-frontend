@@ -1,0 +1,112 @@
+<template id="wisvch-footer">
+  <style>
+    :host {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .text {
+      width: 70%;
+    }
+
+    .links {
+      display: block;
+      margin-block-start: 1em;
+      margin-block-end: 1em;
+      width: 30%;
+    }
+
+    .link {
+      display: flex;
+      align-items: center;
+      padding-top: 0.5em;
+    }
+
+    .link span {
+      padding-left: 10px;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+
+    p {
+      @apply --wisvch-footer-paragraph;
+    }
+
+    li {
+      list-style: none;
+      @apply --wisvch-footer-list-item;
+    }
+
+    span {
+      @apply --wisvch-footer-label;
+    }
+  </style>
+  <div class='text' >
+    <p>
+      W.I.S.V. ‘Christiaan Huygens’ (CH) is the study association for students of Applied Mathematics and
+      Computer Science at the Delft University of Technology.
+    </p>
+    <ul>
+      <li><span>Address:</span> Mekelweg 4, 2628CD Delft</li>
+      <li><span>Chamber of Commerce:</span> 40397077</li>
+      <li><span>Phone:</span> 015-278 2532</li>
+    </ul>
+    <p>
+      Copyright © 2015-<span id="year"></span> by W.I.S.V. ‘Christiaan Huygens’. All rights reserved.
+    </p>
+  </div>
+  <div class="links">
+    <span>
+      <a href="https://www.facebook.com/areafiftylan" title="Our Facebook" target="_blank" rel="noopener noreferrer">
+        <div class="link" style="padding: 0;">
+          <img src="images/lancie/facebook-white.png" width="40" height="40"> 
+          <span>Facebook</span> 
+        </div>
+      </a>
+      <a href="https://instagram.com/areafiftylan" title="Our Instagram" target="_blank" rel="noopener noreferrer">
+        <div class="link">
+          <img src="images/lancie/instagram-white.png" width="40" height="40"> 
+          <span >Instagram</span>
+      </div>
+      </a>
+      <a href="https://discord.gg/WGrks2A8As" title="Join our Discord Server!" target="_blank" rel="noopener noreferrer">
+        <div class="link">
+          <img src="images/lancie/discord-white.png" width="40" height="40">
+          <span >Discord</span>
+        </div>
+      </a>
+      <a href="https://ch.tudelft.nl/" title="W.I.S.V. ‘Christiaan Huygens’" target="_blank" rel="noopener noreferrer">
+        <div class="link">
+          <img src="images/lancie/wisvch-white.png" width="40" height="40"> 
+          <span >W.I.S.V. ‘Christiaan Huygens’</span>
+        </div>
+      </a>
+    </span>
+  </div>
+</template>
+
+<script>
+(function(document, customElements) {
+  // Points to this document which has the template
+  'use strict';
+  const doc = document.currentScript.ownerDocument;
+
+  class WisvchFooter extends HTMLElement {
+    constructor() {
+      super();
+      const template = doc.getElementById('wisvch-footer');
+      const clone = template.content.cloneNode(true);
+
+      const shadow = this.attachShadow({mode: 'open'});
+      shadow.appendChild(clone);
+      
+      shadow.getElementById('year').textContent = new Date().getFullYear();
+    }
+  }
+
+  customElements.define('wisvch-footer', WisvchFooter);
+})(document, window.customElements);
+</script>
