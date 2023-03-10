@@ -10,17 +10,5 @@
             "imagePath": "images-optimized/unofficial/mariokart.jpg",
             "website": ""
           }
-    },
-    {
-        "title": "DOTA 2",
-        "subtitle": "5 v 5",
-        "headerTitle": "Dota 2",
-        "description": "Dota 2 (Defense of the Ancients 2) is a ",
-        "backgroundImagePath": "images-optimized/unofficial/dota2.jpg",
-        "sponsor": {
-            "name": "TBD",
-            "imagePath": "images-optimized/unofficial/dota2.jpg",
-            "website": ""
-          }
     }
 ]
