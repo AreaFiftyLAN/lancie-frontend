@@ -1,1 +1,26 @@
-[]
+[
+    {
+        "title": "MARIO KART",
+        "subtitle": "FFA",
+        "headerTitle": "Mario Kart 8 Deluxe",
+        "description": "",
+        "backgroundImagePath": "images-optimized/unofficial/mkdd.jpg",
+        "sponsor": {
+            "name": "TBD",
+            "imagePath": "images-optimized/unofficial/mariokart.jpg",
+            "website": ""
+          }
+    },
+    {
+        "title": "DOTA 2",
+        "subtitle": "5 v 5",
+        "headerTitle": "Dota 2",
+        "description": "Dota 2 (Defense of the Ancients 2) is a ",
+        "backgroundImagePath": "images-optimized/unofficial/dota2.jpg",
+        "sponsor": {
+            "name": "TBD",
+            "imagePath": "images-optimized/unofficial/dota2.jpg",
+            "website": ""
+          }
+    }
+]
