@@ -45,6 +45,21 @@
     ]
   },
   {
+    "title": "VALORANT",
+    "subtitle": "5v5",
+    "headerTitle": "Valorant",
+    "description": "",
+    "backgroundImagePath":"images-optimized/activities/valorant.jpg",
+    "sponsor": {
+      "name": "TBD",
+      "imagePath": "images-optimized/invader.png",
+      "website": "https://areafiftylan.nl"
+    },
+    "prizes": [
+      "TBD"
+    ]
+  },
+  {
     "title": "SMASH BROS",
     "subtitle": "FFA",
     "headerTitle": "Super Smash Bros",

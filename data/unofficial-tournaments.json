@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "title": "MARIO KART",
+        "subtitle": "FFA",
+        "headerTitle": "Mario Kart 8 Deluxe",
+        "description": "",
+        "backgroundImagePath": "images-optimized/unofficial/mkdd.jpg",
+        "sponsor": {
+            "name": "TBD",
+            "imagePath": "images-optimized/unofficial/mariokart.jpg",
+            "website": ""
+          }
+    }
+]
